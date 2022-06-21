@@ -1,0 +1,52 @@
+/* Split the screen in half */
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background: linear-gradient(to top, transparent, #1E9CFF),
+      url("../images/background.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .login-logo {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #FFFFFF;
+    padding: 0 20px;
+  }
+
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+  }
+
+  .login-form {
+    margin: auto;
+  }
+
+  .login-input {
+    height: 70px;
+  }
