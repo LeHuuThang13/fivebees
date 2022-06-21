@@ -19,4 +19,5 @@ Route::redirect('/', '/login');
 Route::group(['controller' => LoginController::class], function () {
     Route::get('login', 'index')->middleware('guest');
     Route::post('login', 'login')->name('login');
+    Route::post('logout', 'logout')->middleware('auth')->name('logout');
 });

@@ -33,4 +33,11 @@ class LoginController extends Controller
         session()->regenerate();
         return view('home')->with('success', 'Đăng nhập thành công!');
     }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect('/login');
+    }
 }
