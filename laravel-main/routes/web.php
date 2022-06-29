@@ -16,16 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'login');
-
-Route::get('home', [HomeController::class, 'index'])->middleware('auth')->name('home');
-
 Route::group(['controller' => LoginController::class], function () {
-    Route::get('login', 'index')->middleware('guest');
+    Route::get('login', 'index');
     Route::post('login', 'login')->name('login');
     Route::post('logout', 'logout')->middleware('auth')->name('logout');
-});
-
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
-    Route::resource('users', UserController::class);
 });

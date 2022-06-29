@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        return view('login');
     }
 
     public function login()
@@ -31,7 +31,7 @@ class LoginController extends Controller
         }
 
         session()->regenerate();
-        return redirect('home')->with('success', 'Đăng nhập thành công!');
+        return view('home')->with('success', 'Đăng nhập thành công!');
     }
 
     public function logout()
