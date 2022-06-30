@@ -8,7 +8,7 @@
 
 <div class="info-container d-flex flex-row">
     <div class="container px-0 py-2 bg-white" style="margin-right: 20px; border-radius: 10px">
-        <h3 class="mt-2 mx-3">Trạng thái</h3>
+        <h3 class="mt-2 mx-3">Trạng thái thiết bị</h3>
 
         <table id="status-table" class="table align-middle">
             <thead style="background-color: #F5F9FC;">

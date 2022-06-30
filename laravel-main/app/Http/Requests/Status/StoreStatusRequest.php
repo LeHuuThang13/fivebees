@@ -27,7 +27,7 @@ class StoreStatusRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'alpha',
+                'regex:/^[\pL\s\-]+$/u',
                 'unique:status'
             ],
         ];
