@@ -16,13 +16,13 @@ import Introduce from '../screens/Introduct';
 import QRCode from '../screens/QRCode';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
+import IconMenu from '../assets/icons/menu_icon.svg';
+import colors from '../assets/themes/colors';
 
 const AppNavigator = () => {
   const HomeStack = createNativeStackNavigator();
   return (
-    <HomeStack.Navigator
-      screenOptions={{headerShown: false}}
-      initialRouteName={ROOM_LIST}>
+    <HomeStack.Navigator initialRouteName={ROOM_LIST}>
       <HomeStack.Screen
         name={ROOM_LIST}
         component={RoomList}></HomeStack.Screen>
