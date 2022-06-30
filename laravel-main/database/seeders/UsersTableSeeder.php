@@ -23,7 +23,6 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => null,
             ],
         ];
-
         User::insert($users);
     }
 }
