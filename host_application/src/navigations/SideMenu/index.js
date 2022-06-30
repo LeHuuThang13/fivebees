@@ -3,7 +3,7 @@ import React from 'react';
 import Container from '../../components/common/Container';
 import ImgHeaderSidebarMenu from '../../assets/images/Header_bg_sidebar.svg';
 import styles from './styles';
-import {SETTINGS} from '../../constants/routeNames';
+import {ACCOUNT, ANALYST, INTRODUCE, LOGOUT, QRCODE, ROOM_LIST, SETTINGS} from '../../constants/routeNames';
 
 import HomeIcon from '../../assets/icons/home.svg';
 import ChartIcon from '../../assets/icons/chart.svg';
@@ -19,21 +19,21 @@ const SideMenu = ({navigation}) => {
       icon: <HomeIcon />,
       name: 'Trang Chủ',
       onPress: () => {
-        navigation.navigate(SETTINGS);
+        navigation.navigate(ROOM_LIST);
       },
     },
     {
       icon: <ChartIcon />,
       name: 'Thống Kê',
       onPress: () => {
-        navigation.navigate(SETTINGS);
+        navigation.navigate(ANALYST);
       },
     },
     {
       icon: <QRCodeIcon />,
       name: 'QR Code',
       onPress: () => {
-        navigation.navigate(SETTINGS);
+        navigation.navigate(QRCODE);
       },
     },
     {
@@ -47,21 +47,21 @@ const SideMenu = ({navigation}) => {
       icon: <AccountIcon />,
       name: 'Tài Khoản',
       onPress: () => {
-        navigation.navigate(SETTINGS);
+        navigation.navigate(ACCOUNT);
       },
     },
     {
       icon: <IntroduceIcon />,
       name: 'Hướng Dẫn Sử Dụng',
       onPress: () => {
-        navigation.navigate(SETTINGS);
+        navigation.navigate(INTRODUCE);
       },
     },
     {
       icon: <AccountIcon />,
       name: 'Đăng Xuất',
       onPress: () => {
-        navigation.navigate(SETTINGS);
+        navigation.navigate(LOGOUT);
       },
     },
   ];

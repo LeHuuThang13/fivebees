@@ -5,6 +5,7 @@ import Container from '../../components/common/Container';
 import IconMenu from '../../assets/icons/menu_icon.svg';
 import {TouchableOpacity} from 'react-native';
 import colors from '../../assets/themes/colors';
+import OptionsNavigator from '../../components/common/OptionsNavigator';
 
 const RoomList = () => {
   const {setOptions, toggleDrawer} = useNavigation();
@@ -19,6 +20,7 @@ const RoomList = () => {
             <IconMenu />
           </View>
         </TouchableOpacity>
+        // <OptionsNavigator toggleDrawer={toggleDrawer} iconSvg={IconMenu} />
       ),
       headerStyle: {
         backgroundColor: colors.bg_primary,
