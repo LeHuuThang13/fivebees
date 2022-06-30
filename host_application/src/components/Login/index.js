@@ -16,37 +16,15 @@ const index = ({onChangeText, style, value}) => {
     setForm({...form, [name]: value});
 
     if (value !== '') {
-      if (name === 'password') {
-        if (value.length < 6) {
-          setErrors(prevState => {
-            return {
-              ...prevState,
-              [name]: 'This field must have more than 6 characters',
-            };
-          });
-        } else {
-          setErrors(prevState => {
-            return {
-              ...prevState,
-              [name]: null,
-            };
-          });
-        }
-      } else {
-        setErrors(prevState => {
-          return {...prevState, [name]: null};
-        });
-      }
-    } else {
       setErrors(prevState => {
-        return {...prevState, [name]: 'This field is required'};
+        return {...prevState, [name]: null};
       });
     }
   };
 
   const onSubmit = () => {
     // validations
-    if (!form.usename) {
+    if (!form.username) {
       setErrors(prevState => {
         return {...prevState, username: 'This field is required'};
       });
@@ -112,7 +90,7 @@ const index = ({onChangeText, style, value}) => {
           onPress={onSubmit}
           primary
           title={'Đăng Nhập'}
-          loading={true}
+          // loading={true}
           // disabled={true}
         />
       </View>
