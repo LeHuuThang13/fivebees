@@ -25,7 +25,19 @@ class UpdateStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required',
+                'regex:/^[\pL\s\-]+$/u',
+                'unique:status'
+            ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => "Vui lòng nhập tên tài khoản",
+            'name.unique' => "Trạng thái đã tồn tại",
         ];
     }
 }

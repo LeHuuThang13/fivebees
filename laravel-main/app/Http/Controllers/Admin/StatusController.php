@@ -63,7 +63,7 @@ class StatusController extends Controller
     {
         abort_if(Gate::denies('status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.roles.edit', compact('status'));
+        return view('admin.status.edit', compact('status'));
     }
 
     public function update(UpdateStatusRequest $request, Status $status)
@@ -79,7 +79,7 @@ class StatusController extends Controller
 
         $status->delete();
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return back();
     }
 
     public function massDestroy(MassDestroyStatusRequest $request)
