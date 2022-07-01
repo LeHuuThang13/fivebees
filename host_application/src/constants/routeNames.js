@@ -12,3 +12,4 @@ export const LOGOUT = 'Đăng Xuất';
 
 //Navigation
 export const HOME_NAVIGATOR = 'Trang Chủ';
+export const HOME_BOTTOM_NAVIGATOR = 'Thanh Tabs';
