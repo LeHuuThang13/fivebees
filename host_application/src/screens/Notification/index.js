@@ -1,13 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
-import Container from '../../components/common/Container';
-import IconMenu from '../../assets/icons/menu_icon.svg';
-import {TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../assets/themes/colors';
-import OptionsNavigator from '../../components/common/OptionsNavigator';
+import IconMenu from '../../assets/icons/menu_icon.svg';
 
-const RoomList = () => {
+const Notification = () => {
   const {setOptions, toggleDrawer} = useNavigation();
   useEffect(() => {
     setOptions({
@@ -28,12 +25,11 @@ const RoomList = () => {
       headerTintColor: colors.white,
     });
   }, []);
-
   return (
-    <Container>
-      <Text>Hi from RoomList</Text>
-    </Container>
+    <View>
+      <Text>Hi from Notification</Text>
+    </View>
   );
 };
 
-export default RoomList;
+export default Notification;

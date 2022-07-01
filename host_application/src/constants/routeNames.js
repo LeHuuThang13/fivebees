@@ -1,5 +1,6 @@
 //Names Stack
 export const ROOM_LIST = 'Phòng';
+export const NOTIFICATION = 'Thông Báo';
 export const ANALYST = 'Thống Kê';
 export const QRCODE = 'Mã QR';
 export const SETTINGS = 'Tùy Chỉnh';
