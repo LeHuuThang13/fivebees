@@ -3,7 +3,16 @@ import React from 'react';
 import Container from '../../components/common/Container';
 import ImgHeaderSidebarMenu from '../../assets/images/Header_bg_sidebar.svg';
 import styles from './styles';
-import {ACCOUNT, ANALYST, INTRODUCE, LOGOUT, QRCODE, ROOM_LIST, SETTINGS} from '../../constants/routeNames';
+import {
+  ACCOUNT,
+  ANALYST,
+  HOME_NAVIGATOR,
+  INTRODUCE,
+  LOGOUT,
+  QRCODE,
+  ROOM_LIST,
+  SETTINGS,
+} from '../../constants/routeNames';
 
 import HomeIcon from '../../assets/icons/home.svg';
 import ChartIcon from '../../assets/icons/chart.svg';
@@ -19,14 +28,14 @@ const SideMenu = ({navigation}) => {
       icon: <HomeIcon />,
       name: 'Trang Chủ',
       onPress: () => {
-        navigation.navigate(ROOM_LIST);
+        navigation.navigate(HOME_NAVIGATOR, {screen: ROOM_LIST});
       },
     },
     {
       icon: <ChartIcon />,
       name: 'Thống Kê',
       onPress: () => {
-        navigation.navigate(ANALYST);
+        navigation.navigate(HOME_NAVIGATOR, {screen: ANALYST});
       },
     },
     {
