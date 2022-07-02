@@ -8,17 +8,6 @@ const Notification = () => {
   const {setOptions, toggleDrawer} = useNavigation();
   useEffect(() => {
     setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            toggleDrawer();
-          }}>
-          <View style={{marginHorizontal: 15}}>
-            <IconMenu />
-          </View>
-        </TouchableOpacity>
-        // <OptionsNavigator toggleDrawer={toggleDrawer} iconSvg={IconMenu} />
-      ),
       headerStyle: {
         backgroundColor: colors.bg_primary,
       },
@@ -27,7 +16,7 @@ const Notification = () => {
   }, []);
   return (
     <View>
-      <Text>Hi from Notification</Text>
+      <Text>Hi from Notificatxxxion</Text>
     </View>
   );
 };

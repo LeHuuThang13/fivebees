@@ -17,7 +17,7 @@ const RoomList = () => {
           onPress={() => {
             toggleDrawer();
           }}>
-          <View style={{marginHorizontal: 15}}>
+          <View style={{marginHorizontal: 0}}>
             <IconMenu />
           </View>
         </TouchableOpacity>
