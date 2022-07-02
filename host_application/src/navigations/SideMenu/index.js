@@ -28,14 +28,14 @@ const SideMenu = ({navigation}) => {
       icon: <HomeIcon />,
       name: 'Trang Chủ',
       onPress: () => {
-        navigation.navigate(HOME_NAVIGATOR, {screen: ROOM_LIST});
+        navigation.navigate(ROOM_LIST);
       },
     },
     {
       icon: <ChartIcon />,
       name: 'Thống Kê',
       onPress: () => {
-        navigation.navigate(HOME_NAVIGATOR, {screen: ANALYST});
+        navigation.navigate(ANALYST);
       },
     },
     {
