@@ -21,18 +21,19 @@ import Notification from '../screens/Notification';
 import QRCode from '../screens/QRCode';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
+// import IconMenu from '../assets/icons/menu_icon.svg';
+// import colors from '../assets/themes/colors';
+// import BottomTabNavigatior from './BottomTabNavigator';
 
-const AppNavigator = () => {
-  const HomeStack = createNativeStackNavigator();
-  const common = getCommon(HomeStack);
+const NotifNavigator = () => {
+  const NotifStack = createNativeStackNavigator();
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        name={ROOM_LIST}
-        component={RoomList}></HomeStack.Screen>
-      {common}
-    </HomeStack.Navigator>
+    <NotifStack.Navigator>
+      <NotifStack.Screen
+        name={NOTIFICATION}
+        component={Notification}></NotifStack.Screen>
+    </NotifStack.Navigator>
   );
 };
 
-export default AppNavigator;
+export default NotifNavigator;
