@@ -12,6 +12,7 @@ const Notification = () => {
         backgroundColor: colors.bg_primary,
       },
       headerTintColor: colors.white,
+      headerTitleAlign: 'center',
     });
   }, []);
   return (

@@ -23,6 +23,7 @@ const RoomList = () => {
         </TouchableOpacity>
         // <OptionsNavigator toggleDrawer={toggleDrawer} iconSvg={IconMenu} />
       ),
+      headerTitleAlign: 'center',
       headerStyle: {
         backgroundColor: colors.bg_primary,
       },
