@@ -53,13 +53,6 @@ const SideMenu = ({navigation}) => {
       },
     },
     {
-      icon: <AccountIcon />,
-      name: 'Tài Khoản',
-      onPress: () => {
-        navigation.navigate(ACCOUNT);
-      },
-    },
-    {
       icon: <IntroduceIcon />,
       name: 'Hướng Dẫn Sử Dụng',
       onPress: () => {

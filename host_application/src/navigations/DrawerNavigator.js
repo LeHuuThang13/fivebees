@@ -6,7 +6,7 @@ import Container from '../components/common/Container';
 import {HOME_NAVIGATOR, NOTIFICATION, ROOM_LIST} from '../constants/routeNames';
 import BottomTabNavigatior from './BottomTabNavigator';
 import HomeNavigator from './HomeNavigator';
-import NotifNavigator from './NotificationNavigator';
+// import NotifNavigator from './NotificationNavigator';
 import SideMenu from './SideMenu';
 
 const DrawerNavigator = () => {
