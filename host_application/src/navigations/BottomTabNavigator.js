@@ -1,20 +1,13 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Notification from '../screens/Notification';
-import {
-  ACCOUNT,
-  HISTORY,
-  HOME_NAVIGATOR,
-  NOTIFICATION,
-  ROOM_LIST,
-} from '../constants/routeNames';
+import {ACCOUNT, HISTORY, ROOM_LIST} from '../constants/routeNames';
 import HomeNavigator from './HomeNavigator';
 import TabBottomMenu from './TabBottomMenu';
 import RoomIcon from '../assets/icons/room.svg';
 import RoomOutLineIcon from '../assets/icons/room_outline.svg';
 import HistoryIcon from '../assets/icons/history.svg';
 import HistoryOutLineIcon from '../assets/icons/history_outline.svg';
-import HistoryTabNavigator from './HistoryTabNavigation';
+import HistoryTabNavigator from './HistoryTabNavigator';
 import ProfileNavigator from './ProfileTabNavigator';
 import ProfileIcon from '../assets/icons/account.svg';
 import ProfileOutLineIcon from '../assets/icons/account_outline.svg';

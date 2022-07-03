@@ -16,6 +16,7 @@ import {
 
 import HomeIcon from '../../assets/icons/home.svg';
 import ChartIcon from '../../assets/icons/chart.svg';
+import ManageIcon from '../../assets/icons/manage.svg';
 import QRCodeIcon from '../../assets/icons/QRCode.svg';
 import SettingIcon from '../../assets/icons/setting.svg';
 import AccountIcon from '../../assets/icons/account.svg';
@@ -34,6 +35,13 @@ const SideMenu = ({navigation}) => {
     {
       icon: <ChartIcon />,
       name: 'Thống Kê',
+      onPress: () => {
+        navigation.navigate(ANALYST);
+      },
+    },
+    {
+      icon: <ManageIcon />,
+      name: 'Quản Lý',
       onPress: () => {
         navigation.navigate(ANALYST);
       },
@@ -60,7 +68,7 @@ const SideMenu = ({navigation}) => {
       },
     },
     {
-      icon: <AccountIcon />,
+      icon: <LogoutIcon />,
       name: 'Đăng Xuất',
       onPress: () => {
         navigation.navigate(LOGOUT);
