@@ -11,8 +11,9 @@ import Device from '../../assets/icons/device.svg';
 import Setting from '../../assets/icons/setting_white.svg';
 import BrokenDevice from '../../assets/icons/broken.svg';
 import styles from './styles';
+import {ROOMDETAILS} from '../../constants/routeNames';
 
-const RoomList = () => {
+const RoomList = ({navigation}) => {
   const {setOptions, toggleDrawer} = useNavigation();
   useEffect(() => {
     setOptions({
@@ -76,7 +77,11 @@ const RoomList = () => {
             <Text style={styles.textTotalDevices}>Thiết bị hư hỏng: 0</Text>
           </View>
           <View style={styles.btnRoomContainer}>
-            <TouchableOpacity style={styles.btnRoom}>
+            <TouchableOpacity
+              style={styles.btnRoom}
+              onPress={() => {
+                navigation.navigate(ROOMDETAILS, {id: 'Phòng 33'});
+              }}>
               <Setting />
               <Text style={styles.textBtn}>Quản lý thiết bị</Text>
             </TouchableOpacity>
