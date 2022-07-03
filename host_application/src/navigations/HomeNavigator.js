@@ -11,6 +11,7 @@ import {
   LOGOUT,
   NOTIFICATION,
   QRCODE,
+  ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
 } from '../constants/routeNames';
@@ -19,6 +20,7 @@ import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
 import Notification from '../screens/Notification';
 import QRCode from '../screens/QRCode';
+import RoomDetails from '../screens/RoomDetails';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
 
@@ -27,10 +29,13 @@ const AppNavigator = () => {
   const common = getCommon(HomeStack);
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen
-        name={ROOM_LIST}
-        component={RoomList}></HomeStack.Screen>
-      {common}
+      <HomeStack.Screen name={ROOM_LIST} component={RoomList} />
+      <HomeStack.Screen name={ANALYST} component={Analyst} />
+      <HomeStack.Screen name={QRCODE} component={QRCode} />
+      <HomeStack.Screen name={SETTINGS} component={Settings} />
+      <HomeStack.Screen name={ACCOUNT} component={Account} />
+      <HomeStack.Screen name={INTRODUCE} component={Introduce} />
+      <HomeStack.Screen name={ROOMDETAILS} component={RoomDetails} />
     </HomeStack.Navigator>
   );
 };

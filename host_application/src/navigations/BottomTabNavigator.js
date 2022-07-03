@@ -1,14 +1,23 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Notification from '../screens/Notification';
-import {HOME_NAVIGATOR, NOTIFICATION, ROOM_LIST} from '../constants/routeNames';
+import {
+  ACCOUNT,
+  HISTORY,
+  HOME_NAVIGATOR,
+  NOTIFICATION,
+  ROOM_LIST,
+} from '../constants/routeNames';
 import HomeNavigator from './HomeNavigator';
 import TabBottomMenu from './TabBottomMenu';
 import RoomIcon from '../assets/icons/room.svg';
 import RoomOutLineIcon from '../assets/icons/room_outline.svg';
-import BellIcon from '../assets/icons/bell.svg';
-import BellOutLineIcon from '../assets/icons/bell_outline.svg';
-import NotifNavigator from './NotificationNavigator';
+import HistoryIcon from '../assets/icons/history.svg';
+import HistoryOutLineIcon from '../assets/icons/history_outline.svg';
+import HistoryTabNavigator from './HistoryTabNavigation';
+import ProfileNavigator from './ProfileTabNavigator';
+import ProfileIcon from '../assets/icons/account.svg';
+import ProfileOutLineIcon from '../assets/icons/account_outline.svg';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,17 +47,30 @@ const BottomTabNavigatior = () => {
                 nameIcon={ROOM_LIST}
               />
             );
-          } else if (route.name === NOTIFICATION) {
+          } else if (route.name === HISTORY) {
             return focused ? (
               <TabBottomMenu
-                svgIcon={<BellIcon width={WIDTH} height={HEIGHT} />}
+                svgIcon={<HistoryIcon width={WIDTH} height={HEIGHT} />}
                 isFocused={focused}
-                nameIcon={NOTIFICATION}
+                nameIcon={HISTORY}
               />
             ) : (
               <TabBottomMenu
-                svgIcon={<BellOutLineIcon width={WIDTH} height={HEIGHT} />}
-                nameIcon={NOTIFICATION}
+                svgIcon={<HistoryOutLineIcon width={WIDTH} height={HEIGHT} />}
+                nameIcon={HISTORY}
+              />
+            );
+          } else if (route.name === ACCOUNT) {
+            return focused ? (
+              <TabBottomMenu
+                svgIcon={<ProfileIcon width={WIDTH} height={HEIGHT} />}
+                isFocused={focused}
+                nameIcon={ACCOUNT}
+              />
+            ) : (
+              <TabBottomMenu
+                svgIcon={<ProfileOutLineIcon width={WIDTH} height={HEIGHT} />}
+                nameIcon={ACCOUNT}
               />
             );
           }
@@ -62,9 +84,14 @@ const BottomTabNavigatior = () => {
         }}
       />
       <Tab.Screen
-        name={NOTIFICATION}
+        name={HISTORY}
         options={{headerShown: false}}
-        component={NotifNavigator}
+        component={HistoryTabNavigator}
+      />
+      <Tab.Screen
+        name={ACCOUNT}
+        options={{headerShown: false}}
+        component={ProfileNavigator}
       />
     </Tab.Navigator>
   );

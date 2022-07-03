@@ -10,6 +10,8 @@ export const ROOMDETAILS = 'Chi Tiết phòng';
 export const LOGIN = 'Đăng Nhập';
 export const REGISTER = 'Đăng Ký';
 export const LOGOUT = 'Đăng Xuất';
+export const MANAGE = 'Quản Lý';
+export const HISTORY = 'Lịch Sử';
 
 //Navigation
 export const HOME_NAVIGATOR = 'Trang Chủ';
