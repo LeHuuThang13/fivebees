@@ -16,3 +16,4 @@ export const HISTORY = 'Lịch Sử';
 //Navigation
 export const HOME_NAVIGATOR = 'Trang Chủ';
 export const HOME_BOTTOM_NAVIGATOR = 'Thanh Tabs';
+export const DRAWER_NAVIGATION = 'Thanh Kéo';

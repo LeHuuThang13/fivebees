@@ -9,6 +9,7 @@ import {
   HOME_NAVIGATOR,
   INTRODUCE,
   LOGOUT,
+  MANAGE,
   QRCODE,
   ROOM_LIST,
   SETTINGS,
@@ -19,7 +20,6 @@ import ChartIcon from '../../assets/icons/chart.svg';
 import ManageIcon from '../../assets/icons/manage.svg';
 import QRCodeIcon from '../../assets/icons/QRCode.svg';
 import SettingIcon from '../../assets/icons/setting.svg';
-import AccountIcon from '../../assets/icons/account.svg';
 import IntroduceIcon from '../../assets/icons/introduce.svg';
 import LogoutIcon from '../../assets/icons/logout.svg';
 
@@ -29,7 +29,7 @@ const SideMenu = ({navigation}) => {
       icon: <HomeIcon />,
       name: 'Trang Chủ',
       onPress: () => {
-        navigation.navigate(ROOM_LIST);
+        navigation.navigate(HOME_NAVIGATOR);
       },
     },
     {
@@ -43,14 +43,7 @@ const SideMenu = ({navigation}) => {
       icon: <ManageIcon />,
       name: 'Quản Lý',
       onPress: () => {
-        navigation.navigate(ANALYST);
-      },
-    },
-    {
-      icon: <QRCodeIcon />,
-      name: 'QR Code',
-      onPress: () => {
-        navigation.navigate(QRCODE);
+        navigation.navigate(MANAGE);
       },
     },
     {
