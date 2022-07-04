@@ -1,32 +1,32 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ACCOUNT, HISTORY, ROOM_LIST} from '../constants/routeNames';
-import HomeNavigator from './HomeNavigator';
+import {ACCOUNT, QRCODE, ROOM_LIST} from '../constants/routeNames';
 import TabBottomMenu from './TabBottomMenu';
 import RoomIcon from '../assets/icons/room.svg';
 import RoomOutLineIcon from '../assets/icons/room_outline.svg';
-import HistoryIcon from '../assets/icons/history.svg';
-import HistoryOutLineIcon from '../assets/icons/history_outline.svg';
-import HistoryTabNavigator from './HistoryTabNavigator';
+import QRCodeIcon from '../assets/icons/QRCode.svg';
+import QRCodeutLineIcon from '../assets/icons/QRCode_outline.svg';
+import QRCodeTabNavigator from './QRCodeTabNavigator';
 import ProfileNavigator from './ProfileTabNavigator';
 import ProfileIcon from '../assets/icons/account.svg';
 import ProfileOutLineIcon from '../assets/icons/account_outline.svg';
+import RoomList from '../screens/RoomList';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigatior = () => {
+const BottomTabNavigatior = ({navigation, route}) => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
-        headerShown: false,
         tabBarStyle: {
-          height: 60,
-          alignItems: 'center',
+          height: 70,
         },
+        headerShown: false,
         tabBarIcon: ({focused}) => {
           const WIDTH = 25,
             HEIGHT = 25;
+
           if (route.name === ROOM_LIST) {
             return focused ? (
               <TabBottomMenu
@@ -40,17 +40,17 @@ const BottomTabNavigatior = () => {
                 nameIcon={ROOM_LIST}
               />
             );
-          } else if (route.name === HISTORY) {
+          } else if (route.name === QRCODE) {
             return focused ? (
               <TabBottomMenu
-                svgIcon={<HistoryIcon width={WIDTH} height={HEIGHT} />}
+                svgIcon={<QRCodeIcon width={WIDTH} height={HEIGHT} />}
                 isFocused={focused}
-                nameIcon={HISTORY}
+                nameIcon={QRCODE}
               />
             ) : (
               <TabBottomMenu
-                svgIcon={<HistoryOutLineIcon width={WIDTH} height={HEIGHT} />}
-                nameIcon={HISTORY}
+                svgIcon={<QRCodeutLineIcon width={WIDTH} height={HEIGHT} />}
+                nameIcon={QRCODE}
               />
             );
           } else if (route.name === ACCOUNT) {
@@ -71,15 +71,15 @@ const BottomTabNavigatior = () => {
       })}>
       <Tab.Screen
         name={ROOM_LIST}
-        component={HomeNavigator}
+        component={RoomList}
         options={{
-          headerShown: false,
+          headerShown: true,
         }}
       />
       <Tab.Screen
-        name={HISTORY}
+        name={QRCODE}
         options={{headerShown: false}}
-        component={HistoryTabNavigator}
+        component={QRCodeTabNavigator}
       />
       <Tab.Screen
         name={ACCOUNT}

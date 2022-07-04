@@ -13,6 +13,7 @@ const Notification = () => {
       },
       headerTintColor: colors.white,
       headerTitleAlign: 'center',
+      drawerLockMode: 'locked-closed',
     });
   }, []);
   return (
