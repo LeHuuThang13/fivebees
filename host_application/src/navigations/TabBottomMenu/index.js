@@ -9,7 +9,15 @@ const TabBottomMenu = props => {
 
   return (
     <SafeAreaView>
-      <View style={[styles.iconBody, {borderBottomWidth: isFocused ? 2 : 0}]}>
+      <View
+        style={[
+          styles.iconBody,
+          {
+            borderBottomColor: isFocused
+              ? colors.primary
+              : colors.bg_transparent,
+          },
+        ]}>
         <Text style={[styles.icon]}>{svgIcon}</Text>
         <Text
           style={[
