@@ -12,4 +12,5 @@ export default {
   placeHolder_input: 'rgba(92, 92, 92, 0.5)',
   bg_primary: '#1690F8',
   bg_modal: 'rgba(0,0,0,0.5)',
+  bg_transparent: 'rgba(0,0,0,0)',
 };

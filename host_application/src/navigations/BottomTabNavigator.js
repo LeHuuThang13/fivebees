@@ -1,6 +1,13 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ACCOUNT, QRCODE, ROOM_LIST} from '../constants/routeNames';
+import {
+  ACCOUNT,
+  ACCOUNT_BOTTOM,
+  QRCODE,
+  QRCODE_BOTTOM,
+  ROOM_LIST,
+  ROOM_LIST_BOTTOM,
+} from '../constants/routeNames';
 import TabBottomMenu from './TabBottomMenu';
 import RoomIcon from '../assets/icons/room.svg';
 import RoomOutLineIcon from '../assets/icons/room_outline.svg';
@@ -20,14 +27,15 @@ const BottomTabNavigatior = ({navigation, route}) => {
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 70,
+          height: 60,
+          paddingTop: 10,
         },
         headerShown: false,
         tabBarIcon: ({focused}) => {
           const WIDTH = 25,
             HEIGHT = 25;
 
-          if (route.name === ROOM_LIST) {
+          if (route.name === ROOM_LIST_BOTTOM) {
             return focused ? (
               <TabBottomMenu
                 svgIcon={<RoomIcon width={WIDTH} height={HEIGHT} />}
@@ -40,7 +48,7 @@ const BottomTabNavigatior = ({navigation, route}) => {
                 nameIcon={ROOM_LIST}
               />
             );
-          } else if (route.name === QRCODE) {
+          } else if (route.name === QRCODE_BOTTOM) {
             return focused ? (
               <TabBottomMenu
                 svgIcon={<QRCodeIcon width={WIDTH} height={HEIGHT} />}
@@ -53,7 +61,7 @@ const BottomTabNavigatior = ({navigation, route}) => {
                 nameIcon={QRCODE}
               />
             );
-          } else if (route.name === ACCOUNT) {
+          } else if (route.name === ACCOUNT_BOTTOM) {
             return focused ? (
               <TabBottomMenu
                 svgIcon={<ProfileIcon width={WIDTH} height={HEIGHT} />}
@@ -70,19 +78,19 @@ const BottomTabNavigatior = ({navigation, route}) => {
         },
       })}>
       <Tab.Screen
-        name={ROOM_LIST}
+        name={ROOM_LIST_BOTTOM}
         component={RoomList}
         options={{
           headerShown: true,
         }}
       />
       <Tab.Screen
-        name={QRCODE}
+        name={QRCODE_BOTTOM}
         options={{headerShown: false}}
         component={QRCodeTabNavigator}
       />
       <Tab.Screen
-        name={ACCOUNT}
+        name={ACCOUNT_BOTTOM}
         options={{headerShown: false}}
         component={ProfileNavigator}
       />

@@ -9,6 +9,7 @@ import {
   HOME_NAVIGATOR,
   INTRODUCE,
   MANAGE,
+  QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
@@ -23,6 +24,7 @@ import BottomTabNavigatior from './BottomTabNavigator';
 // import NotifNavigator from './NotificationNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
+import QRCode from '../screens/QRCode';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
