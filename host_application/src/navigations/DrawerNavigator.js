@@ -8,12 +8,14 @@ import {
   HOME_NAVIGATOR,
   INTRODUCE,
   MANAGE,
+  ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
 import Managing from '../screens/Managing';
+import RoomDetails from '../screens/RoomDetails';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
 import BottomTabNavigatior from './BottomTabNavigator';
@@ -41,6 +43,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name={ANALYST} component={Analyst} />
       <Drawer.Screen name={MANAGE} component={Managing} />
       <Drawer.Screen name={SETTINGS} component={Settings} />
+      <Drawer.Screen name={ROOMDETAILS} component={RoomDetails} />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>
   );

@@ -80,7 +80,7 @@ const RoomList = ({navigation}) => {
             <TouchableOpacity
               style={styles.btnRoom}
               onPress={() => {
-                navigation.navigate(ROOMDETAILS, {id: 'Phòng 33'});
+                navigation.navigate(ROOMDETAILS);
               }}>
               <Setting />
               <Text style={styles.textBtn}>Quản lý thiết bị</Text>
