@@ -1,18 +1,11 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import colors from '../../assets/themes/colors';
+import React from 'react';
+import {Text, View} from 'react-native';
+import MenuIcon from '../../assets/icons/menu_icon.svg';
+import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 
 const Introduce = () => {
-  const {setOptions, toggleDrawer} = useNavigation();
-  useEffect(() => {
-    setOptions({
-      headerStyle: {
-        backgroundColor: colors.bg_primary,
-      },
-      headerTintColor: colors.white,
-    });
-  }, []);
+  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: MenuIcon});
+
   return (
     <View>
       <Text>Hi from Introduce</Text>
