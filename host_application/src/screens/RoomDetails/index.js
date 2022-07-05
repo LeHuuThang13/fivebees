@@ -6,6 +6,7 @@ import Container from '../../components/common/Container';
 import styles from './styles';
 
 const RoomDetails = ({navigation, route}) => {
+  console.log(234);
   const {setOptions, toggleDrawer} = useNavigation();
   useEffect(() => {
     setOptions({
