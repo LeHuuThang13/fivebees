@@ -1,13 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Dimensions, Modal, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../assets/themes/colors';
-import MenuIcon from '../../assets/icons/menu_icon.svg';
 import Container from '../../components/common/Container';
-import styles from './styles';
-import Setting from '../../assets/icons/setting_white.svg';
-import Room from '../../assets/icons/room_outline.svg';
-import Dots from '../../assets/icons/dots.svg';
+import PreviousIcon from '../../assets/icons/previous_icon.svg';
+import {MANAGE} from '../../constants/routeNames';
+
+// import styles from './styles';
 
 const Managing = ({navigation, route}) => {
   const {setOptions, toggleDrawer} = useNavigation();
@@ -18,10 +17,12 @@ const Managing = ({navigation, route}) => {
       headerLeft: () => (
         <TouchableOpacity
           onPress={() => {
-            toggleDrawer();
+            navigation.navigate(MANAGE);
           }}>
           <View style={{marginHorizontal: 0}}>
-            <MenuIcon />
+            <Text>
+              <PreviousIcon />
+            </Text>
           </View>
         </TouchableOpacity>
       ),
@@ -32,6 +33,10 @@ const Managing = ({navigation, route}) => {
       headerTintColor: colors.white,
     });
   }, []);
+
+  const EditBuildingDetailsContainer = () => {
+    
+  }
 
   return (
     <Container>

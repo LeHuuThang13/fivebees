@@ -12,30 +12,10 @@ import Setting from '../../assets/icons/setting_white.svg';
 import BrokenDevice from '../../assets/icons/broken.svg';
 import styles from './styles';
 import {ROOMDETAILS} from '../../constants/routeNames';
+import Room from '../../components/common/Room';
+import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 
 const RoomList = ({navigation}) => {
-  const {setOptions, toggleDrawer} = useNavigation();
-  useEffect(() => {
-    setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            toggleDrawer();
-          }}>
-          <View style={{marginHorizontal: 0}}>
-            <IconMenu />
-          </View>
-        </TouchableOpacity>
-        // <OptionsNavigator toggleDrawer={toggleDrawer} iconSvg={IconMenu} />
-      ),
-      headerTitleAlign: 'center',
-      headerStyle: {
-        backgroundColor: colors.bg_primary,
-      },
-      headerTintColor: colors.white,
-    });
-  }, []);
-
   const [chooseBuilding, setChooseBuilding] = useState('Tòa A');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -47,49 +27,7 @@ const RoomList = ({navigation}) => {
     setChooseBuilding(option);
   };
 
-  const Room = () => {
-    return (
-      <View style={styles.roomContainer}>
-        <View style={styles.headerRoom}>
-          <Text style={styles.headerRoomLeft}>Phòng 101</Text>
-
-          <Text style={styles.headerRoomRight}>
-            <View>
-              <Text style={styles.labelStatus}>Tình trạng:</Text>
-            </View>
-            <View style={styles.statusBlock}>
-              <Text style={styles.status}>Đang sử dụng</Text>
-            </View>
-          </Text>
-        </View>
-
-        <View style={styles.bodyRoom}>
-          <View style={styles.totalItem}>
-            <Text style={styles.iconItem}>
-              <Device />
-            </Text>
-            <Text style={styles.textTotalDevices}>Tổng thiết bị: 10</Text>
-          </View>
-          <View style={styles.totalItem}>
-            <Text style={styles.iconItem}>
-              <BrokenDevice />
-            </Text>
-            <Text style={styles.textTotalDevices}>Thiết bị hư hỏng: 0</Text>
-          </View>
-          <View style={styles.btnRoomContainer}>
-            <TouchableOpacity
-              style={styles.btnRoom}
-              onPress={() => {
-                navigation.navigate(ROOMDETAILS);
-              }}>
-              <Setting />
-              <Text style={styles.textBtn}>Quản lý thiết bị</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    );
-  };
+  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: IconMenu});
 
   return (
     <Container>
@@ -117,13 +55,17 @@ const RoomList = ({navigation}) => {
         </Modal>
       </View>
 
-      {/* rooms */}
-      <Room />
-      <Room />
-      <Room />
-      <Room />
-      <Room />
-      <Room />
+      <Room
+        roomName={'Phòng 101'}
+        status={'Đang sử dụng'}
+        totalDevices={10}
+        totalBrokenDevices={0}
+        navigationScreen={ROOMDETAILS}
+        IconDevice={Device}
+        IconBrokenDevice={BrokenDevice}
+        IconSetting={Setting}
+        navigation={navigation}
+      />
     </Container>
   );
 };
