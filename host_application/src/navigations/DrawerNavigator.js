@@ -5,6 +5,7 @@ import {TouchableOpacity, View} from 'react-native';
 import colors from '../assets/themes/colors';
 import {
   ANALYST,
+  BUILDINGDETAILS,
   HOME_NAVIGATOR,
   INTRODUCE,
   MANAGE,
@@ -20,6 +21,7 @@ import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
 import BottomTabNavigatior from './BottomTabNavigator';
 // import NotifNavigator from './NotificationNavigator';
+import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
 
 const DrawerNavigator = () => {
@@ -44,6 +46,11 @@ const DrawerNavigator = () => {
       <Drawer.Screen name={MANAGE} component={Managing} />
       <Drawer.Screen name={SETTINGS} component={Settings} />
       <Drawer.Screen name={ROOMDETAILS} component={RoomDetails} />
+      <Drawer.Screen
+        name={BUILDINGDETAILS}
+        options={{swipeEnabled: false}}
+        component={BuildlingDetails}
+      />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>
   );

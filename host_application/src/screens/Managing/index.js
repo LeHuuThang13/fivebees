@@ -8,6 +8,7 @@ import styles from './styles';
 import Setting from '../../assets/icons/setting_white.svg';
 import Room from '../../assets/icons/room_outline.svg';
 import Dots from '../../assets/icons/dots.svg';
+import {BUILDINGDETAILS} from '../../constants/routeNames';
 
 const Managing = ({navigation, route}) => {
   const {setOptions, toggleDrawer} = useNavigation();
@@ -33,10 +34,6 @@ const Managing = ({navigation, route}) => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(123);
-  }, []);
-
   const Building = () => {
     return (
       <View style={[styles.roomContainer]}>
@@ -49,7 +46,6 @@ const Managing = ({navigation, route}) => {
             top: 12,
             zIndex: 1,
             flexDirection: 'row-reverse',
-            backgroundColor: 'red',
           }}>
           <Text style={styles.headerRoomRight}>
             <Dots />
@@ -83,7 +79,7 @@ const Managing = ({navigation, route}) => {
                   }}>
                   <View style={{backgroundColor: colors.white}}>
                     <TouchableOpacity
-                      onPress={() => setElementVisible(!elementVisible)}
+                      onPress={() => navigation.navigate(BUILDINGDETAILS)}
                       style={{marginBottom: 20}}>
                       <Text>Chỉnh sửa</Text>
                     </TouchableOpacity>
@@ -129,6 +125,10 @@ const Managing = ({navigation, route}) => {
         onPress={() => {
           setElementVisible(false);
         }}>
+        <Building />
+        <Building />
+        <Building />
+        <Building />
         <Building />
       </TouchableOpacity>
     </Container>

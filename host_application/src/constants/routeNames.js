@@ -13,6 +13,9 @@ export const LOGOUT = 'Đăng Xuất';
 export const MANAGE = 'Quản Lý';
 export const HISTORY = 'Lịch Sử';
 
+//stack children
+export const BUILDINGDETAILS = 'Sửa Tòa Nhà';
+
 //Navigation
 export const HOME_NAVIGATOR = 'Trang Chủ';
 export const HOME_BOTTOM_NAVIGATOR = 'Thanh Tabs';
