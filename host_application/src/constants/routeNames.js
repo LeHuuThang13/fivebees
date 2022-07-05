@@ -11,7 +11,6 @@ export const LOGIN = 'Đăng Nhập';
 export const REGISTER = 'Đăng Ký';
 export const LOGOUT = 'Đăng Xuất';
 export const MANAGE = 'Quản Lý';
-export const HISTORY = 'Lịch Sử';
 
 //stack children
 export const BUILDINGDETAILS = 'Sửa Tòa Nhà';
