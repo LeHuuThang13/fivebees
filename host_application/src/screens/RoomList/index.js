@@ -66,6 +66,17 @@ const RoomList = ({navigation}) => {
         IconSetting={Setting}
         navigation={navigation}
       />
+      <Room
+        roomName={'Phòng 101'}
+        status={'Đang sử dụng'}
+        totalDevices={10}
+        totalBrokenDevices={0}
+        navigationScreen={ROOMDETAILS}
+        IconDevice={Device}
+        IconBrokenDevice={BrokenDevice}
+        IconSetting={Setting}
+        navigation={navigation}
+      />
     </Container>
   );
 };

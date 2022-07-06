@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import AuthNavigator from './AuthNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import {GlobalContext} from '../context/Provider';
@@ -9,8 +9,17 @@ const AppNavigator = () => {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
 
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'rgb(255, 255, 255)',
+      background: 'white',
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       {isLoggedIn ? <DrawerNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
