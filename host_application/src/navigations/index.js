@@ -9,7 +9,7 @@ const AppNavigator = () => {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
 
-  const MyTheme = {
+  const CustomTheme = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
@@ -19,7 +19,7 @@ const AppNavigator = () => {
   };
 
   return (
-    <NavigationContainer theme={MyTheme}>
+    <NavigationContainer theme={CustomTheme}>
       {isLoggedIn ? <DrawerNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );

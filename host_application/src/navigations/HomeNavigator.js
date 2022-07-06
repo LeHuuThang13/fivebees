@@ -21,7 +21,7 @@ const AppNavigator = ({navigation, route}) => {
   return (
     <HomeStack.Navigator
       initialRouteName={ROOM_LIST}
-      screenOptions={{headerShown: true}}>
+      screenOptions={{headerShown: false}}>
       <HomeStack.Screen
         name={HOME_BOTTOM_NAVIGATOR}
         component={BottomTabNavigatior}

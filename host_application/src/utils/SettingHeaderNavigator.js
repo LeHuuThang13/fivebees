@@ -5,7 +5,7 @@ import colors from '../assets/themes/colors';
 
 const SettingHeaderNavigator = {
   settingHeaderNavigator: props => {
-    const {MenuIcon} = props;
+    const {MenuIcon, styles} = props;
     const {setOptions, toggleDrawer} = useNavigation();
     useEffect(() => {
       setOptions({
@@ -14,7 +14,7 @@ const SettingHeaderNavigator = {
             onPress={() => {
               toggleDrawer();
             }}>
-            <View style={{marginHorizontal: 0}}>
+            <View style={[{marginHorizontal: 0}, styles]}>
               <MenuIcon />
             </View>
           </TouchableOpacity>

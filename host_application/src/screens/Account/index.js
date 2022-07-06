@@ -7,7 +7,12 @@ import colors from '../../assets/themes/colors';
 import Container from '../../components/common/Container';
 
 const Account = ({navigation}) => {
-  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: IconMenu});
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: IconMenu,
+    styles: {
+      marginHorizontal: -6,
+    },
+  });
   return (
     <Container>
       <Text>Hi from Account</Text>

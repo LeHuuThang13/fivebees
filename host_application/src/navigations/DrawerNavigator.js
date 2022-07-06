@@ -36,7 +36,10 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerType="slide"
-      screenOptions={{headerShown: true}}
+      screenOptions={{
+        headerShown: true,
+        drawerBackgroundColor: 'black',
+      }}
       drawerContent={({navigation}) => getDrawerContent(navigation)}>
       <Drawer.Screen
         name={HOME_NAVIGATOR}

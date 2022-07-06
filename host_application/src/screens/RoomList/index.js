@@ -27,7 +27,12 @@ const RoomList = ({navigation}) => {
     setChooseBuilding(option);
   };
 
-  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: IconMenu});
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: IconMenu,
+    styles: {
+      marginHorizontal: 10,
+    },
+  });
 
   return (
     <Container>
@@ -55,17 +60,6 @@ const RoomList = ({navigation}) => {
         </Modal>
       </View>
 
-      <Room
-        roomName={'Phòng 101'}
-        status={'Đang sử dụng'}
-        totalDevices={10}
-        totalBrokenDevices={0}
-        navigationScreen={ROOMDETAILS}
-        IconDevice={Device}
-        IconBrokenDevice={BrokenDevice}
-        IconSetting={Setting}
-        navigation={navigation}
-      />
       <Room
         roomName={'Phòng 101'}
         status={'Đang sử dụng'}

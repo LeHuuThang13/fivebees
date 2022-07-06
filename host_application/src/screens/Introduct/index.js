@@ -4,7 +4,12 @@ import MenuIcon from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 
 const Introduce = () => {
-  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: MenuIcon});
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: MenuIcon,
+    styles: {
+      marginHorizontal: 10,
+    },
+  });
 
   return (
     <View>

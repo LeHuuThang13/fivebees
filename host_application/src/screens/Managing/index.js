@@ -11,7 +11,12 @@ import MorePopupMenu from '../../components/common/MorePopupMenu';
 import Building from '../../components/common/Building';
 
 const Managing = ({navigation}) => {
-  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: MenuIcon});
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: MenuIcon,
+    styles: {
+      marginHorizontal: 10,
+    },
+  });
 
   return (
     <Container>
