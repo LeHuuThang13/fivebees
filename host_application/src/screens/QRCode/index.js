@@ -7,7 +7,12 @@ import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import Container from '../../components/common/Container';
 
 const QRCode = () => {
-  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: IconMenu});
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: IconMenu,
+    styles: {
+      marginHorizontal: -6,
+    },
+  });
 
   return (
     <Container>
