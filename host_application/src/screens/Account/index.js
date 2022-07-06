@@ -4,13 +4,14 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import colors from '../../assets/themes/colors';
+import Container from '../../components/common/Container';
 
 const Account = ({navigation}) => {
   SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: IconMenu});
   return (
-    <View>
+    <Container>
       <Text>Hi from Account</Text>
-    </View>
+    </Container>
   );
 };
 
