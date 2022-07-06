@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Modal, StyleSheet, Text, Touchable, View} from 'react-native';
 import Container from '../../components/common/Container';
-import IconMenu from '../../assets/icons/menu_icon.svg';
 import {TouchableOpacity} from 'react-native';
 import colors from '../../assets/themes/colors';
 import ArrowDown from '../../assets/icons/arrowDown.svg';
@@ -13,6 +12,7 @@ import BrokenDevice from '../../assets/icons/broken.svg';
 import styles from './styles';
 import {ROOMDETAILS} from '../../constants/routeNames';
 import Room from '../../components/common/Room';
+import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 
 const RoomList = ({navigation}) => {

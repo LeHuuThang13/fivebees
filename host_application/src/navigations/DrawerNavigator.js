@@ -43,7 +43,11 @@ const DrawerNavigator = () => {
         options={{headerShown: false}}
         component={BottomTabNavigatior}
       />
-      <Drawer.Screen name={ROOM_LIST} component={RoomList} />
+      <Drawer.Screen
+        name={ROOM_LIST}
+        options={{headerShown: false}}
+        component={RoomList}
+      />
       <Drawer.Screen name={ANALYST} component={Analyst} />
       <Drawer.Screen name={MANAGE} component={Managing} />
       <Drawer.Screen name={SETTINGS} component={Settings} />

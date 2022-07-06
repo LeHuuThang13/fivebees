@@ -2,18 +2,11 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import IconMenu from '../../assets/icons/menu_icon.svg';
+import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import colors from '../../assets/themes/colors';
 
 const Account = ({navigation}) => {
-  const {setOptions} = useNavigation();
-  useEffect(() => {
-    setOptions({
-      headerStyle: {
-        backgroundColor: colors.bg_primary,
-      },
-      headerTintColor: colors.white,
-    });
-  }, []);
+  SettingHeaderNavigator.settingHeaderNavigator({MenuIcon: IconMenu});
   return (
     <View>
       <Text>Hi from Account</Text>

@@ -1,6 +1,5 @@
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Container from '../../components/common/Container';
 import styles from './styles';
 import colors from '../../assets/themes/colors';
 
