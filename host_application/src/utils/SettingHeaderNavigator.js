@@ -37,7 +37,7 @@ const SettingHeaderNavigator = {
             onPress={() => {
               navigate(previousStack);
             }}>
-            <View style={{marginHorizontal: 0}}>
+            <View>
               <Icon />
             </View>
           </TouchableOpacity>
