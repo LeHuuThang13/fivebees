@@ -6,18 +6,16 @@ import Container from '../../components/common/Container';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import {MANAGE} from '../../constants/routeNames';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
+import CheckIcon from '../../assets/icons/check.svg';
 
 // import styles from './styles';
 
 const Managing = ({navigation, route}) => {
-  const {setOptions, toggleDrawer} = useNavigation();
-  const [elementVisible, setElementVisible] = useState(false);
-
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
-    previousStack: MANAGE,
+    stackNavigate: MANAGE,
+    IconRight: CheckIcon,
   });
-
 
   return (
     <Container>

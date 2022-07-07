@@ -7,6 +7,8 @@ import IconUsernameSvg from '../../assets/icons/username_icon.svg';
 import IconPswSgv from '../../assets/icons/password_icon.svg';
 import IconShowPsw from '../../assets/icons/showPsw.svg';
 import IconHidePsw from '../../assets/icons/hidePsw.svg';
+import CustomButtomOpacityText from '../CustomButtomOpacityText';
+import FloatingCustomButton from '../FloatingCustomButton';
 
 const index = ({onChangeText, style, value}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -41,6 +43,7 @@ const index = ({onChangeText, style, value}) => {
         style={[styles.logoImage]}
         source={require('../../assets/images/logo.png')}
       />
+
       <View>
         <Text style={styles.title}>Welcome to FiveBees</Text>
         <Input
@@ -74,17 +77,15 @@ const index = ({onChangeText, style, value}) => {
           error={errors.password}
         />
 
-        <Text style={{textAlign: 'right'}}>
-          <CustomButton
-            primary
+        <View style={{flexDirection: 'row-reverse'}}>
+          <CustomButtomOpacityText
             title={'Quên mật khẩu?'}
-            disabled={true}
-            noneBg={true}
             styleBtn={{
               height: 20,
+              zIndex: 2,
             }}
           />
-        </Text>
+        </View>
 
         <CustomButton
           onPress={onSubmit}

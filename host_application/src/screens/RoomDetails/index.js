@@ -1,20 +1,16 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {Text, TouchableOpacity, View, ScrollView, Image} from 'react-native';
-import colors from '../../assets/themes/colors';
+import React from 'react';
+import {Text, View, ScrollView, Image} from 'react-native';
 import Container from '../../components/common/Container';
+import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
+import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
+import {ROOM_LIST} from '../../constants/routeNames';
 
 const RoomDetails = ({navigation, route}) => {
-  const {setOptions, toggleDrawer} = useNavigation();
-  useEffect(() => {
-    setOptions({
-      headerStyle: {
-        backgroundColor: colors.bg_primary,
-      },
-      headerTintColor: colors.white,
-    });
-  }, []);
+  SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
+    Icon: PreviousIcon,
+    navigation: navigation,
+  });
 
   const Devices = () => {
     return (
