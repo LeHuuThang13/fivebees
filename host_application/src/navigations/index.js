@@ -3,6 +3,7 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import AuthNavigator from './AuthNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import {GlobalContext} from '../context/Provider';
+import {View} from 'react-native';
 
 const AppNavigator = () => {
   const {
@@ -20,7 +21,9 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer theme={CustomTheme}>
-      {isLoggedIn ? <DrawerNavigator /> : <AuthNavigator />}
+      <View style={{flex: 1, backgroundColor: 'blue'}}>
+        {isLoggedIn ? <DrawerNavigator /> : <AuthNavigator />}
+      </View>
     </NavigationContainer>
   );
 };

@@ -39,7 +39,9 @@ const SettingHeaderNavigator = {
               navigate(stackNavigate);
             }}>
             <View style={[stylesHeader.leftIcon, styles]}>
-              <Icon />
+              <Text>
+                <Icon />
+              </Text>
             </View>
           </TouchableOpacity>
         ),

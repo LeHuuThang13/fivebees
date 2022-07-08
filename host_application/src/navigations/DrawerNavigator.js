@@ -11,6 +11,7 @@ import {
   MANAGE,
   MANAGING_BUILDING,
   MANAGING_DEVICES,
+  MANAGING_ROOMS,
   QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
@@ -29,6 +30,7 @@ import BottomTabNavigatior from './BottomTabNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
 import QRCode from '../screens/QRCode';
+import ManagingRooms from '../screens/ManagingRooms';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -42,7 +44,9 @@ const DrawerNavigator = () => {
       drawerType="slide"
       screenOptions={{
         headerShown: true,
-        drawerBackgroundColor: 'black',
+        drawerStyle: {
+          flexDirection: 'row-reverse',
+        },
       }}
       drawerContent={({navigation}) => getDrawerContent(navigation)}>
       <Drawer.Screen
@@ -58,6 +62,11 @@ const DrawerNavigator = () => {
       <Drawer.Screen name={ANALYST} component={Analyst} />
       <Drawer.Screen name={MANAGE} component={Managing} />
       <Drawer.Screen name={SETTINGS} component={Settings} />
+      <Drawer.Screen
+        name={MANAGING_ROOMS}
+        options={{swipeEnabled: false}}
+        component={ManagingRooms}
+      />
       <Drawer.Screen
         name={ROOMDETAILS}
         options={{swipeEnabled: false}}
