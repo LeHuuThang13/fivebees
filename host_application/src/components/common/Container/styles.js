@@ -5,6 +5,5 @@ export default StyleSheet.create({
   wrapper: {
     paddingHorizontal: 13,
     backgroundColor: colors.white,
-    maxHeight: '100%',
   },
 });

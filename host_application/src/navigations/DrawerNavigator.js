@@ -9,6 +9,9 @@ import {
   HOME_NAVIGATOR,
   INTRODUCE,
   MANAGE,
+  MANAGING_BUILDING,
+  MANAGING_DEVICES,
+  MANAGING_ROOMS,
   QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
@@ -20,11 +23,14 @@ import Managing from '../screens/Managing';
 import RoomDetails from '../screens/RoomDetails';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
+import ManagingBuilding from '../screens/ManagingBuilding';
+import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
 // import NotifNavigator from './NotificationNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
 import QRCode from '../screens/QRCode';
+import ManagingRooms from '../screens/ManagingRooms';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -38,7 +44,9 @@ const DrawerNavigator = () => {
       drawerType="slide"
       screenOptions={{
         headerShown: true,
-        drawerBackgroundColor: 'black',
+        drawerStyle: {
+          flexDirection: 'row-reverse',
+        },
       }}
       drawerContent={({navigation}) => getDrawerContent(navigation)}>
       <Drawer.Screen
@@ -55,6 +63,11 @@ const DrawerNavigator = () => {
       <Drawer.Screen name={MANAGE} component={Managing} />
       <Drawer.Screen name={SETTINGS} component={Settings} />
       <Drawer.Screen
+        name={MANAGING_ROOMS}
+        options={{swipeEnabled: false}}
+        component={ManagingRooms}
+      />
+      <Drawer.Screen
         name={ROOMDETAILS}
         options={{swipeEnabled: false}}
         component={RoomDetails}
@@ -63,6 +76,16 @@ const DrawerNavigator = () => {
         name={BUILDINGDETAILS}
         options={{swipeEnabled: false}}
         component={BuildlingDetails}
+      />
+      <Drawer.Screen
+        name={MANAGING_BUILDING}
+        options={{swipeEnabled: false}}
+        component={ManagingBuilding}
+      />
+      <Drawer.Screen
+        name={MANAGING_DEVICES}
+        options={{swipeEnabled: false}}
+        component={ManagingDevices}
       />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>

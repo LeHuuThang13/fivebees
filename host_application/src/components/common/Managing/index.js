@@ -3,15 +3,16 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import MorePopupMenu from '../MorePopupMenu';
 import styles from './styles';
 
-const Building = props => {
+const Managing = props => {
   const {
     MoreActions,
-    buildingName,
+    managingName,
     totalDevices,
     onPress,
     IconBtn,
     titleBtn,
-    IconRoom,
+    IconManaging,
+    totalManaging,
   } = props;
 
   return (
@@ -19,13 +20,13 @@ const Building = props => {
       {MoreActions && MoreActions}
 
       <View style={styles.headerRoom}>
-        <Text style={styles.headerRoomLeft}>{buildingName}</Text>
+        <Text style={styles.headerRoomLeft}>{managingName}</Text>
       </View>
       <View style={styles.bodyRoom}>
         <View style={styles.totalItem}>
-          {IconRoom && IconRoom}
+          <Text style={styles.icon}>{IconManaging && IconManaging}</Text>
           <Text style={styles.textTotalDevices}>
-            Tổng số phòng: {totalDevices}
+            {totalManaging}: {totalDevices}
           </Text>
         </View>
         <View style={styles.btnRoomContainer}>
@@ -38,4 +39,4 @@ const Building = props => {
     </View>
   );
 };
-export default Building;
+export default Managing;

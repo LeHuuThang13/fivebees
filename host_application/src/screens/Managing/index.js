@@ -2,13 +2,13 @@ import React from 'react';
 import Container from '../../components/common/Container';
 //icons
 import MenuIcon from '../../assets/icons/menu_icon.svg';
+import BuildingIcon from '../../assets/icons/building.svg';
 import Setting from '../../assets/icons/setting_white.svg';
-import Room from '../../assets/icons/room_outline.svg';
+import DeviceIcon from '../../assets/icons/device.svg';
 //constants
-import {BUILDINGDETAILS} from '../../constants/routeNames';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
-import MorePopupMenu from '../../components/common/MorePopupMenu';
-import Building from '../../components/common/Building';
+import ManagingContainer from '../../components/common/Managing';
+import {MANAGING_BUILDING, MANAGING_DEVICES} from '../../constants/routeNames';
 
 const Managing = ({navigation}) => {
   SettingHeaderNavigator.settingHeaderNavigator({
@@ -20,35 +20,28 @@ const Managing = ({navigation}) => {
 
   return (
     <Container>
-      <Building
-        MoreActions={
-          <MorePopupMenu
-            styles={{
-              width: 30,
-              flexDirection: 'row-reverse',
-              position: 'absolute',
-              right: 15,
-              top: 10,
-              zIndex: 1,
-            }}
-            actionNameEdit={'Chỉnh sửa'}
-            actionNameDelete={'Xóa'}
-            onPressEdit={() => {
-              navigation.navigate(BUILDINGDETAILS);
-            }}
-            onPressDelete={() => {
-              console.log('Xóa');
-            }}
-          />
-        }
-        buildingName={'Tòa A'}
-        totalDevices={10}
+      <ManagingContainer
+        managingName={'Quản lý tòa nhà'}
+        totalManaging={'Số lượng tòa nhà'}
+        totalDevices={3}
         onPress={() => {
-          console.log('hello world');
+          navigation.navigate(MANAGING_BUILDING);
         }}
         IconBtn={<Setting />}
-        titleBtn={'Quản lý phòng'}
-        IconRoom={<Room />}
+        titleBtn={'Quản lý tòa nhà'}
+        IconManaging={<BuildingIcon />}
+      />
+
+      <ManagingContainer
+        managingName={'Quản lý thiết bị'}
+        totalManaging={'Số lượng thiết bị'}
+        totalDevices={10}
+        onPress={() => {
+          navigation.navigate(MANAGING_DEVICES);
+        }}
+        IconBtn={<Setting />}
+        titleBtn={'Quản lý thiết bị'}
+        IconManaging={<DeviceIcon />}
       />
     </Container>
   );
