@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\BuildingController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
@@ -41,4 +45,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     Route::delete('status/destroy', [StatusController::class, 'massDestroy'])->name('status.massDestroy');
     Route::resource('status', StatusController::class);
+
+    Route::delete('categories/destroy', [CategoryController::class, 'massDestroy'])->name('categories.massDestroy');
+    Route::resource('categories', CategoryController::class);
+
+    Route::delete('buildings/destroy', [BuildingController::class, 'massDestroy'])->name('buildings.massDestroy');
+    Route::post('buildings/photo', [BuildingController::class, 'deleteMedia'])->name('buildings.deleteMedia');
+    Route::resource('buildings', BuildingController::class);
+
+    Route::delete('rooms/destroy', [RoomController::class, 'massDestroy'])->name('rooms.massDestroy');
+    Route::post('rooms/photo', [RoomController::class, 'deleteMedia'])->name('rooms.deleteMedia');
+    Route::resource('rooms', RoomController::class);
+
+    Route::delete('facilities/destroy', [FacilityController::class, 'massDestroy'])->name('facilities.massDestroy');
+    Route::post('facilities/photo', [FacilityController::class, 'deleteMedia'])->name('facilities.deleteMedia');
+    Route::resource('facilities', FacilityController::class);
 });

@@ -36,7 +36,7 @@ class StoreStatusRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => "Vui lòng nhập tên tài khoản",
+            'name.required' => "Vui lòng nhập tên trạng thái",
             'name.unique' => "Trạng thái đã tồn tại",
         ];
     }

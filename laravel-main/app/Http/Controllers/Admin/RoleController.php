@@ -32,9 +32,17 @@ class RoleController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
+                $viewGate = 'role_show';
+                $editGate = 'role_edit';
+                $deleteGate = 'role_delete';
+                $crudRouteName = 'vai trò';
                 $crudRoutePart = 'roles';
 
                 return view('components.datatableActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRouteName',
                     'crudRoutePart',
                     'row'
                 ));
@@ -69,7 +77,7 @@ class RoleController extends Controller
         $role = Role::create(['guard_name' => 'web', 'name' => $request->name]);
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('success', 'Tạo role thành công!');
     }
 
     public function edit(Role $role)
@@ -88,7 +96,7 @@ class RoleController extends Controller
         $role->update($request->validated());
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('admin.roles.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('admin.roles.index')->with('success', 'Cập nhật role thành công!');
     }
 
     public function destroy(Role $role)
@@ -97,7 +105,7 @@ class RoleController extends Controller
 
         $role->delete();
 
-        return back();
+        return back()->with('success', 'Xóa role thành công!');
     }
 
     public function massDestroy(MassDestroyRoleRequest $request)

@@ -28,7 +28,7 @@ class UpdateStatusRequest extends FormRequest
             'name' => [
                 'required',
                 'regex:/^[\pL\s\-]+$/u',
-                'unique:status'
+                'unique:status,name,' . request()->route('status')->id,
             ],
         ];
     }

@@ -32,6 +32,16 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'unique:users,email,' . request()->route('user')->id,
             ],
+            'password' => [
+                'nullable',
+            ],
+            'roles.*' => [
+                'integer',
+            ],
+            'roles' => [
+                'required',
+                'array',
+            ],
         ];
     }
 
@@ -41,6 +51,7 @@ class UpdateUserRequest extends FormRequest
             'name.required' => "Vui lòng nhập tên của tài khoản",
             'email.required' => "Vui lòng chọn permissions",
             'email.unique' => "Email đã được sử dụng",
+            'roles.required' => "Vui lòng chọn role cho tài khoản",
         ];
     }
 }

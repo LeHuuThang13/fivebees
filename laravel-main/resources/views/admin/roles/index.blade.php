@@ -2,13 +2,13 @@
 @extends('components.sidebar')
 @extends('components.navbar')
 
-@section('title', 'Role | FiveBees')
+@section('title', 'Vai trò | FiveBees')
 
 @section('content')
 
 <div class="info-container d-flex flex-row">
-    <div class="container px-0 py-2 bg-white" style="margin-right: 20px; border-radius: 10px">
-        <h3 class="mt-2 mx-3">Roles</h3>
+    <div class="container px-0 py-2 bg-white" style="margin-right: 20px; margin-bottom: 20px; border-radius: 10px">
+        <h3 class="mt-2 mx-3">Các vai trò</h3>
 
         <table id="roles-table" class="table align-middle">
             <thead style="background-color: #F5F9FC;">
@@ -16,7 +16,7 @@
                     <th><input id="checkAll" class="badege check-all form-check-input" type="checkbox"></th>
                     <th>id</th>
                     <th>tên</th>
-                    <th>permissions</th>
+                    <th>phân quyền</th>
                     <th>
                         &nbsp;
                     </th>
@@ -26,16 +26,26 @@
 
         <button class="btn btn-danger btn-remove-all mb-2" style="margin-left: 18px;">Xóa tất cả</button>
         <a class="btn btn-primary mb-2" href="{{route('admin.roles.create')}}">
-            Thêm role
+            Thêm vai trò
         </a>
     </div>
 </div>
+
+@if(session()->has('success'))
+<div class="alert-message">
+    <span>{{session()->get('success')}}</span>
+</div>
+@endif
 
 @endsection
 
 @push('scripts')
 <script>
     $(function() {
+        setTimeout(function() {
+            $(".alert-message").remove()
+        }, 3000);
+
         $("#checkAll").click(function() {
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
@@ -105,7 +115,9 @@
                 {
                     data: 'actions',
                     name: 'actions',
-                    className: 'dt-body-center'
+                    className: 'dt-body-center',
+                    sortable: false,
+                    searchable: false
                 }
             ],
             "columnDefs": [{

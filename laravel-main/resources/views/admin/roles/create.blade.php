@@ -2,13 +2,13 @@
 @extends('components.sidebar')
 @extends('components.navbar')
 
-@section('title', 'Thêm role | FiveBees')
+@section('title', 'Thêm vai trò | FiveBees')
 
 @section('content')
 
 <div class="info-container d-flex flex-row">
     <div class="container px-0 py-2 bg-white" style="margin-right: 20px; border-radius: 10px">
-        <h3 class="mt-2 mx-2">Thêm role</h3>
+        <h3 class="mt-2 mx-2">Thêm vai trò</h3>
 
         <div class="container">
             <form method="POST" action="{{ route('admin.roles.store') }}">
@@ -23,7 +23,7 @@
 
                 <div class="d-flex justify-content-between">
                     <div>
-                        <span>Permissions:</span>
+                        <span>Quyền:</span>
                         <span class="span-check-all px-2 py-1 text-white" style="cursor: pointer; background-color: #1690F8">Chọn hết</span>
                         <span class="span-remove-all px-2 py-1 text-white" style="cursor: pointer; background-color: #1690F8">Bỏ chọn</span>
                         @error('permissions')

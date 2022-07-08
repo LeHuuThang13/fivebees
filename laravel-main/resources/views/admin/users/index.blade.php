@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="info-container d-flex flex-row">
-    <div class="container px-0 py-2 bg-white" style="margin-right: 20px; border-radius: 10px">
+    <div class="container px-0 py-2 bg-white" style="margin-right: 20px; margin-bottom: 20px; border-radius: 10px">
         <h3 class="mt-2 mx-3">Tài khoản</h3>
 
         <table id="users-table" class="table align-middle">
@@ -17,7 +17,7 @@
                     <th>id</th>
                     <th>tên tài khoản</th>
                     <th>email</th>
-                    <th>role</th>
+                    <th>vai trò</th>
                     <th>
                         &nbsp;
                     </th>
@@ -32,11 +32,21 @@
     </div>
 </div>
 
+@if(session()->has('success'))
+<div class="alert-message">
+    <span>{{session()->get('success')}}</span>
+</div>
+@endif
+
 @endsection
 
 @push('scripts')
 <script>
     $(function() {
+        setTimeout(function() {
+            $(".alert-message").remove()
+        }, 3000);
+
         $("#checkAll").click(function() {
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
@@ -110,7 +120,9 @@
                 {
                     data: 'actions',
                     name: 'actions',
-                    className: 'dt-body-center'
+                    className: 'dt-body-center',
+                    sortable: false,
+                    searchable: false
                 }
             ],
             "columnDefs": [{
