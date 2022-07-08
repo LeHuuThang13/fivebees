@@ -31,9 +31,17 @@ class PermissionController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
+                $viewGate = 'permission_show';
+                $editGate = 'permission_edit';
+                $deleteGate = 'permission_delete';
+                $crudRouteName = 'quyền';
                 $crudRoutePart = 'permissions';
 
                 return view('components.datatableActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRouteName',
                     'crudRoutePart',
                     'row'
                 ));
@@ -64,7 +72,7 @@ class PermissionController extends Controller
                 'name' => $name . $action
             ]);
 
-        return redirect()->route('admin.permissions.index');
+        return redirect()->route('admin.permissions.index')->with('success', 'Tạo permission thành công!');
     }
 
     public function edit(Permission $permission)
@@ -78,7 +86,7 @@ class PermissionController extends Controller
     {
         $permission->update($request->validated());
 
-        return redirect()->route('admin.permissions.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('admin.permissions.index')->with('success', 'Cập nhật permission thành công!');
     }
 
     public function destroy(Permission $permission)
@@ -87,7 +95,7 @@ class PermissionController extends Controller
 
         $permission->delete();
 
-        return back();
+        return back()->with('success', 'Xóa permission thành công!');
     }
 
     public function massDestroy(MassDestroyPermissionRequest $request)

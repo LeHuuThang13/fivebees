@@ -32,9 +32,17 @@ class UserController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
+                $viewGate = 'user_show';
+                $editGate = 'user_edit';
+                $deleteGate = 'user_delete';
+                $crudRouteName = 'tài khoản';
                 $crudRoutePart = 'users';
 
                 return view('components.datatableActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRouteName',
                     'crudRoutePart',
                     'row'
                 ));
@@ -75,7 +83,7 @@ class UserController extends Controller
         $user = User::create($request->validated());
         $user->roles()->sync($request->input('roles', []));
 
-        return redirect()->route('admin.users.index')->with('success', 'Tạo user thành công!');
+        return redirect()->route('admin.users.index')->with('success', 'Tạo tài khoản thành công!');
     }
 
     public function edit(User $user)
@@ -94,7 +102,7 @@ class UserController extends Controller
         $user->update($request->validated());
         $user->roles()->sync($request->input('roles', []));
 
-        return redirect()->route('admin.users.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('admin.users.index')->with('success', 'Cập nhật tài khoản thành công!');
     }
 
     public function destroy(User $user)
@@ -103,7 +111,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return back();
+        return back()->with('success', 'Xóa tài khoản thành công!');
     }
 
     public function massDestroy(MassDestroyUserRequest $request)

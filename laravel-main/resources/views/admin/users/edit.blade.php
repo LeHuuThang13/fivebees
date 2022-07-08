@@ -8,7 +8,7 @@
 
 <div class="info-container d-flex flex-row">
     <div class="container px-0 py-2 bg-white" style="margin-right: 20px; border-radius: 10px">
-        <h3 class="mt-2 mx-2">Chỉnh sửa tài khoản</h3>
+        <h3 class="mt-2 mx-2">Cập nhật tài khoản</h3>
 
         <div class="container">
             <form method="POST" action="{{ route('admin.users.update', [$user->id]) }}">
@@ -38,7 +38,7 @@
                     @enderror
                 </div>
 
-                <span>Roles:</span>
+                <span>Vai trò:</span>
                 <span class="span-check-all px-2 py-1 text-white" style="cursor: pointer; background-color: #1690F8">Chọn hết</span>
                 <span class="span-remove-all px-2 py-1 text-white" style="cursor: pointer; background-color: #1690F8">Bỏ chọn</span>
                 <div class="mb-3 mt-2 px-2">
@@ -50,6 +50,10 @@
                         </label>
                     </div>
                     @endforeach
+
+                    @error('roles')
+                    <p style="color: #dc3545">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button type="submit" class="btn btn-primary px-4 pt-2">Cập nhật</button>

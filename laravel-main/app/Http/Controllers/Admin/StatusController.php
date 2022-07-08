@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Status\MassDestroyStatusRequest;
-use App\Http\Requests\Status\StoreStatusRequest;
-use App\Http\Requests\Status\UpdateStatusRequest;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\DataTables;
+
+// Request validations
+use App\Http\Requests\Status\MassDestroyStatusRequest;
+use App\Http\Requests\Status\StoreStatusRequest;
+use App\Http\Requests\Status\UpdateStatusRequest;
 
 class StatusController extends Controller
 {
@@ -29,15 +31,38 @@ class StatusController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
+                $viewGate = 'status_show';
+                $editGate = 'status_edit';
+                $deleteGate = 'status_delete';
+                $crudRouteName = 'trạng thái';
                 $crudRoutePart = 'status';
 
                 return view('components.datatableActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRouteName',
                     'crudRoutePart',
                     'row'
                 ));
             });
 
-            $table->rawColumns(['checkbox', 'actions']);
+            $table->editColumn('name', function ($row) {
+                $labels = [];
+                if ($row->name == 'Đang sử dụng') {
+                    $labels[] = sprintf('<span class="badge rounded-pill text-bg-success">%s</span>', $row->name);
+                } else if ($row->name == 'Chưa sử dụng') {
+                    $labels[] = sprintf('<span class="badge rounded-pill text-bg-warning">%s</span>', $row->name);
+                } else if ($row->name == 'Chờ sửa chữa') {
+                    $labels[] = sprintf('<span class="badge rounded-pill text-bg-danger">%s</span>', $row->name);
+                } else {
+                    $labels[] = sprintf('<span class="badge rounded-pill text-bg-secondary">%s</span>', $row->name);
+                }
+
+                return implode(' ', $labels);
+            });
+
+            $table->rawColumns(['checkbox', 'actions', 'name']);
 
             return $table->make(true);
         }
@@ -56,7 +81,7 @@ class StatusController extends Controller
     {
         $status = Status::create($request->validated());
 
-        return redirect()->route('admin.status.index');
+        return redirect()->route('admin.status.index')->with('success', 'Tạo trạng thái thành công!');
     }
 
     public function edit(Status $status)
@@ -70,7 +95,7 @@ class StatusController extends Controller
     {
         $status->update($request->validated());
 
-        return redirect()->route('admin.status.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('admin.status.index')->with('success', 'Cập nhật trạng thái thành công!');
     }
 
     public function destroy(Status $status)
@@ -79,7 +104,7 @@ class StatusController extends Controller
 
         $status->delete();
 
-        return back();
+        return back()->with('success', 'Xóa trạng thái thành công!');
     }
 
     public function massDestroy(MassDestroyStatusRequest $request)
