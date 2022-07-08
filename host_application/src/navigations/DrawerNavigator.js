@@ -9,6 +9,8 @@ import {
   HOME_NAVIGATOR,
   INTRODUCE,
   MANAGE,
+  MANAGING_BUILDING,
+  MANAGING_DEVICES,
   QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
@@ -20,6 +22,8 @@ import Managing from '../screens/Managing';
 import RoomDetails from '../screens/RoomDetails';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
+import ManagingBuilding from '../screens/ManagingBuilding';
+import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
 // import NotifNavigator from './NotificationNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
@@ -63,6 +67,16 @@ const DrawerNavigator = () => {
         name={BUILDINGDETAILS}
         options={{swipeEnabled: false}}
         component={BuildlingDetails}
+      />
+      <Drawer.Screen
+        name={MANAGING_BUILDING}
+        options={{swipeEnabled: false}}
+        component={ManagingBuilding}
+      />
+      <Drawer.Screen
+        name={MANAGING_DEVICES}
+        options={{swipeEnabled: false}}
+        component={ManagingDevices}
       />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>

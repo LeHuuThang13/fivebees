@@ -8,7 +8,6 @@ import IconPswSgv from '../../assets/icons/password_icon.svg';
 import IconShowPsw from '../../assets/icons/showPsw.svg';
 import IconHidePsw from '../../assets/icons/hidePsw.svg';
 import CustomButtomOpacityText from '../CustomButtomOpacityText';
-import FloatingCustomButton from '../FloatingCustomButton';
 
 const index = ({onChangeText, style, value}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
