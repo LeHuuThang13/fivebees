@@ -5,7 +5,7 @@ import styles from './styles';
 const Container = ({style, children}) => {
   return (
     <View style={{flex: 1}}>
-      <ScrollView contentContainerStyle={{flex: 1}}>
+      <ScrollView>
         <View style={[styles.wrapper, style, {}]}>{children}</View>
       </ScrollView>
     </View>

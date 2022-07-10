@@ -12,10 +12,10 @@ import {
   MANAGING_BUILDING,
   MANAGING_DEVICES,
   MANAGING_ROOMS,
-  QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
+  TOTAL_FIXING_DEVICES,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
@@ -29,7 +29,7 @@ import BottomTabNavigatior from './BottomTabNavigator';
 // import NotifNavigator from './NotificationNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
-import QRCode from '../screens/QRCode';
+import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingRooms from '../screens/ManagingRooms';
 
 const DrawerNavigator = () => {
@@ -86,6 +86,11 @@ const DrawerNavigator = () => {
         name={MANAGING_DEVICES}
         options={{swipeEnabled: false}}
         component={ManagingDevices}
+      />
+      <Drawer.Screen
+        name={TOTAL_FIXING_DEVICES}
+        options={{swipeEnabled: false}}
+        component={TotalFixingDevices}
       />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>
