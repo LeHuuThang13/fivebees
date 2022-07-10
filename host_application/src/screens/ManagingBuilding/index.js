@@ -8,6 +8,7 @@ import Room from '../../assets/icons/room_outline.svg';
 import {MANAGE, MANAGING_ROOMS} from '../../constants/routeNames';
 import PlusIcon from '../../assets/icons/plus_icon.svg';
 import {TouchableOpacity} from 'react-native';
+import ContainerFullScreens from '../../components/common/ContainerFullScreens';
 
 const ManagingBuilding = ({navigation}) => {
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -19,7 +20,7 @@ const ManagingBuilding = ({navigation}) => {
   });
 
   return (
-    <Container style={{backgroundColor: 'white'}}>
+    <ContainerFullScreens style={{backgroundColor: 'white'}}>
       <TouchableOpacity
         style={{
           position: 'absolute',
@@ -65,7 +66,7 @@ const ManagingBuilding = ({navigation}) => {
         titleBtn={'Quản lý phòng'}
         IconManaging={<Room />}
       />
-    </Container>
+    </ContainerFullScreens>
   );
 };
 
