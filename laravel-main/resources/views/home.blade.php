@@ -2,7 +2,7 @@
 @extends('components.sidebar')
 @extends('components.navbar')
 
-@section('title') {{ 'home' }} @endsection
+@section('title', 'Trang chủ | FiveBees')
 
 @section('content')
 
