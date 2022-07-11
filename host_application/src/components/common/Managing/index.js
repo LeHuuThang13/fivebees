@@ -29,12 +29,14 @@ const Managing = props => {
             {totalManaging}: {totalDevices}
           </Text>
         </View>
-        <View style={styles.btnRoomContainer}>
-          <TouchableOpacity style={styles.btnRoom} onPress={() => onPress()}>
-            {IconBtn && IconBtn}
-            <Text style={styles.textBtn}>{titleBtn}</Text>
-          </TouchableOpacity>
-        </View>
+        {titleBtn && (
+          <View style={styles.btnRoomContainer}>
+            <TouchableOpacity style={styles.btnRoom} onPress={() => onPress()}>
+              {IconBtn && IconBtn}
+              <Text style={styles.textBtn}>{titleBtn}</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );
