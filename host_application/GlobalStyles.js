@@ -4,4 +4,8 @@ export default StyleSheet.create({
   paddingContainer: {
     paddingHorizontal: 15,
   },
+
+  fullScreen: {
+    flex: 1,
+  },
 });
