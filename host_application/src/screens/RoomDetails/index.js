@@ -5,6 +5,8 @@ import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
 import {ROOM_LIST} from '../../constants/routeNames';
+import GlobalStyles from '../../../GlobalStyles';
+import HeaderDetails from '../../components/common/HeaderDetails';
 
 const RoomDetails = ({navigation, route}) => {
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
@@ -22,40 +24,16 @@ const RoomDetails = ({navigation, route}) => {
   };
 
   return (
-    <Container>
-      <View>
-        <View style={styles.headerRoomDetails}>
-          <View style={styles.itemHeaderContainer}>
-            <View style={styles.itemHeaderLabelBlock}>
-              <Text style={styles.itemHeaderLabel}>Tình trạng</Text>
-            </View>
-            <View style={styles.itemHeaderTextBlock}>
-              <Text style={styles.itemHeaderText}>Đang sử dụng</Text>
-            </View>
-          </View>
-          <View style={styles.itemHeaderContainer}>
-            <View style={styles.itemHeaderLabelBlock}>
-              <Text style={styles.itemHeaderLabel}>Tổng thiết bị:</Text>
-            </View>
-            <View style={styles.itemHeaderTextBlock}>
-              <Text style={styles.itemHeaderText}>10</Text>
-            </View>
-          </View>
-          <View style={styles.itemHeaderContainer}>
-            <View style={styles.itemHeaderLabelBlock}>
-              <Text style={styles.itemHeaderLabel}>Thiết bị hư hỏng:</Text>
-            </View>
-            <View style={styles.itemHeaderTextBlock}>
-              <Text style={styles.itemHeaderText}>0</Text>
-            </View>
-          </View>
-        </View>
-
-        <ScrollView>
-          <Devices />
-        </ScrollView>
-      </View>
-    </Container>
+    <View style={[styles.container, GlobalStyles.fullScreen]}>
+      <HeaderDetails
+        textTitleOne={'Tình trạng'}
+        contentTextTitleOne={'Đang sử dụng'}
+        textTitleTwo={'Tổng thiết bị'}
+        contentTextTitleTwo={10}
+        textTitleThree={'Thiết bị hư hỏng'}
+        contentTextTitleThree={0}
+      />
+    </View>
   );
 };
 
