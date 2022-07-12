@@ -41,6 +41,42 @@ const ManagingRooms = () => {
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
             />
+
+            <Room
+              roomName={'Phòng 102'}
+              status={'Đang sử dụng'}
+              totalDevices={10}
+              totalBrokenDevices={0}
+              IconDevice={DeviceIcon}
+              IconBrokenDevice={BrokenIcon}
+            />
+
+            <Room
+              roomName={'Phòng 103'}
+              status={'Đang sử dụng'}
+              totalDevices={10}
+              totalBrokenDevices={0}
+              IconDevice={DeviceIcon}
+              IconBrokenDevice={BrokenIcon}
+            />
+
+            <Room
+              roomName={'Phòng 104'}
+              status={'Đang sử dụng'}
+              totalDevices={10}
+              totalBrokenDevices={0}
+              IconDevice={DeviceIcon}
+              IconBrokenDevice={BrokenIcon}
+            />
+
+            <Room
+              roomName={'Phòng 105'}
+              status={'Đang sử dụng'}
+              totalDevices={10}
+              totalBrokenDevices={0}
+              IconDevice={DeviceIcon}
+              IconBrokenDevice={BrokenIcon}
+            />
           </View>
         </ScrollView>
       </View>

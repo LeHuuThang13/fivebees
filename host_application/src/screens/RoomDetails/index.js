@@ -7,6 +7,7 @@ import styles from './styles';
 import {ROOM_LIST} from '../../constants/routeNames';
 import GlobalStyles from '../../../GlobalStyles';
 import HeaderDetails from '../../components/common/HeaderDetails';
+import Device from '../../components/common/Device';
 
 const RoomDetails = ({navigation, route}) => {
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
@@ -33,6 +34,9 @@ const RoomDetails = ({navigation, route}) => {
         textTitleThree={'Thiết bị hư hỏng'}
         contentTextTitleThree={0}
       />
+      <ScrollView>
+        <Device />
+      </ScrollView>
     </View>
   );
 };
