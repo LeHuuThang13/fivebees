@@ -17,7 +17,7 @@ const Room = props => {
   return (
     <View style={styles.roomContainer}>
       <View style={styles.headerRoom}>
-        <Text style={[styles.headerRoomLeft, {color: 'red'}]}>{roomName}</Text>
+        <Text style={[styles.headerRoomLeft]}>{roomName}</Text>
 
         <Text style={styles.headerRoomRight}>
           <View>
