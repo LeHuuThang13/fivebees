@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../assets/themes/colors';
 
 export default StyleSheet.create({
   container: {
@@ -6,17 +7,22 @@ export default StyleSheet.create({
   },
 
   titleWrapper: {
-    width: 230,
     flexDirection: 'row',
+    marginVertical: 0,
+    marginBottom: 5,
   },
 
   title: {
     fontSize: 16,
+    color: colors.secondary,
+    fontWeight: '600',
   },
 
   textContent: {
     width: 190,
     fontSize: 16,
+    color: colors.secondary,
+    fontWeight: '600',
   },
 
   actionsWrapper: {
@@ -28,5 +34,6 @@ export default StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
+    fontWeight: '900',
   },
 });

@@ -16,7 +16,7 @@ const AnalystContainer = props => {
         onPress={() => {
           console.log('heelow');
         }}>
-        <Text>{titleNavigation}</Text>
+        <Text style={styles.titleButton}>{titleNavigation}</Text>
       </TouchableOpacity>
     </View>
   );
