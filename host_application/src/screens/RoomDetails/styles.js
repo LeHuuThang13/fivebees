@@ -2,28 +2,24 @@ import {StyleSheet} from 'react-native';
 import colors from '../../assets/themes/colors';
 
 const styles = StyleSheet.create({
-  headerRoomDetails: {
-    padding: 10,
-    borderBottomWidth: 1,
+  headerWrapper: {
+    marginTop: 10,
     borderBottomColor: colors.border_input,
+    borderBottomWidth: 1,
+    paddingBottom: 10,
   },
 
-  itemHeaderContainer: {
+  contentView: {
     flexDirection: 'row',
   },
 
-  itemHeaderLabelBlock: {
+  titleView: {
     width: 150,
   },
 
-  itemHeaderLabel: {
+  textTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
-  },
-
-  itemHeaderText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    color: colors.secondary,
   },
 });
 

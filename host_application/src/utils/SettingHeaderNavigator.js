@@ -39,12 +39,14 @@ const SettingHeaderNavigator = {
               navigate(stackNavigate);
             }}>
             <View style={[stylesHeader.leftIcon, styles]}>
-              <Icon />
+              <Text>
+                <Icon />
+              </Text>
             </View>
           </TouchableOpacity>
         ),
         headerRight: () => {
-          return (
+          return IconRight ? (
             <TouchableOpacity
               onPress={() => {
                 navigate(stackNavigate);
@@ -55,7 +57,7 @@ const SettingHeaderNavigator = {
                 </Text>
               </View>
             </TouchableOpacity>
-          );
+          ) : null;
         },
         headerTitleAlign: 'center',
         headerStyle: {

@@ -21,7 +21,7 @@
             delete
         </span>
     </button>
-
+    
     <div class="modal fade" id="exampleModal-{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

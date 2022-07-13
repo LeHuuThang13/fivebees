@@ -87,6 +87,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
+  icon: {
+    width: 18,
+    marginRight: 10,
+  },
 
   // room button
   btnRoomContainer: {
@@ -107,6 +111,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: 'bold',
     fontSize: 16,
+    width: 120,
   },
 });
 

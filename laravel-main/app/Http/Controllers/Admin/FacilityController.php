@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Http\Requests\Facility\MassDesstroyFacilityRequest;
 use App\Http\Requests\Facility\StoreFacilityRequest;
 use App\Http\Requests\Facility\UpdateFacilityRequest;
+
 use App\Models\Building;
 use App\Models\Category;
 use App\Models\Facility;
 use App\Models\Room;
 use App\Models\Status;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\DataTables;
 
@@ -199,5 +203,4 @@ class FacilityController extends Controller
             $code = Carbon::now()->format('Ymd-his') . "-" . Auth::id() . "-000" . (Facility::all()->count() + 1); // 1-0001
         }
         return $code;
-    }
 }

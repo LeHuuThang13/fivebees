@@ -3,8 +3,7 @@ import colors from '../../../assets/themes/colors';
 
 export default StyleSheet.create({
   wrapper: {
-    paddingHorizontal: 13,
+    paddingHorizontal: 15,
     backgroundColor: colors.white,
-    maxHeight: '100%',
   },
 });

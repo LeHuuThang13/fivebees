@@ -17,6 +17,13 @@ export const MANAGE = 'Quản Lý';
 
 //stack children
 export const BUILDINGDETAILS = 'Sửa Tòa Nhà';
+export const MANAGING_BUILDING = 'Quản Lý Tòa Nhà';
+export const MANAGING_DEVICES = 'Quản Lý Thiết Bị';
+export const MANAGING_ROOMS = 'Quản Lý Phòng';
+export const TOTAL_DEVICES = 'Tống Thiết bị';
+export const TOTAL_BUILDINGS = 'Tống Tòa Nhà';
+export const TOTAL_FIXING_DEVICES = 'Tống Thiết Bị Cần Sửa Chữa';
+export const TOTAL_BROKEN_DEVICES = 'Tống Thiết Bị Tổn Hại';
 
 //Navigation
 export const HOME_NAVIGATOR = 'Trang Chủ';

@@ -17,7 +17,7 @@ const Room = props => {
   return (
     <View style={styles.roomContainer}>
       <View style={styles.headerRoom}>
-        <Text style={styles.headerRoomLeft}>{roomName}</Text>
+        <Text style={[styles.headerRoomLeft]}>{roomName}</Text>
 
         <Text style={styles.headerRoomRight}>
           <View>
@@ -42,16 +42,18 @@ const Room = props => {
             Thiết bị hư hỏng: {totalBrokenDevices}
           </Text>
         </View>
-        <View style={styles.btnRoomContainer}>
-          <TouchableOpacity
-            style={styles.btnRoom}
-            onPress={() => {
-              navigation.navigate(navigationScreen);
-            }}>
-            {<IconSetting />}
-            <Text style={styles.textBtn}>Quản lý thiết bị</Text>
-          </TouchableOpacity>
-        </View>
+        {navigationScreen && (
+          <View style={styles.btnRoomContainer}>
+            <TouchableOpacity
+              style={styles.btnRoom}
+              onPress={() => {
+                navigation.navigate(navigationScreen);
+              }}>
+              {<IconSetting />}
+              <Text style={styles.textBtn}>Quản lý thiết bị</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );
