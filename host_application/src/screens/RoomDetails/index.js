@@ -15,15 +15,6 @@ const RoomDetails = ({navigation, route}) => {
     navigation: navigation,
   });
 
-  const Devices = () => {
-    return (
-      <View style={styles.deviceContainer}>
-        <Image source={require('../../assets/images/tv_samsung.jpg')} />
-        <View></View>
-      </View>
-    );
-  };
-
   return (
     <View style={[styles.container, GlobalStyles.fullScreen]}>
       <HeaderDetails
@@ -34,8 +25,19 @@ const RoomDetails = ({navigation, route}) => {
         textTitleThree={'Thiết bị hư hỏng'}
         contentTextTitleThree={0}
       />
-      <ScrollView>
-        <Device />
+      <ScrollView style={GlobalStyles.paddingContainer}>
+        <View>
+          <Device
+            urlImage={require('../../assets/images/tv_samsung.jpg')}
+            title={'Sản phẩm'}
+            name={'Smart Tivi Samsung Crystal UHD 4K 55 inch UA55AU8000KXXV/'}
+            amountTitle={'Số lượng'}
+            amount={2}
+            style={{
+              marginVertical: 12,
+            }}
+          />
+        </View>
       </ScrollView>
     </View>
   );

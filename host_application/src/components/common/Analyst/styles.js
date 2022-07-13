@@ -13,6 +13,7 @@ export default StyleSheet.create({
   titleText: {
     fontSize: 20,
     color: colors.primary,
+    fontWeight: 'bold',
   },
 
   contentBlock: {
@@ -24,6 +25,13 @@ export default StyleSheet.create({
   },
 
   content: {
-    color: 'blue',
+    color: colors.secondary,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  titleButton: {
+    color: colors.secondary,
+    fontSize: 14,
   },
 });

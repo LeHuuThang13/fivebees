@@ -1,34 +1,36 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import React from 'react';
 import styles from './styles';
 import EditIcon from '../../../assets/icons/edit.svg';
 import DeleteIcon from '../../../assets/icons/delete.svg';
 
 const Device = props => {
+  const {urlImage, title, name, amountTitle, amount, style} = props;
+
+  const WIDTH = Dimensions.get('window').width / 2 - 40;
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.imgWrapper}>
-        <Image
-          source={require('../../../assets/images/tv_samsung.jpg')}
-          width={120}
-          height={90}
-        />
+        <Image source={urlImage} width={120} height={90} />
       </View>
       <View style={styles.contentWrapper}>
         <View style={[styles.titleWrapper]}>
-          <Text style={styles.title}>Sản phẩm:</Text>
+          <Text style={styles.title}>{title}: </Text>
           <View>
-            <Text numberOfLines={1} style={styles.textContent}>
-              Smart Tivi Samsung Crystal UHD 4K 55 inch UA55AU8000KXXV
+            <Text
+              numberOfLines={1}
+              style={[styles.textContent, {width: WIDTH}]}>
+              {name}
             </Text>
           </View>
         </View>
 
         <View style={[styles.titleWrapper]}>
-          <Text style={styles.title}>Số lượng:</Text>
+          <Text style={styles.title}>{amountTitle}: </Text>
           <View>
             <Text numberOfLines={1} style={styles.textContent}>
-              2
+              {amount}
             </Text>
           </View>
         </View>
