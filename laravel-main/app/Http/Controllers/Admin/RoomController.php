@@ -9,6 +9,7 @@ use App\Http\Requests\Room\UpdateRoomRequest;
 use App\Models\Building;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,7 +77,7 @@ class RoomController extends Controller
     {
         abort_if(Gate::denies('room_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $buildings = Building::all();
+        $buildings = Building::pluck('name', 'id');
 
         return view('admin.rooms.create', compact('buildings'));
     }
@@ -99,7 +100,7 @@ class RoomController extends Controller
     {
         abort_if(Gate::denies('room_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $buildings = Building::all();
+        $buildings = Building::pluck('name', 'id');
 
         $photos = $room->getMedia('photos');
 

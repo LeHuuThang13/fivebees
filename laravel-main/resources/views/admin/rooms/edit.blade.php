@@ -6,7 +6,7 @@
 
 @section('content')
 
-<form method="POST" action="{{ route('admin.rooms.update', [$room->id]) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.rooms.update', [$room->id]) }}" enctype="multipart/form-data" id="editRoom">
     @method('PUT')
     @csrf
     <div class="info-container d-flex flex-row">
@@ -32,7 +32,7 @@
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Mô tả:</label>
-                    <textarea name="description" class="form-control" placeholder="Nhập mô tả..." id="floatingTextarea2" style="height: 200px" form="storeRoom">{{$room->description}}</textarea>
+                    <textarea name="description" class="form-control" placeholder="Nhập mô tả..." id="floatingTextarea2" style="height: 200px" form="editRoom">{{$room->description}}</textarea>
                     @error('description')
                     <p style="color: #dc3545">{{ $message }}</p>
                     @enderror
@@ -41,8 +41,8 @@
                 <div class="mb-3">
                     <label for="building_id" class="form-label">Chủ sở hữu:</label>
                     <select name="building_id" class="form-select" aria-label="Default select example" style="width: 20rem;">
-                        @foreach ($buildings as $building)
-                        <option value="{{$building->id}}" {{ (old('$building->id') ? old('$building->id') : $room->buildings->id ?? '') == $building->id ? 'selected' : '' }}>{{$building->name}}</option>
+                        @foreach ($buildings as $id => $building)
+                        <option value="{{$id}}" {{ (old('$id') ? old('$id') : $room->buildings->id ?? '') == $id ? 'selected' : '' }}>{{$building}}</option>
                         @endforeach
                     </select>
                     @error('user')

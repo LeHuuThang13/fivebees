@@ -6,7 +6,7 @@
 
 @section('content')
 
-<form method="POST" action="{{ route('admin.facilities.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.facilities.store') }}" enctype="multipart/form-data" id="storeFacility">
     @csrf
     <div class="info-container d-flex flex-row ">
         <div class="py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: fit-content(20em);">
@@ -20,11 +20,12 @@
                     <p style="color: #dc3545">{{ $message }}</p>
                     @enderror
                 </div>
-                <input name="code" type="hidden" class="form-control" value="">
+
+                <input type="hidden" name="code" value="">
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Mô tả:</label>
-                    <textarea name="description" class="form-control" placeholder="Nhập mô tả..." id="floatingTextarea2" style="height: 200px" form="storeRoom"></textarea>
+                    <textarea name="description" class="form-control" placeholder="Nhập mô tả..." id="floatingTextarea2" style="height: 200px" form="storeFacility"></textarea>
                     @error('description')
                     <p style="color: #dc3545">{{ $message }}</p>
                     @enderror
@@ -56,12 +57,13 @@
                     </div>
                 </div>
 
+                <input name="created_by_id" type="hidden" value="{{ Auth::user()->id }}">
 
                 <div id="select-room" class="mb-3">
                     <label for="room_id" class="form-label">Phòng:</label>
                     <select name="room_id" class="form-select" aria-label="Default select example" style="width: 20rem;">
-                        @foreach ($rooms as $id => $room)
-                        <option value="{{$id}}" {{ old('room') == $id ? "selected" : "" }}>{{$room}}</option>
+                        @foreach ($rooms as $room)
+                        <option value="{{$room->id}}" {{ old('room') == $room->id ? "selected" : "" }}>{{$room->room_number}} ({{$room->buildings->name}})</option>
                         @endforeach
                     </select>
                     @error('room_id')
@@ -136,7 +138,7 @@
         });
 
         $('#status').change(function() {
-            if ($('#status :selected').text() === 'Thanh lý') {
+            if ($('#status :selected').text() === 'Thanh lý' || $('#status :selected').text() === 'Chưa sử dụng') {
                 $('#select-room').val(null);
                 $('#select-room').css('display', 'none');
             } else {

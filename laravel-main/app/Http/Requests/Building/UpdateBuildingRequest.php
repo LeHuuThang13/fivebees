@@ -27,6 +27,7 @@ class UpdateBuildingRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'min: 3'
             ],
             'address' => [
                 'required',
@@ -34,6 +35,14 @@ class UpdateBuildingRequest extends FormRequest
             'user_id' => [
                 'nullable'
             ],
+            'hotline' => [
+                'required',
+                'numeric',
+            ],
+            'email' => [
+                'required',
+                'email'
+            ]
         ];
     }
 
@@ -41,8 +50,13 @@ class UpdateBuildingRequest extends FormRequest
     {
         return [
             'name.required' => "Vui lòng nhập tên của tòa nhà",
+            'name.min' => "Tên phải có ít nhất 3 ký tự",
             'address.required' => "Vui lòng nhập địa chỉ của tòa nhà",
-            'user_id' => "Chủ sở hữu không được bỏ trống"
+            'user_id' => "Chủ sở hữu không được bỏ trống",
+            'hotline.required' => "Vui lòng nhập hotline của tòa nhà",
+            'hotline.numeric' => "Hotline phải là ký tự số",
+            'email.required' => "Vui lòng nhập email liên lạc của tòa nhà",
+            'email.email' => "Email chưa đúng định dạng",
         ];
     }
 }

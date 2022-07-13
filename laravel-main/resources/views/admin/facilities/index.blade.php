@@ -108,7 +108,8 @@
                 },
                 {
                     data: 'code',
-                    name: 'code'
+                    name: 'code',
+                    className: 'text-truncate'
                 },
                 {
                     data: 'name',

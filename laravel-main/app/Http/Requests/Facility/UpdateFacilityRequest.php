@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Room;
+namespace App\Http\Requests\Facility;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class StoreRoomRequest extends FormRequest
+class UpdateFacilityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,7 @@ class StoreRoomRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows('room_create');
+        return Gate::allows('facility_edit');
     }
 
     /**
@@ -26,35 +25,35 @@ class StoreRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_number' => [
+            'name' => [
                 'required',
-            ],
-            'status' => [
-                'required',
+                'min: 3'
             ],
             'description' => [
                 'required',
             ],
-            'building_id' => [
-                'required',
+            'category_id' => [
+                'integer',
+            ],
+            'status_id' => [
+                'integer',
+            ],
+            'room_id' => [
+                'nullable',
             ],
             'filenames' => [
                 'required',
             ],
-            'created_by_id' => [
-                'integer'
-            ]
         ];
     }
 
     public function messages()
     {
         return [
-            'room_number.required' => "Vui lòng nhập số phòng",
-            'status.required' => "Vui lòng nhập trạng thái của phòng",
+            'name.required' => "Vui lòng nhập tên thiết bị",
+            'name.min' => "Tên phải có ít nhất 3 ký tự",
             'description.required' => "Vui lòng nhập mô tả",
-            'building_id.required' => "Tòa nhà không được bỏ trống",
-            'filenames.required' => "Vui lòng chọn hình ảnh"
+            'filenames.required' => "Vui lòng chọn hình ảnh",
         ];
     }
 }

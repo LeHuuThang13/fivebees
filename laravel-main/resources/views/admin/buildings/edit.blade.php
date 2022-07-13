@@ -10,7 +10,7 @@
     @method('PUT')
     @csrf
     <div class="info-container d-flex flex-row">
-        <div class="py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: 365px;">
+        <div class="py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: min-content;">
             <h3 class="mt-2 mx-2">Cập nhật nhà trọ / khách sạn</h3>
 
             <div class="container">
@@ -41,13 +41,30 @@
                     <p style="color: #dc3545">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input name="email" type="text" class="form-control" value="{{ old('email', $building->email) }}" required>
+                    @error('email')
+                    <p style="color: #dc3545">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="hotline" class="form-label">Hotline:</label>
+                    <input name="hotline" type="text" class="form-control" value="{{ old('hotline', $building->hotline) }}" required>
+                    @error('hotline')
+                    <p style="color: #dc3545">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary px-4 pt-2">Cập nhật</button>
             </div>
         </div>
 
-        <div class="px-2 py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 30%">
+        <div class="px-2 py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 30%;">
             <p class="mx-2">Hình ảnh:</p>
-            <div class="list-images">
+            <div class="list-images" style="overflow-y: auto;">
                 @foreach ($photos as $photo)
                 <div class="box-image">
                     <input type="hidden" name="filenames[]" value="{{ $photo->getUrl() }}" id="input-{{ $photo->id }}">
