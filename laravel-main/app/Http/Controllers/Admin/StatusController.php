@@ -103,7 +103,7 @@ class StatusController extends Controller
         abort_if(Gate::denies('status_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $status->delete();
-
+        
         return back()->with('success', 'Xóa trạng thái thành công!');
     }
 
