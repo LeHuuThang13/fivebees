@@ -29,6 +29,8 @@
                     @enderror
                 </div>
 
+                <input name="created_by_id" type="hidden" value="{{ Auth::user()->id }}">
+
                 <div class="mb-3">
                     <label for="description" class="form-label">Mô tả:</label>
                     <textarea name="description" class="form-control" placeholder="Nhập mô tả..." id="floatingTextarea2" style="height: 200px" form="storeRoom"></textarea>
@@ -40,8 +42,8 @@
                 <div class="mb-3">
                     <label for="building_id" class="form-label">Tòa nhà:</label>
                     <select name="building_id" class="form-select" aria-label="Default select example" style="width: 20rem;">
-                        @foreach ($buildings as $building)
-                        <option value="{{$building->id}}" {{ old('building') == $building->id ? "selected" : "" }}>{{$building->name}}</option>
+                        @foreach ($buildings as $id => $building)
+                        <option value="{{$id}}" {{ old('building') == $id ? "selected" : "" }}>{{$building}}</option>
                         @endforeach
                     </select>
                     @error('building')

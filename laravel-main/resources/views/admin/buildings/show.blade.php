@@ -18,11 +18,19 @@
                 </div>
 
                 <div class="mb-3">
-                    <p>địa chỉ: {{$building->address}}</p>
+                    <p>Địa chỉ: {{$building->address}}</p>
                 </div>
 
                 <div class="mb-3">
                     <p>Chủ sở hữu: {{$building->users->name}}</p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Email: {{$building->email}}</p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Hotline: {{$building->hotline}}</p>
                 </div>
 
                 <div class="mb-3">

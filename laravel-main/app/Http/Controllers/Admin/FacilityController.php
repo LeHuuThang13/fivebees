@@ -3,14 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\Facility\MassDesstroyFacilityRequest;
+use App\Http\Requests\Facility\StoreFacilityRequest;
+use App\Http\Requests\Facility\UpdateFacilityRequest;
+
 use App\Models\Building;
 use App\Models\Category;
 use App\Models\Facility;
 use App\Models\Room;
 use App\Models\Status;
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\DataTables;
 
@@ -82,8 +91,7 @@ class FacilityController extends Controller
     {
         abort_if(Gate::denies('facility_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $buildings = Building::where('user_id', Auth::id())->pluck('id')->toArray();
-        $rooms = Room::whereIn('building_id', $buildings)->pluck('room_number', 'id');
+        $rooms = Room::all();
 
         $categories = Category::pluck('name', 'id');
         $status = Status::pluck('name', 'id');
@@ -91,27 +99,108 @@ class FacilityController extends Controller
         return view('admin.facilities.create', compact('rooms', 'categories', 'status'));
     }
 
-    public function store(Request $request)
+    public function store(StoreFacilityRequest $request)
     {
+        $facility = Facility::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'code' => $this->generateCode($request),
+            'category_id' => $request->input('category_id'),
+            'status_id' => $request->input('status_id'),
+            'created_by_id' => $request->input('created_by_id'),
+        ]);
+
+        if ($request->hasFile('filenames')) {
+            $fileAdders = $facility->addMultipleMediaFromRequest(['filenames'])
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection('photos');
+                });
+        }
+
+        if ($request->input('status_id') == 1 || $request->input('status_id') == 3) {
+            $facility->rooms()->attach($request->room_id);
+        }
+
+        return redirect()->route('admin.facilities.index')->with('success', 'Tạo thiết bị thành công!');
     }
 
-    public function show($id)
+    public function show(Facility $facility)
     {
-        //
+        abort_if(Gate::denies('facility_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $photos = $facility->getMedia('photos');
+
+        return view('admin.facilities.show', compact('facility', 'photos'));
     }
 
-    public function edit($id)
+    public function edit(Facility $facility)
     {
-        //
+        abort_if(Gate::denies('facility_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $photos = $facility->getMedia('photos');
+
+        $rooms = Room::all();
+
+        $categories = Category::pluck('name', 'id');
+        $status = Status::pluck('name', 'id');
+
+        return view('admin.facilities.edit', compact('facility', 'photos', 'categories', 'status', 'rooms'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateFacilityRequest $request, Facility $facility)
     {
-        //
+        $facility->update($request->validated());
+
+        if ($request->input('status_id') == 1 || $request->input('status_id') == 3) {
+            $facility->rooms()->attach($request->room_id);
+        }
+
+        if ($request->hasFile('filenames')) {
+            $facility = Facility::where('id', $facility->id)->firstOrFail();
+
+            $fileAdders = $facility->addMultipleMediaFromRequest(['filenames'])
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection('photos');
+                });
+        }
+
+        return redirect()->route('admin.facilities.index')->with('success', 'Cập nhật thiết bị thành công!');
     }
 
-    public function destroy($id)
+    public function destroy(Facility $facility)
     {
-        //
+        abort_if(Gate::denies('facility_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $facility->delete();
+
+        return back()->with('success', 'Xóa thiết bị thành công!');
     }
+
+    public function massDestroy(MassDesstroyFacilityRequest $request)
+    {
+        Facility::whereIn('id', $request->id)->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function deleteMedia(Request $request)
+    {
+        $mediaTodelete = Media::where('id', $request->input('photo_id'))->first()->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function generateCode($request)
+    {
+        $code = '';
+        $count = Facility::all()->count();
+        if ($count >= 1000) {
+            $code = Carbon::now()->format('Ymd-his') . "-" . Auth::id() . "-" . (Facility::all()->count() + 1); // 1-1001
+        } else if ($count >= 100) {
+            $code = Carbon::now()->format('Ymd-his') . "-" . Auth::id() . "-0" . (Facility::all()->count() + 1); // 1-0101
+        } else if ($count >= 10) {
+            $code = Carbon::now()->format('Ymd-his') . "-" . Auth::id() . "-00" . (Facility::all()->count() + 1); // 1-0011
+        } else {
+            $code = Carbon::now()->format('Ymd-his') . "-" . Auth::id() . "-000" . (Facility::all()->count() + 1); // 1-0001
+        }
+        return $code;
 }

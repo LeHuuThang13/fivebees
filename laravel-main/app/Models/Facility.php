@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -26,8 +28,10 @@ class Facility extends Model implements HasMedia
     protected $fillable = [
         'name',
         'description',
+        'code',
         'status_id',
         'category_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -51,5 +55,19 @@ class Facility extends Model implements HasMedia
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::addGlobalScope(function (Builder $builder) {
+            $user = Auth::user();
+            if ($user) {
+                if ($user->hasRole('Owner')) {
+                    $builder->where('created_by_id', auth()->id());
+                }
+            }
+        });
     }
 }

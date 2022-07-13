@@ -9,7 +9,7 @@
 <form method="POST" action="{{ route('admin.buildings.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="info-container d-flex flex-row ">
-        <div class="py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: 365px;">
+        <div class="py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: min-content;">
             <h3 class="mt-2 mx-2">Thêm nhà trọ / khách sạn</h3>
 
             <div class="container">
@@ -40,6 +40,23 @@
                     <p style="color: #dc3545">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input name="email" type="text" class="form-control" value="{{ old('email') }}" required>
+                    @error('email')
+                    <p style="color: #dc3545">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="hotline" class="form-label">Hotline:</label>
+                    <input name="hotline" type="text" class="form-control" value="{{ old('hotline') }}" required>
+                    @error('hotline')
+                    <p style="color: #dc3545">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary px-4 pt-2">Thêm</button>
             </div>
         </div>

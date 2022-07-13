@@ -26,7 +26,7 @@ class MassDestroyBuildingRequest extends FormRequest
     {
         return [
             'id'   => 'required|array',
-            'id.*' => 'exists:categories,id',
+            'id.*' => 'exists:buildings,id',
         ];
     }
 }

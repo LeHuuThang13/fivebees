@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Room;
+namespace App\Http\Requests\Facility;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class MassDestroyRoomRequest extends FormRequest
+class MassDesstroyFacilityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class MassDestroyRoomRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows('room_delete');
+        return Gate::allows('facility_delete');
     }
 
     /**
@@ -26,7 +26,7 @@ class MassDestroyRoomRequest extends FormRequest
     {
         return [
             'id'   => 'required|array',
-            'id.*' => 'exists:rooms,id',
+            'id.*' => 'exists:facilities,id',
         ];
     }
 }
