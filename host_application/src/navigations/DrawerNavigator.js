@@ -12,6 +12,7 @@ import {
   MANAGING_BUILDING,
   MANAGING_DEVICES,
   MANAGING_ROOMS,
+  QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
@@ -23,6 +24,7 @@ import Managing from '../screens/Managing';
 import RoomDetails from '../screens/RoomDetails';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
+import QRCode from '../screens/QRCode';
 import ManagingBuilding from '../screens/ManagingBuilding';
 import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
@@ -61,6 +63,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen name={ANALYST} component={Analyst} />
       <Drawer.Screen name={MANAGE} component={Managing} />
+      <Drawer.Screen name={QRCODE} component={QRCode} />
       <Drawer.Screen name={SETTINGS} component={Settings} />
       <Drawer.Screen
         name={MANAGING_ROOMS}

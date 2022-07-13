@@ -11,7 +11,7 @@ const QRCode = () => {
   SettingHeaderNavigator.settingHeaderNavigator({
     MenuIcon: IconMenu,
     styles: {
-      marginHorizontal: -6,
+      marginHorizontal: 10,
     },
   });
 
@@ -22,22 +22,19 @@ const QRCode = () => {
   };
 
   return (
-    <Container>
+    <View style={{flex: 1}}>
       <QRCodeScanner
+        cameraContainerStyle={{
+          width: 275,
+          borderWidth: 1,
+          borderColor: 'white',
+          alignSelf: 'center',
+        }}
+        cameraStyle={{height: '100%', alignSelf: 'center'}}
         onRead={onSuccess}
-        topContent={
-          <Text>
-            Go to <Text>wikipedia.org/wiki/QR_code</Text> on your computer and
-            scan the QR code.
-          </Text>
-        }
-        bottomContent={
-          <TouchableOpacity>
-            <Text>OK. Got it!</Text>
-          </TouchableOpacity>
-        }
+        topContent={<View style={{flex: 1, backgroundColor: 'red'}}></View>}
       />
-    </Container>
+    </View>
   );
 };
 

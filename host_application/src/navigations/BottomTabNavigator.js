@@ -3,6 +3,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   ACCOUNT,
   ACCOUNT_BOTTOM,
+  NOTIFICATION,
+  NOTIFICATION_BOTTOM,
+  NOTI_BOTTOM,
   QRCODE,
   QRCODE_BOTTOM,
   ROOM_LIST,
@@ -11,9 +14,9 @@ import {
 import TabBottomMenu from './TabBottomMenu';
 import RoomIcon from '../assets/icons/room.svg';
 import RoomOutLineIcon from '../assets/icons/room_outline.svg';
-import QRCodeIcon from '../assets/icons/QRCode.svg';
-import QRCodeutLineIcon from '../assets/icons/QRCode_outline.svg';
-import QRCodeTabNavigator from './QRCodeTabNavigator';
+import BellIcon from '../assets/icons/bell.svg';
+import BellOutLineIcon from '../assets/icons/bell_outline.svg';
+import NotiTabNavigator from './NotiTabNavigator';
 import ProfileNavigator from './ProfileTabNavigator';
 import ProfileIcon from '../assets/icons/account.svg';
 import ProfileOutLineIcon from '../assets/icons/account_outline.svg';
@@ -48,17 +51,17 @@ const BottomTabNavigatior = ({navigation, route}) => {
                 nameIcon={ROOM_LIST}
               />
             );
-          } else if (route.name === QRCODE_BOTTOM) {
+          } else if (route.name === NOTIFICATION_BOTTOM) {
             return focused ? (
               <TabBottomMenu
-                svgIcon={<QRCodeIcon width={WIDTH} height={HEIGHT} />}
+                svgIcon={<BellIcon width={WIDTH} height={HEIGHT} />}
                 isFocused={focused}
-                nameIcon={QRCODE}
+                nameIcon={NOTIFICATION}
               />
             ) : (
               <TabBottomMenu
-                svgIcon={<QRCodeutLineIcon width={WIDTH} height={HEIGHT} />}
-                nameIcon={QRCODE}
+                svgIcon={<BellOutLineIcon width={WIDTH} height={HEIGHT} />}
+                nameIcon={NOTIFICATION}
               />
             );
           } else if (route.name === ACCOUNT_BOTTOM) {
@@ -85,9 +88,9 @@ const BottomTabNavigatior = ({navigation, route}) => {
         }}
       />
       <Tab.Screen
-        name={QRCODE_BOTTOM}
+        name={NOTIFICATION_BOTTOM}
         options={{headerShown: false}}
-        component={QRCodeTabNavigator}
+        component={NotiTabNavigator}
       />
       <Tab.Screen
         name={ACCOUNT_BOTTOM}
