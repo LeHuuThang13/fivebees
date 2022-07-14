@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="info-container d-flex flex-row">
-    <div class="container px-0 py-2 bg-white" style="margin-right: 20px; margin-bottom: 20px; border-radius: 10px">
+    <div class="container table-container px-0 py-2 bg-white" style="margin-right: 20px; margin-bottom: 20px; border-radius: 10px">
         <h3 class="mt-2 mx-3">Danh sách phòng</h3>
 
         <table id="rooms-table" class="table align-middle">

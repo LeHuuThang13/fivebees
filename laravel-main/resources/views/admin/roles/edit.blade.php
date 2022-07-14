@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="info-container d-flex flex-row">
-    <div class="container px-0 py-2 bg-white" style="margin-right: 20px; border-radius: 10px">
+    <div class="container px-0 py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px">
         <h3 class="mt-2 mx-2">Cập nhật vai trò</h3>
 
         <div class="container">
@@ -37,7 +37,7 @@
                             <label for="search" class="col-form-label">Tìm kiếm:</label>
                         </div>
                         <div class="col-auto">
-                            <input type="text" id="search" class="form-control" placeholder="Nhập tên permissions...">
+                            <input type="text" id="search" class="form-control" placeholder="Nhập tên quyền...">
                         </div>
                     </div>
                 </div>

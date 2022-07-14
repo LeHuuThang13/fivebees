@@ -203,4 +203,5 @@ class FacilityController extends Controller
             $code = Carbon::now()->format('Ymd-his') . "-" . Auth::id() . "-000" . (Facility::all()->count() + 1); // 1-0001
         }
         return $code;
+    }
 }

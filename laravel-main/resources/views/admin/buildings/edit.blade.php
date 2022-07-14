@@ -10,7 +10,7 @@
     @method('PUT')
     @csrf
     <div class="info-container d-flex flex-row">
-        <div class="py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: min-content;">
+        <div class="py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: min-content;">
             <h3 class="mt-2 mx-2">Cập nhật nhà trọ / khách sạn</h3>
 
             <div class="container">
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="px-2 py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 30%;">
+        <div class="px-2 py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px; width: 30%;">
             <p class="mx-2">Hình ảnh:</p>
             <div class="list-images" style="overflow-y: auto;">
                 @foreach ($photos as $photo)
