@@ -9,7 +9,7 @@
 <form method="POST" action="{{ route('admin.facilities.store') }}" enctype="multipart/form-data" id="storeFacility">
     @csrf
     <div class="info-container d-flex flex-row ">
-        <div class="py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: fit-content(20em);">
+        <div class="py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: fit-content(20em);">
             <h3 class="mt-2 mx-2">Thêm thiết bị</h3>
 
             <div class="container">
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <div class="px-2 py-2 bg-white" style="margin-right: 20px; border-radius: 10px; width: 30%">
+        <div class="px-2 py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px; width: 30%">
             <p class="mx-2">Hình ảnh:</p>
             <div class="list-images">
                 @if (isset($list_images) && !empty($list_images))

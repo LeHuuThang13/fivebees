@@ -7,7 +7,8 @@
 @section('content')
 
 <div class="info-container d-flex flex-row">
-    <div class="container px-0 py-2 bg-white" style="margin-right: 20px; border-radius: 10px">
+    <div class="container px-0 py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px">
+
         <h3 class="mt-2 mx-2">Thiết bị {{$facility->id}}</h3>
         <hr>
 
