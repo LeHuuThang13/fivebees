@@ -1,13 +1,22 @@
 import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import EditIcon from '../../../assets/icons/edit.svg';
-import DeleteIcon from '../../../assets/icons/delete.svg';
 
 const Device = props => {
-  const {urlImage, title, name, amountTitle, amount, style} = props;
+  const {
+    urlImage,
+    title,
+    name,
+    amountTitle,
+    amount,
+    style,
+    EditIcon,
+    DeleteIcon,
+    onPressEdit,
+    onPressDelete,
+  } = props;
 
-  const WIDTH = Dimensions.get('window').width / 2 - 40;
+  const WIDTH = Dimensions.get('window').width / 2 - 50;
 
   return (
     <View style={[styles.container, style]}>
@@ -36,11 +45,15 @@ const Device = props => {
         </View>
 
         <View style={styles.actionsWrapper}>
-          <TouchableOpacity style={styles.actionBtn}>
-            <EditIcon />
+          <TouchableOpacity
+            style={styles.actionBtn}
+            onPress={() => onPressEdit()}>
+            {EditIcon}
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn}>
-            <DeleteIcon />
+          <TouchableOpacity
+            style={styles.actionBtn}
+            onPress={() => onPressDelete()}>
+            {DeleteIcon}
           </TouchableOpacity>
         </View>
       </View>
