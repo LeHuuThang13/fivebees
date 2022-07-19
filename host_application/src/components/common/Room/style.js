@@ -107,6 +107,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+
+  actionsContainer: {
+    flexDirection: 'row',
+  },
+
+  firstIcon: {},
+
+  iconButton: {
+    width: 30,
+  },
 });
 
 export default styles;

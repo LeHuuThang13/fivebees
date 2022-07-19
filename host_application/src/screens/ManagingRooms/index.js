@@ -2,11 +2,12 @@ import React from 'react';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import {MANAGING_BUILDING} from '../../constants/routeNames';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
 import DeviceIcon from '../../assets/icons/device.svg';
 import BrokenIcon from '../../assets/icons/broken.svg';
+import PlusIcon from '../../assets/icons/plus_icon.svg';
 import Room from '../../components/common/Room';
 
 const ManagingRooms = () => {
@@ -19,13 +20,23 @@ const ManagingRooms = () => {
   });
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          right: 20,
+          bottom: 20,
+          padding: 0,
+          zIndex: 3,
+        }}>
+        <PlusIcon />
+      </TouchableOpacity>
       <View style={styles.header}>
         <View style={[styles.wrapper, GlobalStyles.paddingContainer]}>
           <View>
-            <Text>Tòa nhà: A</Text>
+            <Text style={styles.textContentHeader}>Tòa nhà: A</Text>
           </View>
           <View>
-            <Text>Tổng số phòng: 10</Text>
+            <Text style={styles.textContentHeader}>Tổng số phòng: 10</Text>
           </View>
         </View>
       </View>
@@ -39,6 +50,7 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
+              actions={true}
             />
 
             <Room
@@ -48,6 +60,7 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
+              actions={true}
             />
 
             <Room
@@ -57,6 +70,7 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
+              actions={true}
             />
 
             <Room
@@ -66,6 +80,7 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
+              actions={true}
             />
 
             <Room
@@ -75,6 +90,7 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
+              actions={true}
             />
           </View>
         </ScrollView>
