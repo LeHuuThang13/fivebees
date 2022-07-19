@@ -35,43 +35,44 @@ const RoomList = ({navigation}) => {
   });
 
   return (
-      <Container>
-        {/* Selecting options */}
-        <View>
-          <View style={[styles.selectOptionSection, styles.stylesText]}>
-            <TouchableOpacity
-              style={styles.opacityBtn}
-              onPress={() => changeModelVisible(true)}>
-              <Text style={[styles.textSelectColor, styles.stylesText]}>
-                {chooseBuilding}
-              </Text>
-              <ArrowDown />
-            </TouchableOpacity>
-          </View>
-          <Modal
-            transparent={true}
-            animationType="none"
-            visible={isModalVisible}
-            onRequestClose={() => changeModelVisible(false)}>
-            <BuildingOptions
-              changeModelVisible={changeModelVisible}
-              setData={setData}
-            />
-          </Modal>
+    <Container>
+      {/* Selecting options */}
+      <View>
+        <View style={[styles.selectOptionSection, styles.stylesText]}>
+          <TouchableOpacity
+            style={styles.opacityBtn}
+            onPress={() => changeModelVisible(true)}>
+            <Text style={[styles.textSelectColor, styles.stylesText]}>
+              {chooseBuilding}
+            </Text>
+            <ArrowDown />
+          </TouchableOpacity>
         </View>
+        <Modal
+          transparent={true}
+          animationType="none"
+          visible={isModalVisible}
+          onRequestClose={() => changeModelVisible(false)}>
+          <BuildingOptions
+            changeModelVisible={changeModelVisible}
+            setData={setData}
+          />
+        </Modal>
+      </View>
 
-        <Room
-          roomName={'Phòng 101'}
-          status={'Đang sử dụng'}
-          totalDevices={10}
-          totalBrokenDevices={0}
-          navigationScreen={ROOMDETAILS}
-          IconDevice={Device}
-          IconBrokenDevice={BrokenDevice}
-          IconSetting={Setting}
-          navigation={navigation}
-        />
-      </Container>
+      <Room
+        roomName={'Phòng 101'}
+        status={'Đang sử dụng'}
+        totalDevices={10}
+        totalBrokenDevices={0}
+        IconDevice={Device}
+        IconBrokenDevice={BrokenDevice}
+        IconSetting={Setting}
+        onPress={() => {
+          navigation.navigate(ROOMDETAILS);
+        }}
+      />
+    </Container>
   );
 };
 
