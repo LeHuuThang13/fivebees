@@ -1,6 +1,8 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from './style';
+import DeleteIcon from '../../../assets/icons/delete.svg';
+import EditIcon from '../../../assets/icons/edit.svg';
 
 const Room = props => {
   const {
@@ -13,7 +15,22 @@ const Room = props => {
     IconBrokenDevice,
     IconSetting,
     navigation,
+    actions,
   } = props;
+
+  const actionRoom = props => {
+    return (
+      <View style={styles.actionsContainer}>
+        <TouchableOpacity style={[styles.firstIcon, styles.iconButton]}>
+          <DeleteIcon />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.iconButton]}>
+          <EditIcon />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.roomContainer}>
       <View style={styles.headerRoom}>
@@ -42,6 +59,7 @@ const Room = props => {
             Thiết bị hư hỏng: {totalBrokenDevices}
           </Text>
         </View>
+        {actions && actionRoom()}
         {navigationScreen && (
           <View style={styles.btnRoomContainer}>
             <TouchableOpacity
