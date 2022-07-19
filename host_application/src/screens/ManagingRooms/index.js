@@ -1,7 +1,7 @@
 import React from 'react';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
-import {MANAGING_BUILDING} from '../../constants/routeNames';
+import {CREATING_ROOM, MANAGING_BUILDING} from '../../constants/routeNames';
 import {ScrollView, View} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
@@ -11,7 +11,8 @@ import Room from '../../components/common/Room';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 import CustomHeaderDetails from '../../components/CustomHeaderDetails';
 
-const ManagingRooms = () => {
+const ManagingRooms = ({navigation}) => {
+  console.log(navigation);
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     styles: {
@@ -21,8 +22,15 @@ const ManagingRooms = () => {
   });
   return (
     <View style={styles.container}>
-      <CustomCreatingButton />
-      <CustomHeaderDetails />
+      <CustomCreatingButton
+        onPress={() => {
+          navigation.navigate(CREATING_ROOM);
+        }}
+      />
+      <CustomHeaderDetails
+        firstText={'Tòa nhà: A'}
+        secondText={'Tổng số phòng: 12'}
+      />
       <View style={styles.body}>
         <ScrollView style={GlobalStyles.paddingContainer}>
           <View>
@@ -33,7 +41,14 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
-              actions={true}
+              actions={{
+                edit: () => {
+                  console.log('edit');
+                },
+                delete: () => {
+                  console.log('delete');
+                },
+              }}
             />
 
             <Room

@@ -18,8 +18,10 @@ const CustomHeaderDetails = props => {
   return (
     <View style={styles.header}>
       <View style={[styles.wrapper, GlobalStyles.paddingContainer]}>
-        <TextContentHeader text={'Tòa nhà: A'} />
-        <TextContentHeader text={'Tổng số phòng: 12'} />
+        <TextContentHeader text={firstText} />
+        <TextContentHeader text={secondText} />
+        {thirdText && <TextContentHeader text={thirdText} />}
+        {fouthText && <TextContentHeader text={fouthText} />}
       </View>
     </View>
   );

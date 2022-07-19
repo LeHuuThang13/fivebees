@@ -21,10 +21,14 @@ const Room = props => {
   const actionRoom = props => {
     return (
       <View style={styles.actionsContainer}>
-        <TouchableOpacity style={[styles.firstIcon, styles.iconButton]}>
+        <TouchableOpacity
+          style={[styles.firstIcon, styles.iconButton]}
+          onPress={() => actions.delete()}>
           <DeleteIcon />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.iconButton]}>
+        <TouchableOpacity
+          style={[styles.iconButton]}
+          onPress={() => actions.edit()}>
           <EditIcon />
         </TouchableOpacity>
       </View>
