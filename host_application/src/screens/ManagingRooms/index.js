@@ -2,13 +2,14 @@ import React from 'react';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import {MANAGING_BUILDING} from '../../constants/routeNames';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
 import DeviceIcon from '../../assets/icons/device.svg';
 import BrokenIcon from '../../assets/icons/broken.svg';
-import PlusIcon from '../../assets/icons/plus_icon.svg';
 import Room from '../../components/common/Room';
+import CustomCreatingButton from '../../components/CustomCreatingButton';
+import CustomHeaderDetails from '../../components/CustomHeaderDetails';
 
 const ManagingRooms = () => {
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -20,26 +21,8 @@ const ManagingRooms = () => {
   });
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{
-          position: 'absolute',
-          right: 20,
-          bottom: 20,
-          padding: 0,
-          zIndex: 3,
-        }}>
-        <PlusIcon />
-      </TouchableOpacity>
-      <View style={styles.header}>
-        <View style={[styles.wrapper, GlobalStyles.paddingContainer]}>
-          <View>
-            <Text style={styles.textContentHeader}>Tòa nhà: A</Text>
-          </View>
-          <View>
-            <Text style={styles.textContentHeader}>Tổng số phòng: 10</Text>
-          </View>
-        </View>
-      </View>
+      <CustomCreatingButton />
+      <CustomHeaderDetails />
       <View style={styles.body}>
         <ScrollView style={GlobalStyles.paddingContainer}>
           <View>
