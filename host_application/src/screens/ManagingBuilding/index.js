@@ -8,7 +8,6 @@ import Room from '../../assets/icons/room_outline.svg';
 import {MANAGE, MANAGING_ROOMS} from '../../constants/routeNames';
 import PlusIcon from '../../assets/icons/plus_icon.svg';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
-import ContainerFullScreens from '../../components/common/ContainerFullScreens';
 
 const ManagingBuilding = ({navigation}) => {
   SettingHeaderNavigator.settingChildHeaderNavigator({

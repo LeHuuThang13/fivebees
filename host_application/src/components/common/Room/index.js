@@ -10,26 +10,25 @@ const Room = props => {
     status,
     totalDevices,
     totalBrokenDevices,
-    navigationScreen,
     IconDevice,
     IconBrokenDevice,
     IconSetting,
-    navigation,
     actions,
+    onPress,
   } = props;
 
-  const actionRoom = props => {
+  const actionRoom = () => {
     return (
-      <View style={styles.actionsContainer}>
-        <TouchableOpacity
-          style={[styles.firstIcon, styles.iconButton]}
-          onPress={() => actions.delete()}>
-          <DeleteIcon />
-        </TouchableOpacity>
+      <View style={styles.actionsWrapper}>
         <TouchableOpacity
           style={[styles.iconButton]}
           onPress={() => actions.edit()}>
           <EditIcon />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.firstIcon, styles.iconButton]}
+          onPress={() => actions.delete()}>
+          <DeleteIcon />
         </TouchableOpacity>
       </View>
     );
@@ -63,19 +62,23 @@ const Room = props => {
             Thiết bị hư hỏng: {totalBrokenDevices}
           </Text>
         </View>
-        {actions && actionRoom()}
-        {navigationScreen && (
-          <View style={styles.btnRoomContainer}>
-            <TouchableOpacity
-              style={styles.btnRoom}
-              onPress={() => {
-                navigation.navigate(navigationScreen);
-              }}>
-              {<IconSetting />}
-              <Text style={styles.textBtn}>Quản lý thiết bị</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        <View
+          style={[
+            styles.actionsContainer,
+            {flexDirection: actions ? 'row' : 'row-reverse'},
+          ]}>
+          {actions && actionRoom()}
+          {onPress && (
+            <View style={styles.btnRoomContainer}>
+              <TouchableOpacity
+                style={styles.btnRoom}
+                onPress={() => onPress()}>
+                {<IconSetting />}
+                <Text style={styles.textBtn}>Quản lý thiết bị</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );

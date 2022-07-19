@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  actionsContainer: {
+  actionsWrapper: {
     flexDirection: 'row',
   },
 
@@ -116,6 +116,11 @@ const styles = StyleSheet.create({
 
   iconButton: {
     width: 30,
+  },
+
+  actionsContainer: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

@@ -1,7 +1,11 @@
 import React from 'react';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
-import {CREATING_ROOM, MANAGING_BUILDING} from '../../constants/routeNames';
+import {
+  CREATING_ROOM,
+  MANAGING_BUILDING,
+  ROOMDETAILS,
+} from '../../constants/routeNames';
 import {ScrollView, View} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
@@ -10,6 +14,7 @@ import BrokenIcon from '../../assets/icons/broken.svg';
 import Room from '../../components/common/Room';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 import CustomHeaderDetails from '../../components/CustomHeaderDetails';
+import Setting from '../../assets/icons/setting_white.svg';
 
 const ManagingRooms = ({navigation}) => {
   console.log(navigation);
@@ -35,12 +40,36 @@ const ManagingRooms = ({navigation}) => {
         <ScrollView style={GlobalStyles.paddingContainer}>
           <View>
             <Room
+              roomName={'Phòng 102'}
+              status={'Đang sử dụng'}
+              totalDevices={10}
+              totalBrokenDevices={0}
+              IconDevice={DeviceIcon}
+              IconBrokenDevice={BrokenIcon}
+              IconSetting={Setting}
+              actions={{
+                edit: () => {
+                  console.log('edit');
+                },
+                delete: () => {
+                  console.log('delete');
+                },
+              }}
+              onPress={() => {
+                navigation.navigate(ROOMDETAILS);
+              }}
+            />
+            <Room
               roomName={'Phòng 101'}
               status={'Đang sử dụng'}
               totalDevices={10}
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
+              IconSetting={Setting}
+              onPress={() => {
+                navigation.navigate(ROOMDETAILS);
+              }}
               actions={{
                 edit: () => {
                   console.log('edit');
@@ -53,36 +82,6 @@ const ManagingRooms = ({navigation}) => {
 
             <Room
               roomName={'Phòng 102'}
-              status={'Đang sử dụng'}
-              totalDevices={10}
-              totalBrokenDevices={0}
-              IconDevice={DeviceIcon}
-              IconBrokenDevice={BrokenIcon}
-              actions={true}
-            />
-
-            <Room
-              roomName={'Phòng 103'}
-              status={'Đang sử dụng'}
-              totalDevices={10}
-              totalBrokenDevices={0}
-              IconDevice={DeviceIcon}
-              IconBrokenDevice={BrokenIcon}
-              actions={true}
-            />
-
-            <Room
-              roomName={'Phòng 104'}
-              status={'Đang sử dụng'}
-              totalDevices={10}
-              totalBrokenDevices={0}
-              IconDevice={DeviceIcon}
-              IconBrokenDevice={BrokenIcon}
-              actions={true}
-            />
-
-            <Room
-              roomName={'Phòng 105'}
               status={'Đang sử dụng'}
               totalDevices={10}
               totalBrokenDevices={0}
