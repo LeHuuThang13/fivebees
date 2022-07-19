@@ -6,6 +6,7 @@ import colors from '../assets/themes/colors';
 import {
   ANALYST,
   BUILDINGDETAILS,
+  CREATING_ROOM,
   EDITING_DEVICE,
   HOME_NAVIGATOR,
   INTRODUCE,
@@ -35,6 +36,7 @@ import SideMenu from './SideMenu';
 import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingRooms from '../screens/ManagingRooms';
 import EditingDevice from '../screens/EditingDevice';
+import CreatingRoom from '../screens/CreatingRoom';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -101,6 +103,11 @@ const DrawerNavigator = () => {
         name={TOTAL_FIXING_DEVICES}
         options={{swipeEnabled: false}}
         component={TotalFixingDevices}
+      />
+      <Drawer.Screen
+        name={CREATING_ROOM}
+        options={{swipeEnabled: false}}
+        component={CreatingRoom}
       />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>

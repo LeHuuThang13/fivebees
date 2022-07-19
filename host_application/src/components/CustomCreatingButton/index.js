@@ -3,8 +3,11 @@ import React from 'react';
 import PlusIcon from '../../assets/icons/plus_icon.svg';
 
 const CustomCreatingButton = props => {
+  const {onPress} = props;
+
   return (
     <TouchableOpacity
+      onPress={() => onPress()}
       style={{
         position: 'absolute',
         right: 20,
