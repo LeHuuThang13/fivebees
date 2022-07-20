@@ -4,11 +4,13 @@ use App\Http\Controllers\Admin\BuildingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UtilityController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,4 +62,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::delete('facilities/destroy', [FacilityController::class, 'massDestroy'])->name('facilities.massDestroy');
     Route::post('facilities/photo', [FacilityController::class, 'deleteMedia'])->name('facilities.deleteMedia');
     Route::resource('facilities', FacilityController::class);
+
+    Route::get('utilities/{id}/print', [UtilityController::class, 'print'])->name('utilities.print');
+    Route::resource('utilities', UtilityController::class);
 });

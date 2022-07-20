@@ -41,9 +41,6 @@ class UpdateFacilityRequest extends FormRequest
             'room_id' => [
                 'nullable',
             ],
-            'filenames' => [
-                'required',
-            ],
         ];
     }
 
@@ -53,7 +50,6 @@ class UpdateFacilityRequest extends FormRequest
             'name.required' => "Vui lòng nhập tên thiết bị",
             'name.min' => "Tên phải có ít nhất 3 ký tự",
             'description.required' => "Vui lòng nhập mô tả",
-            'filenames.required' => "Vui lòng chọn hình ảnh",
         ];
     }
 }

@@ -22,11 +22,12 @@
                 </tr>
             </thead>
         </table>
-
+        @role('Admin')
         <button class="btn btn-danger btn-remove-all mb-2" style="margin-left: 18px;">Xóa tất cả</button>
         <a class="btn btn-primary mb-2" href="{{route('admin.status.create')}}">
             Thêm tình trạng
         </a>
+        @endrole
     </div>
 </div>
 

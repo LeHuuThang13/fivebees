@@ -30,14 +30,6 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Mật khẩu:</label>
-                    <input name="password" type="text" class="form-control" value="{{ old('password') }}">
-                    @error('password')
-                    <p style="color: #dc3545">{{ $message }}</p>
-                    @enderror
-                </div>
-
                 <span>Vai trò:</span>
                 <span class="span-check-all px-2 py-1 text-white" style="cursor: pointer; background-color: #1690F8">Chọn hết</span>
                 <span class="span-remove-all px-2 py-1 text-white" style="cursor: pointer; background-color: #1690F8">Bỏ chọn</span>

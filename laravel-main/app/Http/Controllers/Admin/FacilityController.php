@@ -8,7 +8,6 @@ use App\Http\Requests\Facility\MassDesstroyFacilityRequest;
 use App\Http\Requests\Facility\StoreFacilityRequest;
 use App\Http\Requests\Facility\UpdateFacilityRequest;
 
-use App\Models\Building;
 use App\Models\Category;
 use App\Models\Facility;
 use App\Models\Room;
@@ -152,7 +151,7 @@ class FacilityController extends Controller
         $facility->update($request->validated());
 
         if ($request->input('status_id') == 1 || $request->input('status_id') == 3) {
-            $facility->rooms()->attach($request->room_id);
+            $facility->rooms()->sync($request->room_id);
         }
 
         if ($request->hasFile('filenames')) {

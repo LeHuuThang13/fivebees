@@ -2,13 +2,13 @@
 @extends('components.sidebar')
 @extends('components.navbar')
 
-@section('title', 'Nhà trọ / khách sạn | FiveBees')
+@section('title', 'Nhà trọ | FiveBees')
 
 @section('content')
 
 <div class="info-container d-flex flex-row">
     <div class="container table-container px-0 py-2 bg-white" style="margin-right: 20px; margin-bottom: 20px; border-radius: 10px">
-        <h3 class="mt-2 mx-3">Danh sách nhà trọ / khách sạn</h3>
+        <h3 class="mt-2 mx-3">Danh sách nhà trọ</h3>
 
         <table id="buildings-table" class="table align-middle">
             <thead style="background-color: #F5F9FC;">
@@ -28,7 +28,7 @@
 
         <button class="btn btn-danger btn-remove-all mb-2" style="margin-left: 18px;">Xóa tất cả</button>
         <a class="btn btn-primary mb-2" href="{{route('admin.buildings.create')}}">
-            Thêm nhà trọ / khách sạn
+            Thêm nhà trọ
         </a>
     </div>
 </div>

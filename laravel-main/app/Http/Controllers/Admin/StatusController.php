@@ -49,11 +49,11 @@ class StatusController extends Controller
 
             $table->editColumn('name', function ($row) {
                 $labels = [];
-                if ($row->name == 'Đang sử dụng') {
+                if ($row->id == 1) {
                     $labels[] = sprintf('<span class="badge rounded-pill text-bg-success">%s</span>', $row->name);
-                } else if ($row->name == 'Chưa sử dụng') {
+                } else if ($row->id == 2) {
                     $labels[] = sprintf('<span class="badge rounded-pill text-bg-warning">%s</span>', $row->name);
-                } else if ($row->name == 'Chờ sửa chữa') {
+                } else if ($row->id == 3) {
                     $labels[] = sprintf('<span class="badge rounded-pill text-bg-danger">%s</span>', $row->name);
                 } else {
                     $labels[] = sprintf('<span class="badge rounded-pill text-bg-secondary">%s</span>', $row->name);
@@ -103,7 +103,7 @@ class StatusController extends Controller
         abort_if(Gate::denies('status_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $status->delete();
-        
+
         return back()->with('success', 'Xóa trạng thái thành công!');
     }
 

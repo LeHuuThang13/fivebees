@@ -18,16 +18,4 @@ class AddRelationshipToFacilitiesTable extends Migration
             $table->foreign('created_by_id')->references('id')->on('users');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('facilities', function (Blueprint $table) {
-            //
-        });
-    }
 }

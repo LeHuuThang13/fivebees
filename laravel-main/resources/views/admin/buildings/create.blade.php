@@ -30,18 +30,6 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="user" class="form-label">Chủ sở hữu:</label>
-                    <select name="user_id" class="form-select" aria-label="Default select example" style="width: 20rem;">
-                        @foreach ($users as $user)
-                        <option value="{{$user->id}}" {{ old('user') == $user->id ? "selected" : "" }}>{{$user->name}}</option>
-                        @endforeach
-                    </select>
-                    @error('user')
-                    <p style="color: #dc3545">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
                     <input name="email" type="text" class="form-control" value="{{ old('email') }}" required>
                     @error('email')
@@ -56,6 +44,22 @@
                     <p style="color: #dc3545">{{ $message }}</p>
                     @enderror
                 </div>
+
+                @role('Admin')
+                <div class="mb-3">
+                    <label for="user" class="form-label">Chủ sở hữu:</label>
+                    <select name="user_id" class="form-select" aria-label="Default select example" style="width: 20rem;">
+                        @foreach ($users as $user)
+                        <option value="{{$user->id}}" {{ old('user') == $user->id ? "selected" : "" }}>{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('user')
+                    <p style="color: #dc3545">{{ $message }}</p>
+                    @enderror
+                </div>
+                @else
+                <input name="user_id" type="hidden" class="form-control" value="{{ Auth::user()->id }}" disabled>
+                @endrole
 
                 <button type="submit" class="btn btn-primary px-4 pt-2">Thêm</button>
             </div>
