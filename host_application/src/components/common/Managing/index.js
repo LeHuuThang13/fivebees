@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import MorePopupMenu from '../MorePopupMenu';
 import styles from './styles';
 
 const Managing = props => {

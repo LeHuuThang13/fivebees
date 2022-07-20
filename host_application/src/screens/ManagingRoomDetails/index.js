@@ -9,13 +9,13 @@ import HeaderDetails from '../../components/common/HeaderDetails';
 import Device from '../../components/common/Device';
 import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
-import {EDITING_DEVICE, ROOM_LIST} from '../../constants/routeNames';
+import {EDITING_DEVICE, MANAGING_ROOMS} from '../../constants/routeNames';
 
-const RoomDetails = ({navigation}) => {
+const ManagingRoomDetails = ({navigation}) => {
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
     Icon: PreviousIcon,
     previousBtn: () => {
-      navigation.navigate(ROOM_LIST);
+      navigation.navigate(MANAGING_ROOMS);
     },
   });
 
@@ -55,4 +55,4 @@ const RoomDetails = ({navigation}) => {
   );
 };
 
-export default RoomDetails;
+export default ManagingRoomDetails;

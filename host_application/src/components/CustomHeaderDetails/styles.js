@@ -11,10 +11,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 
-  body: {
-    flex: 1,
-  },
-
   textContentHeader: {
     fontSize: 15,
     fontWeight: '600',

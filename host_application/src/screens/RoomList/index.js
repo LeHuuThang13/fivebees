@@ -14,6 +14,7 @@ import {ROOMDETAILS} from '../../constants/routeNames';
 import Room from '../../components/common/Room';
 import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
+import axios from 'axios';
 
 const RoomList = ({navigation}) => {
   const [chooseBuilding, setChooseBuilding] = useState('Tòa A');
@@ -34,44 +35,59 @@ const RoomList = ({navigation}) => {
     },
   });
 
-  return (
-      <Container>
-        {/* Selecting options */}
-        <View>
-          <View style={[styles.selectOptionSection, styles.stylesText]}>
-            <TouchableOpacity
-              style={styles.opacityBtn}
-              onPress={() => changeModelVisible(true)}>
-              <Text style={[styles.textSelectColor, styles.stylesText]}>
-                {chooseBuilding}
-              </Text>
-              <ArrowDown />
-            </TouchableOpacity>
-          </View>
-          <Modal
-            transparent={true}
-            animationType="none"
-            visible={isModalVisible}
-            onRequestClose={() => changeModelVisible(false)}>
-            <BuildingOptions
-              changeModelVisible={changeModelVisible}
-              setData={setData}
-            />
-          </Modal>
-        </View>
+  const fetchApi = async () => {
+    try {
+      const res = await axios.get('http://192.168.1.5:8000/api/test');
+      console.log('res ', res.data);
+    } catch (error) {
+      console.log('error', error.message);
+      console.log('failed rùi');
+    }
+  };
 
-        <Room
-          roomName={'Phòng 101'}
-          status={'Đang sử dụng'}
-          totalDevices={10}
-          totalBrokenDevices={0}
-          navigationScreen={ROOMDETAILS}
-          IconDevice={Device}
-          IconBrokenDevice={BrokenDevice}
-          IconSetting={Setting}
-          navigation={navigation}
-        />
-      </Container>
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  return (
+    <Container>
+      {/* Selecting options */}
+      <View>
+        <View style={[styles.selectOptionSection, styles.stylesText]}>
+          <TouchableOpacity
+            style={styles.opacityBtn}
+            onPress={() => changeModelVisible(true)}>
+            <Text style={[styles.textSelectColor, styles.stylesText]}>
+              {chooseBuilding}
+            </Text>
+            <ArrowDown />
+          </TouchableOpacity>
+        </View>
+        <Modal
+          transparent={true}
+          animationType="none"
+          visible={isModalVisible}
+          onRequestClose={() => changeModelVisible(false)}>
+          <BuildingOptions
+            changeModelVisible={changeModelVisible}
+            setData={setData}
+          />
+        </Modal>
+      </View>
+
+      <Room
+        roomName={'Phòng 101'}
+        status={'Đang sử dụng'}
+        totalDevices={10}
+        totalBrokenDevices={0}
+        IconDevice={Device}
+        IconBrokenDevice={BrokenDevice}
+        IconSetting={Setting}
+        onPress={() => {
+          navigation.navigate(ROOMDETAILS);
+        }}
+      />
+    </Container>
   );
 };
 

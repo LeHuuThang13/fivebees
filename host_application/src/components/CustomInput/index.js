@@ -13,7 +13,7 @@ const CustomInput = props => {
       <TextInput
         style={styles.textInput}
         placeholder={placeholder}
-        value={value.toString()}
+        value={value ? value.toString() : ''}
       />
     </View>
   );
