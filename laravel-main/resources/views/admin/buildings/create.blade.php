@@ -10,6 +10,7 @@
     @csrf
     <div class="info-container d-flex flex-row ">
         <div class="py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: min-content;">
+        
             <h3 class="mt-2 mx-2">Thêm nhà trọ / khách sạn</h3>
 
             <div class="container">

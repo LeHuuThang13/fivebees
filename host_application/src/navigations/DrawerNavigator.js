@@ -6,12 +6,14 @@ import colors from '../assets/themes/colors';
 import {
   ANALYST,
   BUILDINGDETAILS,
+  EDITING_DEVICE,
   HOME_NAVIGATOR,
   INTRODUCE,
   MANAGE,
   MANAGING_BUILDING,
   MANAGING_DEVICES,
   MANAGING_ROOMS,
+  QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
@@ -23,6 +25,7 @@ import Managing from '../screens/Managing';
 import RoomDetails from '../screens/RoomDetails';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
+import QRCode from '../screens/QRCode';
 import ManagingBuilding from '../screens/ManagingBuilding';
 import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
@@ -31,6 +34,7 @@ import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
 import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingRooms from '../screens/ManagingRooms';
+import EditingDevice from '../screens/EditingDevice';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -61,11 +65,17 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen name={ANALYST} component={Analyst} />
       <Drawer.Screen name={MANAGE} component={Managing} />
+      <Drawer.Screen name={QRCODE} component={QRCode} />
       <Drawer.Screen name={SETTINGS} component={Settings} />
       <Drawer.Screen
         name={MANAGING_ROOMS}
         options={{swipeEnabled: false}}
         component={ManagingRooms}
+      />
+      <Drawer.Screen
+        name={EDITING_DEVICE}
+        options={{swipeEnabled: false}}
+        component={EditingDevice}
       />
       <Drawer.Screen
         name={ROOMDETAILS}

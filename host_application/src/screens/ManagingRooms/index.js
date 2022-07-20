@@ -1,11 +1,10 @@
 import React from 'react';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
-import {MANAGE, MANAGING_BUILDING} from '../../constants/routeNames';
+import {MANAGING_BUILDING} from '../../constants/routeNames';
 import {ScrollView, Text, View} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
-import ManagingContainer from '../../components/common/Managing';
 import DeviceIcon from '../../assets/icons/device.svg';
 import BrokenIcon from '../../assets/icons/broken.svg';
 import Room from '../../components/common/Room';

@@ -12,6 +12,10 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
 
+  contentWrapper: {
+    marginLeft: 10,
+  },
+
   title: {
     fontSize: 16,
     color: colors.secondary,

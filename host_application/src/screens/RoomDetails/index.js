@@ -4,12 +4,14 @@ import Container from '../../components/common/Container';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
-import {ROOM_LIST} from '../../constants/routeNames';
 import GlobalStyles from '../../../GlobalStyles';
 import HeaderDetails from '../../components/common/HeaderDetails';
 import Device from '../../components/common/Device';
+import DeleteIcon from '../../assets/icons/delete.svg';
+import EditIcon from '../../assets/icons/edit.svg';
+import {EDITING_DEVICE} from '../../constants/routeNames';
 
-const RoomDetails = ({navigation, route}) => {
+const RoomDetails = ({navigation}) => {
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
     Icon: PreviousIcon,
     navigation: navigation,
@@ -35,6 +37,14 @@ const RoomDetails = ({navigation, route}) => {
             amount={2}
             style={{
               marginVertical: 12,
+            }}
+            DeleteIcon={<DeleteIcon />}
+            EditIcon={<EditIcon />}
+            onPressEdit={() => {
+              navigation.navigate(EDITING_DEVICE);
+            }}
+            onPressDelete={() => {
+              console.log('hello');
             }}
           />
         </View>

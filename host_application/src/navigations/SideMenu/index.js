@@ -4,14 +4,12 @@ import Container from '../../components/common/Container';
 import ImgHeaderSidebarMenu from '../../assets/images/Header_bg_sidebar.svg';
 import styles from './styles';
 import {
-  ACCOUNT,
   ANALYST,
   HOME_NAVIGATOR,
   INTRODUCE,
   LOGOUT,
   MANAGE,
   QRCODE,
-  ROOM_LIST,
   SETTINGS,
 } from '../../constants/routeNames';
 
@@ -37,6 +35,13 @@ const SideMenu = ({navigation}) => {
       name: 'Thống Kê',
       onPress: () => {
         navigation.navigate(ANALYST);
+      },
+    },
+    {
+      icon: <QRCodeIcon />,
+      name: 'QRCode',
+      onPress: () => {
+        navigation.navigate(QRCODE);
       },
     },
     {
