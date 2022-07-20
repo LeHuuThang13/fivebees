@@ -4,6 +4,7 @@ import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import {
   CREATING_ROOM,
   MANAGING_BUILDING,
+  MANAGING_ROOM_DETAILS,
   ROOMDETAILS,
 } from '../../constants/routeNames';
 import {ScrollView, View} from 'react-native';
@@ -56,7 +57,7 @@ const ManagingRooms = ({navigation}) => {
                 },
               }}
               onPress={() => {
-                navigation.navigate(ROOMDETAILS);
+                navigation.navigate(MANAGING_ROOM_DETAILS);
               }}
             />
             <Room
@@ -68,7 +69,7 @@ const ManagingRooms = ({navigation}) => {
               IconBrokenDevice={BrokenIcon}
               IconSetting={Setting}
               onPress={() => {
-                navigation.navigate(ROOMDETAILS);
+                navigation.navigate(MANAGING_ROOM_DETAILS);
               }}
               actions={{
                 edit: () => {

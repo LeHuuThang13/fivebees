@@ -14,6 +14,7 @@ import {ROOMDETAILS} from '../../constants/routeNames';
 import Room from '../../components/common/Room';
 import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
+import axios from 'axios';
 
 const RoomList = ({navigation}) => {
   const [chooseBuilding, setChooseBuilding] = useState('Tòa A');
@@ -33,6 +34,20 @@ const RoomList = ({navigation}) => {
       marginHorizontal: 10,
     },
   });
+
+  const fetchApi = async () => {
+    try {
+      const res = await axios.get('http://192.168.1.5:8000/api/test');
+      console.log('res ', res.data);
+    } catch (error) {
+      console.log('error', error.message);
+      console.log('failed rùi');
+    }
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
 
   return (
     <Container>

@@ -68,15 +68,12 @@ const SettingHeaderNavigator = {
     }, []);
   },
   settingChildHeaderBackToHomeNavigator: props => {
-    const {Icon, navigation, styles} = props;
+    const {Icon, previousBtn, styles} = props;
     const {setOptions} = useNavigation();
     useEffect(() => {
       setOptions({
         headerLeft: () => (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}>
+          <TouchableOpacity onPress={() => previousBtn()}>
             <View style={[stylesHeader.leftIcon, styles]}>
               <Icon />
             </View>
