@@ -34,6 +34,7 @@ class StoreUserRequest extends FormRequest
             ],
             'password' => [
                 'required',
+                'min:6'
             ],
             'roles.*' => [
                 'integer',
@@ -51,6 +52,7 @@ class StoreUserRequest extends FormRequest
             'name.required' => "Vui lòng nhập tên tài khoản",
             'email.required' => "Vui lòng nhập email tài khoản",
             'password.required' => "Vui lòng nhập password tài khoản",
+            'password.min' => "Mật khẩu phải có ít nhất 6 ký tự",
             'roles.required' => "Vui lòng chọn role cho tài khoản",
         ];
     }

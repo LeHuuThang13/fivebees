@@ -14,6 +14,7 @@ use Yajra\DataTables\DataTables;
 use App\Http\Requests\Building\MassDestroyBuildingRequest;
 use App\Http\Requests\Building\StoreBuildingRequest;
 use App\Http\Requests\Building\UpdateBuildingRequest;
+use App\Models\Room;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class BuildingController extends Controller
@@ -97,7 +98,9 @@ class BuildingController extends Controller
 
         $photos = $building->getMedia('photos');
 
-        return view('admin.buildings.show', compact('building', 'photos'));
+        $rooms = Room::where('building_id', $building->id)->get();
+
+        return view('admin.buildings.show', compact('building', 'photos', 'rooms'));
     }
 
     public function edit(Building $building)

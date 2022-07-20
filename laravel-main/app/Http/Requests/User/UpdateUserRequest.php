@@ -46,7 +46,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name.required' => "Vui lòng nhập tên của tài khoản",
-            'email.required' => "Vui lòng chọn permissions",
+            'email.required' => "Vui lòng nhập email",
             'email.unique' => "Email đã được sử dụng",
             'roles.required' => "Vui lòng chọn role cho tài khoản",
         ];

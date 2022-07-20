@@ -6,9 +6,8 @@
 
 @section('content')
 
-<div class="info-container d-flex flex-row">
-    <div class="container px-0 py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px">
-
+<div class="info-container" style="margin-right: 2rem">
+    <div class="container px-0 py-2 bg-white table-container mb-4" style="border-radius: 10px">
         <h3 class="mt-2 mx-2">Thiết bị {{$facility->id}}</h3>
         <hr>
 
@@ -69,6 +68,16 @@
                 @endif
             </div>
 
+        </div>
+    </div>
+
+    <div class="container px-0 py-2 bg-white table-container mb-4" style="margin-right: 20px; border-radius: 10px">
+        <div class="container">
+            <p class="mb-0">Mã QR:</p>
+        </div>
+
+        <div class="visible-print text-center mb-2">
+            <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('Make me into an QrCode!')) !!} ">
         </div>
     </div>
 </div>

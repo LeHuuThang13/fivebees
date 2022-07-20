@@ -19,7 +19,6 @@ li a {
 
 li a span {
   vertical-align: middle;
-  margin-left: 0.5rem;
 }
 
 li a.main-nav-item:hover {
@@ -234,6 +233,27 @@ td:not(:first-child) {
   }
   
   .single-delete-button span:hover {
+   background-position: 0;
+  }
+
+  .print-button span {
+    background-image: linear-gradient(
+      to right,
+      #0d6efd,
+      #0d6efd 50%,
+      #000 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .print-button span:hover {
    background-position: 0;
   }
 

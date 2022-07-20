@@ -1,8 +1,10 @@
 <?php
 
-use App\Models\Building;
-use App\Models\Room;
-use App\Models\User;
+use App\Http\Controllers\Api\V1\Admin\BuildingApiController;
+use App\Http\Controllers\Api\V1\Admin\FacilityApiController;
+use App\Http\Controllers\Api\V1\Admin\RoomApiController;
+use App\Http\Controllers\Api\V1\Admin\UserApiController;
+use App\Http\Controllers\Api\V1\AuthenticationApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1', 'as' => 'api.', 'middleware' => ['auth:sanctum']], function () {
+    Route::apiResource('rooms', RoomApiController::class);
+    Route::apiResource('users', UserApiController::class);
+    Route::apiResource('buildings', BuildingApiController::class);
+    Route::apiResource('facilities', FacilityApiController::class);
+});
+
+Route::group(['prefix' => 'v1', 'as' => 'api.'], function () {
+    Route::post('login', [AuthenticationApiController::class, 'login']);
+    Route::post('logout', [AuthenticationApiController::class, 'logout'])->middleware('auth:sanctum');
 });
 
 Route::get('test', function () {

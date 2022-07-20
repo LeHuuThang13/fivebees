@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="building_id" class="form-label">Chủ sở hữu:</label>
+                    <label for="building_id" class="form-label">Tòa nhà:</label>
                     <select name="building_id" class="form-select" aria-label="Default select example" style="width: 20rem;">
                         @foreach ($buildings as $id => $building)
                         <option value="{{$id}}" {{ (old('$id') ? old('$id') : $room->buildings->id ?? '') == $id ? 'selected' : '' }}>{{$building}}</option>

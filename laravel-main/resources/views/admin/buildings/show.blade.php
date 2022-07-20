@@ -6,8 +6,9 @@
 
 @section('content')
 
-<div class="info-container d-flex flex-row">
-    <div class="container px-0 py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px">
+
+<div class="info-container" style="margin-right: 2rem">
+    <div class="container px-0 py-2 bg-white table-container mb-4" style="border-radius: 10px">
         <h3 class="mt-2 mx-2">Tòa nhà {{$building->id}}</h3>
         <hr>
 
@@ -55,6 +56,35 @@
 
         </div>
     </div>
+    <a class="container px-0 py-2 bg-white table-container mb-4 text-dark" style="text-decoration: none; width: 100%; border-radius: 10px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <p class="h3 mb-0 mx-2">Danh sách phòng</p>
+        <div class="collapse" id="collapseExample">
+            <hr>
+            <div>
+                <table class="table table-hover text-center">
+                    <thead style="background-color: #F5F9FC;">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">số phòng</th>
+                            <th scope="col">trạng thái</th>
+                            <th scope="col">tổng số thiết bị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($rooms as $room)
+                        <tr>
+                            <td>{{$room->id}}</td>
+                            <td>{{$room->room_number}}</td>
+                            <td>{{$room->status}}</td>
+                            <td>{{$room->facilities->count()}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </a>
+
 </div>
 
 @endsection
