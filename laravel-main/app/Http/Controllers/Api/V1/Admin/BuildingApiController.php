@@ -8,6 +8,7 @@ use App\Http\Requests\Building\UpdateBuildingRequest;
 use App\Http\Resources\BuildingResource;
 use App\Models\Building;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,7 +32,13 @@ class BuildingApiController extends Controller
 
     public function store(StoreBuildingRequest $request)
     {
-        $building = Building::create($request->validated());
+        $building = Building::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'hotline' => $request->hotline,
+            'email' => $request->email,
+            'user_id' => Auth::id(),
+        ]);
 
         if ($request->hasFile('filenames')) {
             $fileAdders = $building->addMultipleMediaFromRequest(['filenames'])

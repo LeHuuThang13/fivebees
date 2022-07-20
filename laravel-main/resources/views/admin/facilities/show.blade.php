@@ -77,7 +77,7 @@
         </div>
 
         <div class="visible-print text-center mb-2">
-            <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('Make me into an QrCode!')) !!} ">
+            {!! QrCode::size(200)->generate(Request::url()); !!}
         </div>
     </div>
 </div>
