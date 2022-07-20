@@ -1,15 +1,24 @@
 import React from 'react';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
-import {MANAGING_BUILDING} from '../../constants/routeNames';
-import {ScrollView, Text, View} from 'react-native';
+import {
+  CREATING_ROOM,
+  MANAGING_BUILDING,
+  MANAGING_ROOM_DETAILS,
+  ROOMDETAILS,
+} from '../../constants/routeNames';
+import {ScrollView, View} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
 import DeviceIcon from '../../assets/icons/device.svg';
 import BrokenIcon from '../../assets/icons/broken.svg';
 import Room from '../../components/common/Room';
+import CustomCreatingButton from '../../components/CustomCreatingButton';
+import CustomHeaderDetails from '../../components/CustomHeaderDetails';
+import Setting from '../../assets/icons/setting_white.svg';
 
-const ManagingRooms = () => {
+const ManagingRooms = ({navigation}) => {
+  console.log(navigation);
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     styles: {
@@ -19,19 +28,38 @@ const ManagingRooms = () => {
   });
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={[styles.wrapper, GlobalStyles.paddingContainer]}>
-          <View>
-            <Text>Tòa nhà: A</Text>
-          </View>
-          <View>
-            <Text>Tổng số phòng: 10</Text>
-          </View>
-        </View>
-      </View>
+      <CustomCreatingButton
+        onPress={() => {
+          navigation.navigate(CREATING_ROOM);
+        }}
+      />
+      <CustomHeaderDetails
+        firstText={'Tòa nhà: A'}
+        secondText={'Tổng số phòng: 12'}
+      />
       <View style={styles.body}>
         <ScrollView style={GlobalStyles.paddingContainer}>
           <View>
+            <Room
+              roomName={'Phòng 102'}
+              status={'Đang sử dụng'}
+              totalDevices={10}
+              totalBrokenDevices={0}
+              IconDevice={DeviceIcon}
+              IconBrokenDevice={BrokenIcon}
+              IconSetting={Setting}
+              actions={{
+                edit: () => {
+                  console.log('edit');
+                },
+                delete: () => {
+                  console.log('delete');
+                },
+              }}
+              onPress={() => {
+                navigation.navigate(MANAGING_ROOM_DETAILS);
+              }}
+            />
             <Room
               roomName={'Phòng 101'}
               status={'Đang sử dụng'}
@@ -39,6 +67,18 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
+              IconSetting={Setting}
+              onPress={() => {
+                navigation.navigate(MANAGING_ROOM_DETAILS);
+              }}
+              actions={{
+                edit: () => {
+                  console.log('edit');
+                },
+                delete: () => {
+                  console.log('delete');
+                },
+              }}
             />
 
             <Room
@@ -48,33 +88,7 @@ const ManagingRooms = () => {
               totalBrokenDevices={0}
               IconDevice={DeviceIcon}
               IconBrokenDevice={BrokenIcon}
-            />
-
-            <Room
-              roomName={'Phòng 103'}
-              status={'Đang sử dụng'}
-              totalDevices={10}
-              totalBrokenDevices={0}
-              IconDevice={DeviceIcon}
-              IconBrokenDevice={BrokenIcon}
-            />
-
-            <Room
-              roomName={'Phòng 104'}
-              status={'Đang sử dụng'}
-              totalDevices={10}
-              totalBrokenDevices={0}
-              IconDevice={DeviceIcon}
-              IconBrokenDevice={BrokenIcon}
-            />
-
-            <Room
-              roomName={'Phòng 105'}
-              status={'Đang sử dụng'}
-              totalDevices={10}
-              totalBrokenDevices={0}
-              IconDevice={DeviceIcon}
-              IconBrokenDevice={BrokenIcon}
+              actions={true}
             />
           </View>
         </ScrollView>

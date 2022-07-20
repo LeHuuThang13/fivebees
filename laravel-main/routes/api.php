@@ -30,3 +30,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.'], function () {
     Route::post('login', [AuthenticationApiController::class, 'login']);
     Route::post('logout', [AuthenticationApiController::class, 'logout'])->middleware('auth:sanctum');
 });
+
+Route::get('test', function () {
+    return User::all();
+});

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   roomContainer: {
     borderColor: colors.border_input,
     borderWidth: 1,
-    marginVertical: 24,
+    marginVertical: 12,
     borderRadius: 5,
   },
 
@@ -106,6 +106,21 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: 'bold',
     fontSize: 16,
+  },
+
+  actionsWrapper: {
+    flexDirection: 'row',
+  },
+
+  firstIcon: {},
+
+  iconButton: {
+    width: 30,
+  },
+
+  actionsContainer: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

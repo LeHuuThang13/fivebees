@@ -6,6 +6,7 @@
 
 @section('content')
 
+
 <div class="info-container" style="margin-right: 2rem">
     <div class="container px-0 py-2 bg-white table-container mb-4" style="border-radius: 10px">
         <h3 class="mt-2 mx-2">Tòa nhà {{$building->id}}</h3>
