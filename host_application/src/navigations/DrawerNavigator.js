@@ -14,6 +14,7 @@ import {
   MANAGING_BUILDING,
   MANAGING_DEVICES,
   MANAGING_ROOMS,
+  MANAGING_ROOM_DETAILS,
   QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
@@ -37,6 +38,7 @@ import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingRooms from '../screens/ManagingRooms';
 import EditingDevice from '../screens/EditingDevice';
 import CreatingRoom from '../screens/CreatingRoom';
+import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -108,6 +110,11 @@ const DrawerNavigator = () => {
         name={CREATING_ROOM}
         options={{swipeEnabled: false}}
         component={CreatingRoom}
+      />
+      <Drawer.Screen
+        name={MANAGING_ROOM_DETAILS}
+        options={{swipeEnabled: false}}
+        component={ManagingRoomDetails}
       />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>

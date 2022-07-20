@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   roomContainer: {
     borderColor: colors.border_input,
     borderWidth: 1,
-    marginVertical: 24,
+    marginVertical: 12,
     borderRadius: 5,
   },
 
