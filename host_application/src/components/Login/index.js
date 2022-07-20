@@ -8,11 +8,15 @@ import IconPswSgv from '../../assets/icons/password_icon.svg';
 import IconShowPsw from '../../assets/icons/showPsw.svg';
 import IconHidePsw from '../../assets/icons/hidePsw.svg';
 import CustomButtomOpacityText from '../CustomButtomOpacityText';
+import envs from '../../config/env';
 
 const index = ({onChangeText, style, value}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+
+  console.log('Backend_url: ', envs);
+
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
 
