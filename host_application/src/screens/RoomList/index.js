@@ -37,7 +37,7 @@ const RoomList = ({navigation}) => {
 
   const fetchApi = async () => {
     try {
-      const res = await axios.get('http://192.168.1.5:8000/api/test');
+      const res = await axios.get('https://fivebees.ml/api/test');
       console.log('res ', res.data);
     } catch (error) {
       console.log('error', error.message);

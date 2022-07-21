@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {Image, TouchableOpacity, Text, View} from 'react-native';
 import Input from '../common/Input';
 import CustomButton from '../CustomButton';
@@ -8,14 +8,20 @@ import IconPswSgv from '../../assets/icons/password_icon.svg';
 import IconShowPsw from '../../assets/icons/showPsw.svg';
 import IconHidePsw from '../../assets/icons/hidePsw.svg';
 import CustomButtomOpacityText from '../CustomButtomOpacityText';
+import {GlobalContext} from '../../context/Provider';
+import login from '../../context/actions/auth/login';
 
 const index = ({onChangeText, style, value}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const {
+    authDispatch,
+    authState: {loading},
+  } = useContext(GlobalContext);
+
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
-
     if (value !== '') {
       setErrors(prevState => {
         return {...prevState, [name]: null};
@@ -35,7 +41,19 @@ const index = ({onChangeText, style, value}) => {
         return {...prevState, password: 'This field is required'};
       });
     }
+
+    const INPUT_FIELDS = 2;
+    const isInputLength = Object.values(form).every(
+      item => item.trim().length > 0,
+    );
+    const isFilledAllInputs = Object.values(form).length === INPUT_FIELDS;
+    const isNotError = Object.values(errors).every(item => !item);
+
+    if (isInputLength && isFilledAllInputs && isNotError) {
+      login(form)(authDispatch);
+    }
   };
+
   return (
     <View>
       <Image
@@ -90,8 +108,8 @@ const index = ({onChangeText, style, value}) => {
           onPress={onSubmit}
           primary
           title={'Đăng Nhập'}
-          // loading={true}
-          // disabled={true}
+          loading={loading}
+          disabled={loading}
         />
       </View>
     </View>
