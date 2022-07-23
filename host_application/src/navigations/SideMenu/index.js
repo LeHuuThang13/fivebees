@@ -20,8 +20,9 @@ import QRCodeIcon from '../../assets/icons/QRCode.svg';
 import SettingIcon from '../../assets/icons/setting.svg';
 import IntroduceIcon from '../../assets/icons/introduce.svg';
 import LogoutIcon from '../../assets/icons/logout.svg';
+import logout from '../../context/actions/auth/logout';
 
-const SideMenu = ({navigation}) => {
+const SideMenu = ({navigation, authDispatch}) => {
   const menuItems = [
     {
       icon: <HomeIcon />,
@@ -69,7 +70,7 @@ const SideMenu = ({navigation}) => {
       icon: <LogoutIcon />,
       name: 'Đăng Xuất',
       onPress: () => {
-        navigation.navigate(LOGOUT);
+        logout()(authDispatch);
       },
     },
   ];
