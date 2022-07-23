@@ -35,20 +35,6 @@ const RoomList = ({navigation}) => {
     },
   });
 
-  const fetchApi = async () => {
-    try {
-      const res = await axios.get('https://fivebees.ml/api/test');
-      console.log('res ', res.data);
-    } catch (error) {
-      console.log('error', error.message);
-      console.log('failed rùi');
-    }
-  };
-
-  useEffect(() => {
-    fetchApi();
-  }, []);
-
   return (
     <Container>
       {/* Selecting options */}
