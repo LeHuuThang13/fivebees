@@ -3,7 +3,8 @@ import {Toast} from '../../../components/Toast';
 import {LOGOUT_USER} from '../../../constants/actionTypes';
 
 export default () => dispatch => {
-  Toast({title: 'Đăng xuất thành công'});
   AsyncStorage.removeItem('token');
+  AsyncStorage.removeItem('user');
+  Toast({title: 'Đăng xuất thành công'});
   dispatch({type: LOGOUT_USER});
 };

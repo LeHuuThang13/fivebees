@@ -25,7 +25,7 @@ const AppNavigator = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [isLoggedIn]);
 
   const CustomTheme = {
     ...DefaultTheme,
@@ -35,7 +35,6 @@ const AppNavigator = () => {
       background: 'white',
     },
   };
-  console.log();
 
   return (
     <NavigationContainer theme={CustomTheme}>

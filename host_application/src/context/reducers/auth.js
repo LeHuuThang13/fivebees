@@ -2,6 +2,7 @@ import {
   LOGIN_FAILED,
   LOGIN_LOADING,
   LOGIN_SUCCESS,
+  LOGOUT_USER,
 } from '../../constants/actionTypes';
 
 const auth = (state, {type, payload}) => {
