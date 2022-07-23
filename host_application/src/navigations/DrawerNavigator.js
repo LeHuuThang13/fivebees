@@ -46,8 +46,8 @@ const DrawerNavigator = () => {
   const {authDispatch} = useContext(GlobalContext);
 
   //Render Image on sidebar
-  const getDrawerContent = navigation => {
-    return <SideMenu navigation={navigation} />;
+  const getDrawerContent = (navigation, authDispatch) => {
+    return <SideMenu navigation={navigation} authDispatch={authDispatch} />;
   };
   return (
     <Drawer.Navigator
