@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {Modal, StyleSheet, Text, Touchable, View} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Container from '../../components/common/Container';
 import {TouchableOpacity} from 'react-native';
 import colors from '../../assets/themes/colors';
@@ -14,11 +21,23 @@ import {ROOMDETAILS} from '../../constants/routeNames';
 import Room from '../../components/common/Room';
 import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
-import axios from 'axios';
+import {GlobalContext} from '../../context/Provider';
+import getRooms from '../../context/actions/rooms/getRooms';
 
 const RoomList = ({navigation}) => {
   const [chooseBuilding, setChooseBuilding] = useState('Tòa A');
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    getRooms()(roomsDispatch);
+  }, []);
+
+  const {
+    roomsDispatch,
+    roomsState: {
+      getRooms: {data, loading},
+    },
+  } = useContext(GlobalContext);
 
   const changeModelVisible = bool => {
     setIsModalVisible(bool);
@@ -35,8 +54,40 @@ const RoomList = ({navigation}) => {
     },
   });
 
+  const ListEmptyComponent = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+        <Text>Không có phòng</Text>
+      </View>
+    );
+  };
+
+  const renderItem = ({item}) => {
+    const {id, description, building_id, room_number, status} = item;
+    return (
+      <View>
+        <Room
+          roomName={`Phòng ${room_number}`}
+          status={status}
+          totalDevices={10}
+          totalBrokenDevices={0}
+          IconDevice={Device}
+          IconBrokenDevice={BrokenDevice}
+          IconSetting={Setting}
+          onPress={() => {
+            navigation.navigate(ROOMDETAILS);
+          }}
+        />
+      </View>
+    );
+  };
+
   return (
-    <Container>
+    <View style={{paddingHorizontal: 15}}>
       {/* Selecting options */}
       <View>
         <View style={[styles.selectOptionSection, styles.stylesText]}>
@@ -61,19 +112,16 @@ const RoomList = ({navigation}) => {
         </Modal>
       </View>
 
-      <Room
-        roomName={'Phòng 101'}
-        status={'Đang sử dụng'}
-        totalDevices={10}
-        totalBrokenDevices={0}
-        IconDevice={Device}
-        IconBrokenDevice={BrokenDevice}
-        IconSetting={Setting}
-        onPress={() => {
-          navigation.navigate(ROOMDETAILS);
-        }}
-      />
-    </Container>
+      {loading && <ActivityIndicator size="large" color={colors.secondary} />}
+
+      {!loading && (
+        <FlatList
+          renderItem={renderItem}
+          data={data.data}
+          ListEmptyComponent={ListEmptyComponent}
+        />
+      )}
+    </View>
   );
 };
 
