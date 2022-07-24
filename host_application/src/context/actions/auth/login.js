@@ -15,13 +15,13 @@ export default ({username, password}) =>
     dispatch({type: LOGIN_LOADING});
 
     axiosInstance
-      .post('v1/login', {
+      .post('login', {
         email,
         password,
       })
       .then(res => {
         Toast({title: 'Đăng nhập thành công'});
-        AsyncStorage.setItem('token', res.data.token);
+        AsyncStorage.setItem('token', res.data.access_token);
         AsyncStorage.setItem('user', JSON.stringify(res.data.user));
         dispatch({type: LOGIN_SUCCESS, payload: res.data});
       })

@@ -10,6 +10,7 @@ const AppNavigator = () => {
   const {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const getUser = async () => {
