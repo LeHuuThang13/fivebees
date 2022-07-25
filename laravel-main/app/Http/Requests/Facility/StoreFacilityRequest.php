@@ -46,6 +46,7 @@ class StoreFacilityRequest extends FormRequest
             ],
             'filenames' => [
                 'required',
+                'mimes:jpeg,jpg,png',
             ],
             'created_by_id' => [
                 'integer'
@@ -60,6 +61,7 @@ class StoreFacilityRequest extends FormRequest
             'name.min' => "Tên phải có ít nhất 3 ký tự",
             'description.required' => "Vui lòng nhập mô tả",
             'filenames.required' => "Vui lòng chọn hình ảnh",
+            'filenames.mimes' => "File không đúng định dạng hình ảnh",
         ];
     }
 }

@@ -9,7 +9,7 @@
                     {{ auth()->user()->name }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto; right: 0">
-                    <li><a class="dropdown-item" href="">Đổi mật khẩu</a></li>
+                    <li><a class="dropdown-item" href="{{ route('changepassword') }}">Đổi mật khẩu</a></li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
                             @csrf

@@ -31,6 +31,7 @@
                     @enderror
                 </div>
 
+                @role('Admin')
                 <div class="mb-3">
                     <label for="user" class="form-label">Chủ sở hữu:</label>
                     <select name="user_id" class="form-select" aria-label="Default select example" style="width: 20rem;">
@@ -42,6 +43,9 @@
                     <p style="color: #dc3545">{{ $message }}</p>
                     @enderror
                 </div>
+                @else
+                <input name="user_id" type="hidden" class="form-control" value="{{ Auth::user()->id }}" disabled>
+                @endrole
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>

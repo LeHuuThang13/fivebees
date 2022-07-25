@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UtilityController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,11 @@ Route::group(['controller' => LoginController::class], function () {
     Route::get('login', 'index')->middleware('guest');
     Route::post('login', 'login')->name('login');
     Route::post('logout', 'logout')->middleware('auth')->name('logout');
+});
+
+Route::group(['controller' => ChangePasswordController::class, 'middleware' => ['auth']], function () {
+    Route::get('doi-mat-khau', [ChangePasswordController::class, 'edit'])->name('changepassword');
+    Route::post('doi-mat-khau', [ChangePasswordController::class, 'update'])->name('updatepassword');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {

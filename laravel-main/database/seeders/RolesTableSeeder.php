@@ -32,7 +32,7 @@ class RolesTableSeeder extends Seeder
                 'guard_name' => 'web'
             ]
         ];
-        User::findOrFail(1)->roles()->sync([1, 2, 3]);
         Role::insert($roles);
+        User::findOrFail(1)->roles()->sync([1, 2, 3]);
     }
 }
