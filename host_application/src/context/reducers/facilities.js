@@ -1,12 +1,12 @@
 import {
-  GET_ROOMS_FAILED,
-  GET_ROOMS_LOADING,
-  GET_ROOMS_SUCCESS,
+  GET_FACILITIES_FAILED,
+  GET_FACILITIES_LOADING,
+  GET_FACILITIES_SUCCESS,
 } from '../../constants/actionTypes';
 
 const rooms = (state, {type, payload}) => {
   switch (type) {
-    case GET_ROOMS_LOADING:
+    case GET_FACILITIES_LOADING:
       return {
         ...state,
         getRooms: {
@@ -16,7 +16,7 @@ const rooms = (state, {type, payload}) => {
         },
       };
 
-    case GET_ROOMS_SUCCESS:
+    case GET_FACILITIES_SUCCESS:
       return {
         ...state,
         getRooms: {
@@ -27,7 +27,7 @@ const rooms = (state, {type, payload}) => {
         },
       };
 
-    case GET_ROOMS_FAILED:
+    case GET_FACILITIES_FAILED:
       return {
         ...state,
         getRooms: {
