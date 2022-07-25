@@ -14,7 +14,7 @@ const RoomDetails = ({navigation}) => {
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
     Icon: PreviousIcon,
     previousBtn: () => {
-      navigation.navigate(ROOM_LIST);
+      navigation.goBack();
     },
   });
 

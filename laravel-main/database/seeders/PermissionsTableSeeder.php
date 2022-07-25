@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -78,5 +79,7 @@ class PermissionsTableSeeder extends Seeder
         ];
 
         Permission::insert($permissions);
+
+        Role::findOrFail(1)->permissions()->sync(Permission::all());
     }
 }
