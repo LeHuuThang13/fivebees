@@ -54,7 +54,13 @@ class BuildingApiController extends Controller
 
     public function update(UpdateBuildingRequest $request, Building $building)
     {
-        $building->update($request->validated());
+        $building->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'hotline' => $request->hotline,
+            'email' => $request->email,
+            'user_id' => Auth::id(),
+        ]);
 
         if ($request->hasFile('filenames')) {
             $building = Building::where('id', $building->id)->firstOrFail();

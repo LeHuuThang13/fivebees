@@ -20,6 +20,7 @@ class LoginController extends Controller
         ], [
             // Hiển thị thông báo khi nhập không đạt yêu cầu
             'email.required' => 'Vui lòng nhập Email',
+            'email.email' => 'Vui lòng nhập đúng định dạng email',
             'password.required' => 'Vui lòng nhập password'
         ]);
 

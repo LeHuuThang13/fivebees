@@ -19,7 +19,7 @@ class RoleController extends Controller
 {
     public function index(Request $request)
     {
-        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
             $roles = Role::with(['permissions'])->get();
@@ -82,7 +82,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $permissions = Permission::pluck('name', 'id');
 

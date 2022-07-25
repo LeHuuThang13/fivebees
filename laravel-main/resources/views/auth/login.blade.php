@@ -17,7 +17,7 @@
                 <form id="form" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-4" style="text-align: left;">
-                        <input name="email" type="email" class="login-input form-control p-4" placeholder="Email" style="border-radius: 40px; font-size: 150%">
+                        <input name="email" type="email" class="login-input form-control p-4" placeholder="Email" style="border-radius: 40px; font-size: 150%" value="{{ old('email') }}">
                         @error('email')
                         <p class="text-danger ms-4 mt-2">{{ $message }}</p>
                         @enderror

@@ -32,7 +32,8 @@ class FacilityResource extends JsonResource
             'status' => $this->status->name,
             'category' => $this->categories->name,
             'room_id' => $room,
-            'photos' => $photos
+            'photos' => $photos,
+            'sum' => $this->count(),
         ];
     }
 }

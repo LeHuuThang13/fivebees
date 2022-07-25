@@ -14,6 +14,10 @@ class AuthenticationApiController extends Controller
         $request->validate([
             'email' => 'email|required',
             'password' => 'required'
+        ], [
+            'email.required' => 'Vui lòng nhập Email',
+            'email.email' => 'Vui lòng nhập đúng định dạng email',
+            'password.required' => 'Vui lòng nhập password'
         ]);
 
         $credentials = request(['email', 'password']);
