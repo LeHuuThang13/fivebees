@@ -10,7 +10,7 @@
     @csrf
     <div class="info-container d-flex flex-row ">
         <div class="py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px; width: 70%; max-height: min-content;">
-        
+
             <h3 class="mt-2 mx-2">Thêm nhà trọ / khách sạn</h3>
 
             <div class="container">
@@ -86,7 +86,7 @@
                     <input type="file" name="filenames[]" id="file_upload" class="myfrm form-control hidden">
                 </div>
             </div>
-            @error('filenames')
+            @error('filenames.*')
             <p class="mx-2" style="color: #dc3545">{{ $message }}</p>
             @enderror
         </div>

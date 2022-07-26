@@ -95,7 +95,7 @@
                     <input type="file" name="filenames[]" id="file_upload" class="myfrm form-control hidden">
                 </div>
             </div>
-            @error('filenames')
+            @error('filenames.*')
             <p class="mx-2" style="color: #dc3545">{{ $message }}</p>
             @enderror
         </div>

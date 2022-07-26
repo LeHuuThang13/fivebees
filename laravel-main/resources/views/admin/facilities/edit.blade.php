@@ -16,7 +16,7 @@
 
             <div class="container">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Số phòng:</label>
+                    <label for="name" class="form-label">Tên thiết bị:</label>
                     <input name="name" type="text" class="form-control" value="{{ old('name', $facility->name) }}" required>
                     @error('name')
                     <p style="color: #dc3545">{{ $message }}</p>
@@ -74,7 +74,7 @@
         </div>
 
         <div class="px-2 py-2 bg-white table-container" style="margin-right: 20px; border-radius: 10px; width: 30%">
-        
+
             <p class="mx-2">Hình ảnh:</p>
             <div class="list-images">
                 @foreach ($photos as $photo)
