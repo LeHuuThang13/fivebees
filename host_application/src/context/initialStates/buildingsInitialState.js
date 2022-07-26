@@ -1,20 +1,20 @@
 export default {
-  getRooms: {
+  getBuildings: {
     data: [],
     error: null,
     loading: false,
   },
-  createRooms: {
+  createBuilding: {
     data: {},
     error: null,
     loading: false,
   },
-  updateRooms: {
+  updateBuilding: {
     data: {},
     error: null,
     loading: false,
   },
-  deleteRooms: {
+  deleteBuildings: {
     data: {},
     error: null,
     loading: false,

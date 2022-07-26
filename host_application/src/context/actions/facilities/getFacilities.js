@@ -7,20 +7,20 @@ import axiosInstance from '../../../helpers/axiosInterceptor';
 
 export default () => dispatch => {
   dispatch({
-    type: GET_ROOMS_LOADING,
+    type: GET_FACILITIES_LOADING,
   });
   axiosInstance
-    .get('rooms')
+    .get('facilities')
     .then(res => {
       dispatch({
-        type: GET_ROOMS_SUCCESS,
+        type: GET_FACILITIES_SUCCESS,
         payload: res.data,
       });
     })
     .catch(error => {
       console.log(error);
       dispatch({
-        type: GET_ROOMS_FAILED,
+        type: GET_FACILITIES_FAILED,
         payload: error.message,
       });
     });

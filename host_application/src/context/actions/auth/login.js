@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useEffect} from 'react';
 import {Toast} from '../../../components/Toast';
 import {
   LOGIN_FAILED,

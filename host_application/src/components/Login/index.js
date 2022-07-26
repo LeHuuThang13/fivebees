@@ -10,7 +10,6 @@ import IconHidePsw from '../../assets/icons/hidePsw.svg';
 import CustomButtomOpacityText from '../CustomButtomOpacityText';
 import {GlobalContext} from '../../context/Provider';
 import login from '../../context/actions/auth/login';
-import {Toast} from '../Toast';
 
 const index = ({onChangeText, style, value}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);

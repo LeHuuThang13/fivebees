@@ -1,6 +1,12 @@
 export default {
-  isLoggedIn: false,
-  data: {},
-  error: null,
-  loading: false,
+  getCurUserInfo: {
+    data: [],
+    error: null,
+    loading: false,
+  },
+  updateCurUserInfo: {
+    data: [],
+    error: null,
+    loading: false,
+  },
 };

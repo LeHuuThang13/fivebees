@@ -1,20 +1,20 @@
 export default {
-  getRooms: {
+  getbrokenFacilities: {
     data: [],
     error: null,
     loading: false,
   },
-  createRooms: {
+  addBrokenFacilities: {
     data: {},
     error: null,
     loading: false,
   },
-  updateRooms: {
+  updatebrokenFacilities: {
     data: {},
     error: null,
     loading: false,
   },
-  deleteRooms: {
+  deletebrokenFacilities: {
     data: {},
     error: null,
     loading: false,

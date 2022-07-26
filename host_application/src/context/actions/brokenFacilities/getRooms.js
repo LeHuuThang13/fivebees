@@ -1,26 +1,26 @@
 import {
-  GET_USER_INFO_FAILED,
-  GET_USER_INFO_LOADING,
-  GET_USER_INFO_SUCCESS,
+  GET_BROKEN_FACILITIES_FAILED,
+  GET_BROKEN_FACILITIES_LOADING,
+  GET_BROKEN_FACILITIES_SUCCESS,
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
 export default () => dispatch => {
   dispatch({
-    type: GET_USER_INFO_LOADING,
+    type: GET_BROKEN_FACILITIES_LOADING,
   });
   axiosInstance
-    .get('userInfo')
+    .get('brokenFacilities')
     .then(res => {
       dispatch({
-        type: GET_USER_INFO_SUCCESS,
+        type: GET_BROKEN_FACILITIES_SUCCESS,
         payload: res.data,
       });
     })
     .catch(error => {
       console.log(error);
       dispatch({
-        type: GET_USER_INFO_FAILED,
+        type: GET_BROKEN_FACILITIES_FAILED,
         payload: error.message,
       });
     });
