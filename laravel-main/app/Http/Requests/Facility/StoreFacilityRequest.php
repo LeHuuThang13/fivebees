@@ -44,9 +44,9 @@ class StoreFacilityRequest extends FormRequest
             'room_id' => [
                 'nullable',
             ],
-            'filenames' => [
+            'filenames.*' => [
                 'required',
-                'mimes:jpeg,jpg,png',
+                'mimes:jpeg,png,jpg',
             ],
             'created_by_id' => [
                 'integer'
@@ -60,8 +60,8 @@ class StoreFacilityRequest extends FormRequest
             'name.required' => "Vui lòng nhập tên thiết bị",
             'name.min' => "Tên phải có ít nhất 3 ký tự",
             'description.required' => "Vui lòng nhập mô tả",
-            'filenames.required' => "Vui lòng chọn hình ảnh",
-            'filenames.mimes' => "File không đúng định dạng hình ảnh",
+            'filenames.*.required' => "Vui lòng chọn hình ảnh",
+            'filenames.*.mimes' => "File không đúng định dạng hình ảnh",
         ];
     }
 }

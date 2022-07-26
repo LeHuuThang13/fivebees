@@ -38,7 +38,7 @@ class StoreRoomRequest extends FormRequest
             'building_id' => [
                 'required',
             ],
-            'filenames' => [
+            'filenames.*' => [
                 'required',
                 'mimes:jpeg,jpg,png',
             ],
@@ -55,8 +55,8 @@ class StoreRoomRequest extends FormRequest
             'status.required' => "Vui lòng nhập trạng thái của phòng",
             'description.required' => "Vui lòng nhập mô tả",
             'building_id.required' => "Tòa nhà không được bỏ trống",
-            'filenames.required' => "Vui lòng chọn hình ảnh",
-            'filenames.mimes' => "File không đúng định dạng hình ảnh",
+            'filenames.*.required' => "Vui lòng chọn hình ảnh",
+            'filenames.*.mimes' => "File không đúng định dạng hình ảnh",
         ];
     }
 }
