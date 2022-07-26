@@ -1,6 +1,6 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import colors from '../assets/themes/colors';
 import {
@@ -31,7 +31,6 @@ import QRCode from '../screens/QRCode';
 import ManagingBuilding from '../screens/ManagingBuilding';
 import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
-// import NotifNavigator from './NotificationNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
 import TotalFixingDevices from '../screens/TotalFixingDevices';
@@ -39,13 +38,16 @@ import ManagingRooms from '../screens/ManagingRooms';
 import EditingDevice from '../screens/EditingDevice';
 import CreatingRoom from '../screens/CreatingRoom';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
+import {GlobalContext} from '../context/Provider';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
 
+  const {authDispatch} = useContext(GlobalContext);
+
   //Render Image on sidebar
-  const getDrawerContent = navigation => {
-    return <SideMenu navigation={navigation} />;
+  const getDrawerContent = (navigation, authDispatch) => {
+    return <SideMenu navigation={navigation} authDispatch={authDispatch} />;
   };
   return (
     <Drawer.Navigator
@@ -56,7 +58,9 @@ const DrawerNavigator = () => {
           flexDirection: 'row-reverse',
         },
       }}
-      drawerContent={({navigation}) => getDrawerContent(navigation)}>
+      drawerContent={({navigation}) =>
+        getDrawerContent(navigation, authDispatch)
+      }>
       <Drawer.Screen
         name={HOME_NAVIGATOR}
         options={{headerShown: false}}
