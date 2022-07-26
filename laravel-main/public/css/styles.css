@@ -17,9 +17,22 @@ li a {
   padding: 1rem;
 }
 
+li a span {
+  vertical-align: middle;
+}
+
 li a.main-nav-item:hover {
   background-color: #F5F9FC !important;
   font-size: 1.25rem;
+}
+
+.table>:not(caption)>*>*  {
+  padding: 0.5rem 1rem !important;
+  
+}
+
+td:not(:first-child) {
+  min-width: 100px !important;
 }
 
 .active {
@@ -89,10 +102,15 @@ li a.main-nav-item:hover {
 
   .info-block {
     width: 280px;
-    height: 180px;
+    height: 160px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     margin-right: 1.25rem;
     padding: 1rem;
+  }
+
+  .table-container {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
   }
 
   .info-container {
@@ -102,4 +120,143 @@ li a.main-nav-item:hover {
 
   .dropdown-item:hover {
     background-color: #F5F9FC !important;
+  }
+
+  .single-delete-button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  .dataTables_info {
+    margin-left: 18px;
+  }
+
+  .dataTables_filter {
+    margin: 0 1.5rem 1rem 0;
+  }
+
+  .paginate_button {
+    border-radius: 5px !important;
+  }
+
+  .dataTables_length {
+    margin-left: 18px;
+  }
+
+  .sorting_disabled {
+    width: 25px !important;
+  }
+
+  .dt-body-center {
+    min-width: 150px !important;
+  }
+
+  .alert-message {
+    position: absolute;
+    background-color: #FFFFFF;
+    padding: 0.5rem 1rem;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 5px;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+  }
+
+  .form-control:disabled {
+    background-color: #FFFFFF !important;
+  }
+
+  .view-button span {
+    background-image: linear-gradient(
+      to right,
+      #54b3d6,
+      #54b3d6 50%,
+      #000 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .view-button span:hover {
+   background-position: 0;
+  }
+
+  .edit-button span {
+    background-image: linear-gradient(
+      to right,
+      #ffc107,
+      #ffc107 50%,
+      #000 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .edit-button span:hover {
+   background-position: 0;
+  }
+
+  .single-delete-button span {
+    background-image: linear-gradient(
+      to right,
+      #dc3545,
+      #dc3545 50%,
+      #000 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .single-delete-button span:hover {
+   background-position: 0;
+  }
+
+  .print-button span {
+    background-image: linear-gradient(
+      to right,
+      #0d6efd,
+      #0d6efd 50%,
+      #000 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .print-button span:hover {
+   background-position: 0;
+  }
+
+  textarea {
+    max-width: 85%;
   }

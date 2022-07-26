@@ -3,83 +3,121 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Models\Role;
+use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\DataTables;
+
+// Request validations
+use App\Http\Requests\User\MassDestroyUserRequest;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        return '123';
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $users = User::with(['roles'])->get();
+            $table = Datatables::of($users);
+
+            $table->addColumn('checkbox', function ($row) {
+                return '<input name="users[]" value="' . $row->id . '" class="form-check-input checks" type="checkbox">';
+            });
+
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'user_show';
+                $editGate = 'user_edit';
+                $deleteGate = 'user_delete';
+                $crudRouteName = 'tài khoản';
+                $crudRoutePart = 'users';
+
+                return view('components.datatableActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRouteName',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->addColumn('role', function ($row) {
+                $labels = [];
+                foreach ($row->roles as $role) {
+                    if ($role->name === 'Admin') {
+                        $labels[] = sprintf('<span class="badge text-bg-primary">%s</span>', $role->name);
+                    } else if ($role->name === 'Owner') {
+                        $labels[] = sprintf('<span class="badge text-bg-info text-white">%s</span>', $role->name);
+                    } else {
+                        $labels[] = sprintf('<span class="badge text-bg-secondary">%s</span>', $role->name);
+                    }
+                }
+                return implode(' ', $labels);
+            });
+
+            $table->rawColumns(['checkbox', 'role', 'actions']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.users.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::pluck('name', 'id');
+        return view('admin.users.create', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $user = User::create($request->validated());
+        $user->roles()->sync($request->input('roles', []));
+
+        return redirect()->route('admin.users.index')->with('success', 'Tạo tài khoản thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(User $user)
     {
-        //
+        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::pluck('name', 'id');
+
+        $user->load('roles');
+
+        return view('admin.users.edit', compact('roles', 'user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+        $user->roles()->sync($request->input('roles', []));
+
+        return redirect()->route('admin.users.index')->with('success', 'Cập nhật tài khoản thành công!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(User $user)
     {
-        //
+        abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $user->delete();
+
+        return back()->with('success', 'Xóa tài khoản thành công!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function massDestroy(MassDestroyUserRequest $request)
     {
-        //
+        User::whereIn('id', $request->id)->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
