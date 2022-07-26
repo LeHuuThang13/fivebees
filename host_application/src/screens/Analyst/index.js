@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
 import IconMenu from '../../assets/icons/menu_icon.svg';
 import AnalystContainer from '../../components/common/Analyst';
 import Container from '../../components/common/Container';
@@ -45,13 +44,13 @@ const Analyst = () => {
     <Container>
       <AnalystContainer
         title={'Tổng số thiết bị'}
-        content={`${facilities.length} thiết bị`}
+        content={`${facilities.length ? facilities.length : 0} thiết bị`}
         titleNavigation={'Xem chi tiết'}
       />
 
       <AnalystContainer
         title={'Tòa nhà'}
-        content={`${buildings.length} tòa nhà`}
+        content={`${buildings.length ? buildings.length : 0} tòa nhà`}
         titleNavigation={'Xem chi tiết'}
       />
       <AnalystContainer
