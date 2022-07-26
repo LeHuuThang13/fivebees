@@ -31,6 +31,7 @@ class StoreBuildingRequest extends FormRequest
             ],
             'address' => [
                 'required',
+                'min: 3'
             ],
             'user_id' => [
                 'nullable'
@@ -56,6 +57,7 @@ class StoreBuildingRequest extends FormRequest
             'name.required' => "Vui lòng nhập tên của tòa nhà",
             'name.min' => "Tên phải có ít nhất 3 ký tự",
             'address.required' => "Vui lòng nhập địa chỉ của tòa nhà",
+            'address.min' => "Địa chỉ phải có ít nhất 3 ký tự",
             'filenames.required' => "Vui lòng chọn hình ảnh",
             'filenames.mimes' => "File không đúng định dạng hình ảnh",
             'hotline.required' => "Vui lòng nhập hotline của tòa nhà",
