@@ -4,13 +4,13 @@ import {
   GET_FACILITIES_SUCCESS,
 } from '../../constants/actionTypes';
 
-const rooms = (state, {type, payload}) => {
+const facilities = (state, {type, payload}) => {
   switch (type) {
     case GET_FACILITIES_LOADING:
       return {
         ...state,
-        getRooms: {
-          ...state.getRooms,
+        getFacilities: {
+          ...state.getFacilities,
           loading: true,
           error: null,
         },
@@ -19,8 +19,8 @@ const rooms = (state, {type, payload}) => {
     case GET_FACILITIES_SUCCESS:
       return {
         ...state,
-        getRooms: {
-          ...state.getRooms,
+        getFacilities: {
+          ...state.getFacilities,
           loading: false,
           data: payload,
           error: null,
@@ -30,8 +30,8 @@ const rooms = (state, {type, payload}) => {
     case GET_FACILITIES_FAILED:
       return {
         ...state,
-        getRooms: {
-          ...state.getRooms,
+        getFacilities: {
+          ...state.getFacilities,
           loading: false,
           error: payload,
         },
@@ -42,4 +42,4 @@ const rooms = (state, {type, payload}) => {
   }
 };
 
-export default rooms;
+export default facilities;

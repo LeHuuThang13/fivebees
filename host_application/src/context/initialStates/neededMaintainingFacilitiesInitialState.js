@@ -1,20 +1,15 @@
 export default {
-  getRooms: {
+  getFacilities: {
     data: [],
     error: null,
     loading: false,
   },
-  createRooms: {
+  createFacilities: {
     data: {},
     error: null,
     loading: false,
   },
-  updateRooms: {
-    data: {},
-    error: null,
-    loading: false,
-  },
-  deleteRooms: {
+  updateFacilities: {
     data: {},
     error: null,
     loading: false,

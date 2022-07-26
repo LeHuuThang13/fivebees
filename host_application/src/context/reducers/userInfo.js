@@ -1,39 +1,40 @@
 import {
-  LOGIN_FAILED,
-  LOGIN_LOADING,
-  LOGIN_SUCCESS,
-  LOGOUT_USER,
+  GET_USER_INFO_FAILED,
+  GET_USER_INFO_LOADING,
+  GET_USER_INFO_SUCCESS,
 } from '../../constants/actionTypes';
 
-const auth = (state, {type, payload}) => {
+const rooms = (state, {type, payload}) => {
   switch (type) {
-    case LOGIN_LOADING:
+    case GET_USER_INFO_LOADING:
       return {
         ...state,
-        loading: true,
+        getCurUserInfo: {
+          ...state.getCurUserInfo,
+          loading: true,
+          error: null,
+        },
       };
 
-    case LOGIN_SUCCESS:
+    case GET_USER_INFO_SUCCESS:
       return {
         ...state,
-        loading: false,
-        data: payload,
-        isLoggedIn: true,
+        getCurUserInfo: {
+          ...state.getCurUserInfo,
+          loading: false,
+          data: payload,
+          error: null,
+        },
       };
 
-    case LOGIN_FAILED:
+    case GET_USER_INFO_FAILED:
       return {
         ...state,
-        loading: false,
-        error: payload,
-      };
-
-    case LOGOUT_USER:
-      return {
-        ...state,
-        loading: false,
-        data: null,
-        isLoggedIn: false,
+        getCurUserInfo: {
+          ...state.getCurUserInfo,
+          loading: false,
+          error: payload,
+        },
       };
 
     default:
@@ -41,4 +42,4 @@ const auth = (state, {type, payload}) => {
   }
 };
 
-export default auth;
+export default rooms;
