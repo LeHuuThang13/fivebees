@@ -6,6 +6,7 @@ import HomeUserScreen from './src/screens/HomeUserScreen/HomeUserScreen'
 import Navigation from './src/navigations'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import 'react-native-gesture-handler';
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
