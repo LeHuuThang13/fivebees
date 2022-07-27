@@ -26,6 +26,7 @@ class RoomResource extends JsonResource
             'status' => $this->status,
             'building_id' => $this->building_id,
             'photos' => $photos,
+            'facilities' => $this->facilities,
         ];
     }
 }

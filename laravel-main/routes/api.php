@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'middleware' => ['auth:sanctum']], function () {
-    Route::get('/facilities/damagedFacility', [FacilityApiController::class, 'damagedFacility']);
+    Route::get('/facilities/getListDamagedFacility', [FacilityApiController::class, 'getListDamagedFacility']);
     Route::apiResource('facilities', FacilityApiController::class);
 
     Route::apiResource('rooms', RoomApiController::class);

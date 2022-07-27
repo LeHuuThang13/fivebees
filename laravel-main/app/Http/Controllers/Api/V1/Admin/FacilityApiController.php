@@ -101,7 +101,7 @@ class FacilityApiController extends Controller
         return $code;
     }
 
-    public function damagedFacility()
+    public function getListDamagedFacility()
     {
         abort_if(Gate::denies('facility_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
