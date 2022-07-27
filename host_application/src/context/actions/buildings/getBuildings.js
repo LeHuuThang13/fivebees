@@ -12,6 +12,7 @@ export default () => dispatch => {
   axiosInstance
     .get('buildings')
     .then(res => {
+      // console.log('buildings', res.data);
       dispatch({
         type: GET_BUILDINGS_SUCCESS,
         payload: res.data,
