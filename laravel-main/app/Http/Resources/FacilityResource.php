@@ -19,11 +19,6 @@ class FacilityResource extends JsonResource
             array_push($photos, $photo->getUrl());
         }
 
-        $room = '';
-        if ($this->rooms->count() > 0) {
-            $room = $this->rooms->last()->room_number;
-        }
-
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -31,7 +26,7 @@ class FacilityResource extends JsonResource
             'description' => $this->description,
             'status' => $this->status->name,
             'category' => $this->categories->name,
-            'room_number' => $room,
+            'room' => $this->rooms,
             'photos' => $photos
         ];
     }
