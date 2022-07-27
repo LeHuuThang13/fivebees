@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 
 const AnalystContainer = props => {
-  const {title, content, titleNavigation} = props;
+  const {title, content, titleNavigation, onPress} = props;
   return (
     <View style={styles.container}>
       <View style={styles.titleBlock}>
@@ -12,10 +12,7 @@ const AnalystContainer = props => {
       <View style={styles.contentBlock}>
         <Text style={styles.content}>{content}</Text>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          console.log('heelow');
-        }}>
+      <TouchableOpacity onPress={() => onPress()}>
         <Text style={styles.titleButton}>{titleNavigation}</Text>
       </TouchableOpacity>
     </View>
