@@ -23,19 +23,32 @@ import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import {GlobalContext} from '../../context/Provider';
 import getRooms from '../../context/actions/rooms/getRooms';
+import getBuildings from '../../context/actions/buildings/getBuildings';
 
 const RoomList = ({navigation}) => {
+  // useEffect(() => {
+  //   getBuildings()(buildingsDispatch);
+  // });
+
   const [chooseBuilding, setChooseBuilding] = useState('Tòa A');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
+    getBuildings()(buildingsDispatch);
+    console.log('data rooms', data_rooms);
+    console.log('data building', data_building);
+    // const id_bulding = data_building.data[0]['id'];
     getRooms()(roomsDispatch);
   }, []);
 
   const {
     roomsDispatch,
     roomsState: {
-      getRooms: {data, loading},
+      getRooms: {data: data_rooms, loading: loading_rooms},
+    },
+    buildingsDispatch,
+    buildingsState: {
+      getBuildings: {data: data_building, loading: loading_building},
     },
   } = useContext(GlobalContext);
 
@@ -112,12 +125,16 @@ const RoomList = ({navigation}) => {
         </Modal>
       </View>
 
-      {loading && <ActivityIndicator size="large" color={colors.secondary} />}
+      {loading_rooms && (
+        <ActivityIndicator size="large" color={colors.secondary} />
+      )}
 
-      {!loading && (
+      {!loading_rooms && (
         <FlatList
           renderItem={renderItem}
-          data={data.data}
+          data={data_rooms.data}
+          style={styles.FlatList}
+          showsVerticalScrollIndicator={false}
           ListEmptyComponent={ListEmptyComponent}
         />
       )}

@@ -24,6 +24,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  FlatList: {
+    marginTop: 10,
+    marginBottom: 50
+  },
+
   //   Room
   roomContainer: {
     borderColor: colors.border_input,
