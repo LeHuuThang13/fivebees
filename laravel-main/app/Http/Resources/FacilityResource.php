@@ -26,7 +26,7 @@ class FacilityResource extends JsonResource
             'description' => $this->description,
             'status' => $this->status->name,
             'category' => $this->categories->name,
-            'room_number' => $this->rooms,
+            'room' => $this->rooms,
             'photos' => $photos
         ];
     }
