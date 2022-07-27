@@ -43,10 +43,10 @@ class StoreRoleRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => "Vui lòng nhập tên của role",
-            'name.string' => "Tên của role phải là chữ",
-            'name.unique' => "Role đã tồn tại",
-            'permissions.required' => "Vui lòng chọn permissions",
+            'name.required' => "Vui lòng nhập tên của vai trò",
+            'name.string' => "Tên của vai trò phải là chữ",
+            'name.unique' => "Vai trò đã tồn tại",
+            'permissions.required' => "Vui lòng chọn các quyền",
         ];
     }
 }

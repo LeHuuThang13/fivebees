@@ -28,7 +28,7 @@ class UpdateRoleRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'unique:permissions'
+                'unique:roles'
             ],
             'permissions.*' => [
                 'integer',
@@ -43,9 +43,9 @@ class UpdateRoleRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => "Vui lòng nhập tên của role",
-            'name.string' => "Tên của role phải là chữ",
-            'permissions.required' => "Vui lòng chọn permissions",
+            'name.required' => "Vui lòng nhập tên của vai trò",
+            'name.string' => "Tên của vai trò phải là chữ",
+            'permissions.required' => "Vui lòng chọn các quyền",
         ];
     }
 }
