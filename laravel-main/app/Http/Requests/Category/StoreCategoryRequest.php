@@ -38,6 +38,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name.required' => "Vui lòng nhập tên loại thiết bị",
             'name.unique' => "Loại thiết bị đã tồn tại",
+            'name.regex' => "Tên loại thiết bị phải là ký tự chữ",
         ];
     }
 }

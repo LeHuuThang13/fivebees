@@ -28,6 +28,7 @@ class UpdatePermissionRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
+                'unique:permissions,name,' . request()->route('permission')->id,
             ]
         ];
     }
@@ -37,6 +38,7 @@ class UpdatePermissionRequest extends FormRequest
         return [
             'name.required' => "Vui lòng nhập tên của role",
             'name.string' => "Tên của role phải là chữ",
+            'name.unique' => "Quyền đã tồn tại",
         ];
     }
 }

@@ -43,9 +43,9 @@ class StorePermissionRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => "Vui lòng nhập tên của permission",
-            'name.string' => "Tên của role phải là chữ",
-            'name.unique' => "Permission đã tồn tại",
+            'name.required' => "Vui lòng nhập tên của quyền",
+            'name.string' => "Tên của quyền phải là chữ",
+            'name.unique' => "Quyền đã tồn tại",
             'actions.required' => "Vui lòng chọn hành động"
         ];
     }
