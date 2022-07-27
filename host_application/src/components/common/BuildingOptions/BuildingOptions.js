@@ -14,6 +14,8 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const BuildingOptions = props => {
+  console.log('props', props.buidings);
+
   const onPressItem = option => {
     props.changeModelVisible(false);
     props.setData(option);

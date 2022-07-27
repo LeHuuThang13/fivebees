@@ -1,3 +1,5 @@
+import React from 'react';
+import {BuildingOptions} from '../../../components/common/BuildingOptions/BuildingOptions';
 import {
   GET_BUILDINGS_FAILED,
   GET_BUILDINGS_LOADING,
@@ -15,8 +17,9 @@ export default () => dispatch => {
       // console.log('buildings', res.data);
       dispatch({
         type: GET_BUILDINGS_SUCCESS,
-        payload: res.data,
+        payload: res.data.data,
       });
+      return <BuildingOptions buildings={res.data} />;
     })
     .catch(error => {
       console.log(error);
