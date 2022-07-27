@@ -19,18 +19,6 @@ class RoomResource extends JsonResource
             array_push($photos, $photo->getUrl());
         }
 
-        $facilityCount = 0;
-        foreach ($this->facilities as $facility) {
-            $facilityCount++;
-        }
-
-        $brokenFacility = 0;
-        foreach ($this->facilities as $facility) {
-            if ($facility->status->name == 'hư hại') {
-                $brokenFacility++;
-            }
-        }
-
         return [
             'id' => $this->id,
             'room_number' => $this->room_number,
@@ -38,8 +26,6 @@ class RoomResource extends JsonResource
             'status' => $this->status,
             'building_id' => $this->building_id,
             'photos' => $photos,
-            'facilityCount' => $facilityCount,
-            'brokenFacility' => $brokenFacility
         ];
     }
 }
