@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Room\StoreRoomRequest;
 use App\Http\Requests\Room\UpdateRoomRequest;
 use App\Http\Resources\RoomResource;
+use App\Models\Building;
 use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -31,19 +32,25 @@ class RoomApiController extends Controller
 
     public function store(StoreRoomRequest $request)
     {
-        $room = Room::create([
-            'room_number' => $request->input('room_number'),
-            'description' => $request->input('description'),
-            'status' => $request->input('status'),
-            'building_id' => $request->input('building_id'),
-            'created_by_id' => Auth::id(),
-        ]);
+        $building_id = Building::where('id', $request->input('building_id'))->where('user_id', Auth::id())->get('id');
 
-        if ($request->hasFile('filenames')) {
-            $fileAdders = $room->addMultipleMediaFromRequest(['filenames'])
-                ->each(function ($fileAdder) {
-                    $fileAdder->toMediaCollection('photos');
-                });
+        if ($building_id->count() > 0) {
+            $room = Room::create([
+                'room_number' => $request->input('room_number'),
+                'description' => $request->input('description'),
+                'status' => $request->input('status'),
+                'building_id' => $request->input('building_id'),
+                'created_by_id' => Auth::id(),
+            ]);
+
+            if ($request->hasFile('filenames')) {
+                $fileAdders = $room->addMultipleMediaFromRequest(['filenames'])
+                    ->each(function ($fileAdder) {
+                        $fileAdder->toMediaCollection('photos');
+                    });
+            }
+        } else {
+            return response(null, Response::HTTP_CONFLICT);
         }
 
         return (new RoomResource($room))
