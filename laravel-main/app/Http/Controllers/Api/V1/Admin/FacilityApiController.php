@@ -59,7 +59,7 @@ class FacilityApiController extends Controller
         $facility->update($request->validated());
 
         if ($request->input('status_id') == 1 || $request->input('status_id') == 3) {
-            $facility->rooms()->attach($request->room_id);
+            $facility->rooms()->sync($request->room_id);
         }
 
         if ($request->hasFile('filenames')) {

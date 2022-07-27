@@ -28,7 +28,7 @@ class UpdateRoleRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'unique:roles'
+                'unique:roles,name,' . request()->route('role')->id,
             ],
             'permissions.*' => [
                 'integer',
@@ -45,6 +45,7 @@ class UpdateRoleRequest extends FormRequest
         return [
             'name.required' => "Vui lòng nhập tên của vai trò",
             'name.string' => "Tên của vai trò phải là chữ",
+            'name.unique' => "Vai trò đã tồn tại",
             'permissions.required' => "Vui lòng chọn các quyền",
         ];
     }
