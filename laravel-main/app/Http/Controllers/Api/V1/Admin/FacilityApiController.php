@@ -100,4 +100,13 @@ class FacilityApiController extends Controller
         }
         return $code;
     }
+
+    public function damagedFacility()
+    {
+        abort_if(Gate::denies('facility_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $facilities = Facility::where('status_id', '=', 3)->with(['rooms', 'categories', 'status'])->get();
+
+        return FacilityResource::collection($facilities);
+    }
 }
