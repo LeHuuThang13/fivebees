@@ -41,6 +41,11 @@ class Building extends Model implements HasMedia
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'building_id');
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

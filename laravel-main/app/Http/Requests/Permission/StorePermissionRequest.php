@@ -27,7 +27,6 @@ class StorePermissionRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'string',
                 'unique:permissions'
             ],
             'actions' => [
@@ -44,7 +43,6 @@ class StorePermissionRequest extends FormRequest
     {
         return [
             'name.required' => "Vui lòng nhập tên của quyền",
-            'name.string' => "Tên của quyền phải là chữ",
             'name.unique' => "Quyền đã tồn tại",
             'actions.required' => "Vui lòng chọn hành động"
         ];
