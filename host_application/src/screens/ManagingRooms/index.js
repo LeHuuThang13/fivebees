@@ -18,7 +18,6 @@ import CustomHeaderDetails from '../../components/CustomHeaderDetails';
 import Setting from '../../assets/icons/setting_white.svg';
 
 const ManagingRooms = ({navigation}) => {
-  console.log(navigation);
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     styles: {

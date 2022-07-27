@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, View, ScrollView, Image} from 'react-native';
-import Container from '../../components/common/Container';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
@@ -15,7 +14,7 @@ const RoomDetails = ({navigation}) => {
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
     Icon: PreviousIcon,
     previousBtn: () => {
-      navigation.navigate(ROOM_LIST);
+      navigation.goBack();
     },
   });
 

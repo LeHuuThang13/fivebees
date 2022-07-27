@@ -34,7 +34,7 @@ class AuthenticationApiController extends Controller
 
         $user = User::where('email', $request->email)->first();
         $token = $user->createToken('token-name')->plainTextToken;
-        return response()->json(['access_token' => $token]);
+        return response()->json(['access_token' => $token, 'user' => $user]);
     }
 
     public function logout(Request $request)
