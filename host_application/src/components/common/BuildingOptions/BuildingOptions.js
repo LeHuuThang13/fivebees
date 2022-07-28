@@ -9,28 +9,25 @@ import {
 import React from 'react';
 import colors from '../../../assets/themes/colors';
 
-const OPTIONS = ['Tòa A', 'Tòa B', 'Tòa C'];
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const BuildingOptions = props => {
-  console.log('props', props.buidings);
+  const option = props.buildings.map((item, index) => {
+    return (
+      <TouchableOpacity
+        style={styles.option}
+        key={index}
+        onPress={() => onPressItem(item.name)}>
+        <Text style={styles.text}>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  });
 
   const onPressItem = option => {
     props.changeModelVisible(false);
     props.setData(option);
   };
-
-  const option = OPTIONS.map((item, index) => {
-    return (
-      <TouchableOpacity
-        style={styles.option}
-        key={index}
-        onPress={() => onPressItem(item)}>
-        <Text style={styles.text}>{item}</Text>
-      </TouchableOpacity>
-    );
-  });
 
   return (
     <View style={styles.bgContainer}>
@@ -52,7 +49,7 @@ const BuildingOptions = props => {
   );
 };
 
-export {BuildingOptions};
+export default BuildingOptions;
 
 const styles = StyleSheet.create({
   bgContainer: {

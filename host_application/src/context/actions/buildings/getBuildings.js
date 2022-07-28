@@ -14,12 +14,10 @@ export default () => dispatch => {
   axiosInstance
     .get('buildings')
     .then(res => {
-      // console.log('buildings', res.data);
       dispatch({
         type: GET_BUILDINGS_SUCCESS,
         payload: res.data.data,
       });
-      return <BuildingOptions buildings={res.data} />;
     })
     .catch(error => {
       console.log(error);

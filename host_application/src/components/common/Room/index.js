@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './style';
 import DeleteIcon from '../../../assets/icons/delete.svg';
 import EditIcon from '../../../assets/icons/edit.svg';
+import colors from '../../../assets/themes/colors';
 
 const Room = props => {
   const {
@@ -15,6 +16,7 @@ const Room = props => {
     IconSetting,
     actions,
     onPress,
+    disabled,
   } = props;
 
   const actionRoom = () => {
@@ -71,7 +73,15 @@ const Room = props => {
           {onPress && (
             <View style={styles.btnRoomContainer}>
               <TouchableOpacity
-                style={styles.btnRoom}
+                style={[
+                  {
+                    backgroundColor: disabled
+                      ? colors.secondary
+                      : colors.bg_primary,
+                  },
+                  styles.btnRoom,
+                ]}
+                disabled={disabled}
                 onPress={() => onPress()}>
                 {<IconSetting />}
                 <Text style={styles.textBtn}>Quản lý thiết bị</Text>
