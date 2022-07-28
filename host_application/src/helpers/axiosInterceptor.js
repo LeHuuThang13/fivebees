@@ -3,7 +3,7 @@ import axios from 'axios';
 import envs from '../config/env';
 
 const axiosInstance = axios.create({
-  baseURL: envs.BACKEND_URL + '/v1',
+  baseURL: envs.BACKEND_URL,
   headers: {},
 });
 

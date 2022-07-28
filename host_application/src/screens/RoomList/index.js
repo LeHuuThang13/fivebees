@@ -12,7 +12,7 @@ import Container from '../../components/common/Container';
 import {TouchableOpacity} from 'react-native';
 import colors from '../../assets/themes/colors';
 import ArrowDown from '../../assets/icons/arrowDown.svg';
-import {BuildingOptions} from '../../components/common/BuildingOptions/BuildingOptions';
+import BuildingOptions from '../../components/common/BuildingOptions/BuildingOptions';
 import Device from '../../assets/icons/device.svg';
 import Setting from '../../assets/icons/setting_white.svg';
 import BrokenDevice from '../../assets/icons/broken.svg';
@@ -25,14 +25,15 @@ import {GlobalContext} from '../../context/Provider';
 import getRooms from '../../context/actions/rooms/getRooms';
 import getBuildings from '../../context/actions/buildings/getBuildings';
 
-SettingHeaderNavigator.settingHeaderNavigator({
-  MenuIcon: IconMenu,
-  styles: {
-    marginHorizontal: 10,
-  },
-});
-
 const RoomList = ({navigation}) => {
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: IconMenu,
+    styles: {
+      marginHorizontal: 10,
+    },
+  });
+  const [chooseBuilding, setChooseBuilding] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const {
     roomsDispatch,
     roomsState: {
@@ -44,23 +45,11 @@ const RoomList = ({navigation}) => {
     },
   } = useContext(GlobalContext);
 
-  const [chooseBuilding, setChooseBuilding] = useState('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   useEffect(() => {
     getBuildings()(buildingsDispatch);
-    console.log('data rooms', data_rooms);
-    console.log('data building', data_building);
     getRooms()(roomsDispatch);
+    console.log('ok');
   }, []);
-
-  // const nameBuilding =
-  //   data_building.length > 0
-  //     ? setChooseBuilding(data_building[0]['name'])
-  //     : setChooseBuilding(
-  //         <ActivityIndicator size="small" color={colors.secondary} />,
-  //       );
-  const nameBuilding = 'sdf';
 
   const changeModelVisible = bool => {
     setIsModalVisible(bool);
@@ -83,14 +72,27 @@ const RoomList = ({navigation}) => {
   };
 
   const renderItem = ({item}) => {
-    const {id, description, building_id, room_number, status} = item;
+    const {id, description, building_id, room_number, status, facilities} =
+      item;
+
+    function countDamagedFacilities(total, curVal) {
+      return curVal.status_id === 3 || curVal.status_id === undefined
+        ? total++
+        : total;
+    }
+
+    const damagedFacilities = facilities.reduce(countDamagedFacilities, 0);
+
+    console.log(typeof damagedFacilities, damagedFacilities);
+
     return (
       <View>
         <Room
           roomName={`Phòng ${room_number}`}
           status={status}
-          totalDevices={10}
-          totalBrokenDevices={0}
+          totalDevices={facilities.length}
+          totalBrokenDevices={damagedFacilities}
+          disabled={facilities.length > 0 ? false : true}
           IconDevice={Device}
           IconBrokenDevice={BrokenDevice}
           IconSetting={Setting}
@@ -111,7 +113,13 @@ const RoomList = ({navigation}) => {
             style={styles.opacityBtn}
             onPress={() => changeModelVisible(true)}>
             <Text style={[styles.textSelectColor, styles.stylesText]}>
-              {chooseBuilding}
+              {chooseBuilding.length > 0 ? (
+                chooseBuilding
+              ) : data_building.length > 0 ? (
+                data_building[0]['name']
+              ) : (
+                <ActivityIndicator size="small" color={colors.secondary} />
+              )}
             </Text>
             <ArrowDown />
           </TouchableOpacity>
@@ -121,7 +129,6 @@ const RoomList = ({navigation}) => {
           animationType="none"
           visible={isModalVisible}
           onRequestClose={() => changeModelVisible(false)}>
-          {console.log('data_building >>>', data_building)}
           <BuildingOptions
             changeModelVisible={changeModelVisible}
             setData={setData}

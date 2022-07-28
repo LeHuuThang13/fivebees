@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
 
   btnRoom: {
     padding: 10,
-    backgroundColor: colors.bg_primary,
     flexDirection: 'row',
     borderRadius: 10,
   },
