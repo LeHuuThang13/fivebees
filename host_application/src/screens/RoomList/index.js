@@ -25,22 +25,14 @@ import {GlobalContext} from '../../context/Provider';
 import getRooms from '../../context/actions/rooms/getRooms';
 import getBuildings from '../../context/actions/buildings/getBuildings';
 
+SettingHeaderNavigator.settingHeaderNavigator({
+  MenuIcon: IconMenu,
+  styles: {
+    marginHorizontal: 10,
+  },
+});
+
 const RoomList = ({navigation}) => {
-  // useEffect(() => {
-  //   getBuildings()(buildingsDispatch);
-  // });
-
-  const [chooseBuilding, setChooseBuilding] = useState('Tòa A');
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  useEffect(() => {
-    getBuildings()(buildingsDispatch);
-    console.log('data rooms', data_rooms);
-    console.log('data building', data_building);
-    // const id_bulding = data_building.data[0]['id'];
-    getRooms()(roomsDispatch);
-  }, []);
-
   const {
     roomsDispatch,
     roomsState: {
@@ -52,6 +44,24 @@ const RoomList = ({navigation}) => {
     },
   } = useContext(GlobalContext);
 
+  const [chooseBuilding, setChooseBuilding] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    getBuildings()(buildingsDispatch);
+    console.log('data rooms', data_rooms);
+    console.log('data building', data_building);
+    getRooms()(roomsDispatch);
+  }, []);
+
+  // const nameBuilding =
+  //   data_building.length > 0
+  //     ? setChooseBuilding(data_building[0]['name'])
+  //     : setChooseBuilding(
+  //         <ActivityIndicator size="small" color={colors.secondary} />,
+  //       );
+  const nameBuilding = 'sdf';
+
   const changeModelVisible = bool => {
     setIsModalVisible(bool);
   };
@@ -59,13 +69,6 @@ const RoomList = ({navigation}) => {
   const setData = option => {
     setChooseBuilding(option);
   };
-
-  SettingHeaderNavigator.settingHeaderNavigator({
-    MenuIcon: IconMenu,
-    styles: {
-      marginHorizontal: 10,
-    },
-  });
 
   const ListEmptyComponent = () => {
     return (
@@ -118,9 +121,11 @@ const RoomList = ({navigation}) => {
           animationType="none"
           visible={isModalVisible}
           onRequestClose={() => changeModelVisible(false)}>
+          {console.log('data_building >>>', data_building)}
           <BuildingOptions
             changeModelVisible={changeModelVisible}
             setData={setData}
+            buildings={data_building}
           />
         </Modal>
       </View>

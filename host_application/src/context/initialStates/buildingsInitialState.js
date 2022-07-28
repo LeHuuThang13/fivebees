@@ -1,21 +1,21 @@
 export default {
   getBuildings: {
-    data_building: [],
+    data: [],
     error: null,
     loading_building: false,
   },
   createBuilding: {
-    data_building: {},
+    data: {},
     error: null,
     loading_building: false,
   },
   updateBuilding: {
-    data_building: {},
+    data: {},
     error: null,
     loading_building: false,
   },
   deleteBuildings: {
-    data_building: {},
+    data: {},
     error: null,
     loading_building: false,
   },
