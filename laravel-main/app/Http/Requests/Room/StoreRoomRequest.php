@@ -54,7 +54,7 @@ class StoreRoomRequest extends FormRequest
             'room_number.required' => "Vui lòng nhập số phòng",
             'status.required' => "Vui lòng nhập trạng thái của phòng",
             'description.required' => "Vui lòng nhập mô tả",
-            'building_id.required' => "Tòa nhà không được bỏ trống",
+            'building_id.required' => "Vui lòng chọn tòa nhà",
             'filenames.*.required' => "Vui lòng chọn hình ảnh",
             'filenames.*.mimes' => "File không đúng định dạng hình ảnh",
         ];

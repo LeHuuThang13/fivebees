@@ -34,6 +34,9 @@ class UpdateRoomRequest extends FormRequest
             'building_id' => [
                 'required'
             ],
+            'description' => [
+                'required',
+            ]
         ];
     }
 
@@ -42,7 +45,8 @@ class UpdateRoomRequest extends FormRequest
         return [
             'room_number.required' => "Vui lòng nhập số phòng",
             'status.required' => "Vui lòng nhập trạng thái của phòng",
-            'building_id.required' => "Tòa nhà không được bỏ trống",
+            'building_id.required' => "Vui lòng chọn tòa nhà",
+            'description.required' => "Vui lòng nhập mô tả",
         ];
     }
 }
