@@ -38,6 +38,7 @@ class UpdateStatusRequest extends FormRequest
         return [
             'name.required' => "Vui lòng nhập tên tài khoản",
             'name.unique' => "Trạng thái đã tồn tại",
+            'name.regex' => "Tên trạng thái phải là ký tự chữ"
         ];
     }
 }

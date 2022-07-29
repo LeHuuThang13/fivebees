@@ -15,7 +15,7 @@
                 @method('PUT')
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Tên:</label>
+                    <label for="name" class="form-label">Tên tình trạng:</label>
                     <input name="name" type="text" class="form-control" value="{{ old('name', $status->name) }}" required>
                     @error('name')
                     <p style="color: #dc3545">{{ $message }}</p>

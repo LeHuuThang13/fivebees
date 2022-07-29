@@ -48,7 +48,7 @@ class UpdateUserRequest extends FormRequest
             'name.required' => "Vui lòng nhập tên của tài khoản",
             'email.required' => "Vui lòng nhập email",
             'email.unique' => "Email đã được sử dụng",
-            'roles.required' => "Vui lòng chọn role cho tài khoản",
+            'roles.required' => "Vui lòng chọn vai trò cho tài khoản",
         ];
     }
 }
