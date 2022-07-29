@@ -5,17 +5,21 @@ import QRcode from '../QRcode/QRcode';
 import HomeScreen from '../HomeScreen/HomeScreen';
 import Help from '../Help/Help';
 import  Icon from 'react-native-vector-icons/MaterialIcons';
+
 const Drawer = createDrawerNavigator();
 
 const HomeUserScreen = () => {
   return (
-    <Drawer.Navigator initialRouteName='Trang chủ' >
-    <Drawer.Screen name="Trang Chủ" component={HomeScreen} options={{
+  //   <Drawer.Navigator initialRouteName='Trang chủ' >
+  //   <Drawer.Screen name="Trang Chủ" component={HomeScreen} options={{
       
-    }}/>
-    <Drawer.Screen name="QR Code" component={QRcode} />
-    <Drawer.Screen name='Hướng dẫn sử dụng' component={Help}/>
-  </Drawer.Navigator>
+  //   }}/>
+  //   <Drawer.Screen name="QR Code" component={QRcode} />
+  //   <Drawer.Screen name='Hướng dẫn sử dụng' component={Help}/>
+  // </Drawer.Navigator>
+  <View>
+  <Text>Home</Text>
+ </View>
   )
 }
 
