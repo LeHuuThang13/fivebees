@@ -11,6 +11,7 @@ import ManagingContainer from '../../components/common/Managing';
 import {MANAGING_BUILDING, MANAGING_DEVICES} from '../../constants/routeNames';
 import axiosInstance from '../../helpers/axiosInterceptor';
 import axios from 'axios';
+import MorePopupMenu from '../../components/common/MorePopupMenu';
 
 const Managing = ({navigation}) => {
   SettingHeaderNavigator.settingHeaderNavigator({
@@ -52,27 +53,28 @@ const Managing = ({navigation}) => {
   return (
     <Container>
       <ManagingContainer
+        // Content
         managingName={'Quản lý tòa nhà'}
-        totalManaging={'Số lượng tòa nhà'}
+        totalManagingTitleText={'Số lượng tòa nhà'}
         totalDevices={buildings ? buildings.length : 0}
         onPress={() => {
           navigation.navigate(MANAGING_BUILDING);
         }}
-        IconBtn={<Setting />}
-        titleBtn={'Quản lý tòa nhà'}
-        IconManaging={<BuildingIcon />}
+        IconManagingBtn={<Setting />}
+        managingBtnText={'Quản lý tòa nhà'}
+        IconManagingText={<BuildingIcon />}
       />
 
       <ManagingContainer
         managingName={'Quản lý thiết bị'}
-        totalManaging={'Số lượng thiết bị'}
+        totalManagingTitleText={'Số lượng thiết bị'}
         totalDevices={facilities ? facilities.length : 0}
         onPress={() => {
           navigation.navigate(MANAGING_DEVICES);
         }}
-        IconBtn={<Setting />}
-        titleBtn={'Quản lý thiết bị'}
-        IconManaging={<DeviceIcon />}
+        IconManagingBtn={<Setting />}
+        managingBtnText={'Quản lý thiết bị'}
+        IconManagingText={<DeviceIcon />}
       />
     </Container>
   );

@@ -3,7 +3,7 @@ import {Text, View, TouchableOpacity, TextInput} from 'react-native';
 import styles from './styles';
 
 const CustomInput = props => {
-  const {title, placeholder, value} = props;
+  const {title, placeholder, value, onChangeText, ...prop} = props;
 
   return (
     <View style={styles.container}>
@@ -13,7 +13,10 @@ const CustomInput = props => {
       <TextInput
         style={styles.textInput}
         placeholder={placeholder}
-        value={value ? value.toString() : ''}
+        onChangeText={value => {
+          onChangeText;
+        }}
+        {...prop}
       />
     </View>
   );

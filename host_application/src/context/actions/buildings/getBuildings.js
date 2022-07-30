@@ -7,7 +7,7 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default () => dispatch => {
+export default props => dispatch => {
   dispatch({
     type: GET_BUILDINGS_LOADING,
   });
@@ -20,7 +20,6 @@ export default () => dispatch => {
       });
     })
     .catch(error => {
-      console.log(error);
       dispatch({
         type: GET_BUILDINGS_FAILED,
         payload: error.message,

@@ -1,6 +1,7 @@
 //Names Stack
-export const ROOM_LIST = 'Phòng';
-export const ROOM_LIST_BOTTOM = ' Phòng ';
+export const ROOM_LIST = 'Tòa Nhà';
+export const BUILDINGS_LIST = ' Phòng ';
+export const ROOM_LIST_BOTTOM = ' Tòa Nhà ';
 export const NOTIFICATION = 'Thông Báo';
 export const ANALYST = 'Thống Kê';
 export const QRCODE = 'Mã QR';

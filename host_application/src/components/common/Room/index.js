@@ -17,6 +17,9 @@ const Room = props => {
     actions,
     onPress,
     disabled,
+    textTotalDevices,
+    textBrokenDevice,
+    btnTitle,
   } = props;
 
   const actionRoom = () => {
@@ -43,7 +46,7 @@ const Room = props => {
 
         <Text style={styles.headerRoomRight}>
           <View>
-            <Text style={styles.labelStatus}>Tình trạng:</Text>
+            {status && <Text style={styles.labelStatus}>Tình trạng:</Text>}
           </View>
           <View style={styles.statusBlock}>
             <Text style={styles.status}>{status}</Text>
@@ -55,13 +58,15 @@ const Room = props => {
         <View style={styles.totalItem}>
           <Text style={styles.iconItem}>{<IconDevice />}</Text>
           <Text style={styles.textTotalDevices}>
-            Tổng thiết bị: {totalDevices}
+            {textTotalDevices} {totalDevices}
           </Text>
         </View>
         <View style={styles.totalItem}>
-          <Text style={styles.iconItem}>{<IconBrokenDevice />}</Text>
+          <Text style={styles.iconItem}>
+            {IconBrokenDevice && <IconBrokenDevice />}
+          </Text>
           <Text style={styles.textTotalDevices}>
-            Thiết bị hư hỏng: {totalBrokenDevices}
+            {textBrokenDevice} {totalBrokenDevices}
           </Text>
         </View>
         <View
@@ -78,13 +83,14 @@ const Room = props => {
                     backgroundColor: disabled
                       ? colors.secondary
                       : colors.bg_primary,
+                    width: 150,
                   },
                   styles.btnRoom,
                 ]}
                 disabled={disabled}
                 onPress={() => onPress()}>
                 {<IconSetting />}
-                <Text style={styles.textBtn}>Quản lý thiết bị</Text>
+                <Text style={styles.textBtn}>{btnTitle}</Text>
               </TouchableOpacity>
             </View>
           )}
