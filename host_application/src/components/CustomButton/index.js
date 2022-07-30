@@ -12,6 +12,7 @@ function index({
   loading,
   noneBg,
   styleBtn,
+  error,
   ...props
 }) {
   const getBgColor = () => {
@@ -44,7 +45,9 @@ function index({
       disabled={disabled}
       {...props}>
       <View style={[styles.loaderSection]}>
-        {loading && <ActivityIndicator color={colors.secondary} />}
+        {loading && (
+          <ActivityIndicator color={primary ? colors.black : colors.black} />
+        )}
         {title && (
           <Text
             style={[
@@ -53,7 +56,7 @@ function index({
                 paddingLeft: loading ? 5 : 0,
               },
             ]}>
-            {title}
+            {loading ? 'Vui lòng chờ đợi ...' : title}
           </Text>
         )}
       </View>

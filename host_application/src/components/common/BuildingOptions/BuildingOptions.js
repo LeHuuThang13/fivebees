@@ -18,7 +18,7 @@ const BuildingOptions = props => {
       <TouchableOpacity
         style={styles.option}
         key={index}
-        onPress={() => onPressItem(item.name)}>
+        onPress={() => onPressItem(item)}>
         <Text style={styles.text}>{item.name}</Text>
       </TouchableOpacity>
     );

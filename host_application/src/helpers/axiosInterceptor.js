@@ -4,7 +4,12 @@ import envs from '../config/env';
 
 const axiosInstance = axios.create({
   baseURL: envs.BACKEND_URL,
-  headers: {},
+  headers: {Accept: 'application/json'},
+  // validateStatus: function validateStatus(status) {
+  //   let defaultStatus = status >= 200 && status < 300;
+  //   let extra = status == 422;
+  //   return defaultStatus || extra;
+  // },
 });
 
 axiosInstance.interceptors.request.use(

@@ -7,17 +7,18 @@ import {
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
 export default props => dispatch => {
-  // const {id_building: id} = props;
+  const {idBuilding: id} = props;
 
   dispatch({
     type: GET_ROOMS_LOADING,
   });
   axiosInstance
-    .get(`rooms`)
+    .get(`rooms/${id}`)
     .then(res => {
+      console.log('res.data.data', res.data);
       dispatch({
         type: GET_ROOMS_SUCCESS,
-        payload: res.data,
+        payload: res.data.data,
       });
     })
     .catch(error => {

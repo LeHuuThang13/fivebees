@@ -6,6 +6,7 @@ import colors from '../assets/themes/colors';
 import {
   ANALYST,
   BUILDINGDETAILS,
+  BUILDINGS_LIST,
   CREATING_ROOM,
   EDITING_DEVICE,
   HOME_NAVIGATOR,
@@ -37,6 +38,7 @@ import SideMenu from './SideMenu';
 import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingRooms from '../screens/ManagingRooms';
 import EditingDevice from '../screens/EditingDevice';
+import BulidingsList from '../screens/BuildingsList';
 import CreatingRoom from '../screens/CreatingRoom';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 import {GlobalContext} from '../context/Provider';
@@ -81,6 +83,11 @@ const DrawerNavigator = () => {
         name={EDITING_DEVICE}
         options={{swipeEnabled: false}}
         component={EditingDevice}
+      />
+      <Drawer.Screen
+        name={BUILDINGS_LIST}
+        options={{swipeEnabled: false}}
+        component={BulidingsList}
       />
       <Drawer.Screen
         name={ROOMDETAILS}

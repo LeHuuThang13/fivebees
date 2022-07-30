@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 
-  textTotalDevices: {
+  textTotalManagingText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: 'bold',
     fontSize: 16,
-    width: 120,
   },
 });
 
