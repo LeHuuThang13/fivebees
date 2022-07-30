@@ -14,7 +14,7 @@ export default {
     error: null,
     loading_building: false,
   },
-  deleteBuildings: {
+  deleteBuilding: {
     data: {},
     error: null,
     loading_building: false,

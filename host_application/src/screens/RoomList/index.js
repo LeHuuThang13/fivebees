@@ -1,13 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  Modal,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import colors from '../../assets/themes/colors';
 import Setting from '../../assets/icons/setting_white.svg';
 import styles from './styles';
@@ -53,30 +45,31 @@ const RoomList = ({navigation}) => {
 
   const renderItem = ({item}) => {
     const {name, rooms, id} = item;
+    let roomsTotal;
 
-    const roomsTotal =
-      rooms.length > 0
-        ? rooms.reduce(function (total, curVal) {
-            return (total += 1);
-          }, 0)
-        : 0;
-
-    return (
-      <Room
-        roomName={`${name}`}
-        IconDevice={IconRoom}
-        IconSetting={Setting}
-        totalDevices={roomsTotal}
-        textTotalDevices={'Số lượng phòng:'}
-        btnTitle={'Quản lý phòng'}
-        onPress={() => {
-          navigation.navigate(BUILDINGS_LIST, {
-            idBuilding: id,
-          });
-          // console.log(id);
-        }}
-      />
-    );
+    if (item !== '') {
+      roomsTotal =
+        rooms.length > 0
+          ? rooms.reduce(function (total, curVal) {
+              return (total += 1);
+            }, 0)
+          : 0;
+      return (
+        <Room
+          roomName={`${name}`}
+          IconDevice={IconRoom}
+          IconSetting={Setting}
+          totalDevices={roomsTotal}
+          textTotalDevices={'Số lượng phòng:'}
+          btnTitle={'Quản lý phòng'}
+          onPress={() => {
+            navigation.navigate(BUILDINGS_LIST, {
+              idBuilding: id,
+            });
+          }}
+        />
+      );
+    }
   };
 
   return (

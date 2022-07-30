@@ -19,6 +19,7 @@ import styles from './styles';
 import colors from '../../assets/themes/colors';
 import {useNavigation} from '@react-navigation/native';
 import MorePopupMenu from '../../components/common/MorePopupMenu';
+import deleteBuilding from '../../context/actions/buildings/deleteBuilding';
 
 const ManagingBuilding = ({navigation}) => {
   const {navigate} = useNavigation();
@@ -57,47 +58,52 @@ const ManagingBuilding = ({navigation}) => {
 
   const renderItem = ({item}) => {
     const {name, rooms, id} = item;
+    let roomsTotal;
+    if (item) {
+      roomsTotal =
+        rooms.length > 0
+          ? rooms.reduce(function (total, curVal) {
+              return (total += 1);
+            }, 0)
+          : 0;
+      const LIMIT_ROOM = 0;
 
-    const roomsTotal = rooms.reduce(function (total, curVal) {
-      return (total += 1);
-    }, 0);
-
-    const LIMIT_ROOM = 0;
-
-    return (
-      <ManagingContainer
-        MoreActions={
-          <MorePopupMenu
-            styles={{
-              position: 'absolute',
-              top: 10,
-              right: 0,
-              zIndex: 3,
-            }}
-            onPressEdit={() => {
-              console.log('edit');
-            }}
-            onPressDelete={() => {
-              console.log('delete');
-            }}
-            actionNameEdit={'Chỉnh sửa'}
-            actionNameDelete={'Xóa'}
-          />
-        }
-        managingName={`${name}`}
-        totalDevices={roomsTotal}
-        totalManagingTitleText={'Tổng số phòng'}
-        totalManagingContentText={roomsTotal}
-        onPress={() => {
-          navigation.navigate(MANAGING_ROOMS);
-        }}
-        disabled={roomsTotal > LIMIT_ROOM ? true : false}
-        IconManagingText={<Room />}
-        //buttons title
-        IconManagingBtn={<Setting />}
-        managingBtnText={'Quản lý phòng'}
-      />
-    );
+      return (
+        <ManagingContainer
+          MoreActions={
+            <MorePopupMenu
+              styles={{
+                position: 'absolute',
+                top: 10,
+                right: 0,
+                zIndex: 3,
+              }}
+              onPressEdit={() => {
+                deleteBuilding(id)(buildingsDispatch);
+                console.log('edit');
+              }}
+              onPressDelete={() => {
+                console.log(234);
+              }}
+              actionNameEdit={'Chỉnh sửa'}
+              actionNameDelete={'Xóa'}
+            />
+          }
+          managingName={`${name}`}
+          totalDevices={roomsTotal}
+          totalManagingTitleText={'Tổng số phòng'}
+          totalManagingContentText={roomsTotal}
+          onPress={() => {
+            navigation.navigate(MANAGING_ROOMS);
+          }}
+          disabled={roomsTotal > LIMIT_ROOM ? true : false}
+          IconManagingText={<Room />}
+          //buttons title
+          IconManagingBtn={<Setting />}
+          managingBtnText={'Quản lý phòng'}
+        />
+      );
+    }
   };
 
   return (
@@ -114,6 +120,7 @@ const ManagingBuilding = ({navigation}) => {
           <FlatList
             renderItem={renderItem}
             data={data_building}
+            extraData={data_building}
             style={styles.FlatList}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={ListEmptyComponent}

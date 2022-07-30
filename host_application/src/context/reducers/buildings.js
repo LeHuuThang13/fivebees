@@ -2,14 +2,59 @@ import {
   GET_BUILDINGS_FAILED,
   GET_BUILDINGS_SUCCESS,
   GET_BUILDINGS_LOADING,
-  CREATE_BUILDINGS_SUCCESS,
-  CREATE_BUILDINGS_LOADING,
-  CREATE_BUILDINGS_FAILED,
+  CREATE_BUILDING_SUCCESS,
+  CREATE_BUILDING_LOADING,
+  CREATE_BUILDING_FAILED,
+  DELETE_BUILDING_LOADING,
+  DELETE_BUILDING_SUCCESS,
+  DELETE_BUILDING_FAILED,
 } from '../../constants/actionTypes';
 
 const buildings = (state, {type, payload}) => {
   switch (type) {
-    case CREATE_BUILDINGS_LOADING:
+    // Delete
+    case DELETE_BUILDING_LOADING:
+      return {
+        ...state,
+        deleteBuilding: {
+          ...state.deleteBuilding,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case DELETE_BUILDING_SUCCESS:
+      return {
+        ...state,
+        deleteBuilding: {
+          ...state.deleteBuilding,
+          loading: false,
+          error: null,
+        },
+
+        getBuildings: {
+          ...state.getBuildings,
+          loading: false,
+          data: state.getBuildings.data.filter(item => {
+            console.log('payload:', payload, 'item.id:', item.id);
+            return item.id !== payload; // Prevent show deleted items
+          }),
+          error: null,
+        },
+      };
+
+    case DELETE_BUILDING_FAILED:
+      return {
+        ...state,
+        deleteBuilding: {
+          ...state.deleteBuilding,
+          loading: false,
+          error: null,
+        },
+      };
+
+    // Create
+    case CREATE_BUILDING_LOADING:
       return {
         ...state,
         createBuilding: {
@@ -19,7 +64,7 @@ const buildings = (state, {type, payload}) => {
         },
       };
 
-    case CREATE_BUILDINGS_SUCCESS:
+    case CREATE_BUILDING_SUCCESS:
       return {
         ...state,
         createBuilding: {
@@ -37,7 +82,7 @@ const buildings = (state, {type, payload}) => {
         },
       };
 
-    case CREATE_BUILDINGS_FAILED:
+    case CREATE_BUILDING_FAILED:
       return {
         ...state,
         createBuilding: {
