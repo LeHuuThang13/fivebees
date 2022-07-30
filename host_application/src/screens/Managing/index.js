@@ -50,13 +50,15 @@ const Managing = ({navigation}) => {
     fetchData();
   }, []);
 
+  console.log(buildings ? buildings.length : 0);
+
   return (
     <Container>
       <ManagingContainer
         // Content
         managingName={'Quản lý tòa nhà'}
         totalManagingTitleText={'Số lượng tòa nhà'}
-        totalDevices={buildings ? buildings.length : 0}
+        totalManagingContentText={buildings ? buildings.length : 0}
         onPress={() => {
           navigation.navigate(MANAGING_BUILDING);
         }}
@@ -68,7 +70,7 @@ const Managing = ({navigation}) => {
       <ManagingContainer
         managingName={'Quản lý thiết bị'}
         totalManagingTitleText={'Số lượng thiết bị'}
-        totalDevices={facilities ? facilities.length : 0}
+        totalManagingContentText={facilities ? facilities.length : 0}
         onPress={() => {
           navigation.navigate(MANAGING_DEVICES);
         }}

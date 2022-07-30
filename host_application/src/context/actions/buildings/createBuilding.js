@@ -1,9 +1,9 @@
 import React from 'react';
 import {BuildingOptions} from '../../../components/common/BuildingOptions/BuildingOptions';
 import {
-  CREATE_BUILDINGS_LOADING,
-  CREATE_BUILDINGS_FAILED,
-  CREATE_BUILDINGS_SUCCESS,
+  CREATE_BUILDING_LOADING,
+  CREATE_BUILDING_FAILED,
+  CREATE_BUILDING_SUCCESS,
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 import {AxiosResponse, AxiosError} from 'axios';
@@ -21,14 +21,14 @@ export default form => dispatch => onSuccess => {
   console.log('ad');
 
   dispatch({
-    type: CREATE_BUILDINGS_LOADING,
+    type: CREATE_BUILDING_LOADING,
   });
   axiosInstance
     .post('buildings', requestPayload)
     .then(res => {
       console.log('thành công');
       dispatch({
-        type: CREATE_BUILDINGS_SUCCESS,
+        type: CREATE_BUILDING_SUCCESS,
         payload: res.data.data,
       });
       Toast({title: 'Tạo tòa nhà mới thành công'});
@@ -37,7 +37,7 @@ export default form => dispatch => onSuccess => {
     .catch(error => {
       console.log(error.response.data);
       dispatch({
-        type: CREATE_BUILDINGS_FAILED,
+        type: CREATE_BUILDING_FAILED,
         payload: error.response.data,
       });
     });
