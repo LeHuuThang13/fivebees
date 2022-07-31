@@ -1,24 +1,19 @@
-import React from 'react';
-import {BuildingOptions} from '../../../components/common/BuildingOptions/BuildingOptions';
 import {
   CREATE_BUILDING_LOADING,
   CREATE_BUILDING_FAILED,
   CREATE_BUILDING_SUCCESS,
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
-import {AxiosResponse, AxiosError} from 'axios';
 import {Toast} from '../../../components/Toast';
 
-export default form => dispatch => onSuccess => {
+export default form => dispatch => onSuccess => localFileImage => {
   const requestPayload = {
     name: form.name || '',
     address: form.address || '',
-    filenames: 'sdkfjlskdfj.jpg' || '',
+    filenames: localFileImage.path || null,
     hotline: form.hotline || '',
     email: form.email || '',
   };
-
-  console.log('ad');
 
   dispatch({
     type: CREATE_BUILDING_LOADING,
@@ -26,7 +21,6 @@ export default form => dispatch => onSuccess => {
   axiosInstance
     .post('buildings', requestPayload)
     .then(res => {
-      console.log('thành công');
       dispatch({
         type: CREATE_BUILDING_SUCCESS,
         payload: res.data.data,
@@ -35,7 +29,7 @@ export default form => dispatch => onSuccess => {
       onSuccess();
     })
     .catch(error => {
-      console.log(error.response.data);
+      console.log('error creating buliding', error.response.data);
       dispatch({
         type: CREATE_BUILDING_FAILED,
         payload: error.response.data,

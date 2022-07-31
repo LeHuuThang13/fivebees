@@ -11,6 +11,7 @@ function index({
   value,
   iconPosition,
   error,
+  label,
   ...props
 }) {
   const [isFocused, setIsFocused] = useState(false);
@@ -28,8 +29,9 @@ function index({
   return (
     <View style={styles.inputContainer}>
       <View style={[styles.wrapper, {borderColor: getBorderColor()}]}>
-        <View>{logo && <Text style={styles.logoSgv}>{logo}</Text>}</View>
-
+        <View>
+          <Text style={styles.label}>{label}</Text>
+        </View>
         <TextInput
           style={[styles.textInput, style]}
           onChangeText={onChangeText}

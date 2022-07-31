@@ -7,6 +7,7 @@ import {
   ANALYST,
   BUILDINGDETAILS,
   BUILDINGS_LIST,
+  CREATING_BUILDING,
   CREATING_ROOM,
   EDITING_DEVICE,
   HOME_NAVIGATOR,
@@ -39,7 +40,8 @@ import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingRooms from '../screens/ManagingRooms';
 import EditingDevice from '../screens/EditingDevice';
 import BulidingsList from '../screens/BuildingsList';
-import CreatingRoom from '../screens/CreatingRoom';
+// import CreatingRoom from '../screens/CreatingRoom';
+import CreatingBuilding from '../screens/CreatingBuilding';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 import {GlobalContext} from '../context/Provider';
 
@@ -115,9 +117,9 @@ const DrawerNavigator = () => {
         component={TotalFixingDevices}
       />
       <Drawer.Screen
-        name={CREATING_ROOM}
+        name={CREATING_BUILDING}
         options={{swipeEnabled: false}}
-        component={CreatingRoom}
+        component={CreatingBuilding}
       />
       <Drawer.Screen
         name={MANAGING_ROOM_DETAILS}
