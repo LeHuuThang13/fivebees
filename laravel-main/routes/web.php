@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UtilityController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\FacilityController as UserFacilityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', 'login');
 
 Route::get('home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+
+Route::get('user/facilities/{facility}', [UserFacilityController::class, 'index'])->name('userfacility');
 
 Route::group(['controller' => LoginController::class], function () {
     Route::get('login', 'index')->middleware('guest');
