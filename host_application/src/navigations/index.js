@@ -5,6 +5,7 @@ import DrawerNavigator from './DrawerNavigator';
 import {GlobalContext} from '../context/Provider';
 import {View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {navigationRef} from './RootNavigator';
 
 const AppNavigator = () => {
   const {
@@ -38,7 +39,7 @@ const AppNavigator = () => {
   };
 
   return (
-    <NavigationContainer theme={CustomTheme}>
+    <NavigationContainer theme={CustomTheme} ref={navigationRef}>
       <View style={{flex: 1, backgroundColor: 'blue'}}>
         {isLoggedIn || isAuthenticated ? (
           <DrawerNavigator />

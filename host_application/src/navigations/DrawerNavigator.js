@@ -12,6 +12,7 @@ import {
   EDITING_DEVICE,
   HOME_NAVIGATOR,
   INTRODUCE,
+  LOGOUT,
   MANAGE,
   MANAGING_BUILDING,
   MANAGING_DEVICES,
@@ -40,6 +41,7 @@ import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingRooms from '../screens/ManagingRooms';
 import EditingDevice from '../screens/EditingDevice';
 import BulidingsList from '../screens/BuildingsList';
+import Logout from '../screens/Logout';
 // import CreatingRoom from '../screens/CreatingRoom';
 import CreatingBuilding from '../screens/CreatingBuilding';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
@@ -80,6 +82,11 @@ const DrawerNavigator = () => {
         name={MANAGING_ROOMS}
         options={{swipeEnabled: false}}
         component={ManagingRooms}
+      />
+      <Drawer.Screen
+        name={LOGOUT}
+        options={{swipeEnabled: false}}
+        component={Logout}
       />
       <Drawer.Screen
         name={EDITING_DEVICE}
