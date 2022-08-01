@@ -22,7 +22,6 @@ import {
   ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
-  TOTAL_DEVICES,
   TOTAL_FIXING_DEVICES,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
@@ -32,13 +31,12 @@ import RoomDetails from '../screens/RoomDetails';
 import RoomList from '../screens/RoomList';
 import Settings from '../screens/Settings';
 import QRCode from '../screens/QRCode';
-import ManagingBuilding from '../screens/ManagingBuilding';
 import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
 import TotalFixingDevices from '../screens/TotalFixingDevices';
-import ManagingRooms from '../screens/ManagingRooms';
+import ManagingBuildings from '../screens/ManagingBuildings';
 import EditingDevice from '../screens/EditingDevice';
 import BulidingsList from '../screens/BuildingsList';
 import Logout from '../screens/Logout';
@@ -46,6 +44,7 @@ import Logout from '../screens/Logout';
 import CreatingBuilding from '../screens/CreatingBuilding';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 import {GlobalContext} from '../context/Provider';
+import ManagingRooms from '../screens/ManagingRooms';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -93,11 +92,28 @@ const DrawerNavigator = () => {
         options={{swipeEnabled: false}}
         component={EditingDevice}
       />
+      {/* Buildings screens */}
       <Drawer.Screen
         name={BUILDINGS_LIST}
         options={{swipeEnabled: false}}
         component={BulidingsList}
       />
+      <Drawer.Screen
+        name={BUILDINGDETAILS}
+        options={{swipeEnabled: false}}
+        component={BuildlingDetails}
+      />
+      <Drawer.Screen
+        name={MANAGING_BUILDING}
+        options={{swipeEnabled: false}}
+        component={ManagingBuildings}
+      />
+      <Drawer.Screen
+        name={CREATING_BUILDING}
+        options={{swipeEnabled: false}}
+        component={CreatingBuilding}
+      />
+      {/* Rooms Screens */}
       <Drawer.Screen
         name={ROOMDETAILS}
         options={{swipeEnabled: false}}
@@ -109,16 +125,6 @@ const DrawerNavigator = () => {
         component={RoomDetails}
       />
       <Drawer.Screen
-        name={BUILDINGDETAILS}
-        options={{swipeEnabled: false}}
-        component={BuildlingDetails}
-      />
-      <Drawer.Screen
-        name={MANAGING_BUILDING}
-        options={{swipeEnabled: false}}
-        component={ManagingBuilding}
-      />
-      <Drawer.Screen
         name={MANAGING_DEVICES}
         options={{swipeEnabled: false}}
         component={ManagingDevices}
@@ -127,11 +133,6 @@ const DrawerNavigator = () => {
         name={TOTAL_FIXING_DEVICES}
         options={{swipeEnabled: false}}
         component={TotalFixingDevices}
-      />
-      <Drawer.Screen
-        name={CREATING_BUILDING}
-        options={{swipeEnabled: false}}
-        component={CreatingBuilding}
       />
       <Drawer.Screen
         name={MANAGING_ROOM_DETAILS}

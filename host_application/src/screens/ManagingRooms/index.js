@@ -116,7 +116,7 @@ const ManagingRooms = ({navigation, route}) => {
     <View style={styles.container}>
       <CustomCreatingButton
         onPress={() => {
-          navigation.navigate(CREATING_ROOM);
+          // navigation.navigate(CREATING_ROOM,{});
         }}
       />
       <CustomHeaderDetails
