@@ -64,9 +64,9 @@
         // Remove all selected products
         $('.btn-remove-all').click(function() {
             if ($('.checks:checked').length == 0) {
-                alert("Vui lòng chọn loại thiết bị muốn xóa!");
+                alert("Vui lòng chọn tòa nhà muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các tòa nhà này không?")) {
                 let buildings_id = [];
 
                 $(".checks:checked").each(function() {

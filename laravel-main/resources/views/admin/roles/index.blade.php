@@ -62,9 +62,9 @@
         // Remove all selected products
         $('.btn-remove-all').click(function() {
             if ($('.checks:checked').length == 0) {
-                alert("Vui lòng chọn role muốn xóa!");
+                alert("Vui lòng chọn vai trò muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các vai trò này không?")) {
                 let role_id = [];
 
                 $(".checks:checked").each(function() {

@@ -64,7 +64,7 @@
             if ($('.checks:checked').length == 0) {
                 alert("Vui lòng chọn trạng thái muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các trạng thái này không?")) {
                 let status_id = [];
 
                 $(".checks:checked").each(function() {

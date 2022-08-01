@@ -63,9 +63,9 @@
         // Remove all selected products
         $('.btn-remove-all').click(function() {
             if ($('.checks:checked').length == 0) {
-                alert("Vui lòng chọn loại thiết bị muốn xóa!");
+                alert("Vui lòng chọn phòng muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các phòng này không?")) {
                 let rooms_id = [];
 
                 $(".checks:checked").each(function() {
