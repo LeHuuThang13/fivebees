@@ -16,13 +16,12 @@ export default id => dispatch => setIsLoading => {
     .then(res => {
       dispatch({
         type: GET_ROOMS_BY_ID_BUILDING_SUCCESS,
-        payload: res.data.data,
+        payload: res.data.data.rooms,
       });
       setIsLoading(false);
-      console.log('id get id building', id);
     })
     .catch(error => {
-      console.log('getRoomsByIdBuilding', error.response.data);
+      console.log('getRoomsByIdBuilding: ', error.response.data);
       dispatch({
         type: GET_ROOMS_BY_ID_BUILDING_FAILED,
         payload: error.response.data,

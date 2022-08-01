@@ -4,17 +4,17 @@ export default {
     error: null,
     loading: false,
   },
-  createRooms: {
+  createRoom: {
     data: {},
     error: null,
     loading: false,
   },
-  updateRooms: {
+  updateRoom: {
     data: {},
     error: null,
     loading: false,
   },
-  deleteRooms: {
+  deleteRoom: {
     data: {},
     error: null,
     loading: false,

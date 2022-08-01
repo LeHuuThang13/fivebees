@@ -43,9 +43,8 @@ const RoomList = ({navigation, route}) => {
     );
   };
 
-  // console.log(data_building);
-
   const renderItem = ({item}) => {
+    console.log(item);
     item = item[0].rooms;
     const Room = item.map(item => {
       const {room_number, facilities, status} = item;

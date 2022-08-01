@@ -23,7 +23,7 @@ export default id => dispatch => {
       Toast({title: 'Xóa thành công'});
     })
     .catch(error => {
-      console.log(error.response.data);
+      console.log('Delete building: ', error.response.data);
       Toast({title: 'Xóa thất bại'});
       dispatch({
         type: DELETE_BUILDING_FAILED,

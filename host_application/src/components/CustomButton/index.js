@@ -27,8 +27,6 @@ function index({
     }
   };
 
-  console.log('loading', loading);
-
   const textCenterBtn = () => {
     if (noneBg) {
       return 'flex-end';

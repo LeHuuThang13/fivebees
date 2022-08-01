@@ -50,8 +50,6 @@ const Managing = ({navigation}) => {
     fetchData();
   }, []);
 
-  console.log(buildings ? buildings.length : 0);
-
   return (
     <Container>
       <ManagingContainer

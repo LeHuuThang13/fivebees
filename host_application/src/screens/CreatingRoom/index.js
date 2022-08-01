@@ -1,33 +1,21 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  DevSettings,
-  BackHandler,
-} from 'react-native';
+import {Image, Text, TouchableOpacity, View, BackHandler} from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import CheckIcon from '../../assets/icons/check.svg';
-import {
-  ACCOUNT,
-  MANAGING_BUILDING,
-  MANAGING_ROOMS,
-} from '../../constants/routeNames';
+import {MANAGING_ROOMS} from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/common/InputCustom';
-import createBuilding from '../../context/actions/buildings/createBuilding';
-import {StackActions, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
-import CustomButtonIcon from '../../components/CustomButtonIcon';
+import createRoomByIdBuilding from '../../context/actions/rooms/createRoomByIdBuilding';
 
-const CreatingBuilding = ({navigation}) => {
+const CreatingRoom = ({navigation, route}) => {
   const {navigate} = useNavigation();
-
+  const {id_room: id} = route.params;
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -36,15 +24,15 @@ const CreatingBuilding = ({navigation}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_BUILDING);
+      navigate(MANAGING_ROOMS);
     },
   });
 
   //Global variables
   const {
-    buildingsDispatch,
-    buildingsState: {
-      createBuilding: {loading_building, error},
+    roomsDispatch,
+    roomsState: {
+      createRoom: {loading: loading_room, error},
     },
   } = useContext(GlobalContext);
 
@@ -53,7 +41,7 @@ const CreatingBuilding = ({navigation}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_BUILDING);
+      navigation.navigate(MANAGING_ROOMS);
       return true;
     });
 
@@ -67,10 +55,9 @@ const CreatingBuilding = ({navigation}) => {
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
   const sheetRef = useRef(null);
-  const [name, setName] = useState(form?.name);
-  const [email, setEmail] = useState(form?.email);
-  const [address, setAddress] = useState(form?.address);
-  const [hotline, sethotline] = useState(form?.hotline);
+  const [roomNumber, setRoomNumber] = useState(form?.room_number);
+  const [status, setStatus] = useState(form?.status);
+  const [description, setDescription] = useState(form?.description);
 
   // Functions
 
@@ -96,14 +83,15 @@ const CreatingBuilding = ({navigation}) => {
   };
 
   const onSubmit = () => {
-    createBuilding(form)(buildingsDispatch)(localFile)(() => {
-      navigate(MANAGING_BUILDING);
+    createRoomByIdBuilding(form)(roomsDispatch)(localFile)(id)(() => {
+      navigate(MANAGING_ROOMS, {
+        id_building: id,
+      });
       setForm({});
       setLocalFile('');
-      setAddress('');
-      setEmail('');
-      setName('');
-      sethotline('');
+      setRoomNumber('');
+      setDescription('');
+      setStatus('');
     });
   };
 
@@ -131,60 +119,49 @@ const CreatingBuilding = ({navigation}) => {
 
           <TouchableOpacity onPress={openSheet}>
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho tòa nhà'}</Text>
+            <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
           </TouchableOpacity>
         </View>
 
         <CustomInput
-          label="Name"
+          label="Tên phòng"
           onChangeText={value => {
-            onChange({name: 'name', value});
-            return setName(value);
+            onChange({name: 'room_number', value});
+            return setRoomNumber(value);
           }}
-          placeholder="Nhập tên tòa nhà"
-          value={name}
-          error={name === '' && error?.errors?.name?.[0]}
+          placeholder="Nhập tên phòng"
+          value={roomNumber}
+          error={roomNumber === '' && error?.errors?.room_number?.[0]}
         />
 
         <CustomInput
-          label="Email"
+          label="Trạng thái"
           onChangeText={value => {
-            onChange({name: 'email', value});
-            return setEmail(value);
+            onChange({name: 'status', value});
+            return setStatus(value);
           }}
-          placeholder="Nhập tên email"
-          value={email}
-          error={email === '' && error?.errors?.email?.[0]}
+          placeholder="Nhập tên trạng thái phòng"
+          value={status}
+          error={status === '' && error?.errors?.status?.[0]}
         />
 
         <CustomInput
-          label="Address"
+          label="Mô tả"
           onChangeText={value => {
-            onChange({name: 'address', value});
-            return setAddress(value);
+            onChange({name: 'description', value});
+            return setDescription(value);
           }}
-          placeholder="Nhập địa chỉ"
-          value={address}
-          error={address === '' && error?.errors?.address?.[0]}
-        />
-
-        <CustomInput
-          label="Hotline"
-          onChangeText={value => {
-            onChange({name: 'hotline', value});
-            return sethotline(value);
-          }}
-          placeholder="Nhập số điện thoại"
-          value={hotline}
-          error={hotline === '' && error?.errors?.hotline?.[0]}
+          placeholder="Nhập mô tả"
+          value={description}
+          error={description === '' && error?.errors?.description?.[0]}
         />
 
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm tòa nhà'}
-          loading={loading_building}
-          disabled={loading_building}
+          title={'Thêm phòng'}
+          loading={loading_room}
+          disabled={loading_room}
           error={error}
         />
       </View>
@@ -200,4 +177,4 @@ const CreatingBuilding = ({navigation}) => {
   );
 };
 
-export default CreatingBuilding;
+export default CreatingRoom;
