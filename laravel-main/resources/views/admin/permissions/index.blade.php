@@ -61,9 +61,9 @@
         // Remove all selected products
         $('.btn-remove-all').click(function() {
             if ($('.checks:checked').length == 0) {
-                alert("Vui lòng chọn permission muốn xóa!");
+                alert("Vui lòng chọn phân quyền muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các phân quyền này không?")) {
                 let permission_id = [];
 
                 $(".checks:checked").each(function() {

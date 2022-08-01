@@ -64,7 +64,7 @@
             if ($('.checks:checked').length == 0) {
                 alert("Vui lòng chọn loại thiết bị muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các loại thiết bị này không?")) {
                 let categories_id = [];
 
                 $(".checks:checked").each(function() {

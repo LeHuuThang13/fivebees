@@ -65,7 +65,7 @@
             if ($('.checks:checked').length == 0) {
                 alert("Vui lòng chọn tài khoản muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các tài khoản này không?")) {
                 let user_id = [];
 
                 $(".checks:checked").each(function() {

@@ -66,7 +66,7 @@
             if ($('.checks:checked').length == 0) {
                 alert("Vui lòng chọn loại thiết bị muốn xóa!");
                 return false;
-            } else {
+            } else if (confirm("Bạn có muốn xóa các thiết bị này không?")) {
                 let facilities_id = [];
 
                 $(".checks:checked").each(function() {
