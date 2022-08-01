@@ -104,6 +104,11 @@ const DrawerNavigator = () => {
         component={RoomDetails}
       />
       <Drawer.Screen
+        name={CREATING_ROOM}
+        options={{swipeEnabled: false}}
+        component={RoomDetails}
+      />
+      <Drawer.Screen
         name={BUILDINGDETAILS}
         options={{swipeEnabled: false}}
         component={BuildlingDetails}
