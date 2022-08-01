@@ -13,11 +13,9 @@ export default id => dispatch => {
   dispatch({
     type: DELETE_BUILDING_LOADING,
   });
-  console.log('hellow');
   axiosInstance
     .delete(`buildings/${id}`)
     .then(() => {
-      console.log('thành công');
       dispatch({
         type: DELETE_BUILDING_SUCCESS,
         payload: id,

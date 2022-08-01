@@ -57,8 +57,7 @@ const styles = StyleSheet.create({
   },
 
   statusBlock: {
-    width: 120,
-    paddingLeft: 10,
+    width: 100,
   },
 
   headerRoomLeft: {

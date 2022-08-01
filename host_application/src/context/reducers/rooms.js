@@ -1,4 +1,7 @@
 import {
+  GET_ROOMS_BY_ID_BUILDING_FAILED,
+  GET_ROOMS_BY_ID_BUILDING_LOADING,
+  GET_ROOMS_BY_ID_BUILDING_SUCCESS,
   GET_ROOMS_FAILED,
   GET_ROOMS_LOADING,
   GET_ROOMS_SUCCESS,
@@ -7,6 +10,7 @@ import {
 const rooms = (state, {type, payload}) => {
   switch (type) {
     case GET_ROOMS_LOADING:
+    case GET_ROOMS_BY_ID_BUILDING_LOADING:
       return {
         ...state,
         getRooms: {
@@ -17,6 +21,7 @@ const rooms = (state, {type, payload}) => {
       };
 
     case GET_ROOMS_SUCCESS:
+    case GET_ROOMS_BY_ID_BUILDING_SUCCESS:
       return {
         ...state,
         getRooms: {
@@ -28,6 +33,7 @@ const rooms = (state, {type, payload}) => {
       };
 
     case GET_ROOMS_FAILED:
+    case GET_ROOMS_BY_ID_BUILDING_FAILED:
       return {
         ...state,
         getRooms: {

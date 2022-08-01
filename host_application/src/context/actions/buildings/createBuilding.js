@@ -6,7 +6,7 @@ import {
 import axiosInstance from '../../../helpers/axiosInterceptor';
 import {Toast} from '../../../components/Toast';
 
-export default form => dispatch => onSuccess => localFileImage => {
+export default form => dispatch => localFileImage => onSuccess => {
   const requestPayload = {
     name: form.name || '',
     address: form.address || '',

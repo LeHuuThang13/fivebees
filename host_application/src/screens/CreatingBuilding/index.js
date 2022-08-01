@@ -1,10 +1,21 @@
-import React, {useContext, useRef, useState} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  DevSettings,
+  BackHandler,
+} from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import CheckIcon from '../../assets/icons/check.svg';
-import {MANAGING_BUILDING, MANAGING_ROOMS} from '../../constants/routeNames';
+import {
+  ACCOUNT,
+  MANAGING_BUILDING,
+  MANAGING_ROOMS,
+} from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/common/InputCustom';
@@ -12,9 +23,12 @@ import createBuilding from '../../context/actions/buildings/createBuilding';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
+import CustomButtonIcon from '../../components/CustomButtonIcon';
 
-const CreatingBuilding = () => {
+const CreatingBuilding = ({navigation}) => {
   const {navigate} = useNavigation();
+
+  //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     IconRight: CheckIcon,
@@ -24,9 +38,9 @@ const CreatingBuilding = () => {
     onPressBtnLeft: () => {
       navigate(MANAGING_BUILDING);
     },
-    onPressBtnRight: <Text>123</Text>,
   });
 
+  //Global variables
   const {
     buildingsDispatch,
     buildingsState: {
@@ -35,9 +49,28 @@ const CreatingBuilding = () => {
   } = useContext(GlobalContext);
 
   // Hook fields
+
+  useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.navigate(MANAGING_BUILDING);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, [navigation]);
+
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState(null);
+  const [localFile, setLocalFile] = useState('');
   const sheetRef = useRef(null);
+  const [name, setName] = useState(form?.name);
+  const [email, setEmail] = useState(form?.email);
+  const [address, setAddress] = useState(form?.address);
+  const [hotline, sethotline] = useState(form?.hotline);
 
   // Functions
 
@@ -61,18 +94,24 @@ const CreatingBuilding = () => {
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
   };
+
   const onSubmit = () => {
-    createBuilding(form)(buildingsDispatch)(() => {
+    createBuilding(form)(buildingsDispatch)(localFile)(() => {
       navigate(MANAGING_BUILDING);
-    })(localFile);
+      setForm({});
+      setLocalFile('');
+      setAddress('');
+      setEmail('');
+      setName('');
+      sethotline('');
+    });
   };
 
   return (
     <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
       <View>
         <View style={styles.imageWrapper}>
-          {console.log('localFile,localFile', localFile)}
-          {localFile && (
+          {!!localFile && (
             <Image
               width={150}
               height={150}
@@ -92,7 +131,7 @@ const CreatingBuilding = () => {
 
           <TouchableOpacity onPress={openSheet}>
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{error?.errors && error?.errors?.email?.[0]}</Text>
+            <Text>{localFile === '' && 'Vui lòng tải ảnh cho tòa nhà'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -100,36 +139,44 @@ const CreatingBuilding = () => {
           label="Name"
           onChangeText={value => {
             onChange({name: 'name', value});
+            return setName(value);
           }}
           placeholder="Nhập tên tòa nhà"
-          error={error?.errors?.name?.[0]}
+          value={name}
+          error={name === '' && error?.errors?.name?.[0]}
         />
 
         <CustomInput
           label="Email"
           onChangeText={value => {
             onChange({name: 'email', value});
+            return setEmail(value);
           }}
           placeholder="Nhập tên email"
-          error={error?.errors?.email?.[0]}
+          value={email}
+          error={email === '' && error?.errors?.email?.[0]}
         />
 
         <CustomInput
           label="Address"
           onChangeText={value => {
             onChange({name: 'address', value});
+            return setAddress(value);
           }}
           placeholder="Nhập địa chỉ"
-          error={error?.errors?.address?.[0]}
+          value={address}
+          error={address === '' && error?.errors?.address?.[0]}
         />
 
         <CustomInput
           label="Hotline"
           onChangeText={value => {
             onChange({name: 'hotline', value});
+            return sethotline(value);
           }}
           placeholder="Nhập số điện thoại"
-          error={error?.errors?.hotline?.[0]}
+          value={hotline}
+          error={hotline === '' && error?.errors?.hotline?.[0]}
         />
 
         <CustomButton

@@ -28,11 +28,9 @@ const MorePopupMenu = props => {
             <Text style={styleSheet.textOptions}>{actionNameEdit}</Text>
           </MenuOption>
           <View style={styleSheet.blockSeparate}></View>
-          <MenuOption
-            style={styleSheet.disableHeightMenuOptions}
-            onSelect={() => onPressDelete()}
-          />
-          <Text style={styleSheet.textOptions}>{' ' + actionNameDelete}</Text>
+          <MenuOption onSelect={() => onPressDelete()}>
+            <Text style={styleSheet.textOptions}>{' ' + actionNameDelete}</Text>
+          </MenuOption>
         </MenuOptions>
       </Menu>
     </View>

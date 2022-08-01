@@ -17,7 +17,7 @@ function index({
   const [isFocused, setIsFocused] = useState(false);
 
   const getBorderColor = () => {
-    if (isFocused) {
+    if (value !== '') {
       return colors.primary;
     } else if (error) {
       return colors.danger;
@@ -25,7 +25,6 @@ function index({
       return colors.border_input;
     }
   };
-
   return (
     <View style={styles.inputContainer}>
       <View style={[styles.wrapper, {borderColor: getBorderColor()}]}>
