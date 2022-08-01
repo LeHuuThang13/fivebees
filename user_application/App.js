@@ -28,7 +28,11 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
     <NavigationContainer>
-    <Drawer.Navigator initialRouteName="Trang chủ">
+    <Drawer.Navigator initialRouteName="Trang chủ" screenOptions={{
+      headerStyle :{
+        backgroundColor: '#03a9f4'
+      }
+    }}>
         <Drawer.Screen name="Trang chủ" component={MainTabScreen} />
         <Drawer.Screen name="QR Code" component={QRcode} />
         <Drawer.Screen name="Hướng dẫn sử dụng" component={Help} /> 
