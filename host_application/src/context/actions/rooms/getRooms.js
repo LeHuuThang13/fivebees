@@ -20,7 +20,7 @@ export default id => dispatch => {
       });
     })
     .catch(error => {
-      console.log(error);
+      console.log('Get rooms: ', error.response.data);
       dispatch({
         type: GET_ROOMS_FAILED,
         payload: error.message,

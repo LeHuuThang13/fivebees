@@ -18,7 +18,7 @@ export default () => dispatch => {
       });
     })
     .catch(error => {
-      console.log(error);
+      console.log('Get user info: ', error.response.data);
       dispatch({
         type: GET_USER_INFO_FAILED,
         payload: error.message,

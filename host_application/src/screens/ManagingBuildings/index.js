@@ -93,7 +93,6 @@ const ManagingBuilding = ({navigation}) => {
           totalManagingTitleText={'Tổng số phòng'}
           totalManagingContentText={roomsTotal}
           onPress={() => {
-            console.log('managing building id', id);
             navigate(MANAGING_ROOMS, {
               id_building: id,
             });

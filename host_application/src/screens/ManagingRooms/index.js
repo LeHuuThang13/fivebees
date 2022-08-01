@@ -26,10 +26,11 @@ import {useNavigation} from '@react-navigation/native';
 import {GlobalContext} from '../../context/Provider';
 import getRoomsByIdBuilding from '../../context/actions/rooms/getRoomsByIdBuilding';
 import MorePopupMenu from '../../components/common/MorePopupMenu';
+import deleteRoomById from '../../context/actions/rooms/deleteRoomById';
 
 const ManagingRooms = ({navigation, route}) => {
   const {navigate} = useNavigation();
-  const {id_building: id} = route.params;
+  const id = route.params?.id_building;
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -74,7 +75,6 @@ const ManagingRooms = ({navigation, route}) => {
       </View>
     );
   };
-
   const renderItem = ({item}) => {
     const {id, room_number, status} = item;
     return (
@@ -102,7 +102,7 @@ const ManagingRooms = ({navigation, route}) => {
               console.log('edit');
             }}
             onPressDelete={() => {
-              deleteBuilding(id)(buildingsDispatch);
+              deleteRoomById(id)(roomsDispatch);
             }}
             actionNameEdit={'Chỉnh sửa'}
             actionNameDelete={'Xóa'}
@@ -116,7 +116,9 @@ const ManagingRooms = ({navigation, route}) => {
     <View style={styles.container}>
       <CustomCreatingButton
         onPress={() => {
-          // navigation.navigate(CREATING_ROOM,{});
+          navigation.navigate(CREATING_ROOM, {
+            id_room: id,
+          });
         }}
       />
       <CustomHeaderDetails
@@ -124,15 +126,15 @@ const ManagingRooms = ({navigation, route}) => {
           data_rooms?.name ? data_rooms?.name : 'Đang cập nhập'
         }`}
         secondText={`Tổng số phòng: ${
-          data_rooms?.rooms ? data_rooms.rooms.length : 'Đang cập nhập'
+          data_rooms ? data_rooms.length : 'Đang cập nhập'
         }`}
       />
       <View style={styles.body}>
         <View style={GlobalStyles.paddingContainer}>
           <FlatList
             renderItem={renderItem}
-            data={!isLoading ? data_rooms.rooms : initialState}
-            extraData={data_rooms.rooms}
+            data={!isLoading ? data_rooms : initialState}
+            extraData={data_rooms}
             style={styles.FlatList}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={listEmptyComponent}
