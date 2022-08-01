@@ -4,7 +4,7 @@ import GlobalStyles from '../../../GlobalStyles';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import ManagingContainer from '../../components/common/Managing';
 import {
-  CREATING_ROOM,
+  CREATING_BUILDING,
   MANAGE,
   MANAGING_ROOMS,
 } from '../../constants/routeNames';
@@ -79,11 +79,10 @@ const ManagingBuilding = ({navigation}) => {
                 zIndex: 3,
               }}
               onPressEdit={() => {
-                deleteBuilding(id)(buildingsDispatch);
                 console.log('edit');
               }}
               onPressDelete={() => {
-                console.log(234);
+                deleteBuilding(id)(buildingsDispatch);
               }}
               actionNameEdit={'Chỉnh sửa'}
               actionNameDelete={'Xóa'}
@@ -94,7 +93,10 @@ const ManagingBuilding = ({navigation}) => {
           totalManagingTitleText={'Tổng số phòng'}
           totalManagingContentText={roomsTotal}
           onPress={() => {
-            navigation.navigate(MANAGING_ROOMS);
+            console.log('managing building id', id);
+            navigate(MANAGING_ROOMS, {
+              id_building: id,
+            });
           }}
           disabled={roomsTotal > LIMIT_ROOM ? true : false}
           IconManagingText={<Room />}
@@ -110,7 +112,7 @@ const ManagingBuilding = ({navigation}) => {
     <View style={[{flex: 1}]}>
       <CustomCreatingButton
         onPress={() => {
-          navigation.navigate(CREATING_ROOM);
+          navigate(CREATING_BUILDING, {});
         }}
       />
       {loading_building ? (

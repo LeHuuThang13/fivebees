@@ -8,11 +8,11 @@ import {Toast} from '../../../components/Toast';
 
 export default form => dispatch => localFileImage => onSuccess => {
   const requestPayload = {
-    name: form.name || '',
-    address: form.address || '',
-    filenames: localFileImage.path || null,
-    hotline: form.hotline || '',
-    email: form.email || '',
+    room_number: form.room_number || '',
+    status: form.status || '',
+    description: form.description || '',
+    building_id: building_id,
+    filenames: localFileImage.path || '',
   };
 
   dispatch({

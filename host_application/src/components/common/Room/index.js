@@ -20,36 +20,25 @@ const Room = props => {
     textTotalDevices,
     textBrokenDevice,
     btnTitle,
+    MoreActions,
   } = props;
-
-  const actionRoom = () => {
-    return (
-      <View style={styles.actionsWrapper}>
-        <TouchableOpacity
-          style={[styles.iconButton]}
-          onPress={() => actions.edit()}>
-          <EditIcon />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.firstIcon, styles.iconButton]}
-          onPress={() => actions.delete()}>
-          <DeleteIcon />
-        </TouchableOpacity>
-      </View>
-    );
-  };
 
   return (
     <View style={styles.roomContainer}>
+      {MoreActions && MoreActions}
       <View style={styles.headerRoom}>
-        <Text style={[styles.headerRoomLeft]}>{roomName}</Text>
+        <Text style={[styles.headerRoomLeft]} numberOfLines={1}>
+          {roomName}
+        </Text>
 
         <Text style={styles.headerRoomRight}>
-          <View>
+          <View style={styles.labelWrapper}>
             {status && <Text style={styles.labelStatus}>Tình trạng:</Text>}
           </View>
           <View style={styles.statusBlock}>
-            <Text style={styles.status}>{status}</Text>
+            <Text style={styles.status} numberOfLines={1}>
+              {status}
+            </Text>
           </View>
         </Text>
       </View>
@@ -74,7 +63,6 @@ const Room = props => {
             styles.actionsContainer,
             {flexDirection: actions ? 'row' : 'row-reverse'},
           ]}>
-          {actions && actionRoom()}
           {onPress && (
             <View style={styles.btnRoomContainer}>
               <TouchableOpacity

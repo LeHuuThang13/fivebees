@@ -49,8 +49,6 @@ const ImagePicker = forwardRef(({onFileSelected}, ref) => {
     },
   ];
 
-  console.log(options);
-
   return (
     <RBSheet
       ref={ref}

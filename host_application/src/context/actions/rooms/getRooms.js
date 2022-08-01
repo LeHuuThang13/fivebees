@@ -6,14 +6,12 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default props => dispatch => {
-  const {idBuilding: id} = props;
-
+export default id => dispatch => {
   dispatch({
     type: GET_ROOMS_LOADING,
   });
   axiosInstance
-    .get(`rooms/${id}`)
+    .get(`rooms`)
     .then(res => {
       console.log('res.data.data', res.data);
       dispatch({

@@ -36,7 +36,6 @@ const buildings = (state, {type, payload}) => {
           ...state.getBuildings,
           loading: false,
           data: state.getBuildings.data.filter(item => {
-            console.log('payload:', payload, 'item.id:', item.id);
             return item.id !== payload; // Prevent show deleted items
           }),
           error: null,
@@ -77,7 +76,7 @@ const buildings = (state, {type, payload}) => {
         getBuildings: {
           ...state.getBuildings,
           loading: false,
-          data: [payload, ...state.getBuildings.data],
+          data: [...state.getBuildings.data, payload],
           error: null,
         },
       };
