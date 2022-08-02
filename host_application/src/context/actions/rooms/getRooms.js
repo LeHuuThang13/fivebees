@@ -6,22 +6,21 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default props => dispatch => {
-  // const {id_building: id} = props;
-
+export default id => dispatch => {
   dispatch({
     type: GET_ROOMS_LOADING,
   });
   axiosInstance
     .get(`rooms`)
     .then(res => {
+      console.log('res.data.data', res.data);
       dispatch({
         type: GET_ROOMS_SUCCESS,
-        payload: res.data,
+        payload: res.data.data,
       });
     })
     .catch(error => {
-      console.log(error);
+      console.log('Get rooms: ', error.response.data);
       dispatch({
         type: GET_ROOMS_FAILED,
         payload: error.message,

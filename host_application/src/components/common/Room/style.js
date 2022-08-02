@@ -57,8 +57,7 @@ const styles = StyleSheet.create({
   },
 
   statusBlock: {
-    width: 120,
-    paddingLeft: 10,
+    width: 100,
   },
 
   headerRoomLeft: {
@@ -96,7 +95,6 @@ const styles = StyleSheet.create({
 
   btnRoom: {
     padding: 10,
-    backgroundColor: colors.bg_primary,
     flexDirection: 'row',
     borderRadius: 10,
   },

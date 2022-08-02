@@ -1,6 +1,7 @@
 //Names Stack
-export const ROOM_LIST = 'Phòng';
-export const ROOM_LIST_BOTTOM = ' Phòng ';
+export const ROOM_LIST = 'Tòa Nhà';
+export const BUILDINGS_LIST = ' Phòng ';
+export const ROOM_LIST_BOTTOM = ' Tòa Nhà ';
 export const NOTIFICATION = 'Thông Báo';
 export const ANALYST = 'Thống Kê';
 export const QRCODE = 'Mã QR';
@@ -25,7 +26,11 @@ export const TOTAL_BUILDINGS = 'Tổng Tòa Nhà';
 export const TOTAL_FIXING_DEVICES = 'Tổng Thiết Bị Cần Sửa Chữa';
 export const TOTAL_BROKEN_DEVICES = 'Tổng Thiết Bị Tổn Hại';
 export const EDITING_DEVICE = 'Cập Nhập Thiết Bị';
+//Room
 export const CREATING_ROOM = 'Tạo Mới Phòng';
+//Building
+export const CREATING_BUILDING = 'Tạo Mới Tòa Nhà';
+
 export const MANAGING_ROOM_DETAILS = ' Chi Tiết Phòng ';
 
 //Navigation

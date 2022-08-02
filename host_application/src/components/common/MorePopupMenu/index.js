@@ -23,16 +23,14 @@ const MorePopupMenu = props => {
           <MoreIcon />
         </MenuTrigger>
 
-        <MenuOptions style={styleSheet.menuOptionsContainer}>
+        <MenuOptions style={[styleSheet.menuOptionsContainer]}>
           <MenuOption onSelect={() => onPressEdit()}>
             <Text style={styleSheet.textOptions}>{actionNameEdit}</Text>
           </MenuOption>
           <View style={styleSheet.blockSeparate}></View>
-          <MenuOption
-            style={styleSheet.disableHeightMenuOptions}
-            onSelect={() => onPressDelete()}
-          />
-          <Text style={styleSheet.textOptions}>{' ' + actionNameDelete}</Text>
+          <MenuOption onSelect={() => onPressDelete()}>
+            <Text style={styleSheet.textOptions}>{' ' + actionNameDelete}</Text>
+          </MenuOption>
         </MenuOptions>
       </Menu>
     </View>

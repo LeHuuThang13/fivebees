@@ -29,15 +29,12 @@ const SettingHeaderNavigator = {
     }, []);
   },
   settingChildHeaderNavigator: props => {
-    const {Icon, IconRight, stackNavigate, styles} = props;
+    const {Icon, styles, onPressBtnLeft, onPressBtnRight} = props;
     const {setOptions, navigate} = useNavigation();
     useEffect(() => {
       setOptions({
         headerLeft: () => (
-          <TouchableOpacity
-            onPress={() => {
-              navigate(stackNavigate);
-            }}>
+          <TouchableOpacity onPress={onPressBtnLeft}>
             <View style={[stylesHeader.leftIcon, styles]}>
               <Text>
                 <Icon />
@@ -46,18 +43,7 @@ const SettingHeaderNavigator = {
           </TouchableOpacity>
         ),
         headerRight: () => {
-          return IconRight ? (
-            <TouchableOpacity
-              onPress={() => {
-                navigate(stackNavigate);
-              }}>
-              <View style={stylesHeader.leftIcon}>
-                <Text>
-                  <IconRight width={20} height={30} />
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ) : null;
+          return onPressBtnRight;
         },
         headerTitleAlign: 'center',
         headerStyle: {
