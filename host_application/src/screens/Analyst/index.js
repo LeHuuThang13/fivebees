@@ -40,7 +40,7 @@ const Analyst = ({navigation}) => {
         }),
       )
       .catch(err => {
-        console.log(err.message);
+        console.log('Statistic: ', err.response.data);
       });
   };
 

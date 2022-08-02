@@ -10,6 +10,21 @@ export default StyleSheet.create({
     justifyContent: 'space-evenly',
   },
 
+  imageWrapper: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 24,
+  },
+
+  imageView: {
+    width: 150,
+    height: 150,
+  },
+
+  colorChoosingImageText: {
+    color: colors.primary,
+  },
+
   inputContainer: {
     paddingVertical: 14,
   },
