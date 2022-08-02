@@ -5,15 +5,8 @@ import {
   CREATING_ROOM,
   MANAGING_BUILDING,
   MANAGING_ROOM_DETAILS,
-  ROOMDETAILS,
 } from '../../constants/routeNames';
-import {
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
 import DeviceIcon from '../../assets/icons/device.svg';
@@ -30,7 +23,7 @@ import deleteRoomById from '../../context/actions/rooms/deleteRoomById';
 
 const ManagingRooms = ({navigation, route}) => {
   const {navigate} = useNavigation();
-  const id = route.params?.id_building;
+  const idBuilding = route.params?.id_building;
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -51,12 +44,12 @@ const ManagingRooms = ({navigation, route}) => {
 
   useEffect(() => {
     setIsLoading(true);
-    getRoomsByIdBuilding(id)(roomsDispatch)(setIsLoading);
+    getRoomsByIdBuilding(idBuilding)(roomsDispatch)(setIsLoading);
     const unsubscribe = navigation.addListener('focus', () => {
-      getRoomsByIdBuilding(id)(roomsDispatch);
+      getRoomsByIdBuilding(idBuilding)(roomsDispatch);
     });
     return unsubscribe;
-  }, [id]);
+  }, [idBuilding]);
 
   //Hooks
   const [initialState, setInitialState] = useState([]);
@@ -88,7 +81,10 @@ const ManagingRooms = ({navigation, route}) => {
         btnTitle={'Quản lý thiết bị'}
         IconSetting={Setting}
         onPress={() => {
-          navigation.navigate(MANAGING_ROOM_DETAILS);
+          navigation.navigate(MANAGING_ROOM_DETAILS, {
+            id_room: id,
+            id_building: idBuilding,
+          });
         }}
         MoreActions={
           <MorePopupMenu
