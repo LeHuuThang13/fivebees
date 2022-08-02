@@ -53,34 +53,39 @@
         </div>
     </div>
 
-    <a class="container px-0 py-2 bg-white table-container mb-4 text-dark" style="text-decoration: none; width: 100%; border-radius: 10px" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        <p class="h3 mb-0 mx-2">Danh sách thiết bị</p>
-        <div class="collapse" id="collapseExample">
-            <hr>
-            <div>
-                <table class="table table-hover text-center">
-                    <thead style="background-color: #F5F9FC;">
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">mã thiết bị</th>
-                            <th scope="col">tên</th>
-                            <th scope="col">trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($room->facilities as $facility)
-                        <tr>
-                            <td>{{$facility->id}}</td>
-                            <td>{{$facility->code}}</td>
-                            <td>{{$facility->name}}</td>
-                            <td>{{$facility->status->name}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    <div class="accordion mb-4 table-container" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h6 class="m-0">Danh sách thiết bị</h6>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body p-0">
+                    <table class="table table-hover text-center">
+                        <thead style="background-color: #F5F9FC;">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">mã thiết bị</th>
+                                <th scope="col">tên</th>
+                                <th scope="col">trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($room->facilities as $facility)
+                            <tr>
+                                <td>{{$facility->id}}</td>
+                                <td>{{$facility->code}}</td>
+                                <td>{{$facility->name}}</td>
+                                <td>{{$facility->status->name}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </a>
+    </div>
 </div>
 
 @endsection
