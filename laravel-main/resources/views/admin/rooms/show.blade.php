@@ -77,7 +77,19 @@
                                 <td>{{$facility->id}}</td>
                                 <td>{{$facility->code}}</td>
                                 <td>{{$facility->name}}</td>
-                                <td>{{$facility->status->name}}</td>
+                                <td>
+                                    @php $background = "" @endphp
+                                    @if($facility->status->id == 1)
+                                    @php $background = "text-bg-success" @endphp
+                                    @elseif($facility->status->id == 2)
+                                    @php $background = "text-bg-warning" @endphp
+                                    @elseif($facility->status->id == 3)
+                                    @php $background = "text-bg-danger" @endphp
+                                    @else
+                                    @php $background = "text-bg-secondary" @endphp
+                                    @endif
+                                    <span class="badge rounded-pill {{$background}}">{{$facility->status->name}}</span>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
