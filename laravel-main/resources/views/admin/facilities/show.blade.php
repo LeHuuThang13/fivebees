@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <p>Vị trí lần cuối: {{$facility->rooms->last()->room_number ?? 'Chưa gán'}}</p>
+                    <p>Vị trí lần cuối: {{$facility->rooms->last()->room_number ?? 'Chưa gán'}} ({{$facility->rooms->last()->pivot->updated_at->format('d/m/Y')}})</p>
                 </div>
             </div>
 
