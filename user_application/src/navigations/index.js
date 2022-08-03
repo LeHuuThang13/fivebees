@@ -1,21 +1,37 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '../screens/LoginScreen/LoginScreen';
-import WelcomeUserScreen from '../screens/WelcomeUserScreen/WelcomeUserScreen';
-const Stack = createNativeStackNavigator();
+import {StyleSheet, Text, View} from 'react-native';
+import React, {useContext} from 'react';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {GlobalContext} from '../context/Provider';
+import colors from '../assets/themes/colors';
+import AuthNavigator from './AuthNavigator';
 
-const Navigation = () => {
+const AppNavigator = () => {
+  const {
+    authState: {isLoggedIn},
+  } = useContext(GlobalContext);
+
+  const CustomTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'rgb(255, 255, 255)',
+      background: 'white',
+    },
+  };
+
   return (
-    <NavigationContainer>
-     <Stack.Navigator>
-      <Stack.Screen name="Signin" component={WelcomeUserScreen}/>
-     </Stack.Navigator>
+    <NavigationContainer theme={CustomTheme}>
+      <View style={styles.fullScreen}>
+        {isLoggedIn ? <DrawerNavigator /> : <AuthNavigator />}
+      </View>
     </NavigationContainer>
-  )
-}
+  );
+};
 
-export default Navigation
+export default AppNavigator;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  fullScreen: {
+    flex: 1,
+  },
+});

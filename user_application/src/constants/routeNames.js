@@ -1,1 +1,3 @@
-// file này chứa tất cả các tên route của các stack
+// Auth
+export const LOGIN = 'LOGIN';
+export const REGISTER = 'REGISTER';

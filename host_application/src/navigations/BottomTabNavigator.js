@@ -3,13 +3,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   ACCOUNT,
   ACCOUNT_BOTTOM,
+  BUILDINGS_LIST,
+  BUILDINGS_LIST_BOTTOM,
   NOTIFICATION,
   NOTIFICATION_BOTTOM,
   NOTI_BOTTOM,
-  QRCODE,
-  QRCODE_BOTTOM,
-  ROOM_LIST,
-  ROOM_LIST_BOTTOM,
 } from '../constants/routeNames';
 import TabBottomMenu from './TabBottomMenu';
 import RoomIcon from '../assets/icons/room.svg';
@@ -20,7 +18,7 @@ import NotiTabNavigator from './NotiTabNavigator';
 import ProfileNavigator from './ProfileTabNavigator';
 import ProfileIcon from '../assets/icons/account.svg';
 import ProfileOutLineIcon from '../assets/icons/account_outline.svg';
-import RoomList from '../screens/RoomList';
+import BuildingsList from '../screens/BuildingsList';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,17 +36,17 @@ const BottomTabNavigatior = ({navigation, route}) => {
           const WIDTH = 25,
             HEIGHT = 25;
 
-          if (route.name === ROOM_LIST_BOTTOM) {
+          if (route.name === BUILDINGS_LIST_BOTTOM) {
             return focused ? (
               <TabBottomMenu
                 svgIcon={<RoomIcon width={WIDTH} height={HEIGHT} />}
                 isFocused={focused}
-                nameIcon={ROOM_LIST}
+                nameIcon={BUILDINGS_LIST}
               />
             ) : (
               <TabBottomMenu
                 svgIcon={<RoomOutLineIcon width={WIDTH} height={HEIGHT} />}
-                nameIcon={ROOM_LIST}
+                nameIcon={BUILDINGS_LIST}
               />
             );
           } else if (route.name === NOTIFICATION_BOTTOM) {
@@ -81,8 +79,8 @@ const BottomTabNavigatior = ({navigation, route}) => {
         },
       })}>
       <Tab.Screen
-        name={ROOM_LIST_BOTTOM}
-        component={RoomList}
+        name={BUILDINGS_LIST_BOTTOM}
+        component={BuildingsList}
         options={{
           headerShown: true,
         }}

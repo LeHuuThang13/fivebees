@@ -4,17 +4,17 @@ export default {
     error: null,
     loading: false,
   },
-  createFacilities: {
+  createFacility: {
     data: {},
     error: null,
     loading: false,
   },
-  updateFacilities: {
+  updateFacility: {
     data: {},
     error: null,
     loading: false,
   },
-  deleteFacilities: {
+  deleteFacility: {
     data: {},
     error: null,
     loading: false,

@@ -95,6 +95,7 @@ const ManagingBuilding = ({navigation}) => {
           onPress={() => {
             navigate(MANAGING_ROOMS, {
               id_building: id,
+              name_building: name,
             });
           }}
           disabled={roomsTotal > LIMIT_ROOM ? true : false}

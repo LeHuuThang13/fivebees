@@ -1,22 +1,22 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import colors from '../../assets/themes/colors';
+import Setting from '../../assets/icons/setting_white.svg';
 import styles from './styles';
-import PreviousIcon from '../../assets/icons/previous_icon.svg';
+import Room from '../../components/common/Room';
+import IconRoom from '../../assets/icons/room_outline.svg';
+
+import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import {GlobalContext} from '../../context/Provider';
 import getBuildings from '../../context/actions/buildings/getBuildings';
-const RoomList = ({navigation, route}) => {
-  const {idBuilding} = route.params;
+import {BUILDINGS_LIST} from '../../constants/routeNames';
 
-  SettingHeaderNavigator.settingChildHeaderNavigator({
-    Icon: PreviousIcon,
+const BuildingsList = ({navigation}) => {
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: IconMenu,
     styles: {
       marginHorizontal: 10,
-    },
-    onPressBtn: () => {
-      navigation.goBack();
     },
   });
 
@@ -28,7 +28,7 @@ const RoomList = ({navigation, route}) => {
   } = useContext(GlobalContext);
 
   useEffect(() => {
-    getBuildings(idBuilding)(buildingsDispatch);
+    getBuildings()(buildingsDispatch);
   }, []);
 
   const ListEmptyComponent = () => {
@@ -44,55 +44,51 @@ const RoomList = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    console.log(item);
-    item = item[0].rooms;
-    const Room = item.map(item => {
-      const {room_number, facilities, status} = item;
-      function countDamagedFacilities(total, curVal) {
-        return curVal.status_id === 3 || curVal.status_id === undefined
-          ? total++
-          : total;
-      }
+    const {name, rooms, id} = item;
+    let roomsTotal;
 
-      // const damagedFacilities = facilities.reduce(countDamagedFacilities, 0);
-
-      // return (
-      //   <Room
-      //     roomName={`Phòng ${room_number}`}
-      //     status={status}
-      //     // totalDevices={facilities.length}
-      //     // totalBrokenDevices={damagedFacilities}
-      //     disabled={facilities.length > 0 ? false : true}
-      //     IconDevice={Device}
-      //     IconBrokenDevice={BrokenDevice}
-      //     IconSetting={Setting}
-      //     onPress={() => {
-      //       navigation.navigate(ROOMDETAILS);
-      //     }}
-      //   />
-      // );
-    });
-
-    return Room;
+    if (item !== '') {
+      roomsTotal =
+        rooms.length > 0
+          ? rooms.reduce(function (total, curVal) {
+              return (total += 1);
+            }, 0)
+          : 0;
+      return (
+        <Room
+          roomName={`${name}`}
+          IconDevice={IconRoom}
+          IconSetting={Setting}
+          totalDevices={roomsTotal}
+          textTotalDevices={'Số lượng phòng:'}
+          btnTitle={'Quản lý phòng'}
+          onPress={() => {
+            navigation.navigate(BUILDINGS_LIST, {
+              idBuilding: id,
+            });
+          }}
+        />
+      );
+    }
   };
+
   return (
     <View style={{paddingHorizontal: 15}}>
       {/* Selecting options */}
 
-      {Object.keys(data_building).length > 0 ? (
+      {loading_building ? (
+        <ActivityIndicator size="large" color={colors.secondary} />
+      ) : (
         <FlatList
           renderItem={renderItem}
-          data={[data_building]}
-          extraData={data_building}
+          data={data_building}
           style={styles.FlatList}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={ListEmptyComponent}
         />
-      ) : (
-        <ActivityIndicator size="large" color={colors.secondary} />
       )}
     </View>
   );
 };
 
-export default RoomList;
+export default BuildingsList;
