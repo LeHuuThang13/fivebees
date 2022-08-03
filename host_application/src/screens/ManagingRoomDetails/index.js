@@ -1,5 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, View, ScrollView, Image, FlatList} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
@@ -12,11 +19,14 @@ import {EDITING_DEVICE, MANAGING_ROOMS} from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 import {GlobalContext} from '../../context/Provider';
 import getFacilitiesByIdRoom from '../../context/actions/facilities/getFacilitiesByIdRoom.js';
+import colors from '../../assets/themes/colors';
+import deleteFacilityById from '../../context/actions/facilities/deleteFacilityById';
 
 const ManagingRoomDetails = ({navigation, route}) => {
   const {navigate} = useNavigation();
   const idRoom = route.params?.id_room;
   const idBuilding = route.params?.id_building;
+  const nameBuilding = route.params?.name_building;
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -26,6 +36,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
     onPressBtnLeft: () => {
       navigate(MANAGING_ROOMS, {
         id_building: idBuilding,
+        name_building: nameBuilding,
       });
     },
   });
@@ -44,7 +55,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
       getFacilitiesByIdRoom(idRoom)(facilitiesDispatch);
     });
     return unsubscribe;
-  }, [idRoom]);
+  }, [route]);
 
   //Hooks
   const [initialState, setInitialState] = useState([]);
@@ -64,33 +75,33 @@ const ManagingRoomDetails = ({navigation, route}) => {
     );
   };
 
+  console.log('data.facilities: >>>>', data.facilities);
+
   const renderItem = ({item}) => {
-    const {id, room_number, status} = item;
+    const {status_id: status, name, category_id: category, id} = item;
     return (
-      // <Device
-      //       urlImage={require('../../assets/images/tv_samsung.jpg')}
-      //       title={'Sản phẩm'}
-      //       name={'Smart Tivi Samsung Crystal UHD 4K 55 inch UA55AU8000KXXV/'}
-      //       amountTitle={'Số lượng'}
-      //       amount={2}
-      //       style={{
-      //         marginVertical: 12,
-      //       }}
-      //       DeleteIcon={<DeleteIcon />}
-      //       EditIcon={<EditIcon />}
-      //       onPressEdit={() => {
-      //         navigation.navigate(EDITING_DEVICE);
-      //       }}
-      //       onPressDelete={() => {
-      //         console.log('hello');
-      //       }}
-      //     />
-      <></>
+      <Device
+        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        title={`Sản phẩm`}
+        name={`${name}`}
+        amountTitle={'Số lượng'}
+        amount={'Đang cập nhập'}
+        style={{
+          marginVertical: 12,
+        }}
+        DeleteIcon={<DeleteIcon />}
+        EditIcon={<EditIcon />}
+        onPressEdit={() => {
+          navigation.navigate(EDITING_DEVICE);
+        }}
+        onPressDelete={() => {
+          deleteFacilityById(id)(facilitiesDispatch);
+        }}
+      />
     );
   };
 
-  console.log(!isLoading ? data.facilities : initialState);
-  console.log(data.facilities);
+  console.log('data<><><>', data);
 
   return (
     <View style={[styles.container, GlobalStyles.fullScreen]}>
@@ -98,18 +109,24 @@ const ManagingRoomDetails = ({navigation, route}) => {
         textTitleOne={'Tình trạng'}
         contentTextTitleOne={'Đang sử dụng'}
         textTitleTwo={'Tổng thiết bị'}
-        contentTextTitleTwo={10}
+        contentTextTitleTwo={
+          data?.facilities ? data.facilities.length : 'Đang cập nhập'
+        }
         textTitleThree={'Thiết bị hư hỏng'}
         contentTextTitleThree={0}
       />
-      <FlatList
-        renderItem={renderItem}
-        data={!isLoading ? data.facilities : initialState}
-        extraData={data.facilities}
-        style={styles.FlatList}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={listEmptyComponent}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color={colors.secondary} />
+      ) : (
+        <FlatList
+          renderItem={renderItem}
+          data={!isLoading ? data.facilities : initialState}
+          extraData={data.facilities}
+          style={styles.FlatList}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={listEmptyComponent}
+        />
+      )}
     </View>
   );
 };

@@ -20,10 +20,12 @@ import {GlobalContext} from '../../context/Provider';
 import getRoomsByIdBuilding from '../../context/actions/rooms/getRoomsByIdBuilding';
 import MorePopupMenu from '../../components/common/MorePopupMenu';
 import deleteRoomById from '../../context/actions/rooms/deleteRoomById';
+import colors from '../../assets/themes/colors';
 
 const ManagingRooms = ({navigation, route}) => {
   const {navigate} = useNavigation();
   const idBuilding = route.params?.id_building;
+  const nameBuilding = route.params?.name_building;
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -84,6 +86,7 @@ const ManagingRooms = ({navigation, route}) => {
           navigation.navigate(MANAGING_ROOM_DETAILS, {
             id_room: id,
             id_building: idBuilding,
+            name_building: nameBuilding,
           });
         }}
         MoreActions={
@@ -118,23 +121,25 @@ const ManagingRooms = ({navigation, route}) => {
         }}
       />
       <CustomHeaderDetails
-        firstText={`Tòa nhà: ${
-          data_rooms?.name ? data_rooms?.name : 'Đang cập nhập'
-        }`}
+        firstText={`Tòa nhà: ${nameBuilding ? nameBuilding : 'Đang cập nhập'}`}
         secondText={`Tổng số phòng: ${
           data_rooms ? data_rooms.length : 'Đang cập nhập'
         }`}
       />
       <View style={styles.body}>
         <View style={GlobalStyles.paddingContainer}>
-          <FlatList
-            renderItem={renderItem}
-            data={!isLoading ? data_rooms : initialState}
-            extraData={data_rooms}
-            style={styles.FlatList}
-            showsVerticalScrollIndicator={false}
-            ListEmptyComponent={listEmptyComponent}
-          />
+          {loading_rooms ? (
+            <ActivityIndicator size="large" color={colors.secondary} />
+          ) : (
+            <FlatList
+              renderItem={renderItem}
+              data={!isLoading ? data_rooms : initialState}
+              extraData={data_rooms}
+              style={styles.FlatList}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={listEmptyComponent}
+            />
+          )}
         </View>
       </View>
     </View>
