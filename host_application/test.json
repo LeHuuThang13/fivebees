@@ -1,0 +1,38 @@
+[
+  {
+    "building_id": 1,
+    "description": "Nhà trọ của Nguyên",
+    "facilities": [],
+    "id": 1,
+    "photos": ["http://fivebees.ml/storage/2/download.jfif"],
+    "room_number": "N101",
+    "status": "Đang thuê"
+  },
+  {
+    "building_id": 1,
+    "description": "Phòng mới tạo của Nguyên",
+    "facilities": [],
+    "id": 2,
+    "photos": ["http://fivebees.ml/storage/3/download.jfif"],
+    "room_number": "N102",
+    "status": "Đang thuê"
+  },
+  {
+    "building_id": 1,
+    "description": "dfsdfsdf",
+    "facilities": [[]],
+    "id": 3,
+    "photos": ["http://fivebees.ml/storage/14/phongtro.jpg"],
+    "room_number": "N103",
+    "status": "Đang sửa chữa"
+  },
+  {
+    "building_id": 1,
+    "description": "asdfsadfasdf",
+    "facilities": [[], [], []],
+    "id": 4,
+    "photos": ["http://fivebees.ml/storage/8/đồ-án-Page-2.jpg"],
+    "room_number": "N104",
+    "status": "Trống"
+  }
+]

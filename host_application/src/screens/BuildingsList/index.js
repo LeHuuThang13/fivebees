@@ -10,7 +10,7 @@ import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import {GlobalContext} from '../../context/Provider';
 import getBuildings from '../../context/actions/buildings/getBuildings';
-import {BUILDINGS_LIST} from '../../constants/routeNames';
+import {ROOM_LIST} from '../../constants/routeNames';
 
 const BuildingsList = ({navigation}) => {
   SettingHeaderNavigator.settingHeaderNavigator({
@@ -61,10 +61,10 @@ const BuildingsList = ({navigation}) => {
           IconSetting={Setting}
           totalDevices={roomsTotal}
           textTotalDevices={'Số lượng phòng:'}
-          btnTitle={'Quản lý phòng'}
+          btnTitle={'Xem phòng'}
           onPress={() => {
-            navigation.navigate(BUILDINGS_LIST, {
-              idBuilding: id,
+            navigation.navigate(ROOM_LIST, {
+              id_building: id,
             });
           }}
         />

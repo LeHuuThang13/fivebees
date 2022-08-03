@@ -7,9 +7,7 @@ const Logout = ({navigation}) => {
   const {authDispatch} = useContext(GlobalContext);
 
   useEffect(() => {
-    logout()(authDispatch)(() => {
-      console.log('alsdkfjlaskfjslakdjf');
-    });
+    logout()(authDispatch)(() => {});
   }, []);
 
   return <ActivityIndicator />;

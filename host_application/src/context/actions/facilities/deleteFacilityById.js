@@ -7,7 +7,6 @@ import axiosInstance from '../../../helpers/axiosInterceptor';
 import {Toast} from '../../../components/Toast';
 
 export default id => dispatch => {
-  console.log('id: >>>>', id);
   dispatch({
     type: DELETE_FACILITY_LOADING,
   });

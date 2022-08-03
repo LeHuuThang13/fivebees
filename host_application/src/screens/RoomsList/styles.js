@@ -24,10 +24,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  FlatList: {
-    marginTop: 10,
-    marginBottom: 50
-  },
+  FlatList: {},
 
   //   Room
   roomContainer: {
