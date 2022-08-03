@@ -5,30 +5,45 @@ import styles from './styles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import {GlobalContext} from '../../context/Provider';
-import getBuildings from '../../context/actions/buildings/getBuildings';
+import Room from '../../components/common/Room';
+import DeviceIcon from '../../assets/icons/device.svg';
+import BrokenIcon from '../../assets/icons/broken.svg';
+import SettingIcon from '../../assets/icons/setting_white.svg';
+import getMultipleApiRooms from '../../context/actions/rooms/getMultipleApiRooms';
+import {BUILDINGS_LIST} from '../../constants/routeNames';
+import {useNavigation} from '@react-navigation/native';
+
 const RoomsList = ({navigation, route}) => {
-  const {idBuilding} = route.params;
+  const {navigate} = useNavigation();
+  const {id_building: idBuilding} = route.params;
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     styles: {
       marginHorizontal: 10,
     },
-    onPressBtn: () => {
+    onPressBtnLeft: () => {
       navigation.goBack();
     },
   });
 
   const {
-    buildingsDispatch,
-    buildingsState: {
-      getBuildings: {data: data_building, loading: loading_building},
+    roomsDispatch,
+    roomsState: {
+      getRooms: {data: data_rooms, loading: loading_room},
     },
   } = useContext(GlobalContext);
 
+  //Hooks
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    getBuildings(idBuilding)(buildingsDispatch);
-  }, []);
+    setIsLoading(true);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getMultipleApiRooms(idBuilding)(roomsDispatch)(setIsLoading);
+    });
+    return unsubscribe;
+  }, [route]);
 
   const ListEmptyComponent = () => {
     return (
@@ -43,52 +58,45 @@ const RoomsList = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    console.log(item);
-    item = item[0].rooms;
-    const Room = item.map(item => {
-      const {room_number, facilities, status} = item;
-      function countDamagedFacilities(total, curVal) {
-        return curVal.status_id === 3 || curVal.status_id === undefined
-          ? total++
-          : total;
-      }
+    const {building_id, description, id, room_number, status, facilities} =
+      item;
 
-      // const damagedFacilities = facilities.reduce(countDamagedFacilities, 0);
-
-      // return (
-      //   <Room
-      //     roomName={`Phòng ${room_number}`}
-      //     status={status}
-      //     // totalDevices={facilities.length}
-      //     // totalBrokenDevices={damagedFacilities}
-      //     disabled={facilities.length > 0 ? false : true}
-      //     IconDevice={Device}
-      //     IconBrokenDevice={BrokenDevice}
-      //     IconSetting={Setting}
-      //     onPress={() => {
-      //       navigation.navigate(ROOMDETAILS);
-      //     }}
-      //   />
-      // );
-    });
-
-    return Room;
+    return (
+      <Room
+        roomName={`Phòng ${room_number}`}
+        status={status}
+        textTotalDevices={'Thiết bị: '}
+        textBrokenDevice={'Thiết bị hư hỏng: '}
+        totalDevices={facilities ? facilities.length : 0}
+        // totalBrokenDevices={damagedFacilities}
+        // disabled={facilities.length > 0 ? false : true}
+        IconDevice={DeviceIcon}
+        IconBrokenDevice={BrokenIcon}
+        IconSetting={SettingIcon}
+        btnTitle={'Xem thiết bị'}
+        onPress={() => {
+          navigation.navigate(ROOMDETAILS, {
+            building_id: building_id,
+            item: item,
+          });
+        }}
+      />
+    );
   };
   return (
-    <View style={{paddingHorizontal: 15}}>
+    <View style={{paddingHorizontal: 15, flex: 1}}>
       {/* Selecting options */}
 
-      {Object.keys(data_building).length > 0 ? (
+      {loading_room ? (
+        <ActivityIndicator size="large" color={colors.secondary} />
+      ) : (
         <FlatList
           renderItem={renderItem}
-          data={[data_building]}
-          extraData={data_building}
+          data={data_rooms}
           style={styles.FlatList}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={ListEmptyComponent}
         />
-      ) : (
-        <ActivityIndicator size="large" color={colors.secondary} />
       )}
     </View>
   );

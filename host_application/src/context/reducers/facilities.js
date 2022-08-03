@@ -11,9 +11,6 @@ import {
 } from '../../constants/actionTypes';
 
 const facilities = (state, {type, payload}) => {
-  console.log('state', state);
-  console.log('type', type);
-  console.log('payload', payload);
   switch (type) {
     // Create
     case CREATE_FACILITY_LOADING:

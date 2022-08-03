@@ -1,12 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  Image,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
@@ -75,8 +68,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
     );
   };
 
-  console.log('data.facilities: >>>>', data.facilities);
-
   const renderItem = ({item}) => {
     const {status_id: status, name, category_id: category, id} = item;
     return (
@@ -100,8 +91,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
       />
     );
   };
-
-  console.log('data<><><>', data);
 
   return (
     <View style={[styles.container, GlobalStyles.fullScreen]}>

@@ -5,6 +5,9 @@ import {
   DELETE_ROOM_BY_ID_FAILED,
   DELETE_ROOM_BY_ID_LOADING,
   DELETE_ROOM_BY_ID_SUCCESS,
+  GET_DETAILS_ROOMS_LOADING,
+  GET_DETAILS_ROOMS_FAILED,
+  GET_DETAILS_ROOMS_SUCCESS,
   GET_ROOMS_BY_ID_BUILDING_FAILED,
   GET_ROOMS_BY_ID_BUILDING_LOADING,
   GET_ROOMS_BY_ID_BUILDING_SUCCESS,
@@ -14,9 +17,6 @@ import {
 } from '../../constants/actionTypes';
 
 const rooms = (state, {type, payload}) => {
-  console.log('state--------------------', state);
-  console.log('type--------------------', type);
-  console.log('payload--------------------', payload);
   switch (type) {
     // Delete
     case DELETE_ROOM_BY_ID_LOADING:
@@ -30,7 +30,6 @@ const rooms = (state, {type, payload}) => {
       };
 
     case DELETE_ROOM_BY_ID_SUCCESS:
-      console.log('DELETE_ROOM_BY_ID_SUCCESS');
       return {
         ...state,
         deleteRoom: {
@@ -99,6 +98,7 @@ const rooms = (state, {type, payload}) => {
       };
 
     // Get
+    case GET_DETAILS_ROOMS_LOADING:
     case GET_ROOMS_LOADING:
     case GET_ROOMS_BY_ID_BUILDING_LOADING:
       return {
@@ -110,6 +110,7 @@ const rooms = (state, {type, payload}) => {
         },
       };
 
+    case GET_DETAILS_ROOMS_SUCCESS:
     case GET_ROOMS_SUCCESS:
     case GET_ROOMS_BY_ID_BUILDING_SUCCESS:
       return {
@@ -122,6 +123,7 @@ const rooms = (state, {type, payload}) => {
         },
       };
 
+    case GET_DETAILS_ROOMS_FAILED:
     case GET_ROOMS_FAILED:
     case GET_ROOMS_BY_ID_BUILDING_FAILED:
       return {
