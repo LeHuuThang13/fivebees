@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Admin\BuildingApiController;
+use App\Http\Controllers\Api\V1\Admin\CategoryApiController;
 use App\Http\Controllers\Api\V1\Admin\FacilityApiController;
 use App\Http\Controllers\Api\V1\Admin\RoomApiController;
+use App\Http\Controllers\Api\V1\Admin\StatusApiController;
 use App\Http\Controllers\Api\V1\Admin\UserApiController;
 use App\Http\Controllers\Api\V1\AuthenticationApiController;
 use Illuminate\Http\Request;
@@ -26,6 +28,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'middleware' => ['auth:sanctum']
     Route::apiResource('rooms', RoomApiController::class);
     Route::apiResource('users', UserApiController::class);
     Route::apiResource('buildings', BuildingApiController::class);
+    Route::apiResource('categories', CategoryApiController::class);
+    Route::apiResource('status', StatusApiController::class);
 });
 
 Route::group(['prefix' => 'v1', 'as' => 'api.'], function () {
