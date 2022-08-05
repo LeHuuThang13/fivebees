@@ -10,7 +10,7 @@ import DeviceIcon from '../../assets/icons/device.svg';
 import BrokenIcon from '../../assets/icons/broken.svg';
 import SettingIcon from '../../assets/icons/setting_white.svg';
 import getMultipleApiRooms from '../../context/actions/rooms/getMultipleApiRooms';
-import {BUILDINGS_LIST} from '../../constants/routeNames';
+import {BUILDINGS_LIST, ROOMDETAILS} from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 
 const RoomsList = ({navigation, route}) => {

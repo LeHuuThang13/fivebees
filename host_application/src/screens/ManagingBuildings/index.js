@@ -112,7 +112,7 @@ const ManagingBuilding = ({navigation}) => {
     <View style={[{flex: 1}]}>
       <CustomCreatingButton
         onPress={() => {
-          navigate(CREATING_BUILDING, {});
+          navigate(CREATING_BUILDING);
         }}
       />
       {loading_building ? (

@@ -116,7 +116,8 @@ const ManagingRooms = ({navigation, route}) => {
       <CustomCreatingButton
         onPress={() => {
           navigation.navigate(CREATING_ROOM, {
-            id_room: id,
+            id_building: idBuilding,
+            name_building: nameBuilding,
           });
         }}
       />

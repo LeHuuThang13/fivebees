@@ -7,29 +7,32 @@ import axiosInstance from '../../../helpers/axiosInterceptor';
 import {Toast} from '../../../components/Toast';
 
 export default form => dispatch => params => onSuccess => {
-  const {code, localFileImage} = params;
+  const {category, localFile, idRoom} = params;
+
+  const STATUS_DEFAULT = 1;
 
   const requestPayload = {
     name: form.name || '',
     description: form.description || '',
-    code: code || '',
-    filenames: localFileImage.path || '',
-    hotline: form.hotline || '',
-    email: form.email || '',
+    category_id: category,
+    filenames: localFile.path || '',
+    status_id: STATUS_DEFAULT,
+    room_id: idRoom,
   };
 
   dispatch({
     type: CREATE_FACILITY_LOADING,
   });
   axiosInstance
-    .post('buildings', requestPayload)
+    .post('facilities', requestPayload)
     .then(res => {
+      const result = [res.data.data];
       dispatch({
         type: CREATE_FACILITY_SUCCESS,
-        payload: res.data.data,
+        payload: result,
       });
       Toast({title: 'Tạo thiết bị mới thành công'});
-      onSuccess();
+      // onSuccess();
     })
     .catch(error => {
       console.log('error creating buliding', error.response.data);

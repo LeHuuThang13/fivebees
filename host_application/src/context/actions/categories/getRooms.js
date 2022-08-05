@@ -10,20 +10,21 @@ export default () => dispatch => {
   dispatch({
     type: GET_ROOMS_LOADING,
   });
+
   axiosInstance
     .get(`rooms`)
     .then(res => {
-      console.log('res.data.data', res.data);
       dispatch({
         type: GET_ROOMS_SUCCESS,
-        payload: res.data.data,
+        payload: res.data.data.rooms,
       });
+      setIsLoading(false);
     })
     .catch(error => {
-      console.log('Get rooms: ', error.response.data);
+      console.log('GET ROOMS: ', error.response.data);
       dispatch({
         type: GET_ROOMS_FAILED,
-        payload: error.message,
+        payload: error.response.data,
       });
     });
 };

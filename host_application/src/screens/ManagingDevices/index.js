@@ -4,13 +4,15 @@ import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import {MANAGE} from '../../constants/routeNames';
 
-const ManagingDevices = () => {
+const ManagingDevices = ({navigation}) => {
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     styles: {
       marginHorizontal: 10,
     },
-    stackNavigate: MANAGE,
+    onPressBtnLeft: () => {
+      navigation.navigate(MANAGE);
+    },
   });
   return <Container></Container>;
 };
