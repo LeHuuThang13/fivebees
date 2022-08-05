@@ -7,20 +7,12 @@ import axiosInstance from '../../../helpers/axiosInterceptor';
 import {Toast} from '../../../components/Toast';
 
 export default form => dispatch => localFileImage => idBuilding => onSuccess => {
-  // const requestPayload = {
-  //   room_number: form.room_number || '',
-  //   status: form.status || '',
-  //   description: form.description || '',
-  //   building_id: idBuilding,
-  //   filenames: localFileImage.path || '',
-  // };
-
   const requestPayload = {
-    room_number: 'sdfsdfsdfaasdfasdf',
-    status: 'Đang thuêasdfad',
-    description: '1212121212asdfasdfdsfas',
-    building_id: 110,
-    filenames: 'sdfasdfasdfasdf.png',
+    room_number: form.room_number || '',
+    status: form.status || '',
+    description: form.description || '',
+    building_id: idBuilding,
+    filenames: localFileImage.path || '',
   };
 
   dispatch({

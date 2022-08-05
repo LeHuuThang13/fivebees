@@ -42,7 +42,7 @@ const Managing = ({navigation}) => {
         }),
       )
       .catch(err => {
-        console.log(err.message);
+        console.log('Managing ', err.response.data);
       });
   };
 

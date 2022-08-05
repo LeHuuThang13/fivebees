@@ -7,7 +7,7 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default props => dispatch => {
+export default () => dispatch => {
   dispatch({
     type: GET_BUILDINGS_LOADING,
   });

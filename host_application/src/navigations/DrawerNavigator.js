@@ -1,13 +1,14 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import colors from '../assets/themes/colors';
 import {
   ANALYST,
+  ANALYST_DETAILS_BUILDINGS,
+  ANALYST_DETAILS_DEVICE,
+  ANALYST_DETAILS_ROOMS,
   BUILDINGDETAILS,
   BUILDINGS_LIST,
   CREATING_BUILDING,
+  CREATING_FACILITY,
   CREATING_ROOM,
   EDITING_DEVICE,
   HOME_NAVIGATOR,
@@ -46,11 +47,18 @@ import {GlobalContext} from '../context/Provider';
 import ManagingRooms from '../screens/ManagingRooms';
 import CreatingRoom from '../screens/CreatingRoom';
 import RoomsList from '../screens/RoomsList';
+import CreatingFacility from '../screens/CreatingFacility';
+import AnalystDetailsDevices from '../screens/AnalystDetailsDevices';
+import AnalystDetailsBuildings from '../screens/AnalystDetailsBuildings';
+import AnalystDetailsRooms from '../screens/AnalystDetailsRooms';
+import {useNavigation} from '@react-navigation/native';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
 
   const {authDispatch} = useContext(GlobalContext);
+
+  const {navigate} = useNavigation();
 
   //Render Image on sidebar
   const getDrawerContent = (navigation, authDispatch) => {
@@ -97,8 +105,30 @@ const DrawerNavigator = () => {
       />
 
       <Drawer.Screen name={ANALYST} component={Analyst} />
+      <Drawer.Screen
+        name={ANALYST_DETAILS_DEVICE}
+        options={{swipeEnabled: false}}
+        component={AnalystDetailsDevices}
+      />
+      <Drawer.Screen
+        name={ANALYST_DETAILS_BUILDINGS}
+        options={{swipeEnabled: false}}
+        component={AnalystDetailsBuildings}
+      />
+      <Drawer.Screen
+        name={ANALYST_DETAILS_ROOMS}
+        options={{swipeEnabled: false}}
+        component={AnalystDetailsRooms}
+      />
+
       <Drawer.Screen name={MANAGE} component={Managing} />
-      <Drawer.Screen name={QRCODE} component={QRCode} />
+      <Drawer.Screen
+        name={QRCODE}
+        component={QRCode}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Drawer.Screen name={SETTINGS} component={Settings} />
       <Drawer.Screen
         name={LOGOUT}
@@ -130,6 +160,11 @@ const DrawerNavigator = () => {
         name={CREATING_BUILDING}
         options={{swipeEnabled: false}}
         component={CreatingBuilding}
+      />
+      <Drawer.Screen
+        name={CREATING_FACILITY}
+        options={{swipeEnabled: false}}
+        component={CreatingFacility}
       />
       <Drawer.Screen
         name={MANAGING_DEVICES}

@@ -17,6 +17,10 @@ export const LOGOUT = 'Đăng Xuất';
 export const MANAGE = 'Quản Lý';
 
 //stack children
+export const ANALYST_DETAILS_DEVICE = 'Thống kê Thiết Bị';
+export const ANALYST_DETAILS_BUILDINGS = 'Thống kê tòa nhà';
+export const ANALYST_DETAILS_ROOMS = 'Thống kê phòng';
+
 export const BUILDINGDETAILS = 'Sửa Tòa Nhà';
 export const MANAGING_BUILDING = 'Quản Lý Tòa Nhà';
 export const MANAGING_DEVICES = 'Quản Lý Thiết Bị';
@@ -30,8 +34,9 @@ export const EDITING_DEVICE = 'Cập Nhập Thiết Bị';
 export const CREATING_ROOM = 'Tạo Mới Phòng';
 //Building
 export const CREATING_BUILDING = 'Tạo Mới Tòa Nhà';
-
 export const MANAGING_ROOM_DETAILS = ' Chi Tiết Phòng ';
+//Facilities
+export const CREATING_FACILITY = 'Tạo mới thiết bị';
 
 //Navigation
 export const HOME_NAVIGATOR = 'Trang Chủ';

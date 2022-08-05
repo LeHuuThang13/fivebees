@@ -1,28 +1,26 @@
-import axios from 'axios';
 import {
-  GET_ROOMS_FAILED,
-  GET_ROOMS_LOADING,
-  GET_ROOMS_SUCCESS,
+  GET_CATEGORIES_FAILED,
+  GET_CATEGORIES_LOADING,
+  GET_CATEGORIES_SUCCESS,
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
 export default () => dispatch => {
   dispatch({
-    type: GET_ROOMS_LOADING,
+    type: GET_CATEGORIES_LOADING,
   });
   axiosInstance
-    .get(`rooms`)
+    .get(`categories`)
     .then(res => {
-      console.log('res.data.data', res.data);
       dispatch({
-        type: GET_ROOMS_SUCCESS,
+        type: GET_CATEGORIES_SUCCESS,
         payload: res.data.data,
       });
     })
     .catch(error => {
-      console.log('Get rooms: ', error.response.data);
+      console.log('Get categories: ', error.response.data);
       dispatch({
-        type: GET_ROOMS_FAILED,
+        type: GET_CATEGORIES_FAILED,
         payload: error.message,
       });
     });
