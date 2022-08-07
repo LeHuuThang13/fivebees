@@ -1,40 +1,39 @@
 import {
-  CREATE_BUILDING_FAILED,
-  CREATE_BUILDING_LOADING,
-  CREATE_BUILDING_SUCCESS,
+  EDIT_BUILDING_LOADING,
+  EDIT_BUILDING_SUCCESS,
+  EDIT_BUILDING_FAILED,
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 import {Toast} from '../../../components/Toast';
 
-export default form => dispatch => localFileImage => onSuccess => {
-  const LENGTH = localFileImage.path.split('/').length;
-  const uri = localFileImage.path.split('/')[LENGTH - 1];
+export default form => dispatch => props => onSuccess => {
+  const {localFile, buildingId} = props;
 
   const requestPayload = {
     name: form.name || '',
     email: form.email || '',
     address: form.address || '',
     hotline: form.hotline || '',
-    filenames: 'blob:http://fivebees.ml/' + uri || '',
+    filenames: localFile || '',
   };
 
   dispatch({
-    type: CREATE_BUILDING_LOADING,
+    type: EDIT_BUILDING_LOADING,
   });
   axiosInstance
-    .post('buildings', requestPayload)
+    .put(`buildings/${buildingId}`, requestPayload)
     .then(res => {
       dispatch({
-        type: CREATE_BUILDING_SUCCESS,
+        type: EDIT_BUILDING_SUCCESS,
         payload: res.data.data,
       });
-      Toast({title: 'Tạo thiết bị mới thành công'});
+      Toast({title: 'Cập nhập thiết bị mới thành công'});
       onSuccess();
     })
     .catch(error => {
       console.log('error creating facility', error.response.data);
       dispatch({
-        type: CREATE_BUILDING_FAILED,
+        type: EDIT_BUILDING_FAILED,
         payload: error.response.data,
       });
     });

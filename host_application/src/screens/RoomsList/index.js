@@ -37,10 +37,14 @@ const RoomsList = ({navigation, route}) => {
   //Hooks
   const [isLoading, setIsLoading] = useState(false);
 
+  async function fetchData() {
+    getMultipleApiRooms(idBuilding)(roomsDispatch)(setIsLoading);
+  }
+
   useEffect(() => {
     setIsLoading(true);
     const unsubscribe = navigation.addListener('focus', () => {
-      getMultipleApiRooms(idBuilding)(roomsDispatch)(setIsLoading);
+      fetchData();
     });
     return unsubscribe;
   }, [route]);
@@ -65,19 +69,16 @@ const RoomsList = ({navigation, route}) => {
       <Room
         roomName={`Phòng ${room_number}`}
         status={status}
-        textTotalDevices={'Thiết bị: '}
-        textBrokenDevice={'Thiết bị hư hỏng: '}
+        textTotalDevices={'Tổng thiết bị: '}
         totalDevices={facilities ? facilities.length : 0}
-        // totalBrokenDevices={damagedFacilities}
-        // disabled={facilities.length > 0 ? false : true}
         IconDevice={DeviceIcon}
-        IconBrokenDevice={BrokenIcon}
         IconSetting={SettingIcon}
         btnTitle={'Xem thiết bị'}
         onPress={() => {
           navigation.navigate(ROOMDETAILS, {
             building_id: building_id,
-            item: item,
+            items: facilities,
+            id_building: idBuilding,
           });
         }}
       />

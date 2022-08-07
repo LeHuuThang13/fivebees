@@ -1,27 +1,27 @@
 import {
-  GET_CATEGORIES_FAILED,
-  GET_CATEGORIES_LOADING,
-  GET_CATEGORIES_SUCCESS,
+  GET_STATUS_FAILED,
+  GET_STATUS_LOADING,
+  GET_STATUS_SUCCESS,
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
 export default () => dispatch => {
   dispatch({
-    type: GET_CATEGORIES_LOADING,
+    type: GET_STATUS_LOADING,
   });
   axiosInstance
-    .get(`categories`)
+    .get(`status`)
     .then(res => {
       dispatch({
-        type: GET_CATEGORIES_SUCCESS,
+        type: GET_STATUS_SUCCESS,
         payload: res.data.data,
       });
       return res.data.data;
     })
     .catch(error => {
-      console.log('Get categories: ', error.response.data);
+      console.log('Get status: ', error.response.data);
       dispatch({
-        type: GET_CATEGORIES_FAILED,
+        type: GET_STATUS_FAILED,
         payload: error.message,
       });
     });

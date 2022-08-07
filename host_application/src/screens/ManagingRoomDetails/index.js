@@ -10,7 +10,7 @@ import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
 import {
   CREATING_FACILITY,
-  EDITING_DEVICE,
+  UPDATING_FACILITY,
   MANAGING_ROOMS,
 } from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
@@ -75,6 +75,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
 
   const renderItem = ({item}) => {
     const {status_id: status, name, category_id: category, id} = item;
+
     return (
       <Device
         urlImage={require('../../assets/images/tv_samsung.jpg')}
@@ -88,7 +89,13 @@ const ManagingRoomDetails = ({navigation, route}) => {
         DeleteIcon={<DeleteIcon />}
         EditIcon={<EditIcon />}
         onPressEdit={() => {
-          navigation.navigate(EDITING_DEVICE);
+          navigation.navigate(UPDATING_FACILITY, {
+            id_room: idRoom,
+            id_building: idBuilding,
+            name_building: nameBuilding,
+            item: item,
+            isFromManagingRoom: true,
+          });
         }}
         onPressDelete={() => {
           deleteFacilityById(id)(facilitiesDispatch);
@@ -106,6 +113,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
             id_room: idRoom,
             id_building: idBuilding,
             name_building: nameBuilding,
+            isFromManagingRoom: true,
           });
         }}
       />

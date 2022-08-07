@@ -4,29 +4,29 @@ import {
   Text,
   TouchableOpacity,
   View,
-  DevSettings,
   BackHandler,
+  SafeAreaView,
   ScrollView,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import CheckIcon from '../../assets/icons/check.svg';
-import {
-  ACCOUNT,
-  MANAGING_BUILDING,
-  MANAGING_ROOMS,
-} from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/common/InputCustom';
-import createBuilding from '../../context/actions/buildings/createBuilding';
-import {StackActions, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
-import CustomButtonIcon from '../../components/CustomButtonIcon';
+import createFacility from '../../context/actions/facilities/createFacility';
+import getCategories from '../../context/actions/categories/getCategories';
+import SelectDropdown from 'react-native-select-dropdown';
+import {MANAGING_FACILITIES, MANAGING_ROOMS} from '../../constants/routeNames';
+import getStatus from '../../context/actions/status/getStatus';
+import getRooms from '../../context/actions/rooms/getRooms';
+import SelectingDropDown from '../../components/common/SelectDropdown';
 
-const CreatingBuilding = ({navigation}) => {
+const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
 
   //Setting header
@@ -37,24 +37,45 @@ const CreatingBuilding = ({navigation}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_BUILDING);
+      navigate(MANAGING_FACILITIES);
     },
   });
 
   //Global variables
   const {
-    buildingsDispatch,
-    buildingsState: {
-      createBuilding: {loading_building, error},
+    facilitiesDispatch,
+    facilitiesState: {
+      createFacility: {loading, data, error},
+    },
+    categoriesDispatch,
+    categoriesState: {
+      getCategories: {loading: loading_categories, data: data_categories},
+    },
+    statusDispatch,
+    statusState: {
+      getStatus: {loading: loading_status, data: data_status},
+    },
+    roomsDispatch,
+    roomsState: {
+      getRooms: {loading: loading_rooms, data: data_rooms},
     },
   } = useContext(GlobalContext);
 
   // Hook fields
 
+  async function fetchData() {
+    await Promise.all([
+      getCategories()(categoriesDispatch),
+      getStatus()(statusDispatch),
+      getRooms()(roomsDispatch),
+    ]);
+  }
+
   useEffect(() => {
-    // Back button real device
+    fetchData();
+
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_BUILDING);
+      navigation.navigate(MANAGING_ROOMS);
       return true;
     });
 
@@ -65,14 +86,16 @@ const CreatingBuilding = ({navigation}) => {
     };
   }, [navigation]);
 
+  console.log(data_rooms);
+
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
   const sheetRef = useRef(null);
   const [name, setName] = useState(form?.name);
-  const [email, setEmail] = useState(form?.email);
-  const [address, setAddress] = useState(form?.address);
-  const [hotline, sethotline] = useState(form?.hotline);
-  const [uploading, setIsUploading] = useState(false);
+  const [category, setCategory] = useState({});
+  const [room, setRooms] = useState({});
+  const [status, setStatus] = useState({});
+  const [description, setDescription] = useState(form?.description);
 
   // Functions
 
@@ -98,25 +121,27 @@ const CreatingBuilding = ({navigation}) => {
   };
 
   const onSubmit = () => {
-    if (localFile?.size) {
-      setIsUploading(false);
-      createBuilding(form)(buildingsDispatch)(localFile)(() => {
-        navigate(MANAGING_BUILDING);
-        setForm({});
-        setLocalFile('');
-        setAddress('');
-        setEmail('');
-        setName('');
-        sethotline('');
-      });
-    } else {
-      setIsUploading(true);
-    }
+    createFacility(form)(facilitiesDispatch)({
+      localFile,
+      category,
+      room,
+      status,
+    })(() => {
+      navigate(MANAGING_FACILITIES);
+      setForm({});
+      setLocalFile('');
+      setName('');
+      setDescription('');
+      setCategory('');
+      setRooms({});
+      setStatus({});
+    });
   };
 
   return (
-    <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
-      <ScrollView>
+    <SafeAreaView
+      style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.imageWrapper}>
           {!!localFile && (
             <Image
@@ -138,60 +163,56 @@ const CreatingBuilding = ({navigation}) => {
 
           <TouchableOpacity onPress={openSheet}>
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho tòa nhà'}</Text>
+            <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
           </TouchableOpacity>
         </View>
 
         <CustomInput
-          label="Name"
+          label="Tên phòng"
           onChangeText={value => {
             onChange({name: 'name', value});
             return setName(value);
           }}
-          placeholder="Nhập tên tòa nhà"
+          placeholder="Nhập tên phòng"
           value={name}
           error={name === '' && error?.errors?.name?.[0]}
         />
 
         <CustomInput
-          label="Email"
+          label="Mô tả"
           onChangeText={value => {
-            onChange({name: 'email', value});
-            return setEmail(value);
+            onChange({name: 'description', value});
+            return setDescription(value);
           }}
-          placeholder="Nhập tên email"
-          value={email}
-          error={email === '' && error?.errors?.email?.[0]}
+          placeholder="Nhập mô tả phòng"
+          value={description}
+          error={description === '' && error?.errors?.description?.[0]}
         />
 
-        <CustomInput
-          label="Address"
-          onChangeText={value => {
-            onChange({name: 'address', value});
-            return setAddress(value);
-          }}
-          placeholder="Nhập địa chỉ"
-          value={address}
-          error={address === '' && error?.errors?.address?.[0]}
+        <SelectingDropDown
+          title={'Chọn phòng'}
+          data={data_rooms}
+          setState={setRooms}
         />
 
-        <CustomInput
-          label="Hotline"
-          onChangeText={value => {
-            onChange({name: 'hotline', value});
-            return sethotline(value);
-          }}
-          placeholder="Nhập số điện thoại"
-          value={hotline}
-          error={hotline === '' && error?.errors?.hotline?.[0]}
+        <SelectingDropDown
+          title={'Chọn loại'}
+          data={data_categories}
+          setState={setCategory}
+        />
+
+        <SelectingDropDown
+          title={'Chọn trạng thái'}
+          data={data_status}
+          setState={setStatus}
         />
 
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm tòa nhà'}
-          loading={loading_building || uploading}
-          disabled={loading_building}
+          title={'Thêm phòng'}
+          loading={loading}
+          disabled={loading}
           error={error}
         />
       </ScrollView>
@@ -203,8 +224,8 @@ const CreatingBuilding = ({navigation}) => {
         onFileSelected={onFileSelected}
         localFile={localFile}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default CreatingBuilding;
+export default CreatingFacility;

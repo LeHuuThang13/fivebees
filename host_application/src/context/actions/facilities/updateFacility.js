@@ -7,13 +7,13 @@ import axiosInstance from '../../../helpers/axiosInterceptor';
 import {Toast} from '../../../components/Toast';
 
 export default form => dispatch => params => onSuccess => {
-  const {category, localFile, idRoom, room, status} = params;
+  const {category, localFile, idRoom, idFacility} = params;
 
   const STATUS_DEFAULT = 1;
 
   let requestPayload;
 
-  if (idRoom) {
+  if (localFile) {
     requestPayload = {
       name: form.name || '',
       description: form.description || '',
@@ -22,14 +22,13 @@ export default form => dispatch => params => onSuccess => {
       status_id: STATUS_DEFAULT,
       room_id: idRoom,
     };
-  } else if (status && room && category) {
+  } else {
     requestPayload = {
       name: form.name || '',
       description: form.description || '',
       category_id: category,
-      filenames: localFile.path || '',
-      status_id: status,
-      room_id: room,
+      status_id: STATUS_DEFAULT,
+      room_id: idRoom,
     };
   }
 
@@ -37,7 +36,7 @@ export default form => dispatch => params => onSuccess => {
     type: CREATE_FACILITY_LOADING,
   });
   axiosInstance
-    .post('facilities', requestPayload)
+    .put(`facilities/${idFacility}`, requestPayload)
     .then(res => {
       const result = [res.data.data.facilities];
       dispatch({
@@ -45,7 +44,7 @@ export default form => dispatch => params => onSuccess => {
         payload: result,
       });
       Toast({title: 'Tạo thiết bị mới thành công'});
-      onSuccess();
+      // onSuccess();
     })
     .catch(error => {
       console.log('error creating buliding', error.response.data);

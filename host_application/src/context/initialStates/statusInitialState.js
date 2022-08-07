@@ -1,20 +1,20 @@
 export default {
-  getFacilities: {
+  getStatus: {
     data: [],
     error: null,
     loading: false,
   },
-  createFacility: {
+  createStatus: {
     data: {},
     error: null,
     loading: false,
   },
-  editFacility: {
+  editStatus: {
     data: {},
     error: null,
     loading: false,
   },
-  deleteFacility: {
+  deleteStatus: {
     data: {},
     error: null,
     loading: false,

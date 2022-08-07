@@ -21,18 +21,22 @@ const HeaderDetails = props => {
         </View>
         <Text style={[styles.textTitle]}>{contentTextTitleOne}</Text>
       </View>
-      <View style={styles.contentView}>
-        <View style={styles.titleView}>
-          <Text style={[styles.textTitle]}>{textTitleTwo} :</Text>
+      {textTitleTwo && (
+        <View style={styles.contentView}>
+          <View style={styles.titleView}>
+            <Text style={[styles.textTitle]}>{textTitleTwo} :</Text>
+          </View>
+          <Text style={[styles.textTitle]}>{contentTextTitleTwo}</Text>
         </View>
-        <Text style={[styles.textTitle]}>{contentTextTitleTwo}</Text>
-      </View>
-      <View style={styles.contentView}>
-        <View style={styles.titleView}>
-          <Text style={styles.textTitle}>{textTitleThree} :</Text>
+      )}
+      {textTitleThree && (
+        <View style={styles.contentView}>
+          <View style={styles.titleView}>
+            <Text style={styles.textTitle}>{textTitleThree} :</Text>
+          </View>
+          <Text style={styles.textTitle}>{contentTextTitleThree}</Text>
         </View>
-        <Text style={styles.textTitle}>{contentTextTitleThree}</Text>
-      </View>
+      )}
     </View>
   );
 };

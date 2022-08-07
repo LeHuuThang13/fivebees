@@ -5,6 +5,7 @@ import {
   CREATING_ROOM,
   MANAGING_BUILDING,
   MANAGING_ROOM_DETAILS,
+  UPDATING_ROOM,
 } from '../../constants/routeNames';
 import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import styles from './styles';
@@ -98,7 +99,12 @@ const ManagingRooms = ({navigation, route}) => {
               zIndex: 3,
             }}
             onPressEdit={() => {
-              console.log('edit');
+              navigation.navigate(UPDATING_ROOM, {
+                room: item,
+                id_room: id,
+                id_building: idBuilding,
+                name_building: nameBuilding,
+              });
             }}
             onPressDelete={() => {
               deleteRoomById(id)(roomsDispatch);

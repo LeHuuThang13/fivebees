@@ -11,6 +11,8 @@ import brokenFacilities from './reducers/brokenFacilities';
 import brokenFacilitiesInitialState from './initialStates/brokenFacilitiesInitialState';
 import categories from './reducers/categories';
 import categoriesInitialState from './initialStates/categoriesInitialState';
+import status from './reducers/status';
+import statusInitialState from './initialStates/statusInitialState';
 
 export const GlobalContext = createContext({});
 
@@ -33,6 +35,7 @@ const GlobalProvider = ({children}) => {
     categories,
     categoriesInitialState,
   );
+  const [statusState, statusDispatch] = useReducer(status, statusInitialState);
 
   return (
     <GlobalContext.Provider
@@ -49,6 +52,8 @@ const GlobalProvider = ({children}) => {
         brokenFacilitiesDispatch,
         categoriesState,
         categoriesDispatch,
+        statusState,
+        statusDispatch,
       }}>
       {children}
     </GlobalContext.Provider>

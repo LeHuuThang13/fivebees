@@ -1,5 +1,12 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import {Image, Text, TouchableOpacity, View, BackHandler} from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  BackHandler,
+  Alert,
+} from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
@@ -12,10 +19,12 @@ import {useNavigation} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import createRoomByIdBuilding from '../../context/actions/rooms/createRoomByIdBuilding';
+import editRoom from '../../context/actions/rooms/editRoom';
 
 const CreatingRoom = ({navigation, route}) => {
   const {navigate} = useNavigation();
-  const {id_room, id_building, name_building} = route.params;
+  const {room, id_room, id_building, name_building} = route.params;
+
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -44,6 +53,11 @@ const CreatingRoom = ({navigation, route}) => {
   // Hook fields
 
   useEffect(() => {
+    if (room) {
+      const {building_id, description, room_number, status} = room;
+      setForm({...form, building_id, description, room_number, status});
+    }
+
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
       navigation.navigate(MANAGING_ROOMS);
@@ -55,7 +69,7 @@ const CreatingRoom = ({navigation, route}) => {
         return false;
       });
     };
-  }, [navigation]);
+  }, [route]);
 
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
@@ -63,6 +77,8 @@ const CreatingRoom = ({navigation, route}) => {
   const [roomNumber, setRoomNumber] = useState(form?.room_number);
   const [status, setStatus] = useState(form?.status);
   const [description, setDescription] = useState(form?.description);
+  const [isEdited, setIsEdited] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Functions
 
@@ -81,23 +97,36 @@ const CreatingRoom = ({navigation, route}) => {
   const onFileSelected = image => {
     closeSheet();
     setLocalFile(image);
+    setIsEdited(true);
   };
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
+    setIsEdited(true);
   };
 
   const onSubmit = () => {
-    createRoomByIdBuilding(form)(roomsDispatch)(localFile)(id_building)(() => {
-      navigate(MANAGING_ROOMS, {
-        id_building: id_building,
+    if (isEdited) {
+      editRoom(form)(roomsDispatch)(localFile)(id_building)(id_room)(() => {
+        navigate(MANAGING_ROOMS, {
+          id_building: id_building,
+        });
+        setForm({});
+        setLocalFile('');
+        setRoomNumber('');
+        setDescription('');
+        setStatus('');
+        setIsLoading(false);
       });
-      setForm({});
-      setLocalFile('');
-      setRoomNumber('');
-      setDescription('');
-      setStatus('');
-    });
+    } else {
+      Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+        {
+          text: 'Đã hiểu',
+          onPress: () => console.log('Đã hiểu'),
+          style: 'cancel',
+        },
+      ]);
+    }
   };
 
   return (
@@ -135,7 +164,7 @@ const CreatingRoom = ({navigation, route}) => {
             return setRoomNumber(value);
           }}
           placeholder="Nhập tên phòng"
-          value={roomNumber}
+          value={form.room_number}
           error={roomNumber === '' && error?.errors?.room_number?.[0]}
         />
 
@@ -146,7 +175,7 @@ const CreatingRoom = ({navigation, route}) => {
             return setStatus(value);
           }}
           placeholder="Nhập tên trạng thái phòng"
-          value={status}
+          value={form.status}
           error={status === '' && error?.errors?.status?.[0]}
         />
 
@@ -157,7 +186,7 @@ const CreatingRoom = ({navigation, route}) => {
             return setDescription(value);
           }}
           placeholder="Nhập mô tả"
-          value={description}
+          value={form.description}
           error={description === '' && error?.errors?.description?.[0]}
         />
 
@@ -165,8 +194,8 @@ const CreatingRoom = ({navigation, route}) => {
           onPress={onSubmit}
           primary
           title={'Thêm phòng'}
-          loading={loading_room}
-          disabled={loading_room}
+          loading={loading_room || isLoading}
+          disabled={loading_room || isLoading}
           error={error}
         />
       </View>

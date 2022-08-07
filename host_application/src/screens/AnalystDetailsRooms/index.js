@@ -39,7 +39,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
   }, [route]);
 
   //Hooks
-  console.log(data);
   //Functions
 
   const listEmptyComponent = () => {
@@ -56,7 +55,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
 
   const renderItem = ({item}) => {
     const {room_number, photos, status, facilities} = item;
-    console.log(item);
 
     return (
       <DeviceAnalyst

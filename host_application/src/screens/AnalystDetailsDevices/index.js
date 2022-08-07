@@ -11,7 +11,7 @@ import EditIcon from '../../assets/icons/edit.svg';
 import {
   ANALYST,
   CREATING_FACILITY,
-  EDITING_DEVICE,
+  UPDATING_FACILITY,
   MANAGING_ROOMS,
 } from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';

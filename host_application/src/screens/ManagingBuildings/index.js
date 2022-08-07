@@ -7,6 +7,7 @@ import {
   CREATING_BUILDING,
   MANAGE,
   MANAGING_ROOMS,
+  UPDATING_BUILDING,
 } from '../../constants/routeNames';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 // Sgv Icons
@@ -42,7 +43,7 @@ const ManagingBuilding = ({navigation}) => {
 
   useEffect(() => {
     getBuildings()(buildingsDispatch);
-  }, []);
+  }, [navigation]);
 
   const ListEmptyComponent = () => {
     return (
@@ -79,7 +80,9 @@ const ManagingBuilding = ({navigation}) => {
                 zIndex: 3,
               }}
               onPressEdit={() => {
-                console.log('edit');
+                navigate(UPDATING_BUILDING, {
+                  building: item,
+                });
               }}
               onPressDelete={() => {
                 deleteBuilding(id)(buildingsDispatch);
