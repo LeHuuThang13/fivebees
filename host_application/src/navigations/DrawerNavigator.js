@@ -10,20 +10,23 @@ import {
   CREATING_BUILDING,
   CREATING_FACILITY,
   CREATING_ROOM,
-  EDITING_DEVICE,
+  UPDATING_FACILITY,
   HOME_NAVIGATOR,
   INTRODUCE,
   LOGOUT,
   MANAGE,
   MANAGING_BUILDING,
-  MANAGING_DEVICES,
+  MANAGING_FACILITIES,
   MANAGING_ROOMS,
   MANAGING_ROOM_DETAILS,
   QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
-  TOTAL_FIXING_DEVICES,
+  TOTAL_FIXING_FACILITIES,
+  UPDATING_BUILDING,
+  UPDATING_ROOM,
+  CREATING_MANAGING_FACILITY,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
@@ -37,7 +40,8 @@ import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
 import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingBuildings from '../screens/ManagingBuildings';
-import EditingDevice from '../screens/EditingDevice';
+import UpdatingBuilding from '../screens/UpdatingBuilding';
+import UpdatingFacility from '../screens/UpdatingFacility';
 import BuildingsList from '../screens/BuildingsList';
 import Logout from '../screens/Logout';
 // import CreatingRoom from '../screens/CreatingRoom';
@@ -48,9 +52,11 @@ import ManagingRooms from '../screens/ManagingRooms';
 import CreatingRoom from '../screens/CreatingRoom';
 import RoomsList from '../screens/RoomsList';
 import CreatingFacility from '../screens/CreatingFacility';
+import CreatingManagingFacility from '../screens/CreatingDevice';
 import AnalystDetailsDevices from '../screens/AnalystDetailsDevices';
 import AnalystDetailsBuildings from '../screens/AnalystDetailsBuildings';
 import AnalystDetailsRooms from '../screens/AnalystDetailsRooms';
+import UpdatingRoom from '../screens/UpdatingRoom';
 import {useNavigation} from '@react-navigation/native';
 
 const DrawerNavigator = () => {
@@ -99,6 +105,11 @@ const DrawerNavigator = () => {
         component={CreatingRoom}
       />
       <Drawer.Screen
+        name={UPDATING_ROOM}
+        options={{swipeEnabled: false}}
+        component={UpdatingRoom}
+      />
+      <Drawer.Screen
         name={MANAGING_ROOM_DETAILS}
         options={{swipeEnabled: false}}
         component={ManagingRoomDetails}
@@ -136,9 +147,9 @@ const DrawerNavigator = () => {
         component={Logout}
       />
       <Drawer.Screen
-        name={EDITING_DEVICE}
+        name={UPDATING_FACILITY}
         options={{swipeEnabled: false}}
-        component={EditingDevice}
+        component={UpdatingFacility}
       />
       {/* Buildings screens */}
       <Drawer.Screen
@@ -157,6 +168,11 @@ const DrawerNavigator = () => {
         component={ManagingBuildings}
       />
       <Drawer.Screen
+        name={UPDATING_BUILDING}
+        options={{swipeEnabled: false}}
+        component={UpdatingBuilding}
+      />
+      <Drawer.Screen
         name={CREATING_BUILDING}
         options={{swipeEnabled: false}}
         component={CreatingBuilding}
@@ -167,12 +183,17 @@ const DrawerNavigator = () => {
         component={CreatingFacility}
       />
       <Drawer.Screen
-        name={MANAGING_DEVICES}
+        name={CREATING_MANAGING_FACILITY}
+        options={{swipeEnabled: false}}
+        component={CreatingManagingFacility}
+      />
+      <Drawer.Screen
+        name={MANAGING_FACILITIES}
         options={{swipeEnabled: false}}
         component={ManagingDevices}
       />
       <Drawer.Screen
-        name={TOTAL_FIXING_DEVICES}
+        name={TOTAL_FIXING_FACILITIES}
         options={{swipeEnabled: false}}
         component={TotalFixingDevices}
       />

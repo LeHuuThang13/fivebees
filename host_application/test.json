@@ -1,38 +1,63 @@
-[
-  {
-    "building_id": 1,
-    "description": "Nhà trọ của Nguyên",
-    "facilities": [],
-    "id": 1,
-    "photos": ["http://fivebees.ml/storage/2/download.jfif"],
-    "room_number": "N101",
-    "status": "Đang thuê"
-  },
-  {
-    "building_id": 1,
-    "description": "Phòng mới tạo của Nguyên",
-    "facilities": [],
-    "id": 2,
-    "photos": ["http://fivebees.ml/storage/3/download.jfif"],
-    "room_number": "N102",
-    "status": "Đang thuê"
-  },
-  {
-    "building_id": 1,
-    "description": "dfsdfsdf",
-    "facilities": [[]],
-    "id": 3,
-    "photos": ["http://fivebees.ml/storage/14/phongtro.jpg"],
-    "room_number": "N103",
-    "status": "Đang sửa chữa"
-  },
-  {
-    "building_id": 1,
-    "description": "asdfsadfasdf",
-    "facilities": [[], [], []],
-    "id": 4,
-    "photos": ["http://fivebees.ml/storage/8/đồ-án-Page-2.jpg"],
-    "room_number": "N104",
-    "status": "Trống"
+{
+  "name": "Cập Nhập Tòa Nhà",
+  "params": {
+    "building": {
+      "id": 1,
+      "name": "Nhà trọ Bảo Nguyên",
+      "address": "1 Bình Lợi, P.13, Q. Bình Thạnh",
+      "email": "nhatroBN@gmail.com",
+      "hotline": "0123456789",
+      "user_id": 2,
+      "created_at": "2022-07-22T02:50:30.000000Z",
+      "photos": [
+        "http://fivebees.ml/storage/6/72c44b9d0ae47b2e6bc0b43493941873.jpg"
+      ],
+      "rooms": [
+        {
+          "id": 1,
+          "room_number": "N101",
+          "description": "Nhà trọ của Nguyên",
+          "status": "Đang thuê",
+          "building_id": 1,
+          "created_at": "2022-07-23 17:32:47",
+          "updated_at": "2022-07-27 07:14:47",
+          "deleted_at": null,
+          "created_by_id": 1
+        },
+        {
+          "id": 2,
+          "room_number": "N102",
+          "description": "Phòng mới tạo của Nguyên",
+          "status": "Đang thuê",
+          "building_id": 1,
+          "created_at": "2022-07-23 17:33:18",
+          "updated_at": "2022-07-27 07:14:52",
+          "deleted_at": null,
+          "created_by_id": 1
+        },
+        {
+          "id": 3,
+          "room_number": "N103",
+          "description": "dfsdfsdf",
+          "status": "Đang sửa chữa",
+          "building_id": 1,
+          "created_at": "2022-07-26 03:31:05",
+          "updated_at": "2022-07-27 07:15:14",
+          "deleted_at": null,
+          "created_by_id": 2
+        },
+        {
+          "id": 4,
+          "room_number": "N104",
+          "description": "asdfsadfasdf",
+          "status": "Trống",
+          "building_id": 1,
+          "created_at": "2022-07-26 03:31:26",
+          "updated_at": "2022-07-27 07:15:24",
+          "deleted_at": null,
+          "created_by_id": 2
+        }
+      ]
+    }
   }
-]
+}

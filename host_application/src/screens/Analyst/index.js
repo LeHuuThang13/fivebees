@@ -8,7 +8,7 @@ import {
   ANALYST_DETAILS_BUILDINGS,
   ANALYST_DETAILS_DEVICE,
   ANALYST_DETAILS_ROOMS,
-  TOTAL_DEVICES,
+  TOTAL_FACILITIES,
 } from '../../constants/routeNames';
 import axiosInstance from '../../helpers/axiosInterceptor';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';

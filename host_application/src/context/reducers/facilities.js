@@ -5,6 +5,9 @@ import {
   DELETE_FACILITY_FAILED,
   DELETE_FACILITY_LOADING,
   DELETE_FACILITY_SUCCESS,
+  EDIT_FACILITY_FAILED,
+  EDIT_FACILITY_LOADING,
+  EDIT_FACILITY_SUCCESS,
   GET_FACILITIES_FAILED,
   GET_FACILITIES_LOADING,
   GET_FACILITIES_SUCCESS,
@@ -12,6 +15,51 @@ import {
 
 const facilities = (state, {type, payload}) => {
   switch (type) {
+    //edit
+    case EDIT_FACILITY_LOADING:
+      return {
+        ...state,
+        editFacility: {
+          ...state.editFacility,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case EDIT_FACILITY_SUCCESS:
+      return {
+        ...state,
+        editFacility: {
+          ...state.editFacility,
+          loading: false,
+          error: null,
+          data: payload,
+        },
+
+        getFacilities: {
+          ...state.getFacilities,
+          loading: false,
+          data: state.getFacilities.data.map(item => {
+            if (item.id === payload.id) {
+              return payload;
+            } else {
+              return item;
+            }
+          }),
+          error: null,
+        },
+      };
+
+    case EDIT_FACILITY_FAILED:
+      return {
+        ...state,
+        createFacility: {
+          ...state.getFacilities,
+          loading: false,
+          error: payload,
+        },
+      };
+
     // Create
     case CREATE_FACILITY_LOADING:
       return {
@@ -63,6 +111,10 @@ const facilities = (state, {type, payload}) => {
       };
 
     case DELETE_FACILITY_SUCCESS:
+      console.log(
+        'state.getFacilities.data.facilities: >>>>>>.',
+        state.getFacilities.data,
+      );
       return {
         ...state,
         deleteFacility: {
@@ -74,11 +126,10 @@ const facilities = (state, {type, payload}) => {
         getFacilities: {
           ...state.getFacilities,
           loading: false,
-          data: [
-            state.getFacilities.data.filter(item => {
-              return item.id !== payload; // Prevent show deleted items
-            }),
-          ],
+          data: state.getFacilities.data.filter(item => {
+            return item.id !== payload; // Prevent show deleted items
+          }),
+
           error: null,
         },
       };
@@ -108,7 +159,7 @@ const facilities = (state, {type, payload}) => {
       return {
         ...state,
         getFacilities: {
-          ...state.getFacilities,
+          ...state.getFacilities.facilities,
           loading: false,
           data: payload,
           error: null,

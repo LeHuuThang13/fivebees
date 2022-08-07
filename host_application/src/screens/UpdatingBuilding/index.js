@@ -7,6 +7,7 @@ import {
   DevSettings,
   BackHandler,
   ScrollView,
+  Alert,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -21,13 +22,15 @@ import {GlobalContext} from '../../context/Provider';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/common/InputCustom';
 import createBuilding from '../../context/actions/buildings/createBuilding';
-import {StackActions, useNavigation} from '@react-navigation/native';
+import {StackActions, useNavigation, useRoute} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import CustomButtonIcon from '../../components/CustomButtonIcon';
+import editBuilding from '../../context/actions/buildings/editBuilding';
 
-const CreatingBuilding = ({navigation}) => {
+const CreatingBuilding = ({navigation, route}) => {
   const {navigate} = useNavigation();
+  const {params} = useRoute();
 
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -52,6 +55,13 @@ const CreatingBuilding = ({navigation}) => {
   // Hook fields
 
   useEffect(() => {
+    if (params?.building) {
+      const {name, email, hotline, address, photos, id} = params.building;
+      setForm({...form, name, email, hotline, address});
+      setLocalFile(photos[0]);
+      setBuildingId(id);
+    }
+
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
       navigation.navigate(MANAGING_BUILDING);
@@ -63,7 +73,7 @@ const CreatingBuilding = ({navigation}) => {
         return false;
       });
     };
-  }, [navigation]);
+  }, [route]);
 
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
@@ -72,6 +82,9 @@ const CreatingBuilding = ({navigation}) => {
   const [email, setEmail] = useState(form?.email);
   const [address, setAddress] = useState(form?.address);
   const [hotline, sethotline] = useState(form?.hotline);
+  const [buildingId, setBuildingId] = useState({});
+  const [isEdited, setIsEdited] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Functions
 
@@ -90,22 +103,36 @@ const CreatingBuilding = ({navigation}) => {
   const onFileSelected = image => {
     closeSheet();
     setLocalFile(image);
+    setIsEdited(true);
   };
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
+    setIsEdited(true);
   };
 
   const onSubmit = () => {
-    createBuilding(form)(buildingsDispatch)(localFile)(() => {
-      navigate(MANAGING_BUILDING);
-      setForm({});
-      setLocalFile('');
-      setAddress('');
-      setEmail('');
-      setName('');
-      sethotline('');
-    });
+    if (isEdited) {
+      editBuilding(form)(buildingsDispatch)({localFile, buildingId})(() => {
+        setIsLoading(true);
+        navigate(MANAGING_BUILDING);
+        setForm({});
+        setLocalFile('');
+        setAddress('');
+        setEmail('');
+        setName('');
+        sethotline('');
+        setIsLoading(false);
+      });
+    } else {
+      Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+        {
+          text: 'Đã hiểu',
+          onPress: () => console.log('Đã hiểu'),
+          style: 'cancel',
+        },
+      ]);
+    }
   };
 
   return (
@@ -143,7 +170,7 @@ const CreatingBuilding = ({navigation}) => {
             return setName(value);
           }}
           placeholder="Nhập tên tòa nhà"
-          value={name}
+          value={form.name}
           error={name === '' && error?.errors?.name?.[0]}
         />
 
@@ -154,7 +181,7 @@ const CreatingBuilding = ({navigation}) => {
             return setEmail(value);
           }}
           placeholder="Nhập tên email"
-          value={email}
+          value={form.email}
           error={email === '' && error?.errors?.email?.[0]}
         />
 
@@ -165,7 +192,7 @@ const CreatingBuilding = ({navigation}) => {
             return setAddress(value);
           }}
           placeholder="Nhập địa chỉ"
-          value={address}
+          value={form.address}
           error={address === '' && error?.errors?.address?.[0]}
         />
 
@@ -176,7 +203,7 @@ const CreatingBuilding = ({navigation}) => {
             return sethotline(value);
           }}
           placeholder="Nhập số điện thoại"
-          value={hotline}
+          value={form.hotline}
           error={hotline === '' && error?.errors?.hotline?.[0]}
         />
 
@@ -184,8 +211,8 @@ const CreatingBuilding = ({navigation}) => {
           onPress={onSubmit}
           primary
           title={'Thêm tòa nhà'}
-          loading={loading_building}
-          disabled={loading_building}
+          loading={loading_building || isLoading}
+          disabled={loading_building || isLoading}
           error={error}
         />
       </ScrollView>

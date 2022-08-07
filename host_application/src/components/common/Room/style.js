@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: 'bold',
     fontSize: 20,
+    width: 150,
   },
 
   // room body

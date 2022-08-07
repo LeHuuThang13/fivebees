@@ -21,7 +21,10 @@ import styles from '../../components/CustomButton/styles';
 import createFacility from '../../context/actions/facilities/createFacility';
 import getCategories from '../../context/actions/categories/getCategories';
 import SelectDropdown from 'react-native-select-dropdown';
-import {MANAGING_ROOM_DETAILS} from '../../constants/routeNames';
+import {
+  MANAGING_ROOMS,
+  MANAGING_ROOM_DETAILS,
+} from '../../constants/routeNames';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
