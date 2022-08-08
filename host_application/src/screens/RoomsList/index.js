@@ -54,6 +54,8 @@ const RoomsList = ({navigation, route}) => {
       <View
         style={{
           flexDirection: 'row',
+          alignItems: 'center',
+          flex: 1,
           justifyContent: 'center',
         }}>
         <Text>Không có dữ liệu tòa nhà</Text>

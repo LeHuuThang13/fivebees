@@ -33,6 +33,7 @@ export const TOTAL_BROKEN_FACILITIES = 'Tổng Thiết Bị Tổn Hại';
 export const UPDATING_BUILDING = 'Cập Nhập Tòa Nhà';
 export const UPDATING_ROOM = 'Cập Nhập Phòng';
 export const UPDATING_FACILITY = 'Cập Nhập Thiết Bị';
+export const UPDATING_DEVICE = ' Cập Nhập Thiết Bị ';
 
 //Room
 export const CREATING_ROOM = 'Tạo Mới Phòng';

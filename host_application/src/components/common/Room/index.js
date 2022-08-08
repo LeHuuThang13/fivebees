@@ -21,19 +21,22 @@ const Room = props => {
     textBrokenDevice,
     btnTitle,
     MoreActions,
+    isNotManaging,
   } = props;
 
   return (
     <View style={styles.roomContainer}>
       {MoreActions && MoreActions}
       <View style={styles.headerRoom}>
-        <Text style={[styles.headerRoomLeft]} numberOfLines={1}>
+        <Text
+          style={[styles.headerRoomLeft, {width: isNotManaging ? 250 : 150}]}
+          numberOfLines={1}>
           {roomName}
         </Text>
 
         <Text style={styles.headerRoomRight}>
           <View style={styles.labelWrapper}>
-            {status && <Text style={styles.labelStatus}>Tình trạng:</Text>}
+            {status && <Text style={styles.labelStatus}>Tình trạng: </Text>}
           </View>
           <View style={styles.statusBlock}>
             <Text style={styles.status} numberOfLines={1}>

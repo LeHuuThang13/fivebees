@@ -1,77 +1,107 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, {useContext, useState} from 'react';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
+import styles from './styles';
+import {GlobalContext} from '../../context/Provider';
+import Input from '../../components/commons/Input';
+import UsernameIcon from '../../assets/icons/username_icon.svg';
+import PasswordIcon from '../../assets/icons/password_icon.svg';
+import BlindEyeIcon from '../../assets/icons/hidePsw.svg';
+import EyeIcon from '../../assets/icons/showPsw.svg';
+import CustomButton from '../../components/commons/CustomButton';
 
-const LoginScreen = ({navigation}) => {
-  const onLoginPress = () => {
-    navigation.replace('Home');
+const Login = ({navigation}) => {
+  const [isSecureEntry, setIsSecureEntry] = useState(true);
+  const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
+  const {
+    authDispatch,
+    authState: {loading},
+  } = useContext(GlobalContext);
+
+  const onChange = ({name, value}) => {
+    setForm({...form, [name]: value});
+    if (value !== '') {
+      setErrors(prevState => {
+        return {...prevState, [name]: null};
+      });
+    }
   };
 
-  const AcceptPress = () => {
-    navigation.navigate('Home');
+  const onSubmit = () => {
+    // validations
+    if (!form.username) {
+      setErrors(prevState => {
+        return {...prevState, username: 'This field is required'};
+      });
+    }
+    if (!form.password) {
+      setErrors(prevState => {
+        return {...prevState, password: 'This field is required'};
+      });
+    }
+
+    const INPUT_FIELDS = 2;
+    const isInputLength = Object.values(form).every(
+      item => item.trim().length > 0,
+    );
+    const isFilledAllInputs = Object.values(form).length === INPUT_FIELDS;
+    const isNotError = Object.values(errors).every(item => !item);
+
+    if (isInputLength && isFilledAllInputs && isNotError) {
+      login(form)(authDispatch);
+    }
   };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Tên người thuê phòng</Text>
-      <View style={styles.placeholderinput}>
-        <TextInput placeholder="Nhập tên ở đây" style={{fontSize: 17}} />
-        <Icon
-          name="account-box"
-          size={30}
-          style={{position: 'absolute', left: 20, bottom: 8, color: '#3B71F3'}}
+    <View>
+      <Image
+        style={[styles.logoImage]}
+        source={require('../../assets/images/logo.png')}
+      />
+
+      <View>
+        <Text style={styles.title}>Chào Mừng Tới FiveBees</Text>
+        <Input
+          label="Username"
+          onChangeText={value => {
+            onChange({name: 'username', value});
+          }}
+          placeholder="Tên đăng nhập"
+          logo={<UsernameIcon style={styles.iconSgv} />}
+          iconPosition="left"
+          error={errors.username}
         />
-      </View>
-      <View style={styles.buttoncontainer}>
-        {/* <Text style={styles.button}>Xác nhận</Text> */}
-        <TouchableOpacity onPress={onLoginPress}>
-          <Text style={styles.text}>Xác nhận</Text>
-        </TouchableOpacity>
+
+        <Input
+          label="Password"
+          placeholder="Mật khẩu"
+          logo={<PasswordIcon />}
+          icon={
+            <TouchableOpacity
+              onPress={value => {
+                setIsSecureEntry(prevState => !prevState);
+              }}>
+              <Text>{isSecureEntry ? <BlindEyeIcon /> : <EyeIcon />}</Text>
+            </TouchableOpacity>
+          }
+          onChangeText={value => {
+            onChange({name: 'password', value});
+          }}
+          secureTextEntry={isSecureEntry}
+          iconPosition="right"
+          error={errors.password}
+        />
+
+        <CustomButton
+          onPress={onSubmit}
+          primary
+          title={'Đăng Nhập'}
+          loading={loading}
+          disabled={loading}
+        />
       </View>
     </View>
   );
 };
 
-export default LoginScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  placeholderinput: {
-    borderColor: '#e8e8e8',
-    borderWidth: 1.5,
-    borderRadius: 5,
-    width: 280,
-    top: 26,
-    paddingHorizontal: 50,
-  },
-  buttoncontainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 50,
-    backgroundColor: '#3B71F3',
-    width: 280,
-    height: 46,
-  },
-  button: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-});
+export default Login;

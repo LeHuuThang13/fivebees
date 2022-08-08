@@ -1,5 +1,8 @@
 import SelectDropdown from 'react-native-select-dropdown';
 import React from 'react';
+import colors from '../../../assets/themes/colors';
+import {Text} from 'react-native';
+import ArrowDownIcon from '../../../assets/icons/arrowDown.svg';
 
 const SelectingDropDown = props => {
   const {title, data, setState} = props;
@@ -8,6 +11,20 @@ const SelectingDropDown = props => {
     <SelectDropdown
       defaultButtonText={title}
       data={data}
+      buttonStyle={{
+        backgroundColor: colors.transparent,
+        borderWidth: 1,
+        borderColor: colors.border_input,
+        marginBottom: 12,
+        borderRadius: 6,
+        height: 30,
+      }}
+      dropdownStyle={{
+        backgroundColor: colors.white,
+      }}
+      renderDropdownIcon={() => {
+        return <ArrowDownIcon />;
+      }}
       onSelect={(selectedItem, index) => {
         setState(selectedItem.id);
       }}

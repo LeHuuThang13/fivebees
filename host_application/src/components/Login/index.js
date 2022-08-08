@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Image, TouchableOpacity, Text, View} from 'react-native';
+import {Image, TouchableOpacity, Text, View, ScrollView} from 'react-native';
 import Input from '../common/Input';
 import CustomButton from '../CustomButton';
 import styles from './styles';
@@ -17,7 +17,7 @@ const index = ({onChangeText, style, value}) => {
   const [errors, setErrors] = useState({});
   const {
     authDispatch,
-    authState: {loading},
+    authState: {loading, error},
   } = useContext(GlobalContext);
 
   const onChange = ({name, value}) => {
@@ -55,14 +55,19 @@ const index = ({onChangeText, style, value}) => {
   };
 
   return (
-    <View>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Image
         style={[styles.logoImage]}
         source={require('../../assets/images/logo.png')}
       />
 
       <View>
-        <Text style={styles.title}>Welcome to FiveBees</Text>
+        <Text style={styles.title}>Chào Mừng tới FiveBees</Text>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{color: 'red'}}>
+            {error && 'Tài khoản hoặc mật khẩu không chính xác'}
+          </Text>
+        </View>
         <Input
           label="Username"
           onChangeText={value => {
@@ -94,16 +99,6 @@ const index = ({onChangeText, style, value}) => {
           error={errors.password}
         />
 
-        <View style={{flexDirection: 'row-reverse'}}>
-          <CustomButtomOpacityText
-            title={'Quên mật khẩu?'}
-            styleBtn={{
-              height: 20,
-              zIndex: 2,
-            }}
-          />
-        </View>
-
         <CustomButton
           onPress={onSubmit}
           primary
@@ -112,7 +107,7 @@ const index = ({onChangeText, style, value}) => {
           disabled={loading}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

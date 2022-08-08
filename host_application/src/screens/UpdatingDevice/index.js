@@ -7,6 +7,7 @@ import {
   BackHandler,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -22,18 +23,15 @@ import createFacility from '../../context/actions/facilities/createFacility';
 import getCategories from '../../context/actions/categories/getCategories';
 import SelectDropdown from 'react-native-select-dropdown';
 import {
-  MANAGING_ROOMS,
+  MANAGING_FACILITIES,
   MANAGING_ROOM_DETAILS,
 } from '../../constants/routeNames';
+import updateFacility from '../../context/actions/facilities/updateFacility';
+import SelectingDropDown from '../../components/common/SelectDropdown';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
-  const {
-    isFromManagingRoom,
-    id_room: idRoom,
-    id_building: idBuilding,
-    name_building: nameBuilding,
-  } = route.params;
+  const {item: item} = route.params;
 
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -43,10 +41,7 @@ const CreatingFacility = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_ROOM_DETAILS, {
-        id_building: idBuilding,
-        name_building: nameBuilding,
-      });
+      navigate(MANAGING_FACILITIES);
     },
   });
 
@@ -67,6 +62,12 @@ const CreatingFacility = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     getCategories()(categoriesDispatch);
+    if (item) {
+      const {name, description, category_id, id} = item;
+      setForm({...form, name, description});
+      setCategory(category_id);
+      setIsFacility(id);
+    }
     BackHandler.addEventListener('hardwareBackPress', () => {
       navigation.navigate(MANAGING_ROOMS);
       return true;
@@ -77,7 +78,7 @@ const CreatingFacility = ({navigation, route}) => {
         return false;
       });
     };
-  }, [navigation]);
+  }, [route]);
 
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
@@ -85,7 +86,9 @@ const CreatingFacility = ({navigation, route}) => {
   const [name, setName] = useState(form?.name);
   const [category, setCategory] = useState({});
   const [description, setDescription] = useState(form?.description);
-
+  const [isEdited, setIsEdited] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [idFacility, setIsFacility] = useState({});
   // Functions
 
   const closeSheet = () => {
@@ -103,25 +106,38 @@ const CreatingFacility = ({navigation, route}) => {
   const onFileSelected = image => {
     closeSheet();
     setLocalFile(image);
+    setIsEdited(true);
   };
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
+    setIsEdited(true);
   };
 
   const onSubmit = () => {
-    createFacility(form)(facilitiesDispatch)({localFile, category, idRoom})(
-      () => {
-        navigate(MANAGING_ROOM_DETAILS, {
-          id_building: id,
-        });
+    if (name || localFile || description || category) {
+      updateFacility(form)(facilitiesDispatch)({
+        localFile,
+        category,
+        idFacility,
+      })(() => {
+        navigate(MANAGING_FACILITIES);
         setForm({});
         setLocalFile('');
         setName('');
         setDescription('');
         setCategory('');
-      },
-    );
+        setIsLoading(false);
+      });
+    } else {
+      Alert.alert('Thông báo', 'Bạn có bất kỳ thay đổi nào!', [
+        {
+          text: 'Đã hiểu',
+          onPress: () => console.log('Đã hiểu'),
+          style: 'cancel',
+        },
+      ]);
+    }
   };
 
   return (
@@ -160,7 +176,7 @@ const CreatingFacility = ({navigation, route}) => {
             return setName(value);
           }}
           placeholder="Nhập tên phòng"
-          value={name}
+          value={form.name}
           error={name === '' && error?.errors?.name?.[0]}
         />
 
@@ -171,34 +187,22 @@ const CreatingFacility = ({navigation, route}) => {
             return setDescription(value);
           }}
           placeholder="Nhập mô tả phòng"
-          value={description}
+          value={form.description}
           error={description === '' && error?.errors?.description?.[0]}
         />
 
-        <SelectDropdown
-          defaultButtonText="Loại thiết bị"
+        <SelectingDropDown
+          title={'Loại thiết bị'}
           data={data_categories}
-          onSelect={(selectedItem, index) => {
-            setCategory(selectedItem.id);
-          }}
-          buttonTextAfterSelection={(selectedItem, index) => {
-            // text represented after item is selected
-            // if data array is an array of objects then return selectedItem.property to render after item is selected
-            return selectedItem.name;
-          }}
-          rowTextForSelection={(item, index) => {
-            // text represented for each item in dropdown
-            // if data array is an array of objects then return item.property to represent item in dropdown
-            return item.name;
-          }}
+          setState={setCategory}
         />
 
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm phòng'}
-          loading={loading}
-          disabled={loading}
+          title={'Cập nhập'}
+          loading={loading || isLoading}
+          disabled={loading || isLoading}
           error={error}
         />
       </ScrollView>
