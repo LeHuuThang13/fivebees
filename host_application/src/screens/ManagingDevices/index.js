@@ -2,7 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import Container from '../../components/common/Container';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
-import {CREATING_MANAGING_FACILITY, MANAGE} from '../../constants/routeNames';
+import {
+  CREATING_MANAGING_FACILITY,
+  MANAGE,
+  UPDATING_DEVICE,
+  UPDATING_FACILITY,
+} from '../../constants/routeNames';
 import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 import colors from '../../assets/themes/colors';
@@ -59,8 +64,6 @@ const ManagingDevices = ({navigation, route}) => {
     );
   };
 
-  console.log(data);
-
   const renderItem = ({item}) => {
     const {status_id: status, name, category_id: category, id} = item;
 
@@ -77,10 +80,7 @@ const ManagingDevices = ({navigation, route}) => {
         DeleteIcon={<DeleteIcon />}
         EditIcon={<EditIcon />}
         onPressEdit={() => {
-          navigation.navigate(UPDATING_FACILITY, {
-            id_room: idRoom,
-            id_building: idBuilding,
-            name_building: nameBuilding,
+          navigate(UPDATING_DEVICE, {
             item: item,
           });
         }}

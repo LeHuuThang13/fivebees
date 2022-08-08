@@ -7,6 +7,7 @@ import {
   BackHandler,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -86,8 +87,6 @@ const CreatingFacility = ({navigation, route}) => {
     };
   }, [navigation]);
 
-  console.log(data_rooms);
-
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
   const sheetRef = useRef(null);
@@ -96,6 +95,7 @@ const CreatingFacility = ({navigation, route}) => {
   const [room, setRooms] = useState({});
   const [status, setStatus] = useState({});
   const [description, setDescription] = useState(form?.description);
+  const [isEdited, setIsEdited] = useState(false);
 
   // Functions
 
@@ -114,28 +114,48 @@ const CreatingFacility = ({navigation, route}) => {
   const onFileSelected = image => {
     closeSheet();
     setLocalFile(image);
+    setIsEdited(true);
   };
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
+    setIsEdited(true);
   };
 
   const onSubmit = () => {
-    createFacility(form)(facilitiesDispatch)({
-      localFile,
-      category,
-      room,
-      status,
-    })(() => {
-      navigate(MANAGING_FACILITIES);
-      setForm({});
-      setLocalFile('');
-      setName('');
-      setDescription('');
-      setCategory('');
-      setRooms({});
-      setStatus({});
-    });
+    if (
+      isEdited &&
+      localFile &&
+      name &&
+      description &&
+      category &&
+      room &&
+      status
+    ) {
+      createFacility(form)(facilitiesDispatch)({
+        localFile,
+        category,
+        room,
+        status,
+      })(() => {
+        navigate(MANAGING_FACILITIES);
+        setForm({});
+        setLocalFile('');
+        setName('');
+        setDescription('');
+        setCategory('');
+        setRooms({});
+        setStatus({});
+      });
+    } else {
+      Alert.alert('Thông báo', 'Vui lòng nhập đủ thông tin!', [
+        {
+          text: 'Đã hiểu',
+          onPress: () => console.log('Đã hiểu'),
+          style: 'cancel',
+        },
+      ]);
+    }
   };
 
   return (
@@ -163,19 +183,17 @@ const CreatingFacility = ({navigation, route}) => {
 
           <TouchableOpacity onPress={openSheet}>
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
           </TouchableOpacity>
         </View>
 
         <CustomInput
-          label="Tên phòng"
+          label="Tên thiết bị"
           onChangeText={value => {
             onChange({name: 'name', value});
             return setName(value);
           }}
-          placeholder="Nhập tên phòng"
+          placeholder="Nhập tên thiết bị"
           value={name}
-          error={name === '' && error?.errors?.name?.[0]}
         />
 
         <CustomInput
@@ -184,9 +202,8 @@ const CreatingFacility = ({navigation, route}) => {
             onChange({name: 'description', value});
             return setDescription(value);
           }}
-          placeholder="Nhập mô tả phòng"
+          placeholder="Nhập mô tả thiết bị"
           value={description}
-          error={description === '' && error?.errors?.description?.[0]}
         />
 
         <SelectingDropDown
@@ -210,7 +227,7 @@ const CreatingFacility = ({navigation, route}) => {
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm phòng'}
+          title={'Thêm thiết bị'}
           loading={loading}
           disabled={loading}
           error={error}

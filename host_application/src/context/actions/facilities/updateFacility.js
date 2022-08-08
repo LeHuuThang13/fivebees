@@ -44,7 +44,7 @@ export default form => dispatch => params => onSuccess => {
         payload: result,
       });
       Toast({title: 'Tạo thiết bị mới thành công'});
-      // onSuccess();
+      onSuccess();
     })
     .catch(error => {
       console.log('error creating buliding', error.response.data);

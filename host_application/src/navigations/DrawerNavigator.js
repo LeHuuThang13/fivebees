@@ -27,6 +27,7 @@ import {
   UPDATING_BUILDING,
   UPDATING_ROOM,
   CREATING_MANAGING_FACILITY,
+  UPDATING_DEVICE,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
@@ -57,6 +58,7 @@ import AnalystDetailsDevices from '../screens/AnalystDetailsDevices';
 import AnalystDetailsBuildings from '../screens/AnalystDetailsBuildings';
 import AnalystDetailsRooms from '../screens/AnalystDetailsRooms';
 import UpdatingRoom from '../screens/UpdatingRoom';
+import UpdatingDevice from '../screens/UpdatingDevice';
 import {useNavigation} from '@react-navigation/native';
 
 const DrawerNavigator = () => {
@@ -150,6 +152,11 @@ const DrawerNavigator = () => {
         name={UPDATING_FACILITY}
         options={{swipeEnabled: false}}
         component={UpdatingFacility}
+      />
+      <Drawer.Screen
+        name={UPDATING_DEVICE}
+        options={{swipeEnabled: false}}
+        component={UpdatingDevice}
       />
       {/* Buildings screens */}
       <Drawer.Screen

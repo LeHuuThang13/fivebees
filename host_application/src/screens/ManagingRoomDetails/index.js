@@ -89,7 +89,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
         DeleteIcon={<DeleteIcon />}
         EditIcon={<EditIcon />}
         onPressEdit={() => {
-          navigation.navigate(UPDATING_FACILITY, {
+          navigate(UPDATING_FACILITY, {
             id_room: idRoom,
             id_building: idBuilding,
             name_building: nameBuilding,
@@ -132,7 +132,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
       ) : (
         <FlatList
           renderItem={renderItem}
-          data={!isLoading ? data.facilities : initialState}
+          data={!isLoading ? data.facilities : []}
           extraData={data.facilities}
           style={styles.FlatList}
           showsVerticalScrollIndicator={false}

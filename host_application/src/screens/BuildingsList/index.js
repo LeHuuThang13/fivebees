@@ -12,13 +12,15 @@ import {GlobalContext} from '../../context/Provider';
 import getBuildings from '../../context/actions/buildings/getBuildings';
 import {ROOM_LIST} from '../../constants/routeNames';
 
-const BuildingsList = ({navigation}) => {
+const BuildingsList = ({navigation, route}) => {
   SettingHeaderNavigator.settingHeaderNavigator({
     MenuIcon: IconMenu,
     styles: {
       marginHorizontal: 10,
     },
   });
+
+  console.log(route.params);
 
   const {
     buildingsDispatch,
@@ -58,6 +60,7 @@ const BuildingsList = ({navigation}) => {
         <Room
           roomName={`${name}`}
           IconDevice={IconRoom}
+          isNotManaging={true}
           IconSetting={Setting}
           totalDevices={roomsTotal}
           textTotalDevices={'Số lượng phòng:'}
