@@ -77,6 +77,9 @@
             @error('filenames.*')
             <p class="mx-2" style="color: #dc3545">{{ $message }}</p>
             @enderror
+            @error('filenames')
+            <p class="mx-2" style="color: #dc3545">{{ $message }}</p>
+            @enderror
         </div>
 
     </div>
