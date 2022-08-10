@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
 import styles from './styles';
 import {GlobalContext} from '../../context/Provider';
 import Input from '../../components/commons/Input';
@@ -8,6 +8,8 @@ import PasswordIcon from '../../assets/icons/password_icon.svg';
 import BlindEyeIcon from '../../assets/icons/hidePsw.svg';
 import EyeIcon from '../../assets/icons/showPsw.svg';
 import CustomButton from '../../components/commons/CustomButton';
+import globalStyles from '../../../globalStyles';
+import login from '../../context/actions/auth/login';
 
 const Login = ({navigation}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -54,52 +56,54 @@ const Login = ({navigation}) => {
 
   return (
     <View>
-      <Image
-        style={[styles.logoImage]}
-        source={require('../../assets/images/logo.png')}
-      />
-
-      <View>
-        <Text style={styles.title}>Chào Mừng Tới FiveBees</Text>
-        <Input
-          label="Username"
-          onChangeText={value => {
-            onChange({name: 'username', value});
-          }}
-          placeholder="Tên đăng nhập"
-          logo={<UsernameIcon style={styles.iconSgv} />}
-          iconPosition="left"
-          error={errors.username}
+      <ScrollView style={globalStyles.container}>
+        <Image
+          style={[styles.logoImage]}
+          source={require('../../assets/images/logo.png')}
         />
 
-        <Input
-          label="Password"
-          placeholder="Mật khẩu"
-          logo={<PasswordIcon />}
-          icon={
-            <TouchableOpacity
-              onPress={value => {
-                setIsSecureEntry(prevState => !prevState);
-              }}>
-              <Text>{isSecureEntry ? <BlindEyeIcon /> : <EyeIcon />}</Text>
-            </TouchableOpacity>
-          }
-          onChangeText={value => {
-            onChange({name: 'password', value});
-          }}
-          secureTextEntry={isSecureEntry}
-          iconPosition="right"
-          error={errors.password}
-        />
+        <View>
+          <Text style={styles.title}>Chào Mừng Tới FiveBees</Text>
+          <Input
+            label="Username"
+            onChangeText={value => {
+              onChange({name: 'username', value});
+            }}
+            placeholder="Tên đăng nhập"
+            logo={<UsernameIcon style={styles.iconSgv} />}
+            iconPosition="left"
+            error={errors.username}
+          />
 
-        <CustomButton
-          onPress={onSubmit}
-          primary
-          title={'Đăng Nhập'}
-          loading={loading}
-          disabled={loading}
-        />
-      </View>
+          <Input
+            label="Password"
+            placeholder="Mật khẩu"
+            logo={<PasswordIcon />}
+            icon={
+              <TouchableOpacity
+                onPress={value => {
+                  setIsSecureEntry(prevState => !prevState);
+                }}>
+                <Text>{isSecureEntry ? <BlindEyeIcon /> : <EyeIcon />}</Text>
+              </TouchableOpacity>
+            }
+            onChangeText={value => {
+              onChange({name: 'password', value});
+            }}
+            secureTextEntry={isSecureEntry}
+            iconPosition="right"
+            error={errors.password}
+          />
+
+          <CustomButton
+            onPress={onSubmit}
+            primary
+            title={'Đăng Nhập'}
+            loading={loading}
+            disabled={loading}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };

@@ -21,6 +21,7 @@ import colors from '../../assets/themes/colors';
 import deleteFacilityById from '../../context/actions/facilities/deleteFacilityById';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 import DeviceAnalyst from '../../components/common/DeviceAnalyst';
+import Pdf from '../../components/common/HtmlToPdf';
 
 const ManagingRoomDetails = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -100,6 +101,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
           ListEmptyComponent={listEmptyComponent}
         />
       )}
+      <Pdf />
     </View>
   );
 };

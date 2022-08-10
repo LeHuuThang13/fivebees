@@ -25,6 +25,9 @@ const index = ({
     }
   };
 
+  console.log('icon', icon);
+  console.log('logo', logo);
+
   return (
     <View style={styles.inputContainer}>
       <View style={[styles.wrapper, {borderColor: getBorderColor()}]}>

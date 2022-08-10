@@ -2,12 +2,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import envs from '../config/env';
 import {LOGOUT} from '../constants/routeNames';
-import logout from '../context/actions/auth/logout';
-import {navigate} from '../navigations/RootNavigator';
 
 const axiosInstance = axios.create({
   baseURL: envs.BACKEND_URL,
-  headers: {Accept: 'application/json', 'Content-Type': 'multipart/form-data'},
+  headers: {Accept: 'application/json'},
 });
 
 axiosInstance.interceptors.request.use(
