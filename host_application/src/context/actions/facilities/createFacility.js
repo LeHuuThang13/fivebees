@@ -14,6 +14,7 @@ export default form => dispatch => params => onSuccess => {
   let requestPayload;
 
   if (idRoom) {
+    console.log('Co id room');
     requestPayload = {
       name: form.name || '',
       description: form.description || '',
@@ -23,6 +24,7 @@ export default form => dispatch => params => onSuccess => {
       room_id: idRoom,
     };
   } else if (status && room && category) {
+    console.log('Khong co id room');
     requestPayload = {
       name: form.name || '',
       description: form.description || '',
@@ -32,6 +34,8 @@ export default form => dispatch => params => onSuccess => {
       room_id: room,
     };
   }
+
+  console.log(requestPayload);
 
   dispatch({
     type: CREATE_FACILITY_LOADING,

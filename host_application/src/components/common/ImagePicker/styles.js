@@ -20,5 +20,6 @@ export default StyleSheet.create({
   text: {
     fontSize: 17,
     paddingLeft: 17,
+    color: colors.secondary,
   },
 });

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../assets/themes/colors';
 
 export default StyleSheet.create({
   item: {
@@ -11,6 +12,7 @@ export default StyleSheet.create({
     paddingVertical: 12,
     paddingLeft: 20,
     fontWeight: '700',
+    color: colors.secondary,
   },
 
   sideBarBody: {

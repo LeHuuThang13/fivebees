@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   textContentHeader: {
     fontSize: 15,
     fontWeight: '600',
+    color: colors.secondary,
   },
 });
 

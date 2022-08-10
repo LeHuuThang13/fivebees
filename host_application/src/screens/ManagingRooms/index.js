@@ -78,9 +78,7 @@ const ManagingRooms = ({navigation, route}) => {
         roomName={`Phòng ${room_number}`}
         status={status}
         totalDevices={`Thiết bị đang cập nhập`}
-        totalBrokenDevices={'Thiết bị hư hỏng Đang cập nhập'}
         IconDevice={DeviceIcon}
-        IconBrokenDevice={BrokenIcon}
         btnTitle={'Quản lý thiết bị'}
         IconSetting={Setting}
         onPress={() => {
@@ -140,7 +138,7 @@ const ManagingRooms = ({navigation, route}) => {
           ) : (
             <FlatList
               renderItem={renderItem}
-              data={!isLoading ? data_rooms : initialState}
+              data={data_rooms}
               extraData={data_rooms}
               style={styles.FlatList}
               showsVerticalScrollIndicator={false}

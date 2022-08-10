@@ -39,7 +39,6 @@ import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
-import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingBuildings from '../screens/ManagingBuildings';
 import UpdatingBuilding from '../screens/UpdatingBuilding';
 import UpdatingFacility from '../screens/UpdatingFacility';
@@ -198,11 +197,6 @@ const DrawerNavigator = () => {
         name={MANAGING_FACILITIES}
         options={{swipeEnabled: false}}
         component={ManagingDevices}
-      />
-      <Drawer.Screen
-        name={TOTAL_FIXING_FACILITIES}
-        options={{swipeEnabled: false}}
-        component={TotalFixingDevices}
       />
       <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>

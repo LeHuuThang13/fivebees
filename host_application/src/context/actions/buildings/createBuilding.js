@@ -15,8 +15,10 @@ export default form => dispatch => localFileImage => onSuccess => {
     email: form.email || '',
     address: form.address || '',
     hotline: form.hotline || '',
-    filenames: 'blob:http://fivebees.ml/' + uri || '',
+    filenames: localFileImage.path || '',
   };
+
+  console.log(requestPayload);
 
   dispatch({
     type: CREATE_BUILDING_LOADING,
