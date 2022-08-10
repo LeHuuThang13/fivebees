@@ -39,7 +39,9 @@ class StoreBuildingRequest extends FormRequest
             'filenames.*' => [
                 'required',
                 'mimes:jpeg,png,jpg',
-                'max: 2',
+            ],
+            'filenames' => [
+                'max: 2'
             ],
             'hotline' => [
                 'required',
@@ -61,7 +63,7 @@ class StoreBuildingRequest extends FormRequest
             'address.min' => "Địa chỉ phải có ít nhất 3 ký tự",
             'filenames.*.required' => "Vui lòng chọn hình ảnh",
             'filenames.*.mimes' => "File không đúng định dạng hình ảnh",
-            'filenames.*.max' => "Chỉ được upload tối đa 2 hình ảnh",
+            'filenames.max' => "Chỉ được upload tối đa 2 hình ảnh",
             'hotline.required' => "Vui lòng nhập hotline của tòa nhà",
             'hotline.numeric' => "Hotline phải là ký tự số",
             'email.required' => "Vui lòng nhập email liên lạc của tòa nhà",

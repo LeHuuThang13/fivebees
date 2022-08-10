@@ -77,7 +77,7 @@
         </div>
 
         <div class="visible-print text-center mb-2">
-            {!! QrCode::size(200)->generate(Request::url()); !!}
+            {!! QrCode::size(200)->generate($info); !!}
         </div>
     </div>
 </div>

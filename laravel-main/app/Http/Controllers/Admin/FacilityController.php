@@ -129,7 +129,16 @@ class FacilityController extends Controller
 
         $photos = $facility->getMedia('photos');
 
-        return view('admin.facilities.show', compact('facility', 'photos'));
+        $name = "name: " . $facility->name . "\n";
+        $code = "code: " . $facility->code . "\n";
+        $description = "description: " . $facility->description . "\n";
+        $status = "status: " . $facility->status->name . "\n";
+        $category = "category: " . $facility->categories->name;
+
+        $facility_info = $name . $code . $description . $status . $category;
+        $info = mb_convert_encoding($facility_info, 'UTF-8', 'ISO-8859-1');
+
+        return view('admin.facilities.show', compact('facility', 'photos', 'info'));
     }
 
     public function edit(Facility $facility)
