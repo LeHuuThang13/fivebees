@@ -6,8 +6,16 @@ import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import React, {Component, Fragment} from 'react';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import PreviousIcon from '../../assets/icons/previous_icon';
-import {TouchableOpacity, Text, Linking, View, Dimensions} from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  Linking,
+  View,
+  Dimensions,
+  Image,
+} from 'react-native';
 import {HOME_NAVIGATOR} from '../../constants/routeNames';
+import styles from './styles';
 
 class Scan extends Component {
   HEIGHT = Dimensions.get('window').height;
@@ -23,7 +31,6 @@ class Scan extends Component {
 
   onSuccess = e => {
     const check = e.data.substring(0, 4);
-    console.log('scanned data' + check);
     this.setState({
       result: e,
       scan: false,
@@ -57,6 +64,8 @@ class Scan extends Component {
   render() {
     const {scan, ScanResult, result} = this.state;
 
+    console.log(result?.data);
+
     return (
       <View style={{}}>
         <Fragment>
@@ -70,9 +79,11 @@ class Scan extends Component {
             </View>
           )}
 
-          {ScanResult && (
+          {/* {ScanResult && (
             <Fragment>
-              <Text style={styles.textTitle1}>Result !</Text>
+              <View style={{justifyContent: 'center'}}>
+                <Text style={{}}>Result !</Text>
+              </View>
               <View style={ScanResult ? styles.scanCardView : styles.cardView}>
                 <Text>Type : {result.type}</Text>
                 <Text>Result : {result.data}</Text>
@@ -84,6 +95,60 @@ class Scan extends Component {
                     Click to Scan again!
                   </Text>
                 </TouchableOpacity>
+              </View>
+            </Fragment>
+          )} */}
+
+          {ScanResult && (
+            <Fragment>
+              <View style={{paddingHorizontal: 15}}>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    marginVertical: 20,
+                  }}>
+                  <Text style={{fontSize: 30}}>Kết quả:</Text>
+                </View>
+                <View
+                  style={[ScanResult ? styles.scanCardView : styles.cardView]}>
+                  <View style={{flexDirection: 'row'}}>
+                    <View
+                      style={{
+                        flexDirection: 'column',
+                        alignSelf: 'center',
+                        marginRight: 30,
+                      }}>
+                      <Text>Hình ảnh : </Text>
+                    </View>
+                    <Image
+                      source={{uri: result.data?.photos?.[0]}}
+                      style={{width: 200, height: 200}}
+                    />
+                  </View>
+                  <View style={{marginTop: 20}}>
+                    <View style={styles.contentTitle}>
+                      <Text>Tên : </Text>
+                    </View>
+                    <View style={styles.contentTitle}>
+                      <Text>Mô tả : </Text>
+                    </View>
+                    <View style={styles.contentTitle}>
+                      <Text>Trạng thái : </Text>
+                    </View>
+                    <View style={styles.contentTitle}>
+                      <Text>Vị trí : </Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                    onPress={this.scanAgain}
+                    style={[
+                      styles.buttonTouchable,
+                      {justifyContent: 'center', flexDirection: 'row'},
+                    ]}>
+                    <Text style={styles.buttonTextStyle}>Tiếp tục quét mã</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </Fragment>
           )}
@@ -112,15 +177,6 @@ class Scan extends Component {
                 }}
                 onRead={this.onSuccess}
                 cameraStyle={{height: this.HEIGHT}}
-                // bottomContent={
-                //   <View>
-                //     <TouchableOpacity
-                //       style={styles.buttonTouchable}
-                //       onPress={() => this.scanner.reactivate()}>
-                //       <Text style={styles.buttonTextStyle}>OK. Got it!</Text>
-                //     </TouchableOpacity>
-                //   </View>
-                // }
               />
             </View>
           )}

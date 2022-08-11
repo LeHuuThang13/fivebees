@@ -73,8 +73,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
     );
   };
 
-  console.log(data);
-
   return (
     <View style={[styles.container, GlobalStyles.fullScreen]}>
       {loading ? (

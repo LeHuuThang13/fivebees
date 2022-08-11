@@ -18,8 +18,6 @@ export default form => dispatch => localFileImage => onSuccess => {
     filenames: localFileImage.path || '',
   };
 
-  console.log(requestPayload);
-
   dispatch({
     type: CREATE_BUILDING_LOADING,
   });

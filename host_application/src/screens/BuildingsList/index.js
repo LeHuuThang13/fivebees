@@ -20,8 +20,6 @@ const BuildingsList = ({navigation, route}) => {
     },
   });
 
-  console.log(route.params);
-
   const {
     buildingsDispatch,
     buildingsState: {
