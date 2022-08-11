@@ -4,7 +4,9 @@
     "description": "Nhà trọ của Nguyênfdsfsdf",
     "facilities": [],
     "id": 1,
-    "photos": ["http://fivebees.ml/storage/2/download.jfif"],
+    "photos": [
+      "http://fivebees.ml/storage/23/cho-thue-phong-tro_1613975723.jpg"
+    ],
     "room_number": "N101",
     "status": "Đang thuê"
   },
@@ -18,7 +20,7 @@
     "status": "Đang thuê"
   },
   {
-    "building_id": 1,
+    "building_id": 116,
     "description": "dfsdfsdf",
     "facilities": [],
     "id": 3,
@@ -27,7 +29,7 @@
     "status": "Đang sửa chữa"
   },
   {
-    "building_id": 1,
+    "building_id": 116,
     "description": "asdfsadfasdf",
     "facilities": [],
     "id": 4,
@@ -36,21 +38,12 @@
     "status": "Trống"
   },
   {
-    "building_id": 111,
+    "building_id": 116,
     "description": "asdf",
     "facilities": [],
     "id": 64,
     "photos": [],
     "room_number": "dsaf",
     "status": "adsf"
-  },
-  {
-    "building_id": 1,
-    "description": "1212121212asdfasdfdsfas",
-    "facilities": [],
-    "id": 70,
-    "photos": [],
-    "room_number": "sdfsdfaasdfasdf",
-    "status": "Đang thuêasdf"
   }
 ]

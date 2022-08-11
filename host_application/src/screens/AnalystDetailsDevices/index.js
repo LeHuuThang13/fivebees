@@ -21,7 +21,7 @@ import colors from '../../assets/themes/colors';
 import deleteFacilityById from '../../context/actions/facilities/deleteFacilityById';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 import DeviceAnalyst from '../../components/common/DeviceAnalyst';
-import Pdf from '../../components/common/HtmlToPdf';
+import Pdf from '../../components/common/PrintAnalystDetailsDevices';
 
 const ManagingRoomDetails = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -92,16 +92,25 @@ const ManagingRoomDetails = ({navigation, route}) => {
       {loading ? (
         <ActivityIndicator size="large" color={colors.secondary} />
       ) : (
-        <FlatList
-          renderItem={renderItem}
-          data={data}
-          extraData={data}
-          style={styles.FlatList}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={listEmptyComponent}
-        />
+        <>
+          <FlatList
+            renderItem={renderItem}
+            data={data}
+            extraData={data}
+            style={styles.FlatList}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={listEmptyComponent}
+          />
+          <Pdf
+            titlePrint={'thiết bị'}
+            colOne={'Số thiết bị'}
+            colTwo={'Tên'}
+            colThree={'Danh mục'}
+            colFour={'Trạng thái'}
+            data={data}
+          />
+        </>
       )}
-      <Pdf />
     </View>
   );
 };

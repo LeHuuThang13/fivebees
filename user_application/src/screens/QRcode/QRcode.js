@@ -1,12 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import colors from '../../assets/themes/colors';
-import IconMenu from '../../assets/icons/menu_icon.svg';
-import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import React, {Component, Fragment} from 'react';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import PreviousIcon from '../../assets/icons/previous_icon';
 import {TouchableOpacity, Text, Linking, View, Dimensions} from 'react-native';
 import {HOME_NAVIGATOR} from '../../constants/routeNames';
+import styles from './styles';
 
 class Scan extends Component {
   HEIGHT = Dimensions.get('window').height;

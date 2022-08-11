@@ -10,6 +10,7 @@ import {GlobalContext} from '../../context/Provider';
 import getBuildings from '../../context/actions/buildings/getBuildings';
 import colors from '../../assets/themes/colors';
 import DeviceAnalyst from '../../components/common/DeviceAnalyst';
+import ExportPdf from '../../components/common/PrintAnalystBuildings';
 
 const ManagingRoomDetails = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -53,6 +54,8 @@ const ManagingRoomDetails = ({navigation, route}) => {
     );
   };
 
+  console.log(data);
+
   const renderItem = ({item}) => {
     const {category, name, photos, status, hotline, address} = item;
 
@@ -77,14 +80,17 @@ const ManagingRoomDetails = ({navigation, route}) => {
       {loading ? (
         <ActivityIndicator size="large" color={colors.secondary} />
       ) : (
-        <FlatList
-          renderItem={renderItem}
-          data={data}
-          extraData={data}
-          style={styles.FlatList}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={listEmptyComponent}
-        />
+        <>
+          <FlatList
+            renderItem={renderItem}
+            data={data}
+            extraData={data}
+            style={styles.FlatList}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={listEmptyComponent}
+          />
+          <ExportPdf data={data} />
+        </>
       )}
     </View>
   );

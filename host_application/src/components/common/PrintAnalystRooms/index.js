@@ -6,96 +6,80 @@ import FileViewer from 'react-native-file-viewer';
 import {Alert} from 'react-native';
 import PdfIcon from '../../../assets/icons/pdf.svg';
 
-const data = {
-  name: 'Tonny Hill',
-  address: '101 E. Chapman Ave<br>Orange, CA 92866',
-  phone: '98273-***11',
-  company: 'Xyz Company',
-  amount: '46899.50',
-  amt: '53100.50',
-};
+const ExportPdf = props => {
+  const {data} = props;
 
-const ExportPdf = () => {
-  const htmlContent = `
+  let str = '';
+
+  const BodyTable = data.map(function (item) {
+    str += `<tr>
+        <td class="align-middle text-center">${item.id}</td>
+        <td class="align-middle text-center">${item.room_number}</td>
+        <td class="align-middle text-center">${item.description}</td>
+        <td class="align-middle text-center">${item.facilities.length} thiết bị</td>
+        <td class="align-middle text-center">${item.status}</td>
+      </tr>`;
+  });
+
+  const htmlContent =
+    `
         <html>
-          <head>
-            <meta charset="utf-8">
-            <title>Invoice</title>
-            <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
-            <style>
-              ${htmlStyles}
-            </style>
-          </head>
+        <!doctype html>
+        <html lang="en">
+        
+        <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            font-family: DejaVu Sans !important;
+            font-size: 10px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid black;
+            text-align: left;
+            padding: 8px;
+        }
+
+        p {
+            margin: 0;
+        }
+    </style>
+    <title>Kiểm kê thiết bị phòng</title>
+</head>
           <body>
-            <header>
-              <h1>Invoice</h1>
-              <address>
-                <p>${data.name}</p>
-                <p>${data.address}</p>
-                <p>${data.phone}</p>
-              </address>
-            </header>
-            <article>
-              <h1>Recipient</h1>
-              <address>
-                <p>${data.company}<br>c/o ${data.name}</p>
-              </address>
-              <table class="meta">
-                <tr>
-                  <th><span>Invoice #</span></th>
-                  <td><span>101138</span></td>
-                </tr>
-                <tr>
-                  <th><span>Date</span></th>
-                  <td><span>${new Date()}</span></td>
-                </tr>
-                <tr>
-                  <th><span>Amount Due</span></th>
-                  <td><span id="prefix">$</span><span>${data.amount}</span></td>
-                </tr>
-              </table>
-              <table class="inventory">
-                <thead>
-                  <tr>
-                    <th><span>Item</span></th>
-                    <th><span>Description</span></th>
-                    <th><span>Rate</span></th>
-                    <th><span>Quantity</span></th>
-                    <th><span>Price</span></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span>Front End Consultation</span></td>
-                    <td><span>Experience Review</span></td>
-                    <td><span data-prefix>$</span><span>${data.amt}</span></td>
-                    <td><span>4</span></td>
-                    <td><span data-prefix>$</span><span>${data.amt}</span></td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="balance">
-                <tr>
-                  <th><span>Total</span></th>
-                  <td><span data-prefix>$</span><span>${data.amt}</span></td>
-                </tr>
-                <tr>
-                  <th><span>Amount Paid</span></th>
-                  <td><span data-prefix>$</span><span>0.00</span></td>
-                </tr>
-                <tr>
-                  <th><span>Balance Due</span></th>
-                  <td><span data-prefix>$</span><span>${data.amount}</span></td>
-                </tr>
-              </table>
-            </article>
-            <aside>
-              <h1><span>Additional Notes</span></h1>
-              <div>
-                <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-              </div>
-            </aside>
-          </body>
+          <div class="info-container" style="margin-right: 2rem">
+          <div class="container px-0 py-2 bg-white table-container mb-4" style="border-radius: 10px">
+              <h3 class="mt-2 mx-3">In biên bản kiểm kê phòng</h3>
+              <hr>
+              <table class="table">
+                  <thead style="background-color: #F5F9FC;">
+                      <tr>
+                          <th class="text-center" scope="col">Stt</th>
+                          <th class="text-center" scope="col">Tên phòng</th>
+                          <th class="text-center" scope="col">Mô tả</th>
+                          <th class="text-center" scope="col">Số lượng thiết bị</th>
+                          <th class="text-center" scope="col">Trạng thái</th>
+                          </tr>` +
+    str +
+    `</thead>
+                  <tbody>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+        </body>
         </html>
       `;
   const askPermission = () => {
@@ -138,7 +122,6 @@ const ExportPdf = () => {
 
     let file = await RNHTMLtoPDF.convert(options);
 
-    console.log(file);
     Alert.alert(
       'Successfully Exported',
       'Path:' + file.filePath,
