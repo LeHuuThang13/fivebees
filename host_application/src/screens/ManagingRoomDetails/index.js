@@ -117,27 +117,29 @@ const ManagingRoomDetails = ({navigation, route}) => {
           });
         }}
       />
-      <HeaderDetails
-        textTitleOne={'Tình trạng'}
-        contentTextTitleOne={'Đang sử dụng'}
-        textTitleTwo={'Tổng thiết bị'}
-        contentTextTitleTwo={
-          data?.facilities ? data.facilities.length : 'Đang cập nhập'
-        }
-        textTitleThree={'Thiết bị hư hỏng'}
-        contentTextTitleThree={0}
-      />
       {loading ? (
         <ActivityIndicator size="large" color={colors.secondary} />
       ) : (
-        <FlatList
-          renderItem={renderItem}
-          data={!isLoading ? data.facilities : []}
-          extraData={data.facilities}
-          style={styles.FlatList}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={listEmptyComponent}
-        />
+        <>
+          <HeaderDetails
+            textTitleOne={'Tình trạng'}
+            contentTextTitleOne={'Đang sử dụng'}
+            textTitleTwo={'Tổng thiết bị'}
+            contentTextTitleTwo={
+              data?.facilities ? data.facilities.length : 'Đang cập nhập'
+            }
+            textTitleThree={'Thiết bị hư hỏng'}
+            contentTextTitleThree={0}
+          />
+          <FlatList
+            renderItem={renderItem}
+            data={!isLoading ? data.facilities : []}
+            extraData={data.facilities}
+            style={styles.FlatList}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={listEmptyComponent}
+          />
+        </>
       )}
     </View>
   );
