@@ -14,6 +14,8 @@ const AppNavigator = () => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  console.log('getUser', getUser);
+
   const getUser = async () => {
     try {
       const user = await AsyncStorage.getItem('user');

@@ -1,76 +1,93 @@
-import {useNavigation} from '@react-navigation/native';
 import colors from '../../assets/themes/colors';
-import React, {Component, Fragment} from 'react';
+import React, {
+  Component,
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import PreviousIcon from '../../assets/icons/previous_icon';
-import {TouchableOpacity, Text, Linking, View, Dimensions} from 'react-native';
-import {HOME_NAVIGATOR} from '../../constants/routeNames';
+import {
+  TouchableOpacity,
+  Text,
+  Linking,
+  View,
+  Dimensions,
+  Image,
+} from 'react-native';
 import styles from './styles';
+import getRoom from '../../context/actions/room/getRoom';
+import {GlobalContext} from '../../context/Provider';
 
-class Scan extends Component {
-  HEIGHT = Dimensions.get('window').height;
+const QRCode = () => {
+  const HEIGHT = Dimensions.get('window').height;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      scan: true,
-      ScanResult: false,
-      result: null,
-    };
-  }
+  const [scan, setScan] = useState(true);
+  const [scanResult, setScanResult] = useState(false);
+  const [result, setResult] = useState(null);
 
-  onSuccess = e => {
+  const {
+    roomDispatch,
+    roomState: {isChecking},
+  } = useContext(GlobalContext);
+
+  useEffect(() => {
+    const id = result?.data ? JSON.parse(result?.data) : undefined;
+    console.log('isChecking,isChecking', isChecking);
+    if (id) {
+      getRoom(id)(roomDispatch)(() => {
+        console.log('thành công rùi');
+      });
+    }
+  }, [result]);
+  let scanner = useRef(null);
+
+  const onSuccess = e => {
     const check = e.data.substring(0, 4);
-    console.log('scanned data' + check);
-    this.setState({
-      result: e,
-      scan: false,
-      ScanResult: true,
-    });
+
+    setScan(false);
+    setResult(e);
+    setScanResult(true);
+
     if (check === 'http') {
       Linking.openURL(e.data).catch(err =>
         console.error('An error occured', err),
       );
     } else {
-      this.setState({
-        result: e,
-        scan: false,
-        ScanResult: true,
-      });
+      setResult(e);
+      setScan(false);
+      setScanResult(true);
     }
   };
 
-  activeQR = () => {
-    this.setState({
-      scan: true,
-    });
-  };
-  scanAgain = () => {
-    this.setState({
-      scan: true,
-      ScanResult: false,
-    });
+  const activeQR = () => {
+    setScan(true);
   };
 
-  render() {
-    const {scan, ScanResult, result} = this.state;
+  const scanAgain = () => {
+    setScan(true);
+    setScanResult(false);
+  };
 
-    return (
-      <View style={{}}>
-        <Fragment>
-          {!scan && !ScanResult && (
-            <View style={styles.cardView}>
-              <TouchableOpacity
-                onPress={this.activeQR}
-                style={{backgroundColor: colors.bg_primary, padding: 20}}>
-                <Text style={{color: colors.white}}>Click to Scan !</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+  return (
+    <View style={{}}>
+      <Fragment>
+        {!scan && !scanResult && (
+          <View style={styles.cardView}>
+            <TouchableOpacity
+              onPress={activeQR}
+              style={{backgroundColor: colors.bg_primary, padding: 20}}>
+              <Text style={{color: colors.white}}>Click to Scan !</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
-          {ScanResult && (
+        {/* {ScanResult && (
             <Fragment>
-              <Text style={styles.textTitle1}>Result !</Text>
+              <View style={{justifyContent: 'center'}}>
+                <Text style={{}}>Result !</Text>
+              </View>
               <View style={ScanResult ? styles.scanCardView : styles.cardView}>
                 <Text>Type : {result.type}</Text>
                 <Text>Result : {result.data}</Text>
@@ -84,48 +101,78 @@ class Scan extends Component {
                 </TouchableOpacity>
               </View>
             </Fragment>
-          )}
+          )} */}
 
-          {scan && (
-            <View style={{flex: 1}}>
-              <TouchableOpacity
+        {scanResult && (
+          <Fragment>
+            <View style={{paddingHorizontal: 15}}>
+              <View
                 style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  zIndex: 100,
-                  marginLeft: 20,
-                  marginTop: 20,
-                }}
-                onPress={() => {
-                  this.props.navigation.navigate(HOME_NAVIGATOR);
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                  marginVertical: 20,
                 }}>
-                <PreviousIcon width={30} height={30} />
-              </TouchableOpacity>
-              <QRCodeScanner
-                reactivate={true}
-                showMarker={true}
-                ref={node => {
-                  this.scanner = node;
-                }}
-                onRead={this.onSuccess}
-                cameraStyle={{height: this.HEIGHT}}
-                // bottomContent={
-                //   <View>
-                //     <TouchableOpacity
-                //       style={styles.buttonTouchable}
-                //       onPress={() => this.scanner.reactivate()}>
-                //       <Text style={styles.buttonTextStyle}>OK. Got it!</Text>
-                //     </TouchableOpacity>
-                //   </View>
-                // }
-              />
+                <Text style={{fontSize: 30}}>Kết quả:</Text>
+              </View>
+              <View
+                style={[scanResult ? styles.scanCardView : styles.cardView]}>
+                <View style={{flexDirection: 'row'}}>
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      alignSelf: 'center',
+                      marginRight: 30,
+                    }}>
+                    <Text>Hình ảnh : </Text>
+                  </View>
+                  <Image
+                    source={{uri: result.data?.photos?.[0]}}
+                    style={{width: 200, height: 200}}
+                  />
+                </View>
+                <View style={{marginTop: 20}}>
+                  <View style={styles.contentTitle}>
+                    <Text>Tên : </Text>
+                  </View>
+                  <View style={styles.contentTitle}>
+                    <Text>Mô tả : </Text>
+                  </View>
+                  <View style={styles.contentTitle}>
+                    <Text>Trạng thái : </Text>
+                  </View>
+                  <View style={styles.contentTitle}>
+                    <Text>Vị trí : </Text>
+                  </View>
+                </View>
+                <TouchableOpacity
+                  onPress={scanAgain}
+                  style={[
+                    styles.buttonTouchable,
+                    {justifyContent: 'center', flexDirection: 'row'},
+                  ]}>
+                  <Text style={styles.buttonTextStyle}>Tiếp tục quét mã</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          )}
-        </Fragment>
-      </View>
-    );
-  }
-}
+          </Fragment>
+        )}
 
-export default Scan;
+        {scan && (
+          <View style={{flex: 1}}>
+            <QRCodeScanner
+              reactivate={true}
+              showMarker={true}
+              ref={node => {
+                scanner = node;
+              }}
+              onRead={onSuccess}
+              cameraStyle={{height: HEIGHT}}
+            />
+          </View>
+        )}
+      </Fragment>
+    </View>
+  );
+};
+
+export default QRCode;

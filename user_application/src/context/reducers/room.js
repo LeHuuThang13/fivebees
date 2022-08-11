@@ -17,7 +17,7 @@ const auth = (state, {type, payload}) => {
         ...state,
         loading: false,
         data: payload,
-        isLoggedIn: true,
+        isChecking: true,
       };
 
     case ROOM_DETAILS_FAIL:
@@ -25,7 +25,7 @@ const auth = (state, {type, payload}) => {
         ...state,
         loading: false,
         error: payload,
-        isLoggedIn: false,
+        isChecking: false,
       };
 
     default:

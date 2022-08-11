@@ -5,7 +5,7 @@ import {LOGOUT} from '../constants/routeNames';
 
 const axiosInstance = axios.create({
   baseURL: envs.BACKEND_URL,
-  headers: {Accept: 'application/json'},
+  headers: {},
 });
 
 axiosInstance.interceptors.request.use(
