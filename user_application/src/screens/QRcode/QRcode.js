@@ -5,6 +5,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import PreviousIcon from '../../assets/icons/previous_icon';
 import {TouchableOpacity, Text, Linking, View, Dimensions} from 'react-native';
 import {HOME_NAVIGATOR} from '../../constants/routeNames';
+import styles from './styles';
 
 class Scan extends Component {
   HEIGHT = Dimensions.get('window').height;
