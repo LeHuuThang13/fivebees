@@ -54,8 +54,6 @@ const index = ({onChangeText, style, value}) => {
     }
   };
 
-  console.log(IconUsernameSvg);
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Image

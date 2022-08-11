@@ -138,7 +138,6 @@ const ExportPdf = props => {
     FileViewer.open(path)
       .then(() => {
         // success
-        console.log('thanh2 cong');
       })
       .catch(error => {
         // error

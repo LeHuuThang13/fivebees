@@ -111,10 +111,6 @@ const facilities = (state, {type, payload}) => {
       };
 
     case DELETE_FACILITY_SUCCESS:
-      console.log(
-        'state.getFacilities.data.facilities: >>>>>>.',
-        state.getFacilities.data,
-      );
       return {
         ...state,
         deleteFacility: {

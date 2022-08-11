@@ -158,9 +158,6 @@ const CreatingFacility = ({navigation, route}) => {
     }
   };
 
-  console.log(localFile);
-  console.log(typeof localFile);
-
   return (
     <SafeAreaView
       style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>

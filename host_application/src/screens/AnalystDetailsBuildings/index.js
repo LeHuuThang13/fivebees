@@ -54,8 +54,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
     );
   };
 
-  console.log(data);
-
   const renderItem = ({item}) => {
     const {category, name, photos, status, hotline, address} = item;
 
