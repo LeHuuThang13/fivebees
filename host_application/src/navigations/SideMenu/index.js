@@ -53,13 +53,6 @@ const SideMenu = ({navigation, authDispatch}) => {
       },
     },
     {
-      icon: <SettingIcon />,
-      name: 'Tùy Chỉnh',
-      onPress: () => {
-        navigation.navigate(SETTINGS);
-      },
-    },
-    {
       icon: <IntroduceIcon />,
       name: 'Hướng Dẫn Sử Dụng',
       onPress: () => {

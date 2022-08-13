@@ -1,53 +1,16 @@
-import React, {useEffect} from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  Image,
-  FlatList,
-  BackHandler,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, View, ScrollView, Image, FlatList} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
-import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
-import GlobalStyles from '../../../GlobalStyles';
-import HeaderDetails from '../../components/common/HeaderDetails';
-import {
-  UPDATING_FACILITY,
-  ROOM_LIST,
-  ROOMDETAILS,
-} from '../../constants/routeNames';
-import Device from '../../components/common/Device';
+import GlobalStyles from '../../../globalStyles';
+import HeaderDetails from '../../components/commons/HeaderDetails';
+import {ROOM_LIST} from '../../constants/routeNames';
+import Device from '../../components/commons/Device';
 import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
 
 const RoomDetails = ({navigation, route}) => {
-  const {items, id_building} = route.params;
-
-  useEffect(() => {
-    // Back button real device
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(ROOM_LIST, {
-        id_building: id_building,
-      });
-      return true;
-    });
-
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', () => {
-        return false;
-      });
-    };
-  }, []);
-
-  SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
-    Icon: PreviousIcon,
-    previousBtn: () => {
-      navigation.navigate(ROOM_LIST, {
-        id_building: id_building,
-      });
-    },
-  });
+  const [idRoom, setIdRoom] = useState({});
 
   const listEmptyComponent = () => {
     return (
@@ -60,6 +23,19 @@ const RoomDetails = ({navigation, route}) => {
       </View>
     );
   };
+
+  const getIdRoom = async () => {
+    try {
+      idRoom = await AsyncStorage.getItem('id_room');
+      const idRoomApi = JSON.parse(idRoom);
+      setIdRoom(idRoomApi);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    getIdRoom();
+    console.log('setIdRoom', setIdRoom);
+  }, []);
 
   const renderItem = ({item}) => {
     const {status_id: status, name, category_id: category, id} = item;
@@ -80,18 +56,17 @@ const RoomDetails = ({navigation, route}) => {
 
   return (
     <View style={[styles.container, GlobalStyles.fullScreen]}>
-      <HeaderDetails
+      {/* <HeaderDetails
         textTitleOne={'Tình trạng'}
         contentTextTitleOne={'Đang sử dụng'}
         textTitleTwo={'Tổng thiết bị'}
         contentTextTitleTwo={items.length}
-      />
+      /> */}
       <View style={{paddingHorizontal: 15, flex: 1}}>
-        {/* Selecting options */}
-
+        {/* Selecting options */}``
         <FlatList
-          renderItem={renderItem}
-          data={items}
+          // renderItem={renderItem}
+          data={[]}
           style={styles.FlatList}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={listEmptyComponent}

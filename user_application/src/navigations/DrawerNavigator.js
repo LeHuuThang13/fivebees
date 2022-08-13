@@ -1,6 +1,9 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {useContext} from 'react';
 import {HOME_NAVIGATOR} from '../constants/routeNames';
+import {GlobalContext} from '../context/Provider';
 import BottomTabNavigatior from './BottomTabNavigator';
+import React from 'react';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();

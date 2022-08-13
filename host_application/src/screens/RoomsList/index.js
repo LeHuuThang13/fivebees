@@ -1,5 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  BackHandler,
+  FlatList,
+  Text,
+  View,
+} from 'react-native';
 import colors from '../../assets/themes/colors';
 import styles from './styles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -42,12 +48,26 @@ const RoomsList = ({navigation, route}) => {
   }
 
   useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.navigate(BUILDINGS_LIST);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, []);
+
+  useEffect(() => {
     setIsLoading(true);
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
     });
     return unsubscribe;
-  }, [route]);
+  }, [route.params]);
 
   const ListEmptyComponent = () => {
     return (

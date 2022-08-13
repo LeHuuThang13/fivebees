@@ -1,13 +1,15 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {LOGIN, QRCODE} from '../constants/routeNames';
 import React from 'react';
-import QRCode from '../screens/QRcode';
+import {HOME} from '../constants/routeNames';
+import BottomTabNavigatior from './BottomTabNavigator';
 
 const AuthNavigator = () => {
   const AuthStack = createNativeStackNavigator();
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>
-      <AuthStack.Screen name={QRCODE} component={QRCode}></AuthStack.Screen>
+      <AuthStack.Screen
+        name={HOME}
+        component={BottomTabNavigatior}></AuthStack.Screen>
     </AuthStack.Navigator>
   );
 };

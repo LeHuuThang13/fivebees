@@ -25,6 +25,7 @@ import {StackActions, useNavigation} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import CustomButtonIcon from '../../components/CustomButtonIcon';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingBuilding = ({navigation}) => {
   const {navigate} = useNavigation();

@@ -19,6 +19,7 @@ import {
 import styles from './styles';
 import getRoom from '../../context/actions/room/getRoom';
 import {GlobalContext} from '../../context/Provider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const QRCode = () => {
   const HEIGHT = Dimensions.get('window').height;
@@ -32,12 +33,16 @@ const QRCode = () => {
     roomState: {isChecking},
   } = useContext(GlobalContext);
 
+  const setValueItem = async id => {
+    await AsyncStorage.setItem('id_room', id);
+  };
+
   useEffect(() => {
     const id = result?.data ? JSON.parse(result?.data) : undefined;
     console.log('isChecking,isChecking', isChecking);
     if (id) {
       getRoom(id)(roomDispatch)(() => {
-        console.log('thành công rùi');
+        setValueItem(id.id);
       });
     }
   }, [result]);

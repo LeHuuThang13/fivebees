@@ -4,7 +4,7 @@ import {
   ROOM_DETAILS_FAIL,
 } from '../../constants/actionNames';
 
-const auth = (state, {type, payload}) => {
+const room = (state, {type, payload}) => {
   switch (type) {
     case ROOM_DETAILS_LOADING:
       return {
@@ -13,6 +13,7 @@ const auth = (state, {type, payload}) => {
       };
 
     case ROOM_DETAILS_SUCCESS:
+      console.log(state, type, payload);
       return {
         ...state,
         loading: false,
@@ -33,4 +34,4 @@ const auth = (state, {type, payload}) => {
   }
 };
 
-export default auth;
+export default room;

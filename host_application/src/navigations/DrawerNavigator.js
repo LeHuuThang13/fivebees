@@ -28,6 +28,7 @@ import {
   UPDATING_ROOM,
   CREATING_MANAGING_FACILITY,
   UPDATING_DEVICE,
+  ROOT,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
@@ -141,7 +142,6 @@ const DrawerNavigator = () => {
           headerShown: false,
         }}
       />
-      <Drawer.Screen name={SETTINGS} component={Settings} />
       <Drawer.Screen
         name={LOGOUT}
         options={{swipeEnabled: false}}

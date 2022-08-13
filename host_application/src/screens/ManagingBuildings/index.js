@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, ScrollView, View} from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
@@ -24,6 +24,7 @@ import deleteBuilding from '../../context/actions/buildings/deleteBuilding';
 
 const ManagingBuilding = ({navigation}) => {
   const {navigate} = useNavigation();
+
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     styles: {
@@ -113,24 +114,26 @@ const ManagingBuilding = ({navigation}) => {
 
   return (
     <View style={[{flex: 1}]}>
-      <CustomCreatingButton
-        onPress={() => {
-          navigate(CREATING_BUILDING);
-        }}
-      />
       {loading_building ? (
         <ActivityIndicator size="large" color={colors.secondary} />
       ) : (
-        <View style={GlobalStyles.paddingContainer}>
-          <FlatList
-            renderItem={renderItem}
-            data={data_building}
-            extraData={data_building}
-            style={styles.FlatList}
-            showsVerticalScrollIndicator={false}
-            ListEmptyComponent={ListEmptyComponent}
+        <>
+          <CustomCreatingButton
+            onPress={() => {
+              navigate(CREATING_BUILDING);
+            }}
           />
-        </View>
+          <View style={GlobalStyles.paddingContainer}>
+            <FlatList
+              renderItem={renderItem}
+              data={data_building}
+              extraData={data_building}
+              style={styles.FlatList}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={ListEmptyComponent}
+            />
+          </View>
+        </>
       )}
     </View>
   );

@@ -21,13 +21,7 @@ const Device = props => {
   return (
     <View style={[styles.container, style]}>
       <View style={styles.imgWrapper}>
-        <Image
-          source={urlImage}
-          style={{
-            width: 120,
-            height: 90,
-          }}
-        />
+        <Image source={urlImage} width={120} height={90} />
       </View>
       <View style={styles.contentWrapper}>
         <View style={[styles.titleWrapper]}>

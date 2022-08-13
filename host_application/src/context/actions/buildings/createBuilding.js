@@ -18,6 +18,13 @@ export default form => dispatch => localFileImage => onSuccess => {
     filenames: localFileImage.path || '',
   };
 
+  const formData = new FormData();
+  formData.append('name', form.name);
+  formData.append('email', form.email);
+  formData.append('address', form.address);
+  formData.append('hotline', form.hotline);
+  formData.append('filenames', form.hotline);
+
   dispatch({
     type: CREATE_BUILDING_LOADING,
   });

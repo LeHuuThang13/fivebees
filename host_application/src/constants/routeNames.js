@@ -48,3 +48,5 @@ export const CREATING_MANAGING_FACILITY = ' Tạo mới thiết bị ';
 export const HOME_NAVIGATOR = 'Trang Chủ';
 export const HOME_BOTTOM_NAVIGATOR = 'Thanh Tabs';
 export const DRAWER_NAVIGATION = 'Thanh Kéo';
+
+export const ROOT = 'ROOT';
