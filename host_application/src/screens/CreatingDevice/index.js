@@ -26,6 +26,7 @@ import {MANAGING_FACILITIES, MANAGING_ROOMS} from '../../constants/routeNames';
 import getStatus from '../../context/actions/status/getStatus';
 import getRooms from '../../context/actions/rooms/getRooms';
 import SelectingDropDown from '../../components/common/SelectDropdown';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -69,7 +70,9 @@ const CreatingFacility = ({navigation, route}) => {
       getCategories()(categoriesDispatch),
       getStatus()(statusDispatch),
       getRooms()(roomsDispatch),
-    ]);
+    ]).catch(err => {
+      console.log('fetch data creating device : ', err.message);
+    });
   }
 
   useEffect(() => {
@@ -122,7 +125,10 @@ const CreatingFacility = ({navigation, route}) => {
     setIsEdited(true);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const token = await AsyncStorage.getItem('token');
+    console.log(token);
+
     if (
       isEdited &&
       localFile &&
@@ -137,6 +143,7 @@ const CreatingFacility = ({navigation, route}) => {
         category,
         room,
         status,
+        token,
       })(() => {
         navigate(MANAGING_FACILITIES);
         setForm({});

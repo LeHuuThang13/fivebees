@@ -1,5 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  FlatList,
+  ActivityIndicator,
+  BackHandler,
+} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
@@ -12,6 +19,7 @@ import {
   CREATING_FACILITY,
   UPDATING_FACILITY,
   MANAGING_ROOMS,
+  HOME_NAVIGATOR,
 } from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 import {GlobalContext} from '../../context/Provider';
@@ -32,9 +40,12 @@ const ManagingRoomDetails = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_ROOMS, {
-        id_building: idBuilding,
-        name_building: nameBuilding,
+      navigate(HOME_NAVIGATOR, {
+        screen: MANAGING_ROOMS,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+        },
       });
     },
   });
@@ -45,6 +56,20 @@ const ManagingRoomDetails = ({navigation, route}) => {
       getFacilities: {data, loading},
     },
   } = useContext(GlobalContext);
+
+  useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.navigate(MANAGING_ROOMS);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);

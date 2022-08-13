@@ -20,6 +20,7 @@ import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
 import deleteFacilityById from '../../context/actions/facilities/deleteFacilityById';
 import {useNavigation} from '@react-navigation/native';
+import defaultImage from '../../assets/images/default_image.png';
 
 const ManagingDevices = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -65,15 +66,25 @@ const ManagingDevices = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {status_id: status, name, category_id: category, id} = item;
+    const {status, name, category_id: category, id, photos} = item;
+
+    const imgLink = photos?.[0];
+    const imgAlt =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png';
 
     return (
       <Device
-        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        urlImage={
+          imgLink
+            ? {uri: imgLink}
+            : {
+                uri: imgAlt,
+              }
+        }
         title={`Sản phẩm`}
         name={`${name}`}
-        amountTitle={'Số lượng'}
-        amount={'1'}
+        amountTitle={'Trạng thái'}
+        amount={status}
         style={{
           marginVertical: 12,
         }}

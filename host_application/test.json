@@ -1,49 +1,9 @@
-[
-  {
-    "building_id": 1,
-    "description": "Nhà trọ của Nguyênfdsfsdf",
-    "facilities": [],
-    "id": 1,
-    "photos": [
-      "http://fivebees.ml/storage/23/cho-thue-phong-tro_1613975723.jpg"
-    ],
-    "room_number": "N101",
-    "status": "Đang thuê"
-  },
-  {
-    "building_id": 1,
-    "description": "Phòng mới tạo của Nguyên",
-    "facilities": [],
-    "id": 2,
-    "photos": ["http://fivebees.ml/storage/3/download.jfif"],
-    "room_number": "N102",
-    "status": "Đang thuê"
-  },
-  {
-    "building_id": 116,
-    "description": "dfsdfsdf",
-    "facilities": [],
-    "id": 3,
-    "photos": ["http://fivebees.ml/storage/14/phongtro.jpg"],
-    "room_number": "N103",
-    "status": "Đang sửa chữa"
-  },
-  {
-    "building_id": 116,
-    "description": "asdfsadfasdf",
-    "facilities": [],
-    "id": 4,
-    "photos": ["http://fivebees.ml/storage/8/đồ-án-Page-2.jpg"],
-    "room_number": "N104",
-    "status": "Trống"
-  },
-  {
-    "building_id": 116,
-    "description": "asdf",
-    "facilities": [],
-    "id": 64,
-    "photos": [],
-    "room_number": "dsaf",
-    "status": "adsf"
-  }
-]
+{
+  "cropRect": {"height": 960, "width": 960, "x": 0, "y": 160},
+  "height": 300,
+  "mime": "image/jpeg",
+  "modificationDate": "1660385668000",
+  "path": "file:///storage/emulated/0/Android/data/com.host_application/files/Pictures/a0fa91cd-1ed4-4496-aca6-b80535a2f7a5.jpg",
+  "size": 57224,
+  "width": 300
+}

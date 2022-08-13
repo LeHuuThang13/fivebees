@@ -64,8 +64,6 @@ class Scan extends Component {
   render() {
     const {scan, ScanResult, result} = this.state;
 
-    console.log(result?.data);
-
     return (
       <View style={{}}>
         <Fragment>

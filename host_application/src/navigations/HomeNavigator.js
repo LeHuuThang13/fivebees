@@ -17,8 +17,9 @@ import DrawerNavigator from './DrawerNavigator';
 import BottomTabNavigatior from './BottomTabNavigator';
 import RoomDetails from '../screens/RoomDetails';
 import Logout from '../screens/Logout';
-import ManagingBuilding from '../screens/ManagingBuilding';
+import ManagingBuilding from '../screens/ManagingBuildings';
 import RoomsList from '../screens/RoomsList';
+import BuildingsList from '../screens/BuildingsList';
 
 const AppNavigator = ({navigation, route}) => {
   const HomeStack = createNativeStackNavigator();
@@ -26,10 +27,7 @@ const AppNavigator = ({navigation, route}) => {
     <HomeStack.Navigator
       initialRouteName={BUILDINGS_LIST}
       screenOptions={{headerShown: false}}>
-      <HomeStack.Screen
-        name={BUILDINGS_LIST_BOTTOM}
-        component={BottomTabNavigatior}
-      />
+      <HomeStack.Screen name={BUILDINGS_LIST} component={BuildingsList} />
       <HomeStack.Screen name={ROOM_LIST} component={RoomsList} />
       <HomeStack.Screen name={QRCODE} component={QRCode} />
       <HomeStack.Screen name={ACCOUNT} component={Account} />

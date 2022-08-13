@@ -28,6 +28,7 @@ import {
 } from '../../constants/routeNames';
 import updateFacility from '../../context/actions/facilities/updateFacility';
 import SelectingDropDown from '../../components/common/SelectDropdown';
+import getStatus from '../../context/actions/status/getStatus';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -55,6 +56,10 @@ const CreatingFacility = ({navigation, route}) => {
     categoriesState: {
       getCategories: {loading: loading_categories, data: data_categories},
     },
+    statusDispatch,
+    statusState: {
+      getStatus: {loading: loading_status, data: data_status},
+    },
   } = useContext(GlobalContext);
 
   // Hook fields
@@ -62,6 +67,7 @@ const CreatingFacility = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     getCategories()(categoriesDispatch);
+    getStatus()(statusDispatch);
     if (item) {
       const {name, description, category_id, id} = item;
       setForm({...form, name, description});
@@ -81,7 +87,7 @@ const CreatingFacility = ({navigation, route}) => {
   }, [route]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState('');
+  const [localFile, setLocalFile] = useState(item?.photos[0]);
   const sheetRef = useRef(null);
   const [name, setName] = useState(form?.name);
   const [category, setCategory] = useState({});
@@ -149,7 +155,7 @@ const CreatingFacility = ({navigation, route}) => {
             <Image
               width={150}
               height={150}
-              source={{uri: localFile?.path}}
+              source={{uri: localFile?.path ? localFile?.path : localFile}}
               style={styles.imageView}
             />
           )}

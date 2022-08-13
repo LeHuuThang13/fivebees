@@ -15,7 +15,13 @@ const SettingHeaderNavigator = {
             onPress={() => {
               toggleDrawer();
             }}>
-            <View style={[styles]}>
+            <View
+              style={[
+                styles,
+                {
+                  paddingRight: 10,
+                },
+              ]}>
               <MenuIcon />
             </View>
           </TouchableOpacity>

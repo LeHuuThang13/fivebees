@@ -8,6 +8,7 @@ import {
   NOTIFICATION,
   NOTIFICATION_BOTTOM,
   QRCODE,
+  ROOM_DETAILS,
 } from '../constants/routeNames';
 import TabBottomMenu from './TabBottomMenu';
 import RoomIcon from '../assets/icons/room.svg';
@@ -18,6 +19,7 @@ import NotiTabNavigator from './NotiTabNavigator';
 import ProfileNavigator from './ProfileTabNavigator';
 import ProfileIcon from '../assets/icons/account.svg';
 import ProfileOutLineIcon from '../assets/icons/account_outline.svg';
+import RoomDetails from '../screens/RoomDetails';
 
 const Tab = createBottomTabNavigator();
 
@@ -78,8 +80,8 @@ const BottomTabNavigatior = ({navigation, route}) => {
         },
       })}>
       <Tab.Screen
-        name={QRCODE}
-        component={QRcode}
+        name={ROOM_DETAILS}
+        component={RoomDetails}
         options={{
           headerShown: true,
         }}

@@ -4,12 +4,14 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {GlobalContext} from '../context/Provider';
 import colors from '../assets/themes/colors';
 import CheckQRNavigator from './CheckQRNavigator';
-import DrawerNavigator from './DrawerNavigator';
+import HomeNavigator from './HomeNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthNavigator from './AuthNavigator';
 
 const AppNavigator = () => {
   const {
     authState: {isLoggedIn},
+    roomState: {isChecking},
   } = useContext(GlobalContext);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,10 +40,20 @@ const AppNavigator = () => {
     },
   };
 
+  console.log('isChecking', isChecking);
+
   return (
     <NavigationContainer theme={CustomTheme}>
       <View style={styles.fullScreen}>
-        {isLoggedIn ? <DrawerNavigator /> : <CheckQRNavigator />}
+        {isAuthenticated ? (
+          isChecking ? (
+            <HomeNavigator />
+          ) : (
+            <CheckQRNavigator />
+          )
+        ) : (
+          <AuthNavigator />
+        )}
       </View>
     </NavigationContainer>
   );
