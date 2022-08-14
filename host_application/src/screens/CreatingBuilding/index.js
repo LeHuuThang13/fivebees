@@ -98,10 +98,11 @@ const CreatingBuilding = ({navigation}) => {
     setForm({...form, [name]: value});
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (localFile?.size) {
       setIsUploading(false);
-      createBuilding(form)(buildingsDispatch)(localFile)(() => {
+      const token = await AsyncStorage.getItem('token');
+      createBuilding(form)(buildingsDispatch)({localFile, token})(() => {
         navigate(MANAGING_BUILDING);
         setForm({});
         setLocalFile('');

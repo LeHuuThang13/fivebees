@@ -1,3 +1,4 @@
+import {Toast} from '../../../components/Toast';
 import {
   GET_FACILITIES_FAILED,
   GET_FACILITIES_LOADING,
@@ -5,7 +6,7 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default () => dispatch => {
+export default setIsLoaded => dispatch => {
   dispatch({
     type: GET_FACILITIES_LOADING,
   });
@@ -16,10 +17,11 @@ export default () => dispatch => {
         type: GET_FACILITIES_SUCCESS,
         payload: res.data.data,
       });
-      setLoading(false);
+      setIsLoaded(true);
     })
     .catch(error => {
-      console.log('Get list facilities', error.response.data);
+      console.log('Get list facilities', error.response.data.message);
+      Toast({title: 'Đường chuyền có vấn đề'});
       dispatch({
         type: GET_FACILITIES_FAILED,
         payload: error.response.data,

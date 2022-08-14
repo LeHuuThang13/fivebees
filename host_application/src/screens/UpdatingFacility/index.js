@@ -24,6 +24,7 @@ import getCategories from '../../context/actions/categories/getCategories';
 import SelectDropdown from 'react-native-select-dropdown';
 import {MANAGING_ROOM_DETAILS} from '../../constants/routeNames';
 import updateFacility from '../../context/actions/facilities/updateFacility';
+import SelectingDropDown from '../../components/common/SelectDropdown';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -74,7 +75,11 @@ const CreatingFacility = ({navigation, route}) => {
       setIsFacility(id);
     }
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_ROOMS);
+      navigate(MANAGING_ROOM_DETAILS, {
+        id_room: idRoom,
+        id_building: idBuilding,
+        name_building: nameBuilding,
+      });
       return true;
     });
 
@@ -154,36 +159,41 @@ const CreatingFacility = ({navigation, route}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.imageWrapper}>
           {!!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={{uri: localFile?.path}}
-              style={styles.imageView}
-            />
+            <TouchableOpacity
+              onPress={openSheet}
+              style={{flexDirection: 'column', alignItems: 'center'}}>
+              <Image
+                width={150}
+                height={150}
+                source={{uri: localFile?.path}}
+                style={styles.imageView}
+              />
+              <Text style={styles.colorChoosingImageText}>Choose image</Text>
+            </TouchableOpacity>
           )}
 
           {!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={require('../../assets/images/default_image.png')}
-              style={styles.imageView}
-            />
+            <TouchableOpacity
+              onPress={openSheet}
+              style={{flexDirection: 'column', alignItems: 'center'}}>
+              <Image
+                width={150}
+                height={150}
+                source={require('../../assets/images/default_image.png')}
+                style={styles.imageView}
+              />
+              <Text style={styles.colorChoosingImageText}>Choose image</Text>
+            </TouchableOpacity>
           )}
-
-          <TouchableOpacity onPress={openSheet}>
-            <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
-          </TouchableOpacity>
         </View>
 
         <CustomInput
-          label="Tên phòng"
+          label="Tên thiết bị"
           onChangeText={value => {
             onChange({name: 'name', value});
             return setName(value);
           }}
-          placeholder="Nhập tên phòng"
+          placeholder="Nhập tên thiết bị"
           value={form.name}
           error={name === '' && error?.errors?.name?.[0]}
         />
@@ -194,33 +204,21 @@ const CreatingFacility = ({navigation, route}) => {
             onChange({name: 'description', value});
             return setDescription(value);
           }}
-          placeholder="Nhập mô tả phòng"
+          placeholder="Nhập mô tả thiết bị"
           value={form.description}
           error={description === '' && error?.errors?.description?.[0]}
         />
 
-        <SelectDropdown
-          defaultButtonText="Loại thiết bị"
+        <SelectingDropDown
+          title="Loại thiết bị"
           data={data_categories}
-          onSelect={(selectedItem, index) => {
-            setCategory(selectedItem.id);
-          }}
-          buttonTextAfterSelection={(selectedItem, index) => {
-            // text represented after item is selected
-            // if data array is an array of objects then return selectedItem.property to render after item is selected
-            return selectedItem.name;
-          }}
-          rowTextForSelection={(item, index) => {
-            // text represented for each item in dropdown
-            // if data array is an array of objects then return item.property to represent item in dropdown
-            return item.name;
-          }}
+          setState={setCategory}
         />
 
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm phòng'}
+          title={'Cập nhập'}
           loading={loading || isLoading}
           disabled={loading || isLoading}
           error={error}

@@ -7,7 +7,13 @@ import {
   MANAGING_ROOM_DETAILS,
   UPDATING_ROOM,
 } from '../../constants/routeNames';
-import {ActivityIndicator, FlatList, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  BackHandler,
+  FlatList,
+  Text,
+  View,
+} from 'react-native';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
 import DeviceIcon from '../../assets/icons/device.svg';
@@ -22,6 +28,7 @@ import getRoomsByIdBuilding from '../../context/actions/rooms/getRoomsByIdBuildi
 import MorePopupMenu from '../../components/common/MorePopupMenu';
 import deleteRoomById from '../../context/actions/rooms/deleteRoomById';
 import colors from '../../assets/themes/colors';
+import {Toast} from '../../components/Toast';
 
 const ManagingRooms = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -35,6 +42,7 @@ const ManagingRooms = ({navigation, route}) => {
     },
     onPressBtnLeft: () => {
       navigate(MANAGING_BUILDING);
+      setIsLoaded(false);
     },
   });
 
@@ -45,18 +53,38 @@ const ManagingRooms = ({navigation, route}) => {
     },
   } = useContext(GlobalContext);
 
+  const [isloaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    setIsLoading(true);
-    getRoomsByIdBuilding(idBuilding)(roomsDispatch)(setIsLoading);
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log(123);
+      setIsLoaded(false);
+      navigate({
+        name: MANAGING_BUILDING,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+        },
+        merge: true,
+      });
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, [route]);
+
+  useEffect(() => {
+    let isMounted = true;
     const unsubscribe = navigation.addListener('focus', () => {
-      getRoomsByIdBuilding(idBuilding)(roomsDispatch);
+      getRoomsByIdBuilding(idBuilding)(roomsDispatch)({setIsLoaded, isMounted});
     });
     return unsubscribe;
   }, [idBuilding]);
-
-  //Hooks
-  const [initialState, setInitialState] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   //Functions
 
@@ -87,6 +115,7 @@ const ManagingRooms = ({navigation, route}) => {
             id_building: idBuilding,
             name_building: nameBuilding,
           });
+          setIsLoaded(false);
         }}
         MoreActions={
           <MorePopupMenu
@@ -97,6 +126,7 @@ const ManagingRooms = ({navigation, route}) => {
               zIndex: 3,
             }}
             onPressEdit={() => {
+              setIsLoaded(false);
               navigation.navigate(UPDATING_ROOM, {
                 room: item,
                 id_room: id,
@@ -116,42 +146,44 @@ const ManagingRooms = ({navigation, route}) => {
   };
 
   return (
-    <View style={styles.container}>
-      {loading_rooms ? (
-        <ActivityIndicator size="large" color={colors.secondary} />
-      ) : (
-        <>
-          <CustomCreatingButton
-            onPress={() => {
-              navigation.navigate(CREATING_ROOM, {
-                id_building: idBuilding,
-                name_building: nameBuilding,
-              });
-            }}
-          />
-          <CustomHeaderDetails
-            firstText={`Tòa nhà: ${
-              nameBuilding ? nameBuilding : 'Đang cập nhập'
-            }`}
-            secondText={`Tổng số phòng: ${
-              data_rooms ? data_rooms.length : 'Đang cập nhập'
-            }`}
-          />
-          <View style={styles.body}>
-            <View style={GlobalStyles.paddingContainer}>
-              <FlatList
-                renderItem={renderItem}
-                data={data_rooms}
-                extraData={data_rooms}
-                style={styles.FlatList}
-                showsVerticalScrollIndicator={false}
-                ListEmptyComponent={listEmptyComponent}
-              />
+    <>
+      <View style={styles.container}>
+        {loading_rooms ? (
+          <ActivityIndicator size="large" color={colors.secondary} />
+        ) : (
+          <>
+            <CustomCreatingButton
+              onPress={() => {
+                navigation.navigate(CREATING_ROOM, {
+                  id_building: idBuilding,
+                  name_building: nameBuilding,
+                });
+              }}
+            />
+            <CustomHeaderDetails
+              firstText={`Tòa nhà: ${
+                nameBuilding ? nameBuilding : 'Đang cập nhập'
+              }`}
+              secondText={`Tổng số phòng: ${
+                data_rooms ? data_rooms.length : 'Đang cập nhập'
+              }`}
+            />
+            <View style={styles.body}>
+              <View style={GlobalStyles.paddingContainer}>
+                <FlatList
+                  renderItem={renderItem}
+                  data={data_rooms}
+                  extraData={data_rooms}
+                  style={styles.FlatList}
+                  showsVerticalScrollIndicator={false}
+                  ListEmptyComponent={listEmptyComponent}
+                />
+              </View>
             </View>
-          </View>
-        </>
-      )}
-    </View>
+          </>
+        )}
+      </View>
+    </>
   );
 };
 

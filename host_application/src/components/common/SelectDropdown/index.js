@@ -22,6 +22,9 @@ const SelectingDropDown = props => {
       dropdownStyle={{
         backgroundColor: colors.white,
       }}
+      rowTextStyle={{
+        color: colors.secondary,
+      }}
       renderDropdownIcon={() => {
         return <ArrowDownIcon />;
       }}

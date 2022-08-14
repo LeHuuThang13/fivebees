@@ -40,12 +40,13 @@ const ManagingRoomDetails = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(HOME_NAVIGATOR, {
-        screen: MANAGING_ROOMS,
+      navigate({
+        name: MANAGING_ROOMS,
         params: {
           id_building: idBuilding,
           name_building: nameBuilding,
         },
+        merge: true,
       });
     },
   });
@@ -60,7 +61,14 @@ const ManagingRoomDetails = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_ROOMS);
+      navigate({
+        name: MANAGING_ROOMS,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+        },
+        merge: true,
+      });
       return true;
     });
 
@@ -69,20 +77,15 @@ const ManagingRoomDetails = ({navigation, route}) => {
         return false;
       });
     };
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
-    setIsLoading(true);
-    getFacilitiesByIdRoom(idRoom)(facilitiesDispatch)(setIsLoading);
+    let isMounted = true;
     const unsubscribe = navigation.addListener('focus', () => {
-      getFacilitiesByIdRoom(idRoom)(facilitiesDispatch);
+      getFacilitiesByIdRoom(idRoom)(facilitiesDispatch)(isMounted);
     });
     return unsubscribe;
   }, [route]);
-
-  //Hooks
-  const [initialState, setInitialState] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   //Functions
 
@@ -99,15 +102,15 @@ const ManagingRoomDetails = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {status_id: status, name, category_id: category, id} = item;
+    const {code, name, category_id: category, id} = item;
 
     return (
       <Device
         urlImage={require('../../assets/images/tv_samsung.jpg')}
         title={`Sản phẩm`}
         name={`${name}`}
-        amountTitle={'Số lượng'}
-        amount={'Đang cập nhập'}
+        amountTitle={'Mã thiết bị'}
+        amount={code}
         style={{
           marginVertical: 12,
         }}
@@ -130,7 +133,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
   };
 
   return (
-    <View style={[styles.container, GlobalStyles.fullScreen]}>
+    <View style={[GlobalStyles.fullScreen]}>
       <CustomCreatingButton
         onPress={() => {
           navigate(CREATING_FACILITY, {
@@ -156,14 +159,16 @@ const ManagingRoomDetails = ({navigation, route}) => {
             textTitleThree={'Thiết bị hư hỏng'}
             contentTextTitleThree={0}
           />
-          <FlatList
-            renderItem={renderItem}
-            data={!isLoading ? data.facilities : []}
-            extraData={data.facilities}
-            style={styles.FlatList}
-            showsVerticalScrollIndicator={false}
-            ListEmptyComponent={listEmptyComponent}
-          />
+          <View style={{paddingHorizontal: 15}}>
+            <FlatList
+              renderItem={renderItem}
+              data={data.facilities}
+              extraData={data.facilities}
+              style={styles.FlatList}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={listEmptyComponent}
+            />
+          </View>
         </>
       )}
     </View>
