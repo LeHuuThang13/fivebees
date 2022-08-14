@@ -12,11 +12,7 @@ import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
 import HeaderDetails from '../../components/common/HeaderDetails';
-import {
-  UPDATING_FACILITY,
-  ROOM_LIST,
-  ROOMDETAILS,
-} from '../../constants/routeNames';
+import {ROOM_LIST} from '../../constants/routeNames';
 import Device from '../../components/common/Device';
 import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
@@ -27,8 +23,12 @@ const RoomDetails = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(ROOM_LIST, {
-        id_building: id_building,
+      navigate({
+        name: ROOM_LIST,
+        params: {
+          id_building: id_building,
+        },
+        merge: true,
       });
       return true;
     });
@@ -63,6 +63,8 @@ const RoomDetails = ({navigation, route}) => {
 
   const renderItem = ({item}) => {
     const {status_id: status, name, category_id: category, id} = item;
+
+    console.log(item);
 
     return (
       <Device

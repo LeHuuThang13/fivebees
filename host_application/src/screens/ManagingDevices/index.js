@@ -8,7 +8,13 @@ import {
   UPDATING_DEVICE,
   UPDATING_FACILITY,
 } from '../../constants/routeNames';
-import {ActivityIndicator, FlatList, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  BackHandler,
+  FlatList,
+  Text,
+  View,
+} from 'react-native';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 import colors from '../../assets/themes/colors';
 import getFacilities from '../../context/actions/facilities/getFacilities';
@@ -42,16 +48,29 @@ const ManagingDevices = ({navigation, route}) => {
     },
   } = useContext(GlobalContext);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [initialState, setInitialState] = useState([]);
+  const [isloaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     const unsubscribe = navigation.addListener('focus', () => {
-      getFacilities()(facilitiesDispatch);
+      getFacilities(setIsLoaded)(facilitiesDispatch);
     });
     return unsubscribe;
   }, [route]);
+
+  useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      setIsLoaded(false);
+      navigation.navigate(MANAGE);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, []);
 
   const listEmptyComponent = () => {
     return (
@@ -103,25 +122,31 @@ const ManagingDevices = ({navigation, route}) => {
   };
 
   return (
-    <View style={[styles.container, GlobalStyles.fullScreen]}>
-      <CustomCreatingButton
-        onPress={() => {
-          navigate(CREATING_MANAGING_FACILITY);
-        }}
-      />
-      {loading ? (
-        <ActivityIndicator size="large" color={colors.secondary} />
+    <>
+      {isloaded ? (
+        <View style={[styles.container, GlobalStyles.fullScreen]}>
+          <CustomCreatingButton
+            onPress={() => {
+              navigate(CREATING_MANAGING_FACILITY);
+            }}
+          />
+          {loading ? (
+            <ActivityIndicator size="large" color={colors.secondary} />
+          ) : (
+            <FlatList
+              renderItem={renderItem}
+              data={data}
+              extraData={data}
+              style={styles.FlatList}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={listEmptyComponent}
+            />
+          )}
+        </View>
       ) : (
-        <FlatList
-          renderItem={renderItem}
-          data={data}
-          extraData={data}
-          style={styles.FlatList}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={listEmptyComponent}
-        />
+        <ActivityIndicator />
       )}
-    </View>
+    </>
   );
 };
 

@@ -27,8 +27,9 @@ const BuildingsList = ({navigation, route}) => {
     },
   } = useContext(GlobalContext);
 
+  const [isloaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    getBuildings()(buildingsDispatch);
+    getBuildings(setIsLoaded)(buildingsDispatch);
   }, []);
 
   const ListEmptyComponent = () => {
@@ -74,21 +75,27 @@ const BuildingsList = ({navigation, route}) => {
   };
 
   return (
-    <View style={{paddingHorizontal: 15}}>
-      {/* Selecting options */}
+    <>
+      {isloaded ? (
+        <View style={{paddingHorizontal: 15}}>
+          {/* Selecting options */}
 
-      {loading_building ? (
-        <ActivityIndicator size="large" color={colors.secondary} />
+          {loading_building ? (
+            <ActivityIndicator size="large" color={colors.secondary} />
+          ) : (
+            <FlatList
+              renderItem={renderItem}
+              data={data_building}
+              style={styles.FlatList}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={ListEmptyComponent}
+            />
+          )}
+        </View>
       ) : (
-        <FlatList
-          renderItem={renderItem}
-          data={data_building}
-          style={styles.FlatList}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={ListEmptyComponent}
-        />
+        <ActivityIndicator />
       )}
-    </View>
+    </>
   );
 };
 

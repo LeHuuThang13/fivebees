@@ -7,13 +7,14 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default () => dispatch => {
+export default setIsLoaded => dispatch => {
   dispatch({
     type: GET_BUILDINGS_LOADING,
   });
   axiosInstance
     .get('buildings')
     .then(res => {
+      setIsLoaded(true);
       dispatch({
         type: GET_BUILDINGS_SUCCESS,
         payload: res.data.data,

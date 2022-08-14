@@ -54,7 +54,7 @@ const CreatingRoom = ({navigation, route}) => {
 
   useEffect(() => {
     if (room) {
-      const {building_id, description, room_number, status} = room;
+      const {building_id, description, room_number, status, photos} = room;
       setForm({...form, building_id, description, room_number, status});
     }
 
@@ -72,7 +72,7 @@ const CreatingRoom = ({navigation, route}) => {
   }, [route]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState('');
+  const [localFile, setLocalFile] = useState(room?.photos?.[0]);
   const sheetRef = useRef(null);
   const [roomNumber, setRoomNumber] = useState(form?.room_number);
   const [status, setStatus] = useState(form?.status);

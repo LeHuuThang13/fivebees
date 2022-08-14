@@ -19,14 +19,18 @@ const HeaderDetails = props => {
         <View style={styles.titleView}>
           <Text style={[styles.textTitle]}>{textTitleOne} :</Text>
         </View>
-        <Text style={[styles.textTitle]}>{contentTextTitleOne}</Text>
+        <Text style={[styles.textTitle]} numberOfLines={1}>
+          {contentTextTitleOne}
+        </Text>
       </View>
       {textTitleTwo && (
         <View style={styles.contentView}>
           <View style={styles.titleView}>
             <Text style={[styles.textTitle]}>{textTitleTwo} :</Text>
           </View>
-          <Text style={[styles.textTitle]}>{contentTextTitleTwo}</Text>
+          <Text style={[styles.textTitle]} numberOfLines={1}>
+            {contentTextTitleTwo}
+          </Text>
         </View>
       )}
       {textTitleThree && (

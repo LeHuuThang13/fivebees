@@ -1,5 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, ScrollView, View} from 'react-native';
+import {
+  ActivityIndicator,
+  BackHandler,
+  FlatList,
+  ScrollView,
+  View,
+} from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import ManagingContainer from '../../components/common/Managing';
@@ -42,8 +48,25 @@ const ManagingBuilding = ({navigation}) => {
     },
   } = useContext(GlobalContext);
 
+  const [isloaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    getBuildings()(buildingsDispatch);
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      setIsLoaded(false);
+      navigation.navigate(MANAGE);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    getBuildings(setIsLoaded)(buildingsDispatch);
   }, [navigation]);
 
   const ListEmptyComponent = () => {
@@ -113,29 +136,35 @@ const ManagingBuilding = ({navigation}) => {
   };
 
   return (
-    <View style={[{flex: 1}]}>
-      {loading_building ? (
-        <ActivityIndicator size="large" color={colors.secondary} />
+    <>
+      {isloaded ? (
+        <View style={[{flex: 1}]}>
+          {loading_building ? (
+            <ActivityIndicator size="large" color={colors.secondary} />
+          ) : (
+            <>
+              <CustomCreatingButton
+                onPress={() => {
+                  navigate(CREATING_BUILDING);
+                }}
+              />
+              <View style={GlobalStyles.paddingContainer}>
+                <FlatList
+                  renderItem={renderItem}
+                  data={data_building}
+                  extraData={data_building}
+                  style={styles.FlatList}
+                  showsVerticalScrollIndicator={false}
+                  ListEmptyComponent={ListEmptyComponent}
+                />
+              </View>
+            </>
+          )}
+        </View>
       ) : (
-        <>
-          <CustomCreatingButton
-            onPress={() => {
-              navigate(CREATING_BUILDING);
-            }}
-          />
-          <View style={GlobalStyles.paddingContainer}>
-            <FlatList
-              renderItem={renderItem}
-              data={data_building}
-              extraData={data_building}
-              style={styles.FlatList}
-              showsVerticalScrollIndicator={false}
-              ListEmptyComponent={ListEmptyComponent}
-            />
-          </View>
-        </>
+        <ActivityIndicator />
       )}
-    </View>
+    </>
   );
 };
 

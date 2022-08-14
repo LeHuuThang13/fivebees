@@ -27,6 +27,7 @@ export default StyleSheet.create({
     fontSize: 16,
     color: colors.secondary,
     fontWeight: '600',
+    width: 150,
   },
 
   actionsWrapper: {

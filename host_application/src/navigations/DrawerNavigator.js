@@ -34,7 +34,6 @@ import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
 import Managing from '../screens/Managing';
 import RoomDetails from '../screens/RoomDetails';
-import Settings from '../screens/Settings';
 import QRCode from '../screens/QRCode';
 import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
@@ -60,6 +59,8 @@ import AnalystDetailsRooms from '../screens/AnalystDetailsRooms';
 import UpdatingRoom from '../screens/UpdatingRoom';
 import UpdatingDevice from '../screens/UpdatingDevice';
 import {useNavigation} from '@react-navigation/native';
+import ManagingNavigator from './ManagingNavigator';
+import ManagingBuilding from '../screens/ManagingBuildings';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -75,6 +76,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerType="slide"
+      initialRouteName={HOME_NAVIGATOR}
       screenOptions={{
         headerShown: true,
         drawerStyle: {
@@ -89,116 +91,43 @@ const DrawerNavigator = () => {
         options={{headerShown: false}}
         component={BottomTabNavigatior}
       />
-      {/* Room Screens */}
-      <Drawer.Screen name={BUILDINGS_LIST} component={BuildingsList} />
       <Drawer.Screen
-        name={MANAGING_ROOMS}
-        options={{swipeEnabled: false}}
-        component={ManagingRooms}
+        name={ANALYST}
+        options={{headerShown: false}}
+        component={Analyst}
       />
-      <Drawer.Screen
-        name={ROOMDETAILS}
-        options={{swipeEnabled: false}}
-        component={RoomDetails}
-      />
-      <Drawer.Screen
-        name={CREATING_ROOM}
-        options={{swipeEnabled: false}}
-        component={CreatingRoom}
-      />
-      <Drawer.Screen
-        name={UPDATING_ROOM}
-        options={{swipeEnabled: false}}
-        component={UpdatingRoom}
-      />
-      <Drawer.Screen
-        name={MANAGING_ROOM_DETAILS}
-        options={{swipeEnabled: false}}
-        component={ManagingRoomDetails}
-      />
-
-      <Drawer.Screen name={ANALYST} component={Analyst} />
-      <Drawer.Screen
-        name={ANALYST_DETAILS_DEVICE}
-        options={{swipeEnabled: false}}
-        component={AnalystDetailsDevices}
-      />
-      <Drawer.Screen
-        name={ANALYST_DETAILS_BUILDINGS}
-        options={{swipeEnabled: false}}
-        component={AnalystDetailsBuildings}
-      />
-      <Drawer.Screen
-        name={ANALYST_DETAILS_ROOMS}
-        options={{swipeEnabled: false}}
-        component={AnalystDetailsRooms}
-      />
-
-      <Drawer.Screen name={MANAGE} component={Managing} />
       <Drawer.Screen
         name={QRCODE}
+        options={{headerShown: false}}
         component={QRCode}
-        options={{
-          headerShown: false,
-        }}
+      />
+      {/* Home */}
+      <Drawer.Screen
+        name={ROOM_LIST}
+        options={{headerShown: true}}
+        component={RoomsList}
+      />
+      {/* Manage */}
+      <Drawer.Screen
+        name={MANAGE}
+        options={{headerShown: false}}
+        component={ManagingNavigator}
+      />
+      <Drawer.Screen
+        name={MANAGING_FACILITIES}
+        options={{headerShown: false}}
+        component={ManagingDevices}
+      />
+      <Drawer.Screen
+        name={INTRODUCE}
+        options={{headerShown: false}}
+        component={Introduce}
       />
       <Drawer.Screen
         name={LOGOUT}
         options={{swipeEnabled: false}}
         component={Logout}
       />
-      <Drawer.Screen
-        name={UPDATING_FACILITY}
-        options={{swipeEnabled: false}}
-        component={UpdatingFacility}
-      />
-      <Drawer.Screen
-        name={UPDATING_DEVICE}
-        options={{swipeEnabled: false}}
-        component={UpdatingDevice}
-      />
-      {/* Buildings screens */}
-      <Drawer.Screen
-        name={ROOM_LIST}
-        options={{swipeEnabled: false}}
-        component={RoomsList}
-      />
-      <Drawer.Screen
-        name={BUILDINGDETAILS}
-        options={{swipeEnabled: false}}
-        component={BuildlingDetails}
-      />
-      <Drawer.Screen
-        name={MANAGING_BUILDING}
-        options={{swipeEnabled: false}}
-        component={ManagingBuildings}
-      />
-      <Drawer.Screen
-        name={UPDATING_BUILDING}
-        options={{swipeEnabled: false}}
-        component={UpdatingBuilding}
-      />
-      <Drawer.Screen
-        name={CREATING_BUILDING}
-        options={{swipeEnabled: false}}
-        component={CreatingBuilding}
-      />
-      <Drawer.Screen
-        name={CREATING_FACILITY}
-        options={{swipeEnabled: false}}
-        component={CreatingFacility}
-      />
-      <Drawer.Screen
-        name={CREATING_MANAGING_FACILITY}
-        options={{swipeEnabled: false}}
-        component={CreatingManagingFacility}
-      />
-      <Drawer.Screen
-        name={MANAGING_FACILITIES}
-        options={{swipeEnabled: false}}
-        component={ManagingDevices}
-      />
-      <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>
   );
 };

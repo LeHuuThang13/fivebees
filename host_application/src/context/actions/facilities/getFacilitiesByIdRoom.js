@@ -5,18 +5,19 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default id => dispatch => setLoading => {
+export default id => dispatch => isMounted => {
   dispatch({
     type: GET_FACILITIES_LOADING,
   });
   axiosInstance
     .get(`rooms/${id}`)
     .then(res => {
-      dispatch({
-        type: GET_FACILITIES_SUCCESS,
-        payload: res.data.data,
-      });
-      setLoading(false);
+      if (isMounted) {
+        dispatch({
+          type: GET_FACILITIES_SUCCESS,
+          payload: res.data.data,
+        });
+      }
     })
     .catch(error => {
       console.log('Get list facilities by id room', error.response.data);

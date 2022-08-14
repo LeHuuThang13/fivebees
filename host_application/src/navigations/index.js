@@ -46,11 +46,7 @@ const AppNavigator = () => {
       {authLoaded ? (
         <NavigationContainer theme={CustomTheme} ref={navigationRef}>
           <View style={{flex: 1, backgroundColor: 'blue'}}>
-            {isLoggedIn || isAuthenticated ? (
-              <DrawerNavigator />
-            ) : (
-              <AuthNavigator />
-            )}
+            {isAuthenticated ? <DrawerNavigator /> : <AuthNavigator />}
           </View>
         </NavigationContainer>
       ) : (

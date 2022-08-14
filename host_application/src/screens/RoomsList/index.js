@@ -41,10 +41,9 @@ const RoomsList = ({navigation, route}) => {
   } = useContext(GlobalContext);
 
   //Hooks
-  const [isLoading, setIsLoading] = useState(false);
 
-  async function fetchData() {
-    getMultipleApiRooms(idBuilding)(roomsDispatch)(setIsLoading);
+  async function fetchData(isMounted) {
+    getMultipleApiRooms(idBuilding)(roomsDispatch)(isMounted);
   }
 
   useEffect(() => {
@@ -62,11 +61,13 @@ const RoomsList = ({navigation, route}) => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
+    let isMounted = true;
     const unsubscribe = navigation.addListener('focus', () => {
-      fetchData();
+      fetchData(isMounted);
     });
-    return unsubscribe;
+    return () => {
+      unsubscribe, (isMounted = false);
+    };
   }, [route.params]);
 
   const ListEmptyComponent = () => {

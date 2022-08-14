@@ -10,10 +10,6 @@ import axios from 'axios';
 export default form => dispatch => params => onSuccess => {
   const {category, localFile, idRoom, room, status, token} = params;
 
-
-  let requestPayload;
-  // console.log(localFile);
-
   const formData = new FormData();
   const url = envs.BACKEND_URL + '/facilities';
 
@@ -21,10 +17,11 @@ export default form => dispatch => params => onSuccess => {
     formData.append('name', form.name);
     formData.append('description', form.description);
     formData.append('category_id', category);
+    formData.append('status_id', 1);
     formData.append('filenames', {
       type: 'image/jpeg',
       uri: localFile.path,
-      name: localFile.path
+      name: localFile.path,
     });
     formData.append('room_id', idRoom);
   } else if (status && room && category) {
@@ -35,14 +32,16 @@ export default form => dispatch => params => onSuccess => {
     formData.append('filenames', {
       type: 'image/jpeg',
       uri: localFile.path,
-      name: 'upload.jpg'
+      name: 'upload.jpg',
     });
     formData.append('room_id', room);
   }
 
-  dispatch({
-    type: CREATE_FACILITY_LOADING,
-  });
+  console.log('form.name', formData);
+
+  // dispatch({
+  //   type: CREATE_FACILITY_LOADING,
+  // });
 
   axios
     .post(url, formData, {
@@ -57,7 +56,7 @@ export default form => dispatch => params => onSuccess => {
       },
     })
     .then(res => {
-      const result = [res.data.data.facilities];
+      const result = res.data.data;
       dispatch({
         type: CREATE_FACILITY_SUCCESS,
         payload: result,
@@ -66,11 +65,10 @@ export default form => dispatch => params => onSuccess => {
       onSuccess();
     })
     .catch(err => {
-      console.log('error creating facility', error.response.data);
+      console.log('error creating facility', err.response.data);
       dispatch({
         type: CREATE_FACILITY_FAILED,
-        payload: error.response.data,
+        payload: err.response.data,
       });
     });
-  
 };

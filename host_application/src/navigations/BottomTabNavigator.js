@@ -18,6 +18,7 @@ import NotiTabNavigator from './NotiTabNavigator';
 import ProfileNavigator from './ProfileTabNavigator';
 import ProfileIcon from '../assets/icons/account.svg';
 import ProfileOutLineIcon from '../assets/icons/account_outline.svg';
+import HomeNavigator from './HomeNavigator';
 import BuildingsList from '../screens/BuildingsList';
 
 const Tab = createBottomTabNavigator();
@@ -80,9 +81,9 @@ const BottomTabNavigatior = ({navigation, route}) => {
       })}>
       <Tab.Screen
         name={BUILDINGS_LIST_BOTTOM}
-        component={BuildingsList}
+        component={HomeNavigator}
         options={{
-          headerShown: true,
+          headerShown: false,
         }}
       />
       <Tab.Screen

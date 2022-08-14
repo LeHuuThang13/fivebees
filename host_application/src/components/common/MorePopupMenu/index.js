@@ -1,6 +1,5 @@
 import {View, TouchableOpacity, Text} from 'react-native';
 import React from 'react';
-import colors from '../../../assets/themes/colors';
 import {
   Menu,
   MenuOptions,
