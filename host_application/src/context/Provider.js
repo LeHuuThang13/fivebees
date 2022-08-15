@@ -9,19 +9,52 @@ import buildings from './reducers/buildings';
 import buildingsInitialState from './initialStates/buildingsInitialState';
 import brokenFacilities from './reducers/brokenFacilities';
 import brokenFacilitiesInitialState from './initialStates/brokenFacilitiesInitialState';
+import categories from './reducers/categories';
+import categoriesInitialState from './initialStates/categoriesInitialState';
+import status from './reducers/status';
+import statusInitialState from './initialStates/statusInitialState';
 
 export const GlobalContext = createContext({});
 
 const GlobalProvider = ({children}) => {
   const [authState, authDispatch] = useReducer(auth, authInitialState);
   const [roomsState, roomsDispatch] = useReducer(rooms, roomsInitialState);
-  const [facilitiesState, facilitiesDispatch] = useReducer(facilities, facilitiesInitialState);
-  const [buildingsState, buildingsDispatch] = useReducer(buildings, buildingsInitialState);
-  const [brokenFacilitiesState, brokenFacilitiesDispatch] = useReducer(brokenFacilities, brokenFacilitiesInitialState);
+  const [facilitiesState, facilitiesDispatch] = useReducer(
+    facilities,
+    facilitiesInitialState,
+  );
+  const [buildingsState, buildingsDispatch] = useReducer(
+    buildings,
+    buildingsInitialState,
+  );
+  const [brokenFacilitiesState, brokenFacilitiesDispatch] = useReducer(
+    brokenFacilities,
+    brokenFacilitiesInitialState,
+  );
+  const [categoriesState, categoriesDispatch] = useReducer(
+    categories,
+    categoriesInitialState,
+  );
+  const [statusState, statusDispatch] = useReducer(status, statusInitialState);
 
   return (
     <GlobalContext.Provider
-      value={{authState, roomsState, roomsDispatch, authDispatch, facilitiesState, facilitiesDispatch, buildingsState, buildingsDispatch, brokenFacilitiesState, brokenFacilitiesDispatch}}>
+      value={{
+        authState,
+        roomsState,
+        roomsDispatch,
+        authDispatch,
+        facilitiesState,
+        facilitiesDispatch,
+        buildingsState,
+        buildingsDispatch,
+        brokenFacilitiesState,
+        brokenFacilitiesDispatch,
+        categoriesState,
+        categoriesDispatch,
+        statusState,
+        statusDispatch,
+      }}>
       {children}
     </GlobalContext.Provider>
   );

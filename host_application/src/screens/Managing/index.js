@@ -8,7 +8,10 @@ import DeviceIcon from '../../assets/icons/device.svg';
 //constants
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import ManagingContainer from '../../components/common/Managing';
-import {MANAGING_BUILDING, MANAGING_DEVICES} from '../../constants/routeNames';
+import {
+  MANAGING_BUILDING,
+  MANAGING_FACILITIES,
+} from '../../constants/routeNames';
 import axiosInstance from '../../helpers/axiosInterceptor';
 import axios from 'axios';
 import MorePopupMenu from '../../components/common/MorePopupMenu';
@@ -42,7 +45,7 @@ const Managing = ({navigation}) => {
         }),
       )
       .catch(err => {
-        console.log(err.message);
+        console.log('Managing ', err.response.data);
       });
   };
 
@@ -70,7 +73,7 @@ const Managing = ({navigation}) => {
         totalManagingTitleText={'Số lượng thiết bị'}
         totalManagingContentText={facilities ? facilities.length : 0}
         onPress={() => {
-          navigation.navigate(MANAGING_DEVICES);
+          navigation.navigate(MANAGING_FACILITIES);
         }}
         IconManagingBtn={<Setting />}
         managingBtnText={'Quản lý thiết bị'}

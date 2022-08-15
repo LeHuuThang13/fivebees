@@ -6,14 +6,13 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default id => dispatch => {
+export default () => dispatch => {
   dispatch({
     type: GET_ROOMS_LOADING,
   });
   axiosInstance
     .get(`rooms`)
     .then(res => {
-      console.log('res.data.data', res.data);
       dispatch({
         type: GET_ROOMS_SUCCESS,
         payload: res.data.data,

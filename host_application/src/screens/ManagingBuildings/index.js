@@ -1,5 +1,11 @@
-import React, {useContext, useEffect} from 'react';
-import {ActivityIndicator, FlatList, ScrollView, View} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  BackHandler,
+  FlatList,
+  ScrollView,
+  View,
+} from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import ManagingContainer from '../../components/common/Managing';
@@ -7,6 +13,7 @@ import {
   CREATING_BUILDING,
   MANAGE,
   MANAGING_ROOMS,
+  UPDATING_BUILDING,
 } from '../../constants/routeNames';
 import CustomCreatingButton from '../../components/CustomCreatingButton';
 // Sgv Icons
@@ -23,6 +30,7 @@ import deleteBuilding from '../../context/actions/buildings/deleteBuilding';
 
 const ManagingBuilding = ({navigation}) => {
   const {navigate} = useNavigation();
+
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
     styles: {
@@ -40,9 +48,26 @@ const ManagingBuilding = ({navigation}) => {
     },
   } = useContext(GlobalContext);
 
+  const [isloaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    getBuildings()(buildingsDispatch);
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      setIsLoaded(false);
+      navigation.navigate(MANAGE);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
   }, []);
+
+  useEffect(() => {
+    getBuildings(setIsLoaded)(buildingsDispatch);
+  }, [navigation]);
 
   const ListEmptyComponent = () => {
     return (
@@ -79,7 +104,9 @@ const ManagingBuilding = ({navigation}) => {
                 zIndex: 3,
               }}
               onPressEdit={() => {
-                console.log('edit');
+                navigate(UPDATING_BUILDING, {
+                  building: item,
+                });
               }}
               onPressDelete={() => {
                 deleteBuilding(id)(buildingsDispatch);
@@ -95,6 +122,7 @@ const ManagingBuilding = ({navigation}) => {
           onPress={() => {
             navigate(MANAGING_ROOMS, {
               id_building: id,
+              name_building: name,
             });
           }}
           disabled={roomsTotal > LIMIT_ROOM ? true : false}
@@ -108,27 +136,35 @@ const ManagingBuilding = ({navigation}) => {
   };
 
   return (
-    <View style={[{flex: 1}]}>
-      <CustomCreatingButton
-        onPress={() => {
-          navigate(CREATING_BUILDING, {});
-        }}
-      />
-      {loading_building ? (
-        <ActivityIndicator size="large" color={colors.secondary} />
-      ) : (
-        <View style={GlobalStyles.paddingContainer}>
-          <FlatList
-            renderItem={renderItem}
-            data={data_building}
-            extraData={data_building}
-            style={styles.FlatList}
-            showsVerticalScrollIndicator={false}
-            ListEmptyComponent={ListEmptyComponent}
-          />
+    <>
+      {isloaded ? (
+        <View style={[{flex: 1}]}>
+          {loading_building ? (
+            <ActivityIndicator size="large" color={colors.secondary} />
+          ) : (
+            <>
+              <CustomCreatingButton
+                onPress={() => {
+                  navigate(CREATING_BUILDING);
+                }}
+              />
+              <View style={GlobalStyles.paddingContainer}>
+                <FlatList
+                  renderItem={renderItem}
+                  data={data_building}
+                  extraData={data_building}
+                  style={styles.FlatList}
+                  showsVerticalScrollIndicator={false}
+                  ListEmptyComponent={ListEmptyComponent}
+                />
+              </View>
+            </>
+          )}
         </View>
+      ) : (
+        <ActivityIndicator />
       )}
-    </View>
+    </>
   );
 };
 

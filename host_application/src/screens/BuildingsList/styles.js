@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
   },
 
   FlatList: {
-    marginTop: 10,
-    marginBottom: 50
+    paddingTop: 10,
   },
 
   //   Room

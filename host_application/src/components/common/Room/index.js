@@ -21,19 +21,22 @@ const Room = props => {
     textBrokenDevice,
     btnTitle,
     MoreActions,
+    isNotManaging,
   } = props;
 
   return (
     <View style={styles.roomContainer}>
       {MoreActions && MoreActions}
       <View style={styles.headerRoom}>
-        <Text style={[styles.headerRoomLeft]} numberOfLines={1}>
+        <Text
+          style={[styles.headerRoomLeft, {width: isNotManaging ? 250 : 150}]}
+          numberOfLines={1}>
           {roomName}
         </Text>
 
         <Text style={styles.headerRoomRight}>
           <View style={styles.labelWrapper}>
-            {status && <Text style={styles.labelStatus}>Tình trạng:</Text>}
+            {status && <Text style={styles.labelStatus}>Tình trạng: </Text>}
           </View>
           <View style={styles.statusBlock}>
             <Text style={styles.status} numberOfLines={1}>
@@ -50,14 +53,16 @@ const Room = props => {
             {textTotalDevices} {totalDevices}
           </Text>
         </View>
-        <View style={styles.totalItem}>
-          <Text style={styles.iconItem}>
-            {IconBrokenDevice && <IconBrokenDevice />}
-          </Text>
-          <Text style={styles.textTotalDevices}>
-            {textBrokenDevice} {totalBrokenDevices}
-          </Text>
-        </View>
+        {IconBrokenDevice && (
+          <View style={styles.totalItem}>
+            <Text style={styles.iconItem}>
+              {IconBrokenDevice && <IconBrokenDevice />}
+            </Text>
+            <Text style={styles.textTotalDevices}>
+              {textBrokenDevice} {totalBrokenDevices}
+            </Text>
+          </View>
+        )}
         <View
           style={[
             styles.actionsContainer,

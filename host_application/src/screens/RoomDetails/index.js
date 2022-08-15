@@ -1,22 +1,84 @@
-import React from 'react';
-import {Text, View, ScrollView, Image} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  FlatList,
+  BackHandler,
+} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
 import GlobalStyles from '../../../GlobalStyles';
 import HeaderDetails from '../../components/common/HeaderDetails';
+import {ROOM_LIST} from '../../constants/routeNames';
 import Device from '../../components/common/Device';
 import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
-import {EDITING_DEVICE, ROOM_LIST} from '../../constants/routeNames';
 
-const RoomDetails = ({navigation}) => {
+const RoomDetails = ({navigation, route}) => {
+  const {items, id_building} = route.params;
+
+  useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigate({
+        name: ROOM_LIST,
+        params: {
+          id_building: id_building,
+        },
+        merge: true,
+      });
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, []);
+
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
     Icon: PreviousIcon,
     previousBtn: () => {
-      navigation.goBack();
+      navigation.navigate(ROOM_LIST, {
+        id_building: id_building,
+      });
     },
   });
+
+  const listEmptyComponent = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+        <Text>Không có dữ liệu phòng</Text>
+      </View>
+    );
+  };
+
+  const renderItem = ({item}) => {
+    const {status_id: status, name, category_id: category, id} = item;
+
+    console.log(item);
+
+    return (
+      <Device
+        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        title={`Sản phẩm`}
+        name={`${name}`}
+        amountTitle={'Số lượng'}
+        amount={'1'}
+        style={{
+          marginVertical: 12,
+        }}
+      />
+    );
+  };
 
   return (
     <View style={[styles.container, GlobalStyles.fullScreen]}>
@@ -24,32 +86,19 @@ const RoomDetails = ({navigation}) => {
         textTitleOne={'Tình trạng'}
         contentTextTitleOne={'Đang sử dụng'}
         textTitleTwo={'Tổng thiết bị'}
-        contentTextTitleTwo={10}
-        textTitleThree={'Thiết bị hư hỏng'}
-        contentTextTitleThree={0}
+        contentTextTitleTwo={items.length}
       />
-      <ScrollView style={GlobalStyles.paddingContainer}>
-        <View>
-          <Device
-            urlImage={require('../../assets/images/tv_samsung.jpg')}
-            title={'Sản phẩm'}
-            name={'Smart Tivi Samsung Crystal UHD 4K 55 inch UA55AU8000KXXV/'}
-            amountTitle={'Số lượng'}
-            amount={2}
-            style={{
-              marginVertical: 12,
-            }}
-            DeleteIcon={<DeleteIcon />}
-            EditIcon={<EditIcon />}
-            onPressEdit={() => {
-              navigation.navigate(EDITING_DEVICE);
-            }}
-            onPressDelete={() => {
-              console.log('hello');
-            }}
-          />
-        </View>
-      </ScrollView>
+      <View style={{paddingHorizontal: 15, flex: 1}}>
+        {/* Selecting options */}
+
+        <FlatList
+          renderItem={renderItem}
+          data={items}
+          style={styles.FlatList}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={listEmptyComponent}
+        />
+      </View>
     </View>
   );
 };

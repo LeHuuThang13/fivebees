@@ -6,6 +6,7 @@ import {
   View,
   DevSettings,
   BackHandler,
+  ScrollView,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -24,6 +25,7 @@ import {StackActions, useNavigation} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import CustomButtonIcon from '../../components/CustomButtonIcon';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingBuilding = ({navigation}) => {
   const {navigate} = useNavigation();
@@ -71,6 +73,7 @@ const CreatingBuilding = ({navigation}) => {
   const [email, setEmail] = useState(form?.email);
   const [address, setAddress] = useState(form?.address);
   const [hotline, sethotline] = useState(form?.hotline);
+  const [uploading, setIsUploading] = useState(false);
 
   // Functions
 
@@ -95,21 +98,27 @@ const CreatingBuilding = ({navigation}) => {
     setForm({...form, [name]: value});
   };
 
-  const onSubmit = () => {
-    createBuilding(form)(buildingsDispatch)(localFile)(() => {
-      navigate(MANAGING_BUILDING);
-      setForm({});
-      setLocalFile('');
-      setAddress('');
-      setEmail('');
-      setName('');
-      sethotline('');
-    });
+  const onSubmit = async () => {
+    if (localFile?.size) {
+      setIsUploading(false);
+      const token = await AsyncStorage.getItem('token');
+      createBuilding(form)(buildingsDispatch)({localFile, token})(() => {
+        navigate(MANAGING_BUILDING);
+        setForm({});
+        setLocalFile('');
+        setAddress('');
+        setEmail('');
+        setName('');
+        sethotline('');
+      });
+    } else {
+      setIsUploading(true);
+    }
   };
 
   return (
     <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
-      <View>
+      <ScrollView>
         <View style={styles.imageWrapper}>
           {!!localFile && (
             <Image
@@ -183,11 +192,11 @@ const CreatingBuilding = ({navigation}) => {
           onPress={onSubmit}
           primary
           title={'Thêm tòa nhà'}
-          loading={loading_building}
+          loading={loading_building || uploading}
           disabled={loading_building}
           error={error}
         />
-      </View>
+      </ScrollView>
 
       <ImagePicker
         ref={sheetRef}

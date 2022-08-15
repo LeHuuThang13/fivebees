@@ -3,7 +3,7 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import AuthNavigator from './AuthNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import {GlobalContext} from '../context/Provider';
-import {View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {navigationRef} from './RootNavigator';
 
@@ -12,14 +12,17 @@ const AppNavigator = () => {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn);
+  const [authLoaded, setAuthLoaded] = useState(false);
 
   const getUser = async () => {
     try {
       const user = await AsyncStorage.getItem('user');
       if (user) {
+        setAuthLoaded(true);
         setIsAuthenticated(true);
       } else {
+        setAuthLoaded(true);
         setIsAuthenticated(false);
       }
     } catch (err) {}
@@ -39,15 +42,17 @@ const AppNavigator = () => {
   };
 
   return (
-    <NavigationContainer theme={CustomTheme} ref={navigationRef}>
-      <View style={{flex: 1, backgroundColor: 'blue'}}>
-        {isLoggedIn || isAuthenticated ? (
-          <DrawerNavigator />
-        ) : (
-          <AuthNavigator />
-        )}
-      </View>
-    </NavigationContainer>
+    <>
+      {authLoaded ? (
+        <NavigationContainer theme={CustomTheme} ref={navigationRef}>
+          <View style={{flex: 1, backgroundColor: 'blue'}}>
+            {isAuthenticated ? <DrawerNavigator /> : <AuthNavigator />}
+          </View>
+        </NavigationContainer>
+      ) : (
+        <ActivityIndicator />
+      )}
+    </>
   );
 };
 
