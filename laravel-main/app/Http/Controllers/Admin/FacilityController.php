@@ -117,7 +117,7 @@ class FacilityController extends Controller
         }
 
         if ($request->input('status_id') == 1 || $request->input('status_id') == 3) {
-            $facility->rooms()->attach($request->room_id);
+            $facility->rooms()->sync($request->room_id);
         }
 
         return redirect()->route('admin.facilities.index')->with('success', 'Tạo thiết bị thành công!');
