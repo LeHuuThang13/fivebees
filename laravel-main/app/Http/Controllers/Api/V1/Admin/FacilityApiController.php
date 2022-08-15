@@ -42,6 +42,10 @@ class FacilityApiController extends Controller
             'created_by_id' => Auth::id(),
         ]);
 
+        if ($request->input('status_id') == 1 || $request->input('status_id') == 3) {
+            $facility->rooms()->sync($request->room_id);
+        }
+
         if ($request->hasFile('filenames')) {
             $fileAdders = $facility->addMultipleMediaFromRequest(['filenames'])
                 ->each(function ($fileAdder) {
