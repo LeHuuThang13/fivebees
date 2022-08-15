@@ -27,14 +27,14 @@ class RoomResource extends JsonResource
             'building_id' => $this->building_id,
             'photos' => $photos,
             'facilities' => [
-                'id' => $this->facilities->last()->id,
-                'code' => $this->facilities->last()->code,
-                'name' => $this->facilities->last()->name,
-                'description' => $this->facilities->last()->description,
-                'status' => $this->facilities->last()->status->name,
-                'category' => $this->facilities->last()->categories->name,
-                'created_at' => $this->facilities->last()->created_at,
-                'updated_at' => $this->facilities->last()->updated_at,
+                'id' => $this->facilities->last()->id ?? null,
+                'code' => $this->facilities->last()->code ?? null,
+                'name' => $this->facilities->last()->name ?? null,
+                'description' => $this->facilities->last()->description ?? null,
+                'status' => $this->facilities->last()->status->name ?? null,
+                'category' => $this->facilities->last()->categories->name ?? null,
+                'created_at' => $this->facilities->last()->created_at ?? null,
+                'updated_at' => $this->facilities->last()->updated_at ?? null,
             ],
         ];
     }
