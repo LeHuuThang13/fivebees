@@ -59,7 +59,7 @@
                     @enderror
                 </div>
                 @else
-                <input name="user_id" type="hidden" class="form-control" value="{{ Auth::user()->id }}" disabled>
+                <input name="user_id" type="hidden" class="form-control" value="{{ Auth::user()->id }}">
                 @endrole
 
                 <button type="submit" class="btn btn-primary px-4 pt-2">Thêm</button>
