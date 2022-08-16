@@ -3,51 +3,99 @@ import {
   CREATE_FACILITY_FAILED,
   CREATE_FACILITY_SUCCESS,
 } from '../../../constants/actionTypes';
-import axiosInstance from '../../../helpers/axiosInterceptor';
+import envs from '../../../config/env';
 import {Toast} from '../../../components/Toast';
+import axios from 'axios';
 
 export default form => dispatch => params => onSuccess => {
-  const {category, localFile, idRoom, idFacility} = params;
+  const {
+    category,
+    localFile,
+    idRoom,
+    idFacility,
+    token,
+    isManagingDevices,
+    room,
+    status,
+  } = params;
 
-  const STATUS_DEFAULT = 1;
+  const formData = new FormData();
+  const url = envs.BACKEND_URL + `/facilities/${idFacility}`;
 
-  let requestPayload;
-
-  if (localFile) {
-    requestPayload = {
-      name: form.name || '',
-      description: form.description || '',
-      category_id: category,
-      filenames: localFile.path || '',
-      status_id: STATUS_DEFAULT,
-      room_id: idRoom,
-    };
+  if (isManagingDevices) {
+    if (localFile) {
+      formData.append('name', form.name);
+      formData.append('_method', 'PUT');
+      formData.append('description', form.description);
+      formData.append('category_id', category);
+      formData.append('status_id', status);
+      formData.append('room_id', room);
+      formData.append('filenames', {
+        type: 'image/jpeg',
+        uri: localFile.path,
+        name: localFile.path,
+      });
+    } else {
+      formData.append('name', form.name);
+      formData.append('_method', 'PUT');
+      formData.append('description', form.description);
+      formData.append('category_id', category);
+      formData.append('status_id', status);
+      formData.append('room_id', room);
+    }
   } else {
-    requestPayload = {
-      name: form.name || '',
-      description: form.description || '',
-      category_id: category,
-      status_id: STATUS_DEFAULT,
-      room_id: idRoom,
-    };
+    if (localFile) {
+      formData.append('name', form.name);
+      formData.append('_method', 'PUT');
+      formData.append('description', form.description);
+      formData.append('category_id', category || CATEGORY_DEFAULT);
+      formData.append('status_id', STATUS_DEFAULT);
+      formData.append('filenames', {
+        type: 'image/jpeg',
+        uri: localFile.path,
+        name: localFile.path,
+      });
+      formData.append('room', idRoom);
+    } else {
+      formData.append('name', form.name);
+      formData.append('_method', 'PUT');
+      formData.append('description', form.description);
+      formData.append('category_id', category || CATEGORY_DEFAULT);
+      formData.append('status_id', STATUS_DEFAULT);
+      formData.append('room', idRoom);
+    }
   }
 
   dispatch({
     type: CREATE_FACILITY_LOADING,
   });
-  axiosInstance
-    .put(`facilities/${idFacility}`, requestPayload)
+
+  axios
+    .post(url, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Credentials': 'true',
+      },
+      validateStatus: function (status) {
+        return status < 500; // Resolve only if the status code is less than 500
+      },
+    })
     .then(res => {
       const result = [res.data.data.facilities];
+      onSuccess();
       dispatch({
         type: CREATE_FACILITY_SUCCESS,
         payload: result,
       });
-      Toast({title: 'Tạo thiết bị mới thành công'});
-      onSuccess();
+      Toast({title: 'Cập nhập thiết bị thành công'});
     })
     .catch(error => {
-      console.log('error creating buliding', error.response.data);
+      Toast({title: 'Vui lòng kiểm tra lại đường truyền'});
+      console.log('error creating buliding', error.response);
       dispatch({
         type: CREATE_FACILITY_FAILED,
         payload: error.response.data,

@@ -95,7 +95,7 @@ const CreatingFacility = ({navigation, route}) => {
   const sheetRef = useRef(null);
   const [name, setName] = useState(form?.name);
   const [category, setCategory] = useState({});
-  const [room, setRooms] = useState({});
+  const [room, setRoom] = useState([]);
   const [status, setStatus] = useState({});
   const [description, setDescription] = useState(form?.description);
   const [isEdited, setIsEdited] = useState(false);
@@ -127,16 +127,29 @@ const CreatingFacility = ({navigation, route}) => {
 
   const onSubmit = async () => {
     const token = await AsyncStorage.getItem('token');
-    console.log(token);
+
+    console.log(
+      isEdited == true &&
+        localFile &&
+        typeof name == 'string' &&
+        typeof description == 'string' &&
+        typeof category == 'number' &&
+        typeof status == 'number',
+    );
+
+    if (status == 2 || status == 4) {
+      setRoom([]);
+    }
+
+    console.log('room', room);
 
     if (
-      isEdited &&
+      isEdited == true &&
       localFile &&
-      name &&
-      description &&
-      category &&
-      room &&
-      status
+      typeof name == 'string' &&
+      typeof description == 'string' &&
+      typeof category == 'number' &&
+      typeof status == 'number'
     ) {
       createFacility(form)(facilitiesDispatch)({
         localFile,
@@ -151,8 +164,8 @@ const CreatingFacility = ({navigation, route}) => {
         setName('');
         setDescription('');
         setCategory('');
-        setRooms({});
-        setStatus({});
+        setRoom([]);
+        setStatus([]);
       });
     } else {
       Alert.alert('Thông báo', 'Vui lòng nhập đủ thông tin!', [
@@ -213,11 +226,13 @@ const CreatingFacility = ({navigation, route}) => {
           value={description}
         />
 
-        <SelectingDropDown
-          title={'Chọn phòng'}
-          data={data_rooms}
-          setState={setRooms}
-        />
+        {status !== 2 && status !== 4 && (
+          <SelectingDropDown
+            title={'Chọn phòng'}
+            data={data_rooms}
+            setState={setRoom}
+          />
+        )}
 
         <SelectingDropDown
           title={'Chọn loại'}

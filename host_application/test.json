@@ -1,45 +1,55 @@
 {
-  "address": "Bình Thạnh",
-  "created_at": "2022-08-04T07:24:05.000000Z",
-  "email": "toaB@gmail.com",
-  "hotline": "0987654321",
-  "id": 116,
-  "name": "Nhà trọ Bảo Nguyên 2",
-  "photos": [],
-  "rooms": [
-    {
-      "building_id": 116,
-      "created_at": "2022-07-26 03:31:26",
-      "created_by_id": 2,
-      "deleted_at": null,
-      "description": "asdfsadfasdf",
-      "id": 4,
-      "room_number": "N104",
-      "status": "Trống",
-      "updated_at": "2022-08-10 07:51:36"
+  "DONE": 4,
+  "HEADERS_RECEIVED": 2,
+  "LOADING": 3,
+  "OPENED": 1,
+  "UNSENT": 0,
+  "_aborted": false,
+  "_cachedResponse": "undefined",
+  "_hasError": true,
+  "_headers": {
+    "accept": "application/json",
+    "access-control-allow-credentials": "true",
+    "access-control-allow-headers": "Content-Type, Authorization",
+    "access-control-allow-methods": "POST",
+    "authorization": "Bearer 161|4lww9AqwdXSIWMV6EBOde9bB2BM7M5NWV4KbspRw",
+    "content-type": "multipart/form-data"
+  },
+  "_incrementalEvents": false,
+  "_lowerCaseResponseHeaders": {},
+  "_method": "POST",
+  "_perfKey": "network_XMLHttpRequest_https://fivebees.ml/api/v1/facilities/187",
+  "_performanceLogger": {
+    "_closed": false,
+    "_extras": {},
+    "_pointExtras": {},
+    "_points": {
+      "initializeCore_end": 1660657641947,
+      "initializeCore_start": 1660657641602
     },
-    {
-      "building_id": 116,
-      "created_at": "2022-08-01 23:45:45",
-      "created_by_id": 2,
-      "deleted_at": null,
-      "description": "Phòng nhỏ như cái lổ mũi",
-      "id": 64,
-      "room_number": "N101",
-      "status": "Trống",
-      "updated_at": "2022-08-12 03:17:11"
-    },
-    {
-      "building_id": 116,
-      "created_at": "2022-08-12 03:19:03",
-      "created_by_id": 2,
-      "deleted_at": null,
-      "description": "Phòng đang bị nghẹt bồn cầu",
-      "id": 73,
-      "room_number": "N106",
-      "status": "Đang sửa chữa",
-      "updated_at": "2022-08-12 03:19:03"
+    "_timespans": {
+      "network_XMLHttpRequest_http://localhost:8081/symbolicate": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/buildings": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/categories": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/facilities": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/facilities/187": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/rooms": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/status": []
     }
-  ],
-  "user_id": 2
+  },
+  "_requestId": null,
+  "_response": "Unrecognized FormData part.",
+  "_responseType": "",
+  "_sent": true,
+  "_subscriptions": [],
+  "_timedOut": false,
+  "_trackingName": "unknown",
+  "_url": "https://fivebees.ml/api/v1/facilities/187",
+  "data": "",
+  "readyState": 4,
+  "responseHeaders": "undefined",
+  "status": 0,
+  "timeout": 0,
+  "upload": {},
+  "withCredentials": true
 }
