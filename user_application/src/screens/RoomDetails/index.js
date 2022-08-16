@@ -63,7 +63,7 @@ const RoomDetails = ({navigation, route}) => {
         contentTextTitleTwo={items.length}
       /> */}
       <View style={{paddingHorizontal: 15, flex: 1}}>
-        {/* Selecting options */}``
+        {/* Selecting options */}
         <FlatList
           // renderItem={renderItem}
           data={[]}

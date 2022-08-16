@@ -4,6 +4,11 @@ export default {
     error: null,
     loading_building: false,
   },
+  getBuildingData: {
+    data: [],
+    error: null,
+    loading_building: false,
+  },
   createBuilding: {
     data: {},
     error: null,

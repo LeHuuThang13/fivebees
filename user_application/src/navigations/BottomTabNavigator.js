@@ -37,17 +37,17 @@ const BottomTabNavigatior = ({navigation, route}) => {
           const WIDTH = 25,
             HEIGHT = 25;
 
-          if (route.name === HOME_BOTTOM) {
+          if (route.name === ROOM_DETAILS) {
             return focused ? (
               <TabBottomMenu
                 svgIcon={<RoomIcon width={WIDTH} height={HEIGHT} />}
                 isFocused={focused}
-                nameIcon={HOME}
+                nameIcon={ROOM_DETAILS}
               />
             ) : (
               <TabBottomMenu
                 svgIcon={<RoomOutLineIcon width={WIDTH} height={HEIGHT} />}
-                nameIcon={BUILDINGS_LIST}
+                nameIcon={ROOM_DETAILS}
               />
             );
           } else if (route.name === NOTIFICATION_BOTTOM) {

@@ -58,7 +58,7 @@ const RoomsList = ({navigation, route}) => {
         return false;
       });
     };
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
     let isMounted = true;
