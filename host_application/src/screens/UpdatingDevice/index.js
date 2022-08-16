@@ -21,6 +21,7 @@ import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import createFacility from '../../context/actions/facilities/createFacility';
 import getCategories from '../../context/actions/categories/getCategories';
+import getRooms from '../../context/actions/rooms/getRooms';
 import SelectDropdown from 'react-native-select-dropdown';
 import {
   MANAGING_FACILITIES,
@@ -29,6 +30,7 @@ import {
 import updateFacility from '../../context/actions/facilities/updateFacility';
 import SelectingDropDown from '../../components/common/SelectDropdown';
 import getStatus from '../../context/actions/status/getStatus';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -60,6 +62,10 @@ const CreatingFacility = ({navigation, route}) => {
     statusState: {
       getStatus: {loading: loading_status, data: data_status},
     },
+    roomsDispatch,
+    roomsState: {
+      getRooms: {loading: loading_rooms, data: data_rooms},
+    },
   } = useContext(GlobalContext);
 
   // Hook fields
@@ -68,11 +74,12 @@ const CreatingFacility = ({navigation, route}) => {
     // Back button real device
     getCategories()(categoriesDispatch);
     getStatus()(statusDispatch);
+    getRooms()(roomsDispatch);
     if (item) {
-      const {name, description, category_id, id} = item;
+      const {name, id, room, description} = item;
       setForm({...form, name, description});
-      setCategory(category_id);
       setIsFacility(id);
+      setRoom(room[0] ? room[0]?.id : []);
     }
     BackHandler.addEventListener('hardwareBackPress', () => {
       navigation.navigate(MANAGING_ROOMS);
@@ -90,7 +97,9 @@ const CreatingFacility = ({navigation, route}) => {
   const [localFile, setLocalFile] = useState(item?.photos[0]);
   const sheetRef = useRef(null);
   const [name, setName] = useState(form?.name);
-  const [category, setCategory] = useState({});
+  const [category, setCategory] = useState(item?.category[0].id);
+  const [status, setStatus] = useState(item?.status[0].id);
+  const [room, setRoom] = useState([]);
   const [description, setDescription] = useState(form?.description);
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -120,31 +129,69 @@ const CreatingFacility = ({navigation, route}) => {
     setIsEdited(true);
   };
 
-  const onSubmit = () => {
-    if (name || localFile || description || category) {
-      updateFacility(form)(facilitiesDispatch)({
-        localFile,
-        category,
-        idFacility,
-      })(() => {
-        navigate(MANAGING_FACILITIES);
-        setForm({});
-        setLocalFile('');
-        setName('');
-        setDescription('');
-        setCategory('');
-        setIsLoading(false);
-      });
-    } else {
-      Alert.alert('Thông báo', 'Bạn có bất kỳ thay đổi nào!', [
-        {
-          text: 'Đã hiểu',
-          onPress: () => console.log('Đã hiểu'),
-          style: 'cancel',
-        },
-      ]);
+  const onSubmit = async () => {
+    let isManagingDevices = true;
+    const token = await AsyncStorage.getItem('token');
+    console.log('--------');
+
+    if (status == 4 || status == 2) {
+      if (name || localFile || description || category || status || room) {
+        updateFacility(form)(facilitiesDispatch)({
+          localFile,
+          idFacility,
+          token,
+          category,
+          room,
+          status,
+          isManagingDevices,
+        })(() => {
+          navigate(MANAGING_FACILITIES);
+          setForm({});
+          setLocalFile('');
+          setName('');
+          setDescription('');
+          setCategory('');
+          setIsLoading(false);
+        });
+      }
+    } else if (status !== 4 || status !== 2) {
+      if (typeof room == 'number') {
+        if (name || localFile || description || category || status || room) {
+          updateFacility(form)(facilitiesDispatch)({
+            localFile,
+            idFacility,
+            token,
+            category,
+            room,
+            status,
+            isManagingDevices,
+          })(() => {
+            navigate(MANAGING_FACILITIES);
+            setForm({});
+            setLocalFile('');
+            setName('');
+            setDescription('');
+            setCategory('');
+            setIsLoading(false);
+          });
+        }
+      } else {
+        Alert.alert('Thông báo', 'Phòng chưa được chọn!', [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      }
     }
   };
+
+  const {name: category_text} = item?.category[0];
+  const {name: status_text} = item?.status[0];
+  const {room_number: room_text} = item?.room[0]
+    ? item?.room[0]
+    : {room_number: null};
 
   return (
     <SafeAreaView
@@ -198,10 +245,24 @@ const CreatingFacility = ({navigation, route}) => {
         />
 
         <SelectingDropDown
-          title={'Loại thiết bị'}
+          title={category_text}
           data={data_categories}
           setState={setCategory}
         />
+
+        <SelectingDropDown
+          title={status_text}
+          data={data_status}
+          setState={setStatus}
+        />
+
+        {status !== 2 && status !== 4 && (
+          <SelectingDropDown
+            title={room_text ? room_text : 'Chưa chọn'}
+            data={data_rooms}
+            setState={setRoom}
+          />
+        )}
 
         <CustomButton
           onPress={onSubmit}

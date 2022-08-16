@@ -90,6 +90,8 @@ const CreatingFacility = ({navigation, route}) => {
     };
   }, [navigation]);
 
+  console.log(category);
+
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
   const sheetRef = useRef(null);

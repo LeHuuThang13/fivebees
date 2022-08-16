@@ -28,7 +28,7 @@ const Account = ({navigation}) => {
   const {id, email, name} = userInfo;
 
   return (
-    <Container>
+    <View>
       <View style={styles.imageWrapper}>
         <Image
           source={require('../../assets/images/avatar.jpg')}
@@ -43,7 +43,7 @@ const Account = ({navigation}) => {
           <Text style={styles.content}>Email: {email}</Text>
         </View>
       </View>
-    </Container>
+    </View>
   );
 };
 

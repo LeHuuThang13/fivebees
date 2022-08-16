@@ -8,4 +8,4 @@ export const NOTIFICATION = 'Thông Báo';
 export const ACCOUNT = 'Tài Khoản';
 export const ACCOUNT_BOTTOM = ' Tài Khoản ';
 export const QRCODE = 'QRcode';
-export const ROOM_DETAILS = 'Chi Tiết Phòng';
+export const ROOM_DETAILS = 'Phòng';

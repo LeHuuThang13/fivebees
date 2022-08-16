@@ -93,7 +93,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name={ANALYST}
-        options={{headerShown: false}}
+        options={{headerShown: true}}
         component={Analyst}
       />
       <Drawer.Screen
@@ -127,6 +127,21 @@ const DrawerNavigator = () => {
         name={LOGOUT}
         options={{swipeEnabled: false}}
         component={Logout}
+      />
+      <Drawer.Screen
+        name={ANALYST_DETAILS_BUILDINGS}
+        options={{swipeEnabled: false}}
+        component={AnalystDetailsBuildings}
+      />
+      <Drawer.Screen
+        name={ANALYST_DETAILS_DEVICE}
+        options={{swipeEnabled: false}}
+        component={AnalystDetailsDevices}
+      />
+      <Drawer.Screen
+        name={ANALYST_DETAILS_ROOMS}
+        options={{swipeEnabled: false}}
+        component={AnalystDetailsRooms}
       />
     </Drawer.Navigator>
   );

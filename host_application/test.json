@@ -1,9 +1,55 @@
 {
-  "cropRect": {"height": 960, "width": 960, "x": 0, "y": 160},
-  "height": 300,
-  "mime": "image/jpeg",
-  "modificationDate": "1660385668000",
-  "path": "file:///storage/emulated/0/Android/data/com.host_application/files/Pictures/a0fa91cd-1ed4-4496-aca6-b80535a2f7a5.jpg",
-  "size": 57224,
-  "width": 300
+  "DONE": 4,
+  "HEADERS_RECEIVED": 2,
+  "LOADING": 3,
+  "OPENED": 1,
+  "UNSENT": 0,
+  "_aborted": false,
+  "_cachedResponse": "undefined",
+  "_hasError": true,
+  "_headers": {
+    "accept": "application/json",
+    "access-control-allow-credentials": "true",
+    "access-control-allow-headers": "Content-Type, Authorization",
+    "access-control-allow-methods": "POST",
+    "authorization": "Bearer 161|4lww9AqwdXSIWMV6EBOde9bB2BM7M5NWV4KbspRw",
+    "content-type": "multipart/form-data"
+  },
+  "_incrementalEvents": false,
+  "_lowerCaseResponseHeaders": {},
+  "_method": "POST",
+  "_perfKey": "network_XMLHttpRequest_https://fivebees.ml/api/v1/facilities/187",
+  "_performanceLogger": {
+    "_closed": false,
+    "_extras": {},
+    "_pointExtras": {},
+    "_points": {
+      "initializeCore_end": 1660657641947,
+      "initializeCore_start": 1660657641602
+    },
+    "_timespans": {
+      "network_XMLHttpRequest_http://localhost:8081/symbolicate": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/buildings": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/categories": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/facilities": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/facilities/187": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/rooms": [],
+      "network_XMLHttpRequest_https://fivebees.ml/api/v1/status": []
+    }
+  },
+  "_requestId": null,
+  "_response": "Unrecognized FormData part.",
+  "_responseType": "",
+  "_sent": true,
+  "_subscriptions": [],
+  "_timedOut": false,
+  "_trackingName": "unknown",
+  "_url": "https://fivebees.ml/api/v1/facilities/187",
+  "data": "",
+  "readyState": 4,
+  "responseHeaders": "undefined",
+  "status": 0,
+  "timeout": 0,
+  "upload": {},
+  "withCredentials": true
 }

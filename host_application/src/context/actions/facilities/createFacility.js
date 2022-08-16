@@ -37,11 +37,9 @@ export default form => dispatch => params => onSuccess => {
     formData.append('room_id', room);
   }
 
-  console.log('form.name', formData);
-
-  // dispatch({
-  //   type: CREATE_FACILITY_LOADING,
-  // });
+  dispatch({
+    type: CREATE_FACILITY_LOADING,
+  });
 
   axios
     .post(url, formData, {

@@ -1,5 +1,12 @@
 import React, {useContext, useEffect} from 'react';
-import {Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  FlatList,
+  ActivityIndicator,
+  BackHandler,
+} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
@@ -33,6 +40,20 @@ const ManagingRoomDetails = ({navigation, route}) => {
   } = useContext(GlobalContext);
 
   useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.navigate(ANALYST);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, [navigation]);
+
+  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getBuildings()(buildingsDispatch);
     });
@@ -59,7 +80,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
 
     return (
       <DeviceAnalyst
-        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        urlImage={{uri: photos[0]}}
         title={`Tòa: `}
         name={`${name}`}
         amountTitle={'Địa chỉ: '}

@@ -6,10 +6,12 @@ import {GlobalContext} from '../context/Provider';
 import {ActivityIndicator, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {navigationRef} from './RootNavigator';
+import {LOGIN_USER_SUCCESS} from '../constants/actionTypes';
 
 const AppNavigator = () => {
   const {
     authState: {isLoggedIn},
+    authDispatch,
   } = useContext(GlobalContext);
 
   const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn);
@@ -21,6 +23,7 @@ const AppNavigator = () => {
       if (user) {
         setAuthLoaded(true);
         setIsAuthenticated(true);
+        authDispatch({type: LOGIN_USER_SUCCESS});
       } else {
         setAuthLoaded(true);
         setIsAuthenticated(false);

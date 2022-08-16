@@ -85,11 +85,13 @@ const ManagingDevices = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {status, name, category_id: category, id, photos} = item;
-
+    const {status, name, id, photos} = item;
+    const {name: status_name} = status[0];
     const imgLink = photos?.[0];
     const imgAlt =
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png';
+
+    console.warn('imgLink', imgLink);
 
     return (
       <Device
@@ -103,7 +105,7 @@ const ManagingDevices = ({navigation, route}) => {
         title={`Sản phẩm`}
         name={`${name}`}
         amountTitle={'Trạng thái'}
-        amount={status}
+        amount={status_name}
         style={{
           marginVertical: 12,
         }}

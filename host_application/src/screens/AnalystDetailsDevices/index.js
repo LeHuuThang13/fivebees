@@ -1,5 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  FlatList,
+  ActivityIndicator,
+  BackHandler,
+} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
@@ -18,8 +25,6 @@ import {useNavigation} from '@react-navigation/native';
 import {GlobalContext} from '../../context/Provider';
 import getFacilities from '../../context/actions/facilities/getFacilities';
 import colors from '../../assets/themes/colors';
-import deleteFacilityById from '../../context/actions/facilities/deleteFacilityById';
-import CustomCreatingButton from '../../components/CustomCreatingButton';
 import DeviceAnalyst from '../../components/common/DeviceAnalyst';
 import Pdf from '../../components/common/PrintAnalystDetailsDevices';
 
@@ -42,6 +47,20 @@ const ManagingRoomDetails = ({navigation, route}) => {
       getFacilities: {data, loading},
     },
   } = useContext(GlobalContext);
+
+  useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.navigate(ANALYST);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, [navigation]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -67,11 +86,10 @@ const ManagingRoomDetails = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {category, name, photo, status, room} = item;
-
+    const {category, name, photos, status, room} = item;
     return (
       <DeviceAnalyst
-        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        urlImage={{uri: photos[0]}}
         title={`Sản phẩm`}
         name={`${name}`}
         amountTitle={'Loại '}
