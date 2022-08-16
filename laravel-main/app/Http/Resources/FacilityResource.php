@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Category;
+use App\Models\Status;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FacilityResource extends JsonResource
@@ -24,8 +26,8 @@ class FacilityResource extends JsonResource
             'name' => $this->name,
             'code' => $this->code,
             'description' => $this->description,
-            'status' => $this->status->name,
-            'category' => $this->categories->name,
+            'status' => Status::where('id', $this->status_id)->select('id', 'name')->get(),
+            'category' => Category::where('id', $this->category_id)->select('id', 'name')->get(),
             'room' => $this->rooms,
             'photos' => $photos
         ];

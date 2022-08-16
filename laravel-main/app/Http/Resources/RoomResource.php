@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Building;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RoomResource extends JsonResource
@@ -24,18 +25,9 @@ class RoomResource extends JsonResource
             'room_number' => $this->room_number,
             'description' => $this->description,
             'status' => $this->status,
-            'building_id' => $this->building_id,
+            'building_id' => Building::where('id', $this->building_id)->select('id', 'name')->get(),
             'photos' => $photos,
-            'facilities' => [
-                'id' => $this->facilities->last()->id ?? null,
-                'code' => $this->facilities->last()->code ?? null,
-                'name' => $this->facilities->last()->name ?? null,
-                'description' => $this->facilities->last()->description ?? null,
-                'status' => $this->facilities->last()->status->name ?? null,
-                'category' => $this->facilities->last()->categories->name ?? null,
-                'created_at' => $this->facilities->last()->created_at ?? null,
-                'updated_at' => $this->facilities->last()->updated_at ?? null,
-            ],
+            'facilities' => $this->facilities,
         ];
     }
 }
