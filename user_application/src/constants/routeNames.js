@@ -1,1 +1,11 @@
-// file này chứa tất cả các tên route của các stack
+export const LOGIN = 'LOGIN';
+export const REGISTER = 'REGISTER';
+export const LOGOUT = 'Đăng Xuất';
+export const HOME = 'Trang Chủ';
+export const HOME_BOTTOM = ' Trang Chủ ';
+export const NOTIFICATION_BOTTOM = ' Thông Báo ';
+export const NOTIFICATION = 'Thông Báo';
+export const ACCOUNT = 'Tài Khoản';
+export const ACCOUNT_BOTTOM = ' Tài Khoản ';
+export const QRCODE = 'QRcode';
+export const ROOM_DETAILS = 'Chi Tiết Phòng';

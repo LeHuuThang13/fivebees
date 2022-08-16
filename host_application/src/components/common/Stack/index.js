@@ -12,7 +12,6 @@ import Analyst from '../../../screens/Analyst';
 import Introduce from '../../../screens/Introduct';
 import QRCode from '../../../screens/QRCode';
 import RoomDetails from '../../../screens/RoomDetails';
-import Settings from '../../../screens/Settings';
 
 const getCommon = Stack => {
   return [

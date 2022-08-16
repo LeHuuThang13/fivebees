@@ -16,6 +16,7 @@ export default StyleSheet.create({
   textOptions: {
     fontWeight: '600',
     fontSize: 16,
+    color: colors.secondary,
   },
 
   blockSeparate: {

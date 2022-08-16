@@ -1,22 +1,22 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import colors from '../../assets/themes/colors';
+import Setting from '../../assets/icons/setting_white.svg';
 import styles from './styles';
-import PreviousIcon from '../../assets/icons/previous_icon.svg';
+import Room from '../../components/common/Room';
+import IconRoom from '../../assets/icons/room_outline.svg';
+
+import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import {GlobalContext} from '../../context/Provider';
 import getBuildings from '../../context/actions/buildings/getBuildings';
-const RoomList = ({navigation, route}) => {
-  const {idBuilding} = route.params;
+import {ROOM_LIST} from '../../constants/routeNames';
 
-  SettingHeaderNavigator.settingChildHeaderNavigator({
-    Icon: PreviousIcon,
+const BuildingsList = ({navigation, route}) => {
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: IconMenu,
     styles: {
       marginHorizontal: 10,
-    },
-    onPressBtn: () => {
-      navigation.goBack();
     },
   });
 
@@ -27,8 +27,9 @@ const RoomList = ({navigation, route}) => {
     },
   } = useContext(GlobalContext);
 
+  const [isloaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    getBuildings(idBuilding)(buildingsDispatch);
+    getBuildings(setIsLoaded)(buildingsDispatch);
   }, []);
 
   const ListEmptyComponent = () => {
@@ -44,55 +45,58 @@ const RoomList = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    console.log(item);
-    item = item[0].rooms;
-    const Room = item.map(item => {
-      const {room_number, facilities, status} = item;
-      function countDamagedFacilities(total, curVal) {
-        return curVal.status_id === 3 || curVal.status_id === undefined
-          ? total++
-          : total;
-      }
+    const {name, rooms, id} = item;
+    let roomsTotal;
 
-      // const damagedFacilities = facilities.reduce(countDamagedFacilities, 0);
-
-      // return (
-      //   <Room
-      //     roomName={`Phòng ${room_number}`}
-      //     status={status}
-      //     // totalDevices={facilities.length}
-      //     // totalBrokenDevices={damagedFacilities}
-      //     disabled={facilities.length > 0 ? false : true}
-      //     IconDevice={Device}
-      //     IconBrokenDevice={BrokenDevice}
-      //     IconSetting={Setting}
-      //     onPress={() => {
-      //       navigation.navigate(ROOMDETAILS);
-      //     }}
-      //   />
-      // );
-    });
-
-    return Room;
-  };
-  return (
-    <View style={{paddingHorizontal: 15}}>
-      {/* Selecting options */}
-
-      {Object.keys(data_building).length > 0 ? (
-        <FlatList
-          renderItem={renderItem}
-          data={[data_building]}
-          extraData={data_building}
-          style={styles.FlatList}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={ListEmptyComponent}
+    if (item !== '') {
+      roomsTotal =
+        rooms.length > 0
+          ? rooms.reduce(function (total, curVal) {
+              return (total += 1);
+            }, 0)
+          : 0;
+      return (
+        <Room
+          roomName={`${name}`}
+          IconDevice={IconRoom}
+          isNotManaging={true}
+          IconSetting={Setting}
+          totalDevices={roomsTotal}
+          textTotalDevices={'Số lượng phòng:'}
+          btnTitle={'Xem phòng'}
+          onPress={() => {
+            navigation.navigate(ROOM_LIST, {
+              id_building: id,
+            });
+          }}
         />
+      );
+    }
+  };
+
+  return (
+    <>
+      {isloaded ? (
+        <View style={{paddingHorizontal: 15}}>
+          {/* Selecting options */}
+
+          {loading_building ? (
+            <ActivityIndicator size="large" color={colors.secondary} />
+          ) : (
+            <FlatList
+              renderItem={renderItem}
+              data={data_building}
+              style={styles.FlatList}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={ListEmptyComponent}
+            />
+          )}
+        </View>
       ) : (
-        <ActivityIndicator size="large" color={colors.secondary} />
+        <ActivityIndicator />
       )}
-    </View>
+    </>
   );
 };
 
-export default RoomList;
+export default BuildingsList;

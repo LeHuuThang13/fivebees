@@ -1,44 +1,48 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import colors from '../assets/themes/colors';
 import {
   ANALYST,
+  ANALYST_DETAILS_BUILDINGS,
+  ANALYST_DETAILS_DEVICE,
+  ANALYST_DETAILS_ROOMS,
   BUILDINGDETAILS,
   BUILDINGS_LIST,
   CREATING_BUILDING,
+  CREATING_FACILITY,
   CREATING_ROOM,
-  EDITING_DEVICE,
+  UPDATING_FACILITY,
   HOME_NAVIGATOR,
   INTRODUCE,
   LOGOUT,
   MANAGE,
   MANAGING_BUILDING,
-  MANAGING_DEVICES,
+  MANAGING_FACILITIES,
   MANAGING_ROOMS,
   MANAGING_ROOM_DETAILS,
   QRCODE,
   ROOMDETAILS,
   ROOM_LIST,
   SETTINGS,
-  TOTAL_FIXING_DEVICES,
+  TOTAL_FIXING_FACILITIES,
+  UPDATING_BUILDING,
+  UPDATING_ROOM,
+  CREATING_MANAGING_FACILITY,
+  UPDATING_DEVICE,
+  ROOT,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
 import Managing from '../screens/Managing';
 import RoomDetails from '../screens/RoomDetails';
-import RoomList from '../screens/RoomList';
-import Settings from '../screens/Settings';
 import QRCode from '../screens/QRCode';
 import ManagingDevices from '../screens/ManagingDevices';
 import BottomTabNavigatior from './BottomTabNavigator';
 import BuildlingDetails from '../screens/EditBuildingDetails';
 import SideMenu from './SideMenu';
-import TotalFixingDevices from '../screens/TotalFixingDevices';
 import ManagingBuildings from '../screens/ManagingBuildings';
-import EditingDevice from '../screens/EditingDevice';
-import BulidingsList from '../screens/BuildingsList';
+import UpdatingBuilding from '../screens/UpdatingBuilding';
+import UpdatingFacility from '../screens/UpdatingFacility';
+import BuildingsList from '../screens/BuildingsList';
 import Logout from '../screens/Logout';
 // import CreatingRoom from '../screens/CreatingRoom';
 import CreatingBuilding from '../screens/CreatingBuilding';
@@ -46,11 +50,24 @@ import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 import {GlobalContext} from '../context/Provider';
 import ManagingRooms from '../screens/ManagingRooms';
 import CreatingRoom from '../screens/CreatingRoom';
+import RoomsList from '../screens/RoomsList';
+import CreatingFacility from '../screens/CreatingFacility';
+import CreatingManagingFacility from '../screens/CreatingDevice';
+import AnalystDetailsDevices from '../screens/AnalystDetailsDevices';
+import AnalystDetailsBuildings from '../screens/AnalystDetailsBuildings';
+import AnalystDetailsRooms from '../screens/AnalystDetailsRooms';
+import UpdatingRoom from '../screens/UpdatingRoom';
+import UpdatingDevice from '../screens/UpdatingDevice';
+import {useNavigation} from '@react-navigation/native';
+import ManagingNavigator from './ManagingNavigator';
+import ManagingBuilding from '../screens/ManagingBuildings';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
 
   const {authDispatch} = useContext(GlobalContext);
+
+  const {navigate} = useNavigation();
 
   //Render Image on sidebar
   const getDrawerContent = (navigation, authDispatch) => {
@@ -59,6 +76,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerType="slide"
+      initialRouteName={HOME_NAVIGATOR}
       screenOptions={{
         headerShown: true,
         drawerStyle: {
@@ -73,75 +91,43 @@ const DrawerNavigator = () => {
         options={{headerShown: false}}
         component={BottomTabNavigatior}
       />
-      {/* Room Screens */}
-      <Drawer.Screen name={ROOM_LIST} component={RoomList} />
       <Drawer.Screen
-        name={MANAGING_ROOMS}
-        options={{swipeEnabled: false}}
-        component={ManagingRooms}
+        name={ANALYST}
+        options={{headerShown: false}}
+        component={Analyst}
       />
       <Drawer.Screen
-        name={ROOMDETAILS}
-        options={{swipeEnabled: false}}
-        component={RoomDetails}
+        name={QRCODE}
+        options={{headerShown: false}}
+        component={QRCode}
+      />
+      {/* Home */}
+      <Drawer.Screen
+        name={ROOM_LIST}
+        options={{headerShown: true}}
+        component={RoomsList}
+      />
+      {/* Manage */}
+      <Drawer.Screen
+        name={MANAGE}
+        options={{headerShown: false}}
+        component={ManagingNavigator}
       />
       <Drawer.Screen
-        name={CREATING_ROOM}
-        options={{swipeEnabled: false}}
-        component={CreatingRoom}
+        name={MANAGING_FACILITIES}
+        options={{headerShown: false}}
+        component={ManagingDevices}
       />
       <Drawer.Screen
-        name={MANAGING_ROOM_DETAILS}
-        options={{swipeEnabled: false}}
-        component={ManagingRoomDetails}
+        name={INTRODUCE}
+        options={{headerShown: false}}
+        component={Introduce}
       />
-
-      <Drawer.Screen name={ANALYST} component={Analyst} />
-      <Drawer.Screen name={MANAGE} component={Managing} />
-      <Drawer.Screen name={QRCODE} component={QRCode} />
-      <Drawer.Screen name={SETTINGS} component={Settings} />
       <Drawer.Screen
         name={LOGOUT}
         options={{swipeEnabled: false}}
         component={Logout}
       />
-      <Drawer.Screen
-        name={EDITING_DEVICE}
-        options={{swipeEnabled: false}}
-        component={EditingDevice}
-      />
-      {/* Buildings screens */}
-      <Drawer.Screen
-        name={BUILDINGS_LIST}
-        options={{swipeEnabled: false}}
-        component={BulidingsList}
-      />
-      <Drawer.Screen
-        name={BUILDINGDETAILS}
-        options={{swipeEnabled: false}}
-        component={BuildlingDetails}
-      />
-      <Drawer.Screen
-        name={MANAGING_BUILDING}
-        options={{swipeEnabled: false}}
-        component={ManagingBuildings}
-      />
-      <Drawer.Screen
-        name={CREATING_BUILDING}
-        options={{swipeEnabled: false}}
-        component={CreatingBuilding}
-      />
-      <Drawer.Screen
-        name={MANAGING_DEVICES}
-        options={{swipeEnabled: false}}
-        component={ManagingDevices}
-      />
-      <Drawer.Screen
-        name={TOTAL_FIXING_DEVICES}
-        options={{swipeEnabled: false}}
-        component={TotalFixingDevices}
-      />
-      <Drawer.Screen name={INTRODUCE} component={Introduce} />
     </Drawer.Navigator>
   );
 };

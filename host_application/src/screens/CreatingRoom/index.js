@@ -12,10 +12,11 @@ import {useNavigation} from '@react-navigation/native';
 import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import createRoomByIdBuilding from '../../context/actions/rooms/createRoomByIdBuilding';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingRoom = ({navigation, route}) => {
   const {navigate} = useNavigation();
-  const {id_room: id} = route.params;
+  const {id_room, id_building, name_building} = route.params;
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -24,7 +25,14 @@ const CreatingRoom = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_ROOMS);
+      navigate({
+        name: MANAGING_ROOMS,
+        params: {
+          id_building: id_building,
+          name_building: name_building,
+        },
+        merge: true,
+      });
     },
   });
 
@@ -41,7 +49,14 @@ const CreatingRoom = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_ROOMS);
+      navigate({
+        name: MANAGING_ROOMS,
+        params: {
+          id_building: id_building,
+          name_building: name_building,
+        },
+        merge: true,
+      });
       return true;
     });
 
@@ -82,10 +97,13 @@ const CreatingRoom = ({navigation, route}) => {
     setForm({...form, [name]: value});
   };
 
-  const onSubmit = () => {
-    createRoomByIdBuilding(form)(roomsDispatch)(localFile)(id)(() => {
+  const onSubmit = async () => {
+    const token = await AsyncStorage.getItem('token');
+    createRoomByIdBuilding(form)(roomsDispatch)({localFile, token})(
+      id_building,
+    )(() => {
       navigate(MANAGING_ROOMS, {
-        id_building: id,
+        id_building: id_building,
       });
       setForm({});
       setLocalFile('');
