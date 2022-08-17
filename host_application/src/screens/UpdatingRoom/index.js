@@ -6,6 +6,7 @@ import {
   View,
   BackHandler,
   Alert,
+  ScrollView,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -21,11 +22,16 @@ import styles from '../../components/CustomButton/styles';
 import createRoomByIdBuilding from '../../context/actions/rooms/createRoomByIdBuilding';
 import editRoom from '../../context/actions/rooms/editRoom';
 import getSingleRoom from '../../context/actions/rooms/getSingleRoom';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  ANNOUNCE,
+  DATA_HAS_NOT_CHANGED,
+  PLEASE_FILL_DATA,
+} from '../../constants/actions';
 
 const UpdatingRoom = ({navigation, route}) => {
   const {navigate} = useNavigation();
-  const {room, id_room, id_building, name_building} = route.params;
-  console.log('route.params,route.params', id_room);
+  const {id_room, id_building, name_building} = route.params;
 
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -48,19 +54,17 @@ const UpdatingRoom = ({navigation, route}) => {
   const {
     roomsDispatch,
     roomsState: {
-      getRoom: {loading: loading_room, data, error},
+      getRoom: {loading: loading_room, data},
+      updateRoom: {loading: loading_update, error},
     },
   } = useContext(GlobalContext);
 
   // Hook fields
-  console.log('data', data);
-  console.log('data', id_room);
-
   useEffect(() => {
     let isMounted = true;
     if (id_room) {
       getSingleRoom(id_room)(roomsDispatch)(isMounted);
-      const {building_id, description, room_number, status, photos} = room;
+      const {building_id, description, room_number, status} = data;
       setForm({...form, building_id, description, room_number, status});
     }
 
@@ -79,11 +83,11 @@ const UpdatingRoom = ({navigation, route}) => {
   }, [navigation]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState(room?.photos?.[0]);
+  const [localFile, setLocalFile] = useState(data?.photos?.[0]);
   const sheetRef = useRef(null);
-  const [roomNumber, setRoomNumber] = useState(room?.room_number);
-  const [status, setStatus] = useState(room?.status);
-  const [description, setDescription] = useState(room?.description);
+  const [roomNumber, setRoomNumber] = useState(data?.room_number);
+  const [status, setStatus] = useState(data?.status);
+  const [description, setDescription] = useState(data?.description);
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -112,7 +116,7 @@ const UpdatingRoom = ({navigation, route}) => {
     setIsEdited(true);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (
       typeof roomNumber == 'string' &&
       typeof status == 'string' &&
@@ -123,19 +127,22 @@ const UpdatingRoom = ({navigation, route}) => {
       description.trim() !== ''
     ) {
       if (isEdited) {
-        editRoom(form)(roomsDispatch)(localFile)(id_building)(id_room)(() => {
-          navigate(MANAGING_ROOMS, {
-            id_building: id_building,
-          });
-          setForm({});
-          setLocalFile('');
-          setRoomNumber('');
-          setDescription('');
-          setStatus('');
-          setIsLoading(false);
-        });
+        const token = await AsyncStorage.getItem('token');
+        editRoom(form)(roomsDispatch)({localFile, token})(id_building)(id_room)(
+          () => {
+            navigate(MANAGING_ROOMS, {
+              id_building: id_building,
+            });
+            setForm({});
+            setLocalFile('');
+            setRoomNumber('');
+            setDescription('');
+            setStatus('');
+            setIsLoading(false);
+          },
+        );
       } else {
-        Alert.alert('Thông báo', 'Dữ liệu chưa được thay đổi', [
+        Alert.alert(ANNOUNCE, DATA_HAS_NOT_CHANGED, [
           {
             text: 'Đã hiểu',
             onPress: () => console.log('Đã hiểu'),
@@ -144,7 +151,7 @@ const UpdatingRoom = ({navigation, route}) => {
         ]);
       }
     } else {
-      Alert.alert('Thông báo', 'Vui lòng nhập đầy đủ thông tin', [
+      Alert.alert(ANNOUNCE, PLEASE_FILL_DATA, [
         {
           text: 'Đã hiểu',
           onPress: () => console.log('Đã hiểu'),
@@ -156,13 +163,13 @@ const UpdatingRoom = ({navigation, route}) => {
 
   return (
     <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
-      <View>
+      <ScrollView>
         <View style={styles.imageWrapper}>
           {!!localFile && (
             <Image
               width={150}
               height={150}
-              source={{uri: localFile?.path}}
+              source={{uri: localFile?.path ? localFile?.path : localFile}}
               style={styles.imageView}
             />
           )}
@@ -190,7 +197,7 @@ const UpdatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập tên phòng"
           value={form.room_number}
-          error={roomNumber === '' && error?.errors?.room_number?.[0]}
+          error={error?.errors?.room_number?.[0]}
         />
 
         <CustomInput
@@ -201,7 +208,7 @@ const UpdatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập tên trạng thái phòng"
           value={form.status}
-          error={status === '' && error?.errors?.status?.[0]}
+          error={error?.errors?.status?.[0]}
         />
 
         <CustomInput
@@ -212,7 +219,7 @@ const UpdatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập mô tả"
           value={form.description}
-          error={description === '' && error?.errors?.description?.[0]}
+          error={error?.errors?.description?.[0]}
         />
 
         <CustomButton
@@ -223,7 +230,7 @@ const UpdatingRoom = ({navigation, route}) => {
           disabled={loading_room || isLoading}
           error={error}
         />
-      </View>
+      </ScrollView>
 
       <ImagePicker
         ref={sheetRef}

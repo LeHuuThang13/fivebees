@@ -17,6 +17,9 @@ import {
   GET_SINGLE_ROOM_FAILED,
   GET_SINGLE_ROOM_SUCCESS,
   GET_SINGLE_ROOM_LOADING,
+  UPDATE_ROOM_LOADING,
+  UPDATE_ROOM_SUCCESS,
+  UPDATE_ROOM_FAILED,
 } from '../../constants/actionTypes';
 
 const rooms = (state, {type, payload}) => {
@@ -58,6 +61,45 @@ const rooms = (state, {type, payload}) => {
           ...state.deleteRoom,
           loading: false,
           error: null,
+        },
+      };
+
+    // Update
+    case UPDATE_ROOM_LOADING:
+      return {
+        ...state,
+        updateRoom: {
+          ...state.updateRoom,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case UPDATE_ROOM_SUCCESS:
+      return {
+        ...state,
+        updateRoom: {
+          ...state.updateRoom,
+          loading: false,
+          error: null,
+          data: payload,
+        },
+
+        getRooms: {
+          ...state.getRooms,
+          loading: false,
+          data: [...state.getRooms.data, payload],
+          error: null,
+        },
+      };
+
+    case UPDATE_ROOM_FAILED:
+      return {
+        ...state,
+        updateRoom: {
+          ...state.updateRoom,
+          loading: false,
+          error: payload,
         },
       };
 

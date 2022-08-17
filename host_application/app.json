@@ -1,36 +1,4 @@
 {
-  "building_id": [{"id": 110, "name": "Nhà trọ Bảo Nguyên 1"}],
-  "description": "Phòng bé xíu",
-  "facilities": [
-    {
-      "category_id": 3,
-      "code": "20220812-035429-2-0006",
-      "created_at": "2022-08-12 03:54:29",
-      "created_by_id": 2,
-      "deleted_at": null,
-      "description": "Quạt càng mở càng nóng",
-      "id": 81,
-      "name": "Quạt đứng cho phòng 2 người",
-      "pivot": [],
-      "status_id": 1,
-      "updated_at": "2022-08-12 07:09:00"
-    },
-    {
-      "category_id": 1,
-      "code": "20220812-034445-2-0001",
-      "created_at": "2022-08-12 03:44:45",
-      "created_by_id": 2,
-      "deleted_at": null,
-      "description": "undefined",
-      "id": 76,
-      "name": "Giường ngủ 12",
-      "pivot": [],
-      "status_id": 1,
-      "updated_at": "2022-08-16 04:32:58"
-    }
-  ],
-  "id": 3,
-  "photos": ["http://fivebees.ml/storage/69/cho-thue-phong-tro_1613975723.jpg"],
-  "room_number": "N103",
-  "status": "Đang sửa chữa"
+  "name": "host_application",
+  "displayName": "host_application"
 }

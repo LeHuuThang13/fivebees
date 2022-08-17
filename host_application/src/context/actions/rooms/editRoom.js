@@ -1,43 +1,67 @@
 import {
-  CREATE_ROOM_BY_ID_BUILDING_FAILED,
-  CREATE_ROOM_BY_ID_BUILDING_SUCCESS,
-  CREATE_ROOM_BY_ID_BUILDING_LOADING,
+  UPDATE_ROOM_LOADING,
+  UPDATE_ROOM_FAILED,
+  UPDATE_ROOM_SUCCESS,
 } from '../../../constants/actionTypes';
-import axiosInstance from '../../../helpers/axiosInterceptor';
+import envs from '../../../config/env';
 import {Toast} from '../../../components/Toast';
+import axios from 'axios';
 
 export default form =>
   dispatch =>
-  localFileImage =>
+  ({localFile, token}) =>
   idBuilding =>
   idRoom =>
   onSuccess => {
-    const requestPayload = {
-      room_number: form.room_number || '',
-      status: form.status || '',
-      description: form.description || '',
-      building_id: idBuilding,
-      filenames: localFileImage.path || 'lksajklfjaksldf.png',
-    };
+    const formData = new FormData();
+    const url = envs.BACKEND_URL + `/rooms/${idRoom}`;
+
+    // formData.append('room_number', form.room_number);
+    formData.append('_method', 'PUT');
+    formData.append('status', form.status);
+    formData.append('description', form.description);
+    formData.append('idBuilding', idBuilding);
+    formData.append('filenames', {
+      type: 'image/jpeg',
+      uri: localFile.path,
+      name: localFile.path,
+    });
 
     dispatch({
-      type: CREATE_ROOM_BY_ID_BUILDING_LOADING,
+      type: UPDATE_ROOM_LOADING,
     });
-    axiosInstance
-      .put(`rooms/${idRoom}`, requestPayload)
+
+    axios
+      .post(url, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Credentials': 'true',
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      })
       .then(res => {
+        onSuccess();
         dispatch({
-          type: CREATE_ROOM_BY_ID_BUILDING_SUCCESS,
+          type: UPDATE_ROOM_SUCCESS,
           payload: res.data.data,
         });
-        Toast({title: 'Tạo tòa nhà mới thành công'});
-        onSuccess();
+        Toast({title: 'Cập nhập thành công'});
       })
       .catch(error => {
-        console.log('error creating buliding', error.response.data);
-        dispatch({
-          type: CREATE_ROOM_BY_ID_BUILDING_FAILED,
-          payload: error.response.data,
-        });
+        if (error.response.status === 0) {
+          Toast({title: 'Vui lòng kiểm tra lại đường truyền'});
+        } else {
+          Toast({title: 'Cập nhập thất bại'});
+          dispatch({
+            type: UPDATE_ROOM_FAILED,
+            payload: error.response.data,
+          });
+        }
       });
   };
