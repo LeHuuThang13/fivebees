@@ -79,7 +79,7 @@ const CreatingFacility = ({navigation, route}) => {
     fetchData();
 
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_ROOMS);
+      navigation.navigate(MANAGING_FACILITIES);
       return true;
     });
 

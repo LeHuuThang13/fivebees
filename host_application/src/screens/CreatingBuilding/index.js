@@ -7,6 +7,7 @@ import {
   DevSettings,
   BackHandler,
   ScrollView,
+  Alert,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -99,20 +100,36 @@ const CreatingBuilding = ({navigation}) => {
   };
 
   const onSubmit = async () => {
-    if (localFile?.size) {
-      setIsUploading(false);
-      const token = await AsyncStorage.getItem('token');
-      createBuilding(form)(buildingsDispatch)({localFile, token})(() => {
-        navigate(MANAGING_BUILDING);
-        setForm({});
-        setLocalFile('');
-        setAddress('');
-        setEmail('');
-        setName('');
-        sethotline('');
-      });
+    if (
+      typeof name == 'string' &&
+      typeof email == 'string' &&
+      typeof address == 'string' &&
+      typeof hotline == 'string' &&
+      localFile
+    ) {
+      if (localFile?.size) {
+        setIsUploading(false);
+        const token = await AsyncStorage.getItem('token');
+        createBuilding(form)(buildingsDispatch)({localFile, token})(() => {
+          navigate(MANAGING_BUILDING);
+          setForm({});
+          setLocalFile('');
+          setAddress('');
+          setEmail('');
+          setName('');
+          sethotline('');
+        });
+      } else {
+        setIsUploading(true);
+      }
     } else {
-      setIsUploading(true);
+      Alert.alert('Thông báo', 'Vui lòng nhập đầy đủ trường dữ liệu', [
+        {
+          text: 'Đã hiểu',
+          onPress: () => console.log('Đã hiểu'),
+          style: 'cancel',
+        },
+      ]);
     }
   };
 
@@ -152,7 +169,7 @@ const CreatingBuilding = ({navigation}) => {
           }}
           placeholder="Nhập tên tòa nhà"
           value={name}
-          error={name === '' && error?.errors?.name?.[0]}
+          error={error?.errors?.name?.[0]}
         />
 
         <CustomInput
@@ -163,7 +180,7 @@ const CreatingBuilding = ({navigation}) => {
           }}
           placeholder="Nhập tên email"
           value={email}
-          error={email === '' && error?.errors?.email?.[0]}
+          error={error?.errors?.email?.[0]}
         />
 
         <CustomInput
@@ -174,7 +191,7 @@ const CreatingBuilding = ({navigation}) => {
           }}
           placeholder="Nhập địa chỉ"
           value={address}
-          error={address === '' && error?.errors?.address?.[0]}
+          error={error?.errors?.address?.[0]}
         />
 
         <CustomInput
@@ -185,7 +202,7 @@ const CreatingBuilding = ({navigation}) => {
           }}
           placeholder="Nhập số điện thoại"
           value={hotline}
-          error={hotline === '' && error?.errors?.hotline?.[0]}
+          error={error?.errors?.hotline?.[0]}
         />
 
         <CustomButton

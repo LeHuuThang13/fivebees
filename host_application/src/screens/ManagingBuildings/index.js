@@ -28,7 +28,7 @@ import {useNavigation} from '@react-navigation/native';
 import MorePopupMenu from '../../components/common/MorePopupMenu';
 import deleteBuilding from '../../context/actions/buildings/deleteBuilding';
 
-const ManagingBuilding = ({navigation}) => {
+const ManagingBuilding = ({navigation, route}) => {
   const {navigate} = useNavigation();
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -63,11 +63,11 @@ const ManagingBuilding = ({navigation}) => {
         return false;
       });
     };
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
     getBuildings(setIsLoaded)(buildingsDispatch);
-  }, [navigation]);
+  }, [route]);
 
   const ListEmptyComponent = () => {
     return (

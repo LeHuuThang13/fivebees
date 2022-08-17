@@ -40,12 +40,12 @@ export default form =>
         },
       })
       .then(res => {
+        onSuccess();
         dispatch({
           type: CREATE_BUILDING_SUCCESS,
           payload: res.data.data,
         });
         Toast({title: 'Tạo thiết bị mới thành công'});
-        onSuccess();
       })
       .catch(error => {
         console.log('error creating building', error.response.data);

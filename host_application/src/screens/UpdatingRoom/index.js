@@ -20,10 +20,12 @@ import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import createRoomByIdBuilding from '../../context/actions/rooms/createRoomByIdBuilding';
 import editRoom from '../../context/actions/rooms/editRoom';
+import getSingleRoom from '../../context/actions/rooms/getSingleRoom';
 
-const CreatingRoom = ({navigation, route}) => {
+const UpdatingRoom = ({navigation, route}) => {
   const {navigate} = useNavigation();
   const {room, id_room, id_building, name_building} = route.params;
+  console.log('route.params,route.params', id_room);
 
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -46,14 +48,18 @@ const CreatingRoom = ({navigation, route}) => {
   const {
     roomsDispatch,
     roomsState: {
-      createRoom: {loading: loading_room, error},
+      getRoom: {loading: loading_room, data, error},
     },
   } = useContext(GlobalContext);
 
   // Hook fields
+  console.log('data', data);
+  console.log('data', id_room);
 
   useEffect(() => {
-    if (room) {
+    let isMounted = true;
+    if (id_room) {
+      getSingleRoom(id_room)(roomsDispatch)(isMounted);
       const {building_id, description, room_number, status, photos} = room;
       setForm({...form, building_id, description, room_number, status});
     }
@@ -65,18 +71,19 @@ const CreatingRoom = ({navigation, route}) => {
     });
 
     return () => {
+      isMounted = false;
       BackHandler.removeEventListener('hardwareBackPress', () => {
         return false;
       });
     };
-  }, [route]);
+  }, [navigation]);
 
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState(room?.photos?.[0]);
   const sheetRef = useRef(null);
-  const [roomNumber, setRoomNumber] = useState(form?.room_number);
-  const [status, setStatus] = useState(form?.status);
-  const [description, setDescription] = useState(form?.description);
+  const [roomNumber, setRoomNumber] = useState(room?.room_number);
+  const [status, setStatus] = useState(room?.status);
+  const [description, setDescription] = useState(room?.description);
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -106,20 +113,38 @@ const CreatingRoom = ({navigation, route}) => {
   };
 
   const onSubmit = () => {
-    if (isEdited) {
-      editRoom(form)(roomsDispatch)(localFile)(id_building)(id_room)(() => {
-        navigate(MANAGING_ROOMS, {
-          id_building: id_building,
+    if (
+      typeof roomNumber == 'string' &&
+      typeof status == 'string' &&
+      typeof description == 'string' &&
+      localFile &&
+      roomNumber.trim() !== '' &&
+      status.trim() !== '' &&
+      description.trim() !== ''
+    ) {
+      if (isEdited) {
+        editRoom(form)(roomsDispatch)(localFile)(id_building)(id_room)(() => {
+          navigate(MANAGING_ROOMS, {
+            id_building: id_building,
+          });
+          setForm({});
+          setLocalFile('');
+          setRoomNumber('');
+          setDescription('');
+          setStatus('');
+          setIsLoading(false);
         });
-        setForm({});
-        setLocalFile('');
-        setRoomNumber('');
-        setDescription('');
-        setStatus('');
-        setIsLoading(false);
-      });
+      } else {
+        Alert.alert('Thông báo', 'Dữ liệu chưa được thay đổi', [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      }
     } else {
-      Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+      Alert.alert('Thông báo', 'Vui lòng nhập đầy đủ thông tin', [
         {
           text: 'Đã hiểu',
           onPress: () => console.log('Đã hiểu'),
@@ -211,4 +236,4 @@ const CreatingRoom = ({navigation, route}) => {
   );
 };
 
-export default CreatingRoom;
+export default UpdatingRoom;

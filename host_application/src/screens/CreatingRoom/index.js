@@ -1,5 +1,13 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import {Image, Text, TouchableOpacity, View, BackHandler} from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  BackHandler,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
@@ -94,28 +102,46 @@ const CreatingRoom = ({navigation, route}) => {
   };
 
   const onChange = ({name, value}) => {
-    setForm({...form, [name]: value});
+    setForm({...form, [name]: value.trim()});
   };
 
   const onSubmit = async () => {
-    const token = await AsyncStorage.getItem('token');
-    createRoomByIdBuilding(form)(roomsDispatch)({localFile, token})(
-      id_building,
-    )(() => {
-      navigate(MANAGING_ROOMS, {
-        id_building: id_building,
+    if (
+      typeof roomNumber == 'string' &&
+      typeof status == 'string' &&
+      typeof description == 'string' &&
+      localFile &&
+      roomNumber.trim() !== '' &&
+      status.trim() !== '' &&
+      description.trim() !== ''
+    ) {
+      const token = await AsyncStorage.getItem('token');
+      createRoomByIdBuilding(form)(roomsDispatch)({localFile, token})(
+        id_building,
+      )(() => {
+        navigate(MANAGING_ROOMS, {
+          id_building: id_building,
+        });
+        setForm({});
+        setLocalFile('');
+        setRoomNumber('');
+        setDescription('');
+        setStatus('');
       });
-      setForm({});
-      setLocalFile('');
-      setRoomNumber('');
-      setDescription('');
-      setStatus('');
-    });
+    } else {
+      Alert.alert('Thông báo', 'Vui lòng nhập đầy đủ trường dữ liệu', [
+        {
+          text: 'Đã hiểu',
+          onPress: () => console.log('Đã hiểu'),
+          style: 'cancel',
+        },
+      ]);
+    }
   };
 
   return (
     <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
-      <View>
+      <ScrollView>
         <View style={styles.imageWrapper}>
           {!!localFile && (
             <Image
@@ -137,7 +163,6 @@ const CreatingRoom = ({navigation, route}) => {
 
           <TouchableOpacity onPress={openSheet}>
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -149,7 +174,7 @@ const CreatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập tên phòng"
           value={roomNumber}
-          error={roomNumber === '' && error?.errors?.room_number?.[0]}
+          error={error?.errors?.room_number?.[0]}
         />
 
         <CustomInput
@@ -160,7 +185,7 @@ const CreatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập tên trạng thái phòng"
           value={status}
-          error={status === '' && error?.errors?.status?.[0]}
+          error={error?.errors?.status?.[0]}
         />
 
         <CustomInput
@@ -171,7 +196,7 @@ const CreatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập mô tả"
           value={description}
-          error={description === '' && error?.errors?.description?.[0]}
+          error={error?.errors?.description?.[0]}
         />
 
         <CustomButton
@@ -182,7 +207,7 @@ const CreatingRoom = ({navigation, route}) => {
           disabled={loading_room}
           error={error}
         />
-      </View>
+      </ScrollView>
 
       <ImagePicker
         ref={sheetRef}

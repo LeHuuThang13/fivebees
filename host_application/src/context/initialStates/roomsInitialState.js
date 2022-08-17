@@ -4,6 +4,11 @@ export default {
     error: null,
     loading: false,
   },
+  getRoom: {
+    data: {},
+    error: null,
+    loading: false,
+  },
   createRoom: {
     data: {},
     error: null,

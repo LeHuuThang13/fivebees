@@ -14,6 +14,9 @@ import {
   GET_ROOMS_FAILED,
   GET_ROOMS_LOADING,
   GET_ROOMS_SUCCESS,
+  GET_SINGLE_ROOM_FAILED,
+  GET_SINGLE_ROOM_SUCCESS,
+  GET_SINGLE_ROOM_LOADING,
 } from '../../constants/actionTypes';
 
 const rooms = (state, {type, payload}) => {
@@ -130,6 +133,37 @@ const rooms = (state, {type, payload}) => {
         ...state,
         getRooms: {
           ...state.getRooms,
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case GET_SINGLE_ROOM_LOADING:
+      return {
+        ...state,
+        getRoom: {
+          ...state.getRoom.data,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case GET_SINGLE_ROOM_SUCCESS:
+      return {
+        ...state,
+        getRoom: {
+          ...state.getRoom,
+          loading: false,
+          data: payload,
+          error: null,
+        },
+      };
+
+    case GET_SINGLE_ROOM_FAILED:
+      return {
+        ...state,
+        getRoom: {
+          ...state.getRoom,
           loading: false,
           error: payload,
         },

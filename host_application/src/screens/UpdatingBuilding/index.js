@@ -27,6 +27,7 @@ import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import CustomButtonIcon from '../../components/CustomButtonIcon';
 import editBuilding from '../../context/actions/buildings/editBuilding';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingBuilding = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -76,18 +77,17 @@ const CreatingBuilding = ({navigation, route}) => {
   }, [route]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState('');
+  const [localFile, setLocalFile] = useState(params?.building?.photos[0]);
   const sheetRef = useRef(null);
-  const [name, setName] = useState(form?.name);
-  const [email, setEmail] = useState(form?.email);
-  const [address, setAddress] = useState(form?.address);
-  const [hotline, sethotline] = useState(form?.hotline);
+  const [name, setName] = useState(params?.building?.name);
+  const [email, setEmail] = useState(params?.building?.email);
+  const [address, setAddress] = useState(params?.building?.address);
+  const [hotline, sethotline] = useState(params?.building?.hotline);
   const [buildingId, setBuildingId] = useState({});
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   // Functions
-
   const closeSheet = () => {
     if (sheetRef.current) {
       sheetRef.current.close();
@@ -111,21 +111,52 @@ const CreatingBuilding = ({navigation, route}) => {
     setIsEdited(true);
   };
 
-  const onSubmit = () => {
-    if (isEdited) {
-      editBuilding(form)(buildingsDispatch)({localFile, buildingId})(() => {
-        setIsLoading(true);
-        navigate(MANAGING_BUILDING);
-        setForm({});
-        setLocalFile('');
-        setAddress('');
-        setEmail('');
-        setName('');
-        sethotline('');
-        setIsLoading(false);
-      });
+  const onSubmit = async () => {
+    console.log(typeof name == 'string');
+    console.log(typeof email == 'string');
+    console.log(typeof address == 'string');
+    console.log(typeof hotline == 'string');
+    console.log(name !== '');
+    console.log(email !== '');
+    console.log(address !== '');
+    console.log(hotline !== '');
+    if (
+      typeof name == 'string' &&
+      typeof email == 'string' &&
+      typeof address == 'string' &&
+      typeof hotline == 'string' &&
+      localFile &&
+      name !== '' &&
+      email !== '' &&
+      address !== '' &&
+      hotline !== ''
+    ) {
+      const token = await AsyncStorage.getItem('token');
+      if (isEdited) {
+        editBuilding(form)(buildingsDispatch)({localFile, buildingId, token})(
+          () => {
+            setIsLoading(true);
+            navigate(MANAGING_BUILDING);
+            setForm({});
+            setLocalFile('');
+            setAddress('');
+            setEmail('');
+            setName('');
+            sethotline('');
+            setIsLoading(false);
+          },
+        );
+      } else {
+        Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      }
     } else {
-      Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+      Alert.alert('Thông báo', 'Vui nhập đầy đủ!', [
         {
           text: 'Đã hiểu',
           onPress: () => console.log('Đã hiểu'),
@@ -143,7 +174,7 @@ const CreatingBuilding = ({navigation, route}) => {
             <Image
               width={150}
               height={150}
-              source={{uri: localFile?.path}}
+              source={{uri: localFile?.path ? localFile?.path : localFile}}
               style={styles.imageView}
             />
           )}
@@ -159,7 +190,6 @@ const CreatingBuilding = ({navigation, route}) => {
 
           <TouchableOpacity onPress={openSheet}>
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho tòa nhà'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -171,7 +201,7 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập tên tòa nhà"
           value={form.name}
-          error={name === '' && error?.errors?.name?.[0]}
+          error={error?.errors?.name?.[0]}
         />
 
         <CustomInput
@@ -182,7 +212,7 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập tên email"
           value={form.email}
-          error={email === '' && error?.errors?.email?.[0]}
+          error={error?.errors?.email?.[0]}
         />
 
         <CustomInput
@@ -193,7 +223,7 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập địa chỉ"
           value={form.address}
-          error={address === '' && error?.errors?.address?.[0]}
+          error={error?.errors?.address?.[0]}
         />
 
         <CustomInput
@@ -204,7 +234,7 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập số điện thoại"
           value={form.hotline}
-          error={hotline === '' && error?.errors?.hotline?.[0]}
+          error={error?.errors?.hotline?.[0]}
         />
 
         <CustomButton

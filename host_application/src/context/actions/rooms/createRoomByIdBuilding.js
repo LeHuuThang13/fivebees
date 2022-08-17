@@ -43,12 +43,12 @@ export default form =>
         },
       })
       .then(res => {
+        onSuccess();
         dispatch({
           type: CREATE_ROOM_BY_ID_BUILDING_SUCCESS,
           payload: res.data.data,
         });
         Toast({title: 'Tạo phòng mới thành công'});
-        onSuccess();
       })
       .catch(error => {
         console.log('error creating room', error.response.data);

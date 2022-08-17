@@ -82,7 +82,7 @@ const CreatingFacility = ({navigation, route}) => {
       setRoom(room[0] ? room[0]?.id : []);
     }
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_ROOMS);
+      navigation.navigate(MANAGING_FACILITIES);
       return true;
     });
 
@@ -132,7 +132,6 @@ const CreatingFacility = ({navigation, route}) => {
   const onSubmit = async () => {
     let isManagingDevices = true;
     const token = await AsyncStorage.getItem('token');
-    console.log('--------');
 
     if (status == 4 || status == 2) {
       if (name || localFile || description || category || status || room) {
