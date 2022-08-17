@@ -24,8 +24,6 @@ export default form =>
       name: localFile.path,
     });
 
-    console.log(formData);
-
     dispatch({
       type: CREATE_ROOM_BY_ID_BUILDING_LOADING,
     });

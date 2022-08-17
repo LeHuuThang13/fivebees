@@ -55,10 +55,11 @@ export default form => dispatch => params => onSuccess => {
     })
     .then(res => {
       const result = res.data.data;
-      dispatch({
-        type: CREATE_FACILITY_SUCCESS,
-        payload: result,
-      });
+      console.log(result);
+      // dispatch({
+      //   type: CREATE_FACILITY_SUCCESS,
+      //   payload: result,
+      // });
       Toast({title: 'Tạo thiết bị mới thành công'});
       onSuccess();
     })

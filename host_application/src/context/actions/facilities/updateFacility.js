@@ -21,6 +21,7 @@ export default form => dispatch => params => onSuccess => {
 
   const formData = new FormData();
   const url = envs.BACKEND_URL + `/facilities/${idFacility}`;
+  const STATUS_DEFAULT = 1;
 
   if (isManagingDevices) {
     if (localFile) {
@@ -48,7 +49,7 @@ export default form => dispatch => params => onSuccess => {
       formData.append('name', form.name);
       formData.append('_method', 'PUT');
       formData.append('description', form.description);
-      formData.append('category_id', category || CATEGORY_DEFAULT);
+      formData.append('category_id', category);
       formData.append('status_id', STATUS_DEFAULT);
       formData.append('filenames', {
         type: 'image/jpeg',
@@ -60,7 +61,7 @@ export default form => dispatch => params => onSuccess => {
       formData.append('name', form.name);
       formData.append('_method', 'PUT');
       formData.append('description', form.description);
-      formData.append('category_id', category || CATEGORY_DEFAULT);
+      formData.append('category_id', category);
       formData.append('status_id', STATUS_DEFAULT);
       formData.append('room', idRoom);
     }
@@ -85,11 +86,10 @@ export default form => dispatch => params => onSuccess => {
       },
     })
     .then(res => {
-      const result = [res.data.data.facilities];
       onSuccess();
       dispatch({
         type: CREATE_FACILITY_SUCCESS,
-        payload: result,
+        payload: res.data.data,
       });
       Toast({title: 'Cập nhập thiết bị thành công'});
     })

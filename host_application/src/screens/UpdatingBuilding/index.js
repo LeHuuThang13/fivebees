@@ -112,14 +112,6 @@ const CreatingBuilding = ({navigation, route}) => {
   };
 
   const onSubmit = async () => {
-    console.log(typeof name == 'string');
-    console.log(typeof email == 'string');
-    console.log(typeof address == 'string');
-    console.log(typeof hotline == 'string');
-    console.log(name !== '');
-    console.log(email !== '');
-    console.log(address !== '');
-    console.log(hotline !== '');
     if (
       typeof name == 'string' &&
       typeof email == 'string' &&

@@ -58,7 +58,6 @@ const ManagingRooms = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log(123);
       setIsLoaded(false);
       navigate({
         name: MANAGING_BUILDING,

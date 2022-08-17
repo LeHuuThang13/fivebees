@@ -128,20 +128,9 @@ const CreatingFacility = ({navigation, route}) => {
   const onSubmit = async () => {
     const token = await AsyncStorage.getItem('token');
 
-    console.log(
-      isEdited == true &&
-        localFile &&
-        typeof name == 'string' &&
-        typeof description == 'string' &&
-        typeof category == 'number' &&
-        typeof status == 'number',
-    );
-
     if (status == 2 || status == 4) {
       setRoom([]);
     }
-
-    console.log('room', room);
 
     if (
       isEdited == true &&

@@ -37,7 +37,7 @@ import ManagingRooms from '../screens/ManagingRooms';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 import CreatingBuilding from '../screens/CreatingBuilding';
 import CreatingRoom from '../screens/CreatingRoom';
-import CreatingFacility from '../screens/UpdatingFacility';
+import CreatingFacility from '../screens/CreatingFacility';
 import CreatingDevice from '../screens/CreatingDevice';
 import UpdatingBuilding from '../screens/UpdatingBuilding';
 import UpdatingDevice from '../screens/UpdatingDevice';

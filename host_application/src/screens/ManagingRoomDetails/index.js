@@ -102,7 +102,10 @@ const ManagingRoomDetails = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {code, name, category_id: category, id} = item;
+    const {code, name, category_id: category, id, photos} = item;
+
+    const imgAlt =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png';
 
     return (
       <Device

@@ -1,36 +1,25 @@
 {
-  "building_id": [{"id": 110, "name": "Nhà trọ Bảo Nguyên 1"}],
-  "description": "Phòng bé xíu",
-  "facilities": [
+  "category": [{"id": 1, "name": "TV"}],
+  "code": "20220812-034445-2-0001",
+  "description": "undefined",
+  "id": 76,
+  "name": "Giường ngủ 12",
+  "photos": [
+    "http://fivebees.ml/storage/78/c96513a8-3d0a-468a-b767-e75e8233aaf4.jpg"
+  ],
+  "room": [
     {
-      "category_id": 3,
-      "code": "20220812-035429-2-0006",
-      "created_at": "2022-08-12 03:54:29",
+      "building_id": 110,
+      "created_at": "2022-07-26 03:31:05",
       "created_by_id": 2,
       "deleted_at": null,
-      "description": "Quạt càng mở càng nóng",
-      "id": 81,
-      "name": "Quạt đứng cho phòng 2 người",
+      "description": "Phòng bé xíu",
+      "id": 3,
       "pivot": [],
-      "status_id": 1,
-      "updated_at": "2022-08-12 07:09:00"
-    },
-    {
-      "category_id": 1,
-      "code": "20220812-034445-2-0001",
-      "created_at": "2022-08-12 03:44:45",
-      "created_by_id": 2,
-      "deleted_at": null,
-      "description": "undefined",
-      "id": 76,
-      "name": "Giường ngủ 12",
-      "pivot": [],
-      "status_id": 1,
-      "updated_at": "2022-08-16 04:32:58"
+      "room_number": "N103",
+      "status": "Đang sửa chữa",
+      "updated_at": "2022-08-12 06:38:33"
     }
   ],
-  "id": 3,
-  "photos": ["http://fivebees.ml/storage/69/cho-thue-phong-tro_1613975723.jpg"],
-  "room_number": "N103",
-  "status": "Đang sửa chữa"
+  "status": [{"id": 1, "name": "Đang sử dụng"}]
 }

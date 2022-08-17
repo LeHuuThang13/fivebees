@@ -63,7 +63,6 @@ const RoomDetails = ({navigation, route}) => {
 
   const renderItem = ({item}) => {
     const {status_id: status, name, category_id: category, id, photos} = item;
-    console.log(photos);
 
     return (
       <Device
@@ -78,8 +77,6 @@ const RoomDetails = ({navigation, route}) => {
       />
     );
   };
-
-  console.log(items);
 
   return (
     <View style={[styles.container, GlobalStyles.fullScreen]}>

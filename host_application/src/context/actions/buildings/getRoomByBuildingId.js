@@ -6,7 +6,6 @@ import {
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
 export default id => dispatch => isMounted => {
-  console.log('---------------');
   if (isMounted) {
     dispatch({
       type: GET_DATA_BUILDINGS_ID_LOADING,
@@ -14,7 +13,6 @@ export default id => dispatch => isMounted => {
     axiosInstance
       .get(`buildings/${id}`)
       .then(res => {
-        console.log(id);
         dispatch({
           type: GET_DATA_BUILDINGS_ID_SUCCESS,
           payload: res.data.data,

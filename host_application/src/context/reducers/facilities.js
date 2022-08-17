@@ -11,6 +11,9 @@ import {
   GET_FACILITIES_FAILED,
   GET_FACILITIES_LOADING,
   GET_FACILITIES_SUCCESS,
+  GET_FACILITY_FAILED,
+  GET_FACILITY_LOADING,
+  GET_FACILITY_SUCCESS,
 } from '../../constants/actionTypes';
 
 const facilities = (state, {type, payload}) => {
@@ -167,6 +170,37 @@ const facilities = (state, {type, payload}) => {
         ...state,
         getFacilities: {
           ...state.getFacilities,
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case GET_FACILITY_LOADING:
+      return {
+        ...state,
+        getFacility: {
+          ...state.getFacility,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case GET_FACILITY_SUCCESS:
+      return {
+        ...state,
+        getFacility: {
+          ...state.getFacility.facility,
+          loading: false,
+          data: payload,
+          error: null,
+        },
+      };
+
+    case GET_FACILITY_FAILED:
+      return {
+        ...state,
+        getFacility: {
+          ...state.getFacility,
           loading: false,
           error: payload,
         },
