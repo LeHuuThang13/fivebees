@@ -9,30 +9,32 @@ import {
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default room_id => dispatch => isMounted => {
-  if (isMounted) {
-    dispatch({
-      type: GET_SINGLE_ROOM_LOADING,
-    });
-
-    axiosInstance
-      .get(`rooms/${room_id}`)
-      .then(res => {
-        console.log(res.data.data);
-        dispatch({
-          type: GET_SINGLE_ROOM_SUCCESS,
-          payload: res.data.data,
-        });
-      })
-      .catch(err => {
-        console.log('get single id: ', error.response.data);
-        dispatch({
-          type: GET_SINGLE_ROOM_FAILED,
-          payload: error.response.data,
-        });
+export default room_id =>
+  dispatch =>
+  ({isMounted, setIsLoaded}) => {
+    if (isMounted) {
+      dispatch({
+        type: GET_SINGLE_ROOM_LOADING,
       });
-  }
-};
+
+      axiosInstance
+        .get(`rooms/${room_id}`)
+        .then(res => {
+          dispatch({
+            type: GET_SINGLE_ROOM_SUCCESS,
+            payload: res.data.data,
+          });
+          setIsLoaded(true);
+        })
+        .catch(err => {
+          console.log('get single id: ', error.response.data);
+          dispatch({
+            type: GET_SINGLE_ROOM_FAILED,
+            payload: error.response.data,
+          });
+        });
+    }
+  };
 
 // .then(res => {
 //   dispatch({

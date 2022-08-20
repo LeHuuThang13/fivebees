@@ -7,6 +7,7 @@ import {
   BackHandler,
   Alert,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -27,6 +28,7 @@ import {
   ANNOUNCE,
   DATA_HAS_NOT_CHANGED,
   PLEASE_FILL_DATA,
+  UPDATE,
 } from '../../constants/actions';
 
 const UpdatingRoom = ({navigation, route}) => {
@@ -42,8 +44,6 @@ const UpdatingRoom = ({navigation, route}) => {
     },
     onPressBtnLeft: () => {
       navigate(MANAGING_ROOMS, {
-        id_building_create: id_building,
-        name_building_create: name_building,
         id_building: id_building,
         name_building: name_building,
       });
@@ -61,7 +61,7 @@ const UpdatingRoom = ({navigation, route}) => {
 
   useEffect(() => {
     let isMounted = true;
-    getSingleRoom(id_room)(roomsDispatch)(isMounted);
+    getSingleRoom(id_room)(roomsDispatch)({isMounted, setIsLoaded});
     return () => (isMounted = false);
   }, [navigation]);
 
@@ -70,7 +70,7 @@ const UpdatingRoom = ({navigation, route}) => {
     if (data) {
       const {building_id, description, room_number, status, photos} = data;
       setForm({...form, building_id, description, room_number, status});
-      setLocalFile(data?.photos?.[0]);
+      setLocalFile(photos?.[0]);
     }
 
     // Back button real device
@@ -98,7 +98,7 @@ const UpdatingRoom = ({navigation, route}) => {
   const [status, setStatus] = useState(data?.status);
   const [description, setDescription] = useState(data?.description);
   const [isEdited, setIsEdited] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Functions
 
@@ -137,19 +137,20 @@ const UpdatingRoom = ({navigation, route}) => {
     ) {
       if (isEdited) {
         const token = await AsyncStorage.getItem('token');
-        editRoom(form)(roomsDispatch)({localFile, token})(id_building)(id_room)(
-          () => {
-            navigate(MANAGING_ROOMS, {
-              id_building: id_building,
-            });
-            setForm({});
-            setLocalFile('');
-            setRoomNumber('');
-            setDescription('');
-            setStatus('');
-            setIsLoading(false);
-          },
-        );
+        editRoom(form)(roomsDispatch)({localFile, token, setIsLoaded})(
+          id_building,
+        )(id_room)(() => {
+          navigate(MANAGING_ROOMS, {
+            id_building: id_building,
+          });
+          setIsLoaded(false);
+          setForm({});
+          setLocalFile('');
+          setRoomNumber('');
+          setDescription('');
+          setStatus('');
+          setIsLoading(false);
+        });
       } else {
         Alert.alert(ANNOUNCE, DATA_HAS_NOT_CHANGED, [
           {
@@ -172,82 +173,88 @@ const UpdatingRoom = ({navigation, route}) => {
 
   return (
     <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
-      <ScrollView>
-        <View style={styles.imageWrapper}>
-          {!!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={{uri: localFile?.path ? localFile?.path : localFile}}
-              style={styles.imageView}
+      {isLoaded ? (
+        <>
+          <ScrollView>
+            <View style={styles.imageWrapper}>
+              {!!localFile && (
+                <Image
+                  width={150}
+                  height={150}
+                  source={{uri: localFile?.path ? localFile?.path : localFile}}
+                  style={styles.imageView}
+                />
+              )}
+
+              {!localFile && (
+                <Image
+                  width={150}
+                  height={150}
+                  source={require('../../assets/images/default_image.png')}
+                  style={styles.imageView}
+                />
+              )}
+
+              <TouchableOpacity onPress={openSheet}>
+                <Text style={styles.colorChoosingImageText}>Choose image</Text>
+                <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
+              </TouchableOpacity>
+            </View>
+
+            <CustomInput
+              label="Tên phòng"
+              onChangeText={value => {
+                onChange({name: 'room_number', value});
+                return setRoomNumber(value);
+              }}
+              placeholder="Nhập tên phòng"
+              value={form.room_number}
+              error={error?.errors?.room_number?.[0]}
             />
-          )}
 
-          {!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={require('../../assets/images/default_image.png')}
-              style={styles.imageView}
+            <CustomInput
+              label="Trạng thái"
+              onChangeText={value => {
+                onChange({name: 'status', value});
+                return setStatus(value);
+              }}
+              placeholder="Nhập tên trạng thái phòng"
+              value={form.status}
+              error={error?.errors?.status?.[0]}
             />
-          )}
 
-          <TouchableOpacity onPress={openSheet}>
-            <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
-          </TouchableOpacity>
-        </View>
+            <CustomInput
+              label="Mô tả"
+              onChangeText={value => {
+                onChange({name: 'description', value});
+                return setDescription(value);
+              }}
+              placeholder="Nhập mô tả"
+              value={form.description}
+              error={error?.errors?.description?.[0]}
+            />
 
-        <CustomInput
-          label="Tên phòng"
-          onChangeText={value => {
-            onChange({name: 'room_number', value});
-            return setRoomNumber(value);
-          }}
-          placeholder="Nhập tên phòng"
-          value={form.room_number}
-          error={error?.errors?.room_number?.[0]}
-        />
+            <CustomButton
+              onPress={onSubmit}
+              primary
+              title={UPDATE}
+              loading={loading_update}
+              disabled={loading_update}
+              error={error}
+            />
+          </ScrollView>
 
-        <CustomInput
-          label="Trạng thái"
-          onChangeText={value => {
-            onChange({name: 'status', value});
-            return setStatus(value);
-          }}
-          placeholder="Nhập tên trạng thái phòng"
-          value={form.status}
-          error={error?.errors?.status?.[0]}
-        />
-
-        <CustomInput
-          label="Mô tả"
-          onChangeText={value => {
-            onChange({name: 'description', value});
-            return setDescription(value);
-          }}
-          placeholder="Nhập mô tả"
-          value={form.description}
-          error={error?.errors?.description?.[0]}
-        />
-
-        <CustomButton
-          onPress={onSubmit}
-          primary
-          title={'Thêm phòng'}
-          loading={loading_update}
-          disabled={loading_update}
-          error={error}
-        />
-      </ScrollView>
-
-      <ImagePicker
-        ref={sheetRef}
-        closeSheet={closeSheet}
-        openSheet={openSheet}
-        onFileSelected={onFileSelected}
-        localFile={localFile}
-      />
+          <ImagePicker
+            ref={sheetRef}
+            closeSheet={closeSheet}
+            openSheet={openSheet}
+            onFileSelected={onFileSelected}
+            localFile={localFile}
+          />
+        </>
+      ) : (
+        <ActivityIndicator />
+      )}
     </View>
   );
 };

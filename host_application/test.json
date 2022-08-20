@@ -1,10 +1,23 @@
 {
-  "_parts": [
-    ["name", "zxcvzcv"],
-    ["description", "zxcvzxcv"],
-    ["category_id", 2],
-    ["status_id", 1],
-    ["filenames", []],
-    ["room_id", 3]
-  ]
+  "building_id": [{"id": 110, "name": "Nhà trọ A"}],
+  "description": "Phòng nhỏ ơi là nhỏ",
+  "facilities": [
+    {
+      "category_id": 5,
+      "code": "20220812-034800-2-0005",
+      "created_at": "2022-08-12 03:48:00",
+      "created_by_id": 2,
+      "deleted_at": null,
+      "description": "Giường 1 người",
+      "id": 80,
+      "name": "Giường ngủ 4o",
+      "pivot": [],
+      "status_id": 4,
+      "updated_at": "2022-08-18 14:13:57"
+    }
+  ],
+  "id": 71,
+  "photos": [],
+  "room_number": "N102",
+  "status": "Đang sử dụng"
 }

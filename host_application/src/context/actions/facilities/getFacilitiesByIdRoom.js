@@ -9,6 +9,7 @@ import {
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
 export default id => dispatch => isMounted => setIsLoaded => {
+  console.log(id);
   dispatch({
     type: GET_FACILITIES_ID_ROOM_LOADING,
   });

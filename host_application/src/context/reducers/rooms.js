@@ -191,7 +191,6 @@ const rooms = (state, {type, payload}) => {
       };
 
     case GET_SINGLE_ROOM_SUCCESS:
-      console.log('payload', payload);
       return {
         ...state,
         getRoom: {
