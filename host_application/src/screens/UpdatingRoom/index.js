@@ -59,28 +59,37 @@ const UpdatingRoom = ({navigation, route}) => {
     },
   } = useContext(GlobalContext);
 
-  // Hook fields
   useEffect(() => {
     let isMounted = true;
-    if (id_room) {
-      getSingleRoom(id_room)(roomsDispatch)(isMounted);
-      const {building_id, description, room_number, status} = data;
+    getSingleRoom(id_room)(roomsDispatch)(isMounted);
+    return () => (isMounted = false);
+  }, [navigation]);
+
+  // Hook fields
+  useEffect(() => {
+    if (data) {
+      const {building_id, description, room_number, status, photos} = data;
       setForm({...form, building_id, description, room_number, status});
+      setLocalFile(data?.photos?.[0]);
     }
 
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_ROOMS);
+      navigate(MANAGING_ROOMS, {
+        id_building_create: id_building,
+        name_building_create: name_building,
+        id_building: id_building,
+        name_building: name_building,
+      });
       return true;
     });
 
     return () => {
-      isMounted = false;
       BackHandler.removeEventListener('hardwareBackPress', () => {
         return false;
       });
     };
-  }, [navigation]);
+  }, [data]);
 
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState(data?.photos?.[0]);
@@ -118,13 +127,13 @@ const UpdatingRoom = ({navigation, route}) => {
 
   const onSubmit = async () => {
     if (
-      typeof roomNumber == 'string' &&
-      typeof status == 'string' &&
-      typeof description == 'string' &&
+      typeof form?.room_number == 'string' &&
+      typeof form?.status == 'string' &&
+      typeof form?.description == 'string' &&
       localFile &&
-      roomNumber.trim() !== '' &&
-      status.trim() !== '' &&
-      description.trim() !== ''
+      form?.room_number.trim() !== '' &&
+      form?.status.trim() !== '' &&
+      form?.description.trim() !== ''
     ) {
       if (isEdited) {
         const token = await AsyncStorage.getItem('token');
@@ -226,8 +235,8 @@ const UpdatingRoom = ({navigation, route}) => {
           onPress={onSubmit}
           primary
           title={'Thêm phòng'}
-          loading={loading_room || isLoading}
-          disabled={loading_room || isLoading}
+          loading={loading_update}
+          disabled={loading_update}
           error={error}
         />
       </ScrollView>

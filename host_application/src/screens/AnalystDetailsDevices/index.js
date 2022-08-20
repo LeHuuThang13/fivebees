@@ -86,7 +86,9 @@ const ManagingRoomDetails = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {category, name, photos, status, room} = item;
+    const {name, photos, room} = item;
+    const category = item?.category?.[0]?.name;
+    const status = item?.status?.[0]?.name;
     return (
       <DeviceAnalyst
         urlImage={{uri: photos[0]}}
@@ -111,14 +113,16 @@ const ManagingRoomDetails = ({navigation, route}) => {
         <ActivityIndicator size="large" color={colors.secondary} />
       ) : (
         <>
-          <FlatList
-            renderItem={renderItem}
-            data={data}
-            extraData={data}
-            style={styles.FlatList}
-            showsVerticalScrollIndicator={false}
-            ListEmptyComponent={listEmptyComponent}
-          />
+          <View style={{paddingHorizontal: 15}}>
+            <FlatList
+              renderItem={renderItem}
+              data={data}
+              extraData={data}
+              style={styles.FlatList}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={listEmptyComponent}
+            />
+          </View>
           <Pdf
             titlePrint={'thiết bị'}
             colOne={'Số thiết bị'}

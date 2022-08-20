@@ -113,6 +113,7 @@ const ManagingRooms = ({navigation, route}) => {
             id_room: id,
             id_building: idBuilding,
             name_building: nameBuilding,
+            rooms: item,
           });
           setIsLoaded(false);
         }}
@@ -146,42 +147,41 @@ const ManagingRooms = ({navigation, route}) => {
 
   return (
     <>
-      <View style={styles.container}>
-        {loading_rooms ? (
-          <ActivityIndicator size="large" color={colors.secondary} />
-        ) : (
-          <>
-            <CustomCreatingButton
-              onPress={() => {
-                navigation.navigate(CREATING_ROOM, {
-                  id_building: idBuilding,
-                  name_building: nameBuilding,
-                });
-              }}
-            />
-            <CustomHeaderDetails
-              firstText={`Tòa nhà: ${
-                nameBuilding ? nameBuilding : 'Đang cập nhập'
-              }`}
-              secondText={`Tổng số phòng: ${
-                data_rooms ? data_rooms.length : 'Đang cập nhập'
-              }`}
-            />
-            <View style={styles.body}>
-              <View style={GlobalStyles.paddingContainer}>
-                <FlatList
-                  renderItem={renderItem}
-                  data={data_rooms}
-                  extraData={data_rooms}
-                  style={styles.FlatList}
-                  showsVerticalScrollIndicator={false}
-                  ListEmptyComponent={listEmptyComponent}
-                />
-              </View>
+      {isloaded ? (
+        <View style={styles.container}>
+          <CustomCreatingButton
+            onPress={() => {
+              setIsLoaded(false);
+              navigation.navigate(CREATING_ROOM, {
+                id_building: idBuilding,
+                name_building: nameBuilding,
+              });
+            }}
+          />
+          <CustomHeaderDetails
+            firstText={`Tòa nhà: ${
+              nameBuilding ? nameBuilding : 'Đang cập nhập'
+            }`}
+            secondText={`Tổng số phòng: ${
+              data_rooms ? data_rooms.length : 'Đang cập nhập'
+            }`}
+          />
+          <View style={styles.body}>
+            <View style={GlobalStyles.paddingContainer}>
+              <FlatList
+                renderItem={renderItem}
+                data={data_rooms}
+                extraData={data_rooms}
+                style={styles.FlatList}
+                showsVerticalScrollIndicator={false}
+                ListEmptyComponent={listEmptyComponent}
+              />
             </View>
-          </>
-        )}
-      </View>
+          </View>
+        </View>
+      ) : (
+        <ActivityIndicator size="large" color={colors.secondary} />
+      )}
     </>
   );
 };

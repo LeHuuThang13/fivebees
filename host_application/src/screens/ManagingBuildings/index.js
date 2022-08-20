@@ -5,6 +5,7 @@ import {
   FlatList,
   ScrollView,
   View,
+  Text,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
@@ -38,6 +39,7 @@ const ManagingBuilding = ({navigation, route}) => {
     },
     onPressBtnLeft: () => {
       navigate(MANAGE);
+      setIsLoaded(false);
     },
   });
 
@@ -53,8 +55,8 @@ const ManagingBuilding = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
+      navigate(MANAGE);
       setIsLoaded(false);
-      navigation.navigate(MANAGE);
       return true;
     });
 
@@ -64,10 +66,13 @@ const ManagingBuilding = ({navigation, route}) => {
       });
     };
   }, [navigation]);
+  console.log(route.params);
 
   useEffect(() => {
+    console.log(route.params);
     getBuildings(setIsLoaded)(buildingsDispatch);
-  }, [route]);
+    console.log(123);
+  }, [route.params]);
 
   const ListEmptyComponent = () => {
     return (
@@ -104,6 +109,7 @@ const ManagingBuilding = ({navigation, route}) => {
                 zIndex: 3,
               }}
               onPressEdit={() => {
+                setIsLoaded(false);
                 navigate(UPDATING_BUILDING, {
                   building: item,
                 });
@@ -120,6 +126,7 @@ const ManagingBuilding = ({navigation, route}) => {
           totalManagingTitleText={'Tổng số phòng'}
           totalManagingContentText={roomsTotal}
           onPress={() => {
+            setIsLoaded(false);
             navigate(MANAGING_ROOMS, {
               id_building: id,
               name_building: name,

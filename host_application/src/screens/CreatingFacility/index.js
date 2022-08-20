@@ -123,8 +123,17 @@ const CreatingFacility = ({navigation, route}) => {
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value.trim()});
   };
+  console.log(
+    'id_room:',
+    idRoom,
+    'id_building:',
+    idBuilding,
+    'name_building:',
+    nameBuilding,
+  );
 
   const onSubmit = async () => {
+    const token = await AsyncStorage.getItem('token');
     if (
       localFile &&
       typeof name == 'string' &&
@@ -132,15 +141,19 @@ const CreatingFacility = ({navigation, route}) => {
       typeof category == 'number' &&
       category > 0
     ) {
-      const token = await AsyncStorage.getItem('token');
       createFacility(form)(facilitiesDispatch)({
         localFile,
         category,
         idRoom,
         token,
       })(() => {
-        navigate(MANAGING_ROOM_DETAILS, {
-          id_building: id,
+        navigate({
+          name: MANAGING_ROOM_DETAILS,
+          params: {
+            id_building: idBuilding,
+            name_building: nameBuilding,
+          },
+          merge: true,
         });
         setForm({});
         setLocalFile('');

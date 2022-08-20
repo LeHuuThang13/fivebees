@@ -52,10 +52,13 @@ const CreatingFacility = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_ROOM_DETAILS, {
-        id_room: idRoom,
-        id_building: idBuilding,
-        name_building: nameBuilding,
+      navigate({
+        name: MANAGING_ROOM_DETAILS,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+        },
+        merge: true,
       });
     },
   });
@@ -80,16 +83,20 @@ const CreatingFacility = ({navigation, route}) => {
     getFacility(id_facility)(facilitiesDispatch);
 
     if (item) {
-      const {name, description, category_id, id} = item;
+      const {name, description, category, id, photos} = item;
       setForm({...form, name, description});
-      setCategory(category_id);
+      setCategory(category?.[0]?.id);
       setIsFacility(id);
+      setLocalFile(photos?.[0]);
     }
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigate(MANAGING_ROOM_DETAILS, {
-        id_room: idRoom,
-        id_building: idBuilding,
-        name_building: nameBuilding,
+      navigate({
+        name: MANAGING_ROOM_DETAILS,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+        },
+        merge: true,
       });
       return true;
     });
@@ -102,10 +109,10 @@ const CreatingFacility = ({navigation, route}) => {
   }, [navigation]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState(data_getFacility?.photos[0]);
+  const [localFile, setLocalFile] = useState('');
   const sheetRef = useRef(null);
   const [name, setName] = useState(data_getFacility?.name);
-  const [category, setCategory] = useState(data_getFacility?.category[0]?.id);
+  const [category, setCategory] = useState(data_getFacility?.category?.[0]?.id);
   const [description, setDescription] = useState(data_getFacility?.description);
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -135,14 +142,14 @@ const CreatingFacility = ({navigation, route}) => {
   };
 
   const onSubmit = async () => {
+    console.log('----------------------');
     if (
-      typeof name == 'string' &&
-      typeof description == 'string' &&
+      typeof form?.name == 'string' &&
+      typeof form?.description == 'string' &&
       typeof category == 'number' &&
       localFile &&
-      name !== '' &&
-      description !== '' &&
-      category > 0
+      form?.name.trim() !== '' &&
+      form?.description.trim() !== ''
     ) {
       if (isEdited) {
         const token = await AsyncStorage.getItem('token');
@@ -153,8 +160,13 @@ const CreatingFacility = ({navigation, route}) => {
           idFacility,
           token,
         })(() => {
-          navigate(MANAGING_ROOM_DETAILS, {
-            id_building: id,
+          navigate({
+            name: MANAGING_ROOM_DETAILS,
+            params: {
+              id_building: idBuilding,
+              name_building: nameBuilding,
+            },
+            merge: true,
           });
           setForm({});
           setLocalFile('');
@@ -213,7 +225,7 @@ const CreatingFacility = ({navigation, route}) => {
           }}
           placeholder="Nhập tên thiết bị"
           value={form.name}
-          error={name === '' && error?.errors?.name?.[0]}
+          error={error?.errors?.name?.[0]}
         />
 
         <CustomInput
@@ -224,11 +236,11 @@ const CreatingFacility = ({navigation, route}) => {
           }}
           placeholder="Nhập mô tả thiết bị"
           value={form.description}
-          error={description === '' && error?.errors?.description?.[0]}
+          error={error?.errors?.description?.[0]}
         />
 
         <SelectingDropDown
-          title={data_getFacility?.category[0]?.name}
+          title={data_getFacility?.category?.[0]?.name}
           data={data_categories}
           setState={setCategory}
         />

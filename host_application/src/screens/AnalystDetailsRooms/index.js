@@ -80,7 +80,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
 
     return (
       <DeviceAnalyst
-        urlImage={{uri: photos[0]}}
+        urlImage={{uri: photos?.[0]}}
         title={`Phòng: `}
         name={`${room_number}`}
         amountTitle={'Trạng thái: '}

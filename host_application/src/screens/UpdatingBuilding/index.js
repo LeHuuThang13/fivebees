@@ -41,7 +41,9 @@ const CreatingBuilding = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_BUILDING);
+      navigate(MANAGING_BUILDING, {
+        refesh: true,
+      });
     },
   });
 
@@ -66,6 +68,7 @@ const CreatingBuilding = ({navigation, route}) => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
       navigation.navigate(MANAGING_BUILDING);
+      setIsLoaded(false);
       return true;
     });
 
@@ -86,6 +89,7 @@ const CreatingBuilding = ({navigation, route}) => {
   const [buildingId, setBuildingId] = useState({});
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
 
   // Functions
   const closeSheet = () => {
@@ -124,20 +128,27 @@ const CreatingBuilding = ({navigation, route}) => {
       hotline !== ''
     ) {
       const token = await AsyncStorage.getItem('token');
+      const user = await AsyncStorage.getItem('user');
       if (isEdited) {
-        editBuilding(form)(buildingsDispatch)({localFile, buildingId, token})(
-          () => {
-            setIsLoading(true);
-            navigate(MANAGING_BUILDING);
-            setForm({});
-            setLocalFile('');
-            setAddress('');
-            setEmail('');
-            setName('');
-            sethotline('');
-            setIsLoading(false);
-          },
-        );
+        editBuilding(form)(buildingsDispatch)({
+          localFile,
+          buildingId,
+          token,
+          user,
+          setDisabledBtn,
+        })(() => {
+          setIsLoading(true);
+          navigate(MANAGING_BUILDING, {
+            refresh: true,
+          });
+          setForm({});
+          setLocalFile('');
+          setAddress('');
+          setEmail('');
+          setName('');
+          sethotline('');
+          setIsLoading(false);
+        });
       } else {
         Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
           {
@@ -232,9 +243,9 @@ const CreatingBuilding = ({navigation, route}) => {
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm tòa nhà'}
-          loading={loading_building || isLoading}
-          disabled={loading_building || isLoading}
+          title={'Cập nhập'}
+          loading={loading_building || isLoading || disabledBtn}
+          disabled={loading_building || isLoading || disabledBtn}
           error={error}
         />
       </ScrollView>

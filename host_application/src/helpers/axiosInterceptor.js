@@ -7,7 +7,7 @@ import {navigate} from '../navigations/RootNavigator';
 
 const axiosInstance = axios.create({
   baseURL: envs.BACKEND_URL,
-  headers: {Accept: 'application/json', 'Content-Type': 'multipart/form-data'},
+  headers: {},
 });
 
 axiosInstance.interceptors.request.use(

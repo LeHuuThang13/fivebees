@@ -23,8 +23,10 @@ export default form => dispatch => params => onSuccess => {
   const url = envs.BACKEND_URL + `/facilities/${idFacility}`;
   const STATUS_DEFAULT = 1;
 
+  console.log(params);
+
   if (isManagingDevices) {
-    if (localFile) {
+    if (typeof localFile == 'object') {
       formData.append('name', form.name);
       formData.append('_method', 'PUT');
       formData.append('description', form.description);
@@ -37,17 +39,24 @@ export default form => dispatch => params => onSuccess => {
         name: localFile.path,
       });
     } else {
+      console.log('co hai file');
       formData.append('name', form.name);
       formData.append('_method', 'PUT');
       formData.append('description', form.description);
       formData.append('category_id', category);
       formData.append('status_id', status);
       formData.append('room_id', room);
+      formData.append('filenames', {
+        type: 'image/jpeg',
+        uri: localFile,
+        name: localFile,
+      });
     }
   } else {
-    if (localFile) {
-      formData.append('name', form.name);
+    if (typeof localFile == 'object') {
+      console.log('co ba file');
       formData.append('_method', 'PUT');
+      formData.append('name', form.name);
       formData.append('description', form.description);
       formData.append('category_id', category);
       formData.append('status_id', STATUS_DEFAULT);
@@ -58,12 +67,18 @@ export default form => dispatch => params => onSuccess => {
       });
       formData.append('room', idRoom);
     } else {
-      formData.append('name', form.name);
+      console.log('co bon file');
       formData.append('_method', 'PUT');
+      formData.append('name', form.name);
       formData.append('description', form.description);
       formData.append('category_id', category);
       formData.append('status_id', STATUS_DEFAULT);
       formData.append('room', idRoom);
+      formData.append('filenames', {
+        type: 'image/jpeg',
+        uri: localFile,
+        name: localFile,
+      });
     }
   }
 
@@ -86,6 +101,8 @@ export default form => dispatch => params => onSuccess => {
       },
     })
     .then(res => {
+      console.log('res >>', res.data.data);
+      console.log('thành công');
       onSuccess();
       dispatch({
         type: CREATE_FACILITY_SUCCESS,
