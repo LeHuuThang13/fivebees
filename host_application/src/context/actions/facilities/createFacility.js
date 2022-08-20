@@ -11,7 +11,7 @@ export default form => dispatch => params => onSuccess => {
   const {category, localFile, idRoom, room, status, token} = params;
 
   const formData = new FormData();
-  const url = envs.BACKEND_URL + '/facilities';
+  const url = 'http://fivebees.ml/api/v1/facilities';
 
   if (idRoom) {
     formData.append('name', form.name);
@@ -21,7 +21,7 @@ export default form => dispatch => params => onSuccess => {
     formData.append('filenames', {
       type: 'image/jpeg',
       uri: localFile.path,
-      name: localFile.path,
+      name: 'upload.jpg',
     });
     formData.append('room_id', idRoom);
   } else if (status && room && category) {
@@ -47,24 +47,19 @@ export default form => dispatch => params => onSuccess => {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Credentials': 'true',
       },
     })
     .then(res => {
       const result = res.data.data;
-      console.log(result);
-      // dispatch({
-      //   type: CREATE_FACILITY_SUCCESS,
-      //   payload: result,
-      // });
-      Toast({title: 'Tạo thiết bị mới thành công'});
       onSuccess();
+      dispatch({
+        type: CREATE_FACILITY_SUCCESS,
+        payload: result,
+      });
+      Toast({title: 'Tạo thiết bị mới thành công'});
     })
     .catch(err => {
-      console.log('error creating facility', err.response.data);
+      console.log('error creating facility', err);
       dispatch({
         type: CREATE_FACILITY_FAILED,
         payload: err.response.data,

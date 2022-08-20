@@ -4,6 +4,11 @@ export default {
     error: null,
     loading: false,
   },
+  getFacilitiesByIdRoom: {
+    data: [],
+    error: null,
+    loading: false,
+  },
   getFacility: {
     data: {},
     error: null,

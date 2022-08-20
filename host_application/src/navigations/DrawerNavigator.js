@@ -29,6 +29,7 @@ import {
   CREATING_MANAGING_FACILITY,
   UPDATING_DEVICE,
   ROOT,
+  HOME_BOTTOM_NAVIGATOR,
 } from '../constants/routeNames';
 import Analyst from '../screens/Analyst';
 import Introduce from '../screens/Introduct';
@@ -60,6 +61,7 @@ import UpdatingRoom from '../screens/UpdatingRoom';
 import UpdatingDevice from '../screens/UpdatingDevice';
 import {useNavigation} from '@react-navigation/native';
 import ManagingNavigator from './ManagingNavigator';
+import HomeNavigator from './HomeNavigator';
 import ManagingBuilding from '../screens/ManagingBuildings';
 
 const DrawerNavigator = () => {
@@ -120,7 +122,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name={INTRODUCE}
-        options={{headerShown: false}}
+        options={{headerShown: true}}
         component={Introduce}
       />
       <Drawer.Screen

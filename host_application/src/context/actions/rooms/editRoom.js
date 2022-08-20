@@ -14,18 +14,25 @@ export default form =>
   idRoom =>
   onSuccess => {
     const formData = new FormData();
-    const url = envs.BACKEND_URL + `/rooms/${idRoom}`;
-
-    // formData.append('room_number', form.room_number);
-    formData.append('_method', 'PUT');
+    const url = envs.BACKEND_URL + `rooms/${idRoom}`;
+    formData.append('room_number', form.room_number);
     formData.append('status', form.status);
+    formData.append('_method', 'put');
     formData.append('description', form.description);
     formData.append('idBuilding', idBuilding);
-    formData.append('filenames', {
-      type: 'image/jpeg',
-      uri: localFile.path,
-      name: localFile.path,
-    });
+    if (typeof localFile == 'object') {
+      formData.append('filenames', {
+        type: 'image/jpeg',
+        uri: localFile.path,
+        name: localFile.path,
+      });
+    } else {
+      formData.append('filenames', {
+        type: 'image/jpeg',
+        uri: localFile,
+        name: localFile,
+      });
+    }
 
     dispatch({
       type: UPDATE_ROOM_LOADING,
@@ -56,6 +63,7 @@ export default form =>
       .catch(error => {
         if (error.response.status === 0) {
           Toast({title: 'Vui lòng kiểm tra lại đường truyền'});
+          console.log(error.response);
         } else {
           Toast({title: 'Cập nhập thất bại'});
           dispatch({

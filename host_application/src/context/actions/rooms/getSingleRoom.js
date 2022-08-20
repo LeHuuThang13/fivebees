@@ -18,6 +18,7 @@ export default room_id => dispatch => isMounted => {
     axiosInstance
       .get(`rooms/${room_id}`)
       .then(res => {
+        console.log(res.data.data);
         dispatch({
           type: GET_SINGLE_ROOM_SUCCESS,
           payload: res.data.data,

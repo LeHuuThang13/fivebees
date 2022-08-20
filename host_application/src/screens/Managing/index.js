@@ -15,6 +15,7 @@ import {
 import axiosInstance from '../../helpers/axiosInterceptor';
 import axios from 'axios';
 import MorePopupMenu from '../../components/common/MorePopupMenu';
+import {ActivityIndicator} from 'react-native';
 
 const Managing = ({navigation}) => {
   SettingHeaderNavigator.settingHeaderNavigator({
@@ -26,6 +27,7 @@ const Managing = ({navigation}) => {
 
   const [buildings, setBuilding] = useState({});
   const [facilities, setFacilities] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false);
 
   //Api
   const fetchData = () => {
@@ -42,6 +44,7 @@ const Managing = ({navigation}) => {
 
           setBuilding(buildings);
           setFacilities(facilities);
+          setIsLoaded(true);
         }),
       )
       .catch(err => {
@@ -55,30 +58,36 @@ const Managing = ({navigation}) => {
 
   return (
     <Container>
-      <ManagingContainer
-        // Content
-        managingName={'Quản lý tòa nhà'}
-        totalManagingTitleText={'Số lượng tòa nhà'}
-        totalManagingContentText={buildings ? buildings.length : 0}
-        onPress={() => {
-          navigation.navigate(MANAGING_BUILDING);
-        }}
-        IconManagingBtn={<Setting />}
-        managingBtnText={'Quản lý tòa nhà'}
-        IconManagingText={<BuildingIcon />}
-      />
+      {isLoaded ? (
+        <>
+          <ManagingContainer
+            // Content
+            managingName={'Quản lý tòa nhà'}
+            totalManagingTitleText={'Số lượng tòa nhà'}
+            totalManagingContentText={buildings ? buildings.length : 0}
+            onPress={() => {
+              navigation.navigate(MANAGING_BUILDING);
+            }}
+            IconManagingBtn={<Setting />}
+            managingBtnText={'Quản lý tòa nhà'}
+            IconManagingText={<BuildingIcon />}
+          />
 
-      <ManagingContainer
-        managingName={'Quản lý thiết bị'}
-        totalManagingTitleText={'Số lượng thiết bị'}
-        totalManagingContentText={facilities ? facilities.length : 0}
-        onPress={() => {
-          navigation.navigate(MANAGING_FACILITIES);
-        }}
-        IconManagingBtn={<Setting />}
-        managingBtnText={'Quản lý thiết bị'}
-        IconManagingText={<DeviceIcon />}
-      />
+          <ManagingContainer
+            managingName={'Quản lý thiết bị'}
+            totalManagingTitleText={'Số lượng thiết bị'}
+            totalManagingContentText={facilities ? facilities.length : 0}
+            onPress={() => {
+              navigation.navigate(MANAGING_FACILITIES);
+            }}
+            IconManagingBtn={<Setting />}
+            managingBtnText={'Quản lý thiết bị'}
+            IconManagingText={<DeviceIcon />}
+          />
+        </>
+      ) : (
+        <ActivityIndicator />
+      )}
     </Container>
   );
 };

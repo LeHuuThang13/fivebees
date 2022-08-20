@@ -9,6 +9,9 @@ import {
   EDIT_FACILITY_LOADING,
   EDIT_FACILITY_SUCCESS,
   GET_FACILITIES_FAILED,
+  GET_FACILITIES_ID_ROOM_FAILED,
+  GET_FACILITIES_ID_ROOM_LOADING,
+  GET_FACILITIES_ID_ROOM_SUCCESS,
   GET_FACILITIES_LOADING,
   GET_FACILITIES_SUCCESS,
   GET_FACILITY_FAILED,
@@ -84,10 +87,10 @@ const facilities = (state, {type, payload}) => {
           data: payload,
         },
 
-        getFacilities: {
-          ...state.getFacilities,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
           loading: false,
-          data: [...state.getFacilities.data, payload],
+          data: [...state.getFacilitiesByIdRoom.data, payload],
           error: null,
         },
       };
@@ -122,10 +125,10 @@ const facilities = (state, {type, payload}) => {
           error: null,
         },
 
-        getFacilities: {
-          ...state.getFacilities,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
           loading: false,
-          data: state.getFacilities.data.filter(item => {
+          data: state.getFacilitiesByIdRoom.data.filter(item => {
             return item.id !== payload; // Prevent show deleted items
           }),
 
@@ -170,6 +173,37 @@ const facilities = (state, {type, payload}) => {
         ...state,
         getFacilities: {
           ...state.getFacilities,
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case GET_FACILITIES_ID_ROOM_LOADING:
+      return {
+        ...state,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case GET_FACILITIES_ID_ROOM_SUCCESS:
+      return {
+        ...state,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
+          loading: false,
+          data: payload,
+          error: null,
+        },
+      };
+
+    case GET_FACILITIES_ID_ROOM_FAILED:
+      return {
+        ...state,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
           loading: false,
           error: payload,
         },

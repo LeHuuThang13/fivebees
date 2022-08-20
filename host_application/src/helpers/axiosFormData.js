@@ -38,7 +38,9 @@ axiosInstance.interceptors.response.use(
         reject(error);
       });
     }
-
+    if (typeof error.response === 'undefined') {
+      console.log('Axios get undefine respones');
+    }
     if (error.response.status === STATUS_TOKEN_EXPIRED) {
       navigate(LOGOUT, {tokenExpired: true});
     } else {
@@ -46,6 +48,7 @@ axiosInstance.interceptors.response.use(
         reject(error);
       });
     }
+    return Promise.reject(error);
   },
 );
 
