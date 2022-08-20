@@ -29,3 +29,5 @@ export const DATA_HAS_NOT_CHANGED = 'Dữ liệu chưa được thay đổi';
 export const PLEASE_FILL_DATA = 'Vui lòng nhập đầy đủ thông tin';
 
 export const ANNOUNCE = 'Thông báo';
+export const UPDATE = 'Cập nhập';
+export const CREATE = 'Tạo mới';

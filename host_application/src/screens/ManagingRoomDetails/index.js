@@ -141,15 +141,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
     );
   };
 
-  console.log(
-    'id_room:',
-    idRoom,
-    'id_building:',
-    idBuilding,
-    'name_building:',
-    nameBuilding,
-  );
-
   return (
     <View style={[GlobalStyles.fullScreen]}>
       {isLoaded ? (
@@ -170,11 +161,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
             textTitleOne={'Tình trạng'}
             contentTextTitleOne={'Đang sử dụng'}
             textTitleTwo={'Tổng thiết bị'}
-            contentTextTitleTwo={
-              data?.facilities ? data.facilities.length : 'Đang cập nhập'
-            }
-            textTitleThree={'Thiết bị hư hỏng'}
-            contentTextTitleThree={0}
+            contentTextTitleTwo={data ? data.length : 'Đang cập nhập'}
           />
           <View style={{paddingHorizontal: 15}}>
             <FlatList

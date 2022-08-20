@@ -4,6 +4,7 @@ import styles from './style';
 import DeleteIcon from '../../../assets/icons/delete.svg';
 import EditIcon from '../../../assets/icons/edit.svg';
 import colors from '../../../assets/themes/colors';
+import ExportPdf from '../PrintAnalystRooms';
 
 const Room = props => {
   const {
@@ -22,12 +23,12 @@ const Room = props => {
     btnTitle,
     MoreActions,
     isNotManaging,
-    Btn,
+    BtnIcon,
+    data,
   } = props;
 
   return (
     <View style={styles.roomContainer}>
-      {MoreActions && MoreActions}
       <View style={styles.headerRoom}>
         <Text
           style={[styles.headerRoomLeft, {width: isNotManaging ? 250 : 150}]}
@@ -68,7 +69,9 @@ const Room = props => {
           style={[
             styles.actionsContainer,
             {flexDirection: actions ? 'row' : 'row-reverse'},
-          ]}></View>
+          ]}>
+          <ExportPdf data={[data]} />
+        </View>
       </View>
     </View>
   );

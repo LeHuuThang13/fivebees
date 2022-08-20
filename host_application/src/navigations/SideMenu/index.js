@@ -51,13 +51,13 @@ const SideMenu = ({navigation, authDispatch}) => {
         navigation.navigate(MANAGE);
       },
     },
-    // {
-    //   icon: <Pdf />,
-    //   name: 'Tiện Ích',
-    //   onPress: () => {
-    //     navigation.navigate(INTRODUCE);
-    //   },
-    // },
+    {
+      icon: <Pdf />,
+      name: 'Tiện Ích',
+      onPress: () => {
+        navigation.navigate(INTRODUCE);
+      },
+    },
     {
       icon: <LogoutIcon />,
       name: 'Đăng Xuất',
