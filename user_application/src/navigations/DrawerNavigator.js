@@ -1,21 +1,31 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useContext} from 'react';
-import {HOME_NAVIGATOR} from '../constants/routeNames';
+import {HOME, QRCODE, QRFACILITY} from '../constants/routeNames';
 import {GlobalContext} from '../context/Provider';
 import BottomTabNavigatior from './BottomTabNavigator';
 import React from 'react';
+import SideMenu from './SideMenu';
+import HomeNavigator from './HomeNavigator';
+import ScanFacility from '../screens/ScanFacility';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
-  const {authDispatch} = useContext(GlobalContext);
+  const {authDispatch, roomDispatch} = useContext(GlobalContext);
 
-  const DrawerContents = (navigation, authDispatch) => {
-    return <SideMenu navigation={navigation} authDispatch={authDispatch} />;
+  const DrawerContents = (navigation, authDispatch, roomDispatch) => {
+    return (
+      <SideMenu
+        navigation={navigation}
+        authDispatch={authDispatch}
+        roomDispatch={roomDispatch}
+      />
+    );
   };
 
   return (
     <Drawer.Navigator
       drawerType="slide"
+      initialRouteName={HOME}
       screenOptions={{
         headerShown: true,
         drawerStyle: {
@@ -26,14 +36,14 @@ const DrawerNavigator = () => {
         DrawerContents(navigation, authDispatch)
       }>
       <Drawer.Screen
-        name={HOME_NAVIGATOR}
+        name={HOME}
         options={{headerShown: false}}
         component={BottomTabNavigatior}
       />
       <Drawer.Screen
-        name={HOME_}
+        name={QRFACILITY}
         options={{headerShown: false}}
-        component={BottomTabNavigatior}
+        component={ScanFacility}
       />
     </Drawer.Navigator>
   );

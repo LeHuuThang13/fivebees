@@ -1,16 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, ScrollView, Image, FlatList} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import styles from './styles';
 import GlobalStyles from '../../../globalStyles';
 import HeaderDetails from '../../components/commons/HeaderDetails';
-import {ROOM_LIST} from '../../constants/routeNames';
 import Device from '../../components/commons/Device';
-import DeleteIcon from '../../assets/icons/delete.svg';
-import EditIcon from '../../assets/icons/edit.svg';
+import IconMenu from '../../assets/icons/menu_icon.svg';
+import {GlobalContext} from '../../context/Provider';
+import getFacilities from '../../context/actions/facilities/getFacilities';
 
 const RoomDetails = ({navigation, route}) => {
-  const [idRoom, setIdRoom] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  SettingHeaderNavigator.settingHeaderNavigator({
+    MenuIcon: IconMenu,
+    styles: {
+      marginHorizontal: 10,
+    },
+  });
 
   const listEmptyComponent = () => {
     return (
@@ -24,25 +31,28 @@ const RoomDetails = ({navigation, route}) => {
     );
   };
 
-  const getIdRoom = async () => {
-    try {
-      idRoom = await AsyncStorage.getItem('id_room');
-      const idRoomApi = JSON.parse(idRoom);
-      setIdRoom(idRoomApi);
-    } catch (err) {}
-  };
+  const {
+    roomDispatch,
+    roomState: {data, loading},
+    facilitiesDispatch,
+    facilitiesState: {data: data_facilities, loading: loading_facilities},
+  } = useContext(GlobalContext);
 
   useEffect(() => {
-    getIdRoom();
-    console.log('setIdRoom', setIdRoom);
-  }, []);
+    let isMounted = true;
+    getFacilities(data.id)(facilitiesDispatch)(isMounted)(setIsLoaded);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getFacilities(data.id)(facilitiesDispatch)(isMounted)(setIsLoaded);
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const renderItem = ({item}) => {
-    const {status_id: status, name, category_id: category, id} = item;
+    const {status_id: status, name, category_id: category, id, photos} = item;
 
     return (
       <Device
-        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        urlImage={{uri: photos?.[0]}}
         title={`Sản phẩm`}
         name={`${name}`}
         amountTitle={'Số lượng'}
@@ -55,18 +65,18 @@ const RoomDetails = ({navigation, route}) => {
   };
 
   return (
-    <View style={[styles.container, GlobalStyles.fullScreen]}>
-      {/* <HeaderDetails
+    <View style={[styles.container, GlobalStyles.fullScreen, {flex: 1}]}>
+      <HeaderDetails
         textTitleOne={'Tình trạng'}
         contentTextTitleOne={'Đang sử dụng'}
         textTitleTwo={'Tổng thiết bị'}
-        contentTextTitleTwo={items.length}
-      /> */}
+        contentTextTitleTwo={data_facilities.length}
+      />
       <View style={{paddingHorizontal: 15, flex: 1}}>
         {/* Selecting options */}
         <FlatList
-          // renderItem={renderItem}
-          data={[]}
+          renderItem={renderItem}
+          data={data_facilities}
           style={styles.FlatList}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={listEmptyComponent}

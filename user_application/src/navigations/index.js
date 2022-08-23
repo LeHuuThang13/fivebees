@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {GlobalContext} from '../context/Provider';
@@ -7,6 +7,8 @@ import CheckQRNavigator from './CheckQRNavigator';
 import HomeNavigator from './HomeNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthNavigator from './AuthNavigator';
+import DrawerNavigator from './DrawerNavigator';
+import {LOGIN_USER_SUCCESS} from '../constants/actionNames';
 
 const AppNavigator = () => {
   const {
@@ -14,14 +16,18 @@ const AppNavigator = () => {
     roomState: {isChecking},
   } = useContext(GlobalContext);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn);
+  const [authLoaded, setAuthLoaded] = useState(false);
 
   const getUser = async () => {
     try {
       const user = await AsyncStorage.getItem('user');
       if (user) {
+        setAuthLoaded(true);
         setIsAuthenticated(true);
+        authDispatch({type: LOGIN_USER_SUCCESS});
       } else {
+        setAuthLoaded(true);
         setIsAuthenticated(false);
       }
     } catch (err) {}
@@ -40,22 +46,28 @@ const AppNavigator = () => {
     },
   };
 
-  console.log('isChecking', isChecking);
-
   return (
-    <NavigationContainer theme={CustomTheme}>
-      <View style={styles.fullScreen}>
-        {isAuthenticated ? (
-          isChecking ? (
-            <HomeNavigator />
-          ) : (
-            <CheckQRNavigator />
-          )
-        ) : (
-          <AuthNavigator />
-        )}
-      </View>
-    </NavigationContainer>
+    <>
+      {console.log(authLoaded)}
+      {authLoaded ? (
+        <NavigationContainer theme={CustomTheme}>
+          <View style={styles.fullScreen}>
+            {console.log('isAuthenticated', isAuthenticated)}
+            {isAuthenticated ? (
+              isChecking ? (
+                <DrawerNavigator />
+              ) : (
+                <CheckQRNavigator />
+              )
+            ) : (
+              <AuthNavigator />
+            )}
+          </View>
+        </NavigationContainer>
+      ) : (
+        <ActivityIndicator />
+      )}
+    </>
   );
 };
 

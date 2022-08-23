@@ -2,6 +2,7 @@ import {
   ROOM_DETAILS_LOADING,
   ROOM_DETAILS_SUCCESS,
   ROOM_DETAILS_FAIL,
+  ROOM_DETAILS_CANCEL,
 } from '../../constants/actionNames';
 
 const room = (state, {type, payload}) => {
@@ -27,6 +28,13 @@ const room = (state, {type, payload}) => {
         loading: false,
         error: payload,
         isChecking: false,
+      };
+
+    case ROOM_DETAILS_CANCEL:
+      return {
+        isChecking: false,
+        data: null,
+        loading: false,
       };
 
     default:

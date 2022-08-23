@@ -20,8 +20,10 @@ import styles from './styles';
 import getRoom from '../../context/actions/room/getRoom';
 import {GlobalContext} from '../../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {HOME} from '../../constants/routeNames';
+import PreviousIcon from '../../assets/icons/previous_icon';
 
-const QRCode = () => {
+const QRCode = ({navigation}) => {
   const HEIGHT = Dimensions.get('window').height;
 
   const [scan, setScan] = useState(true);
@@ -107,6 +109,20 @@ const QRCode = () => {
 
         {scan && (
           <View style={{flex: 1}}>
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                zIndex: 100,
+                marginLeft: 20,
+                marginTop: 20,
+              }}
+              onPress={() => {
+                navigation.navigate(HOME);
+              }}>
+              <PreviousIcon width={30} height={30} />
+            </TouchableOpacity>
             <QRCodeScanner
               reactivate={true}
               showMarker={true}
