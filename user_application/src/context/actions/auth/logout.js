@@ -12,6 +12,8 @@ import axiosInstance from '../../../helpers/axiosInterceptor';
 export default () => dispatch => dispatchRoom => {
   dispatch({type: LOGOUT_LOADING});
 
+  console.log(123321123);
+
   axiosInstance
     .post('logout')
     .then(res => {
@@ -19,8 +21,9 @@ export default () => dispatch => dispatchRoom => {
       AsyncStorage.removeItem('user');
       Toast({title: 'Đăng xuất thành công'});
       console.log(23);
+      dispatchRoom({type: ROOM_DETAILS_CANCEL});
       dispatch({type: LOGOUT_SUCCESS});
-      // dispatchRoom({type: ROOM_DETAILS_CANCEL});
+      console.log(123);
     })
     .catch(error => {
       console.log(error.response.data);

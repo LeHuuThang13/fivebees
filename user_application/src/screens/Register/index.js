@@ -6,13 +6,14 @@ import Input from '../../components/commons/Input';
 import UsernameIcon from '../../assets/icons/username_icon.svg';
 import PasswordIcon from '../../assets/icons/password_icon.svg';
 import BlindEyeIcon from '../../assets/icons/hidePsw.svg';
+import MailIcon from '../../assets/icons/mail.svg';
 import EyeIcon from '../../assets/icons/showPsw.svg';
 import CustomButton from '../../components/commons/CustomButton';
 import globalStyles from '../../../globalStyles';
-import login from '../../context/actions/auth/login';
-import {REGISTER} from '../../constants/routeNames';
+import register from '../../context/actions/auth/register';
+import {LOGIN} from '../../constants/routeNames';
 
-const Login = ({navigation}) => {
+const Register = ({navigation}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
@@ -43,7 +44,7 @@ const Login = ({navigation}) => {
       });
     }
 
-    const INPUT_FIELDS = 2;
+    const INPUT_FIELDS = 3;
     const isInputLength = Object.values(form).every(
       item => item.trim().length > 0,
     );
@@ -51,7 +52,7 @@ const Login = ({navigation}) => {
     const isNotError = Object.values(errors).every(item => !item);
 
     if (isInputLength && isFilledAllInputs && isNotError) {
-      login(form)(authDispatch);
+      register(form)(authDispatch);
     }
   };
 
@@ -62,9 +63,8 @@ const Login = ({navigation}) => {
           style={[styles.logoImage]}
           source={require('../../assets/images/logo.png')}
         />
-
         <View>
-          <Text style={styles.title}>Chào Mừng Tới FiveBees</Text>
+          <Text style={styles.title}>Đăng ký</Text>
           <Input
             label="Username"
             onChangeText={value => {
@@ -74,6 +74,17 @@ const Login = ({navigation}) => {
             logo={<UsernameIcon style={styles.iconSgv} />}
             iconPosition="left"
             error={errors.username}
+          />
+
+          <Input
+            label="Email"
+            onChangeText={value => {
+              onChange({name: 'email', value});
+            }}
+            placeholder="Tên đăng nhập"
+            logo={<MailIcon style={styles.iconSgv} />}
+            iconPosition="left"
+            error={errors.email}
           />
 
           <Input
@@ -96,33 +107,31 @@ const Login = ({navigation}) => {
             error={errors.password}
           />
 
-          <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
-            <TouchableOpacity
-              style={{
-                width: 100,
-                flexDirection: 'row-reverse',
-                height: 30,
-              }}
-              onPress={() => {
-                navigation.navigate(REGISTER);
-              }}>
-              <Text>Đăng ký</Text>
-            </TouchableOpacity>
-          </View>
-
-          {console.log('loading', loading)}
-
           <CustomButton
             onPress={onSubmit}
             primary
-            title={'Đăng Nhập'}
+            title={'Đăng Ký'}
             loading={loading}
             disabled={loading}
           />
+
+          <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={{
+                width: 200,
+                flexDirection: 'row-reverse',
+                height: 100,
+              }}
+              onPress={() => {
+                navigation.navigate(LOGIN);
+              }}>
+              <Text>Quay lại đăng nhập</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </View>
   );
 };
 
-export default Login;
+export default Register;

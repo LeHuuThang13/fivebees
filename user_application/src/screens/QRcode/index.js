@@ -36,6 +36,7 @@ const QRCode = () => {
   const setValueItem = async id => {};
 
   useEffect(() => {
+    console.log('result', result);
     const id = result?.data ? JSON.parse(result?.data) : undefined;
     if (id) {
       getRoom(id)(roomDispatch)(() => {

@@ -13,6 +13,7 @@ import {LOGIN_USER_SUCCESS} from '../constants/actionNames';
 const AppNavigator = () => {
   const {
     authState: {isLoggedIn},
+    authDispatch,
     roomState: {isChecking},
   } = useContext(GlobalContext);
 
@@ -35,6 +36,7 @@ const AppNavigator = () => {
 
   useEffect(() => {
     getUser();
+    console.log(123);
   }, [isLoggedIn]);
 
   const CustomTheme = {
@@ -53,6 +55,8 @@ const AppNavigator = () => {
         <NavigationContainer theme={CustomTheme}>
           <View style={styles.fullScreen}>
             {console.log('isAuthenticated', isAuthenticated)}
+            {console.log('isChecking', isChecking)}
+            {console.log('authLoaded', authLoaded)}
             {isAuthenticated ? (
               isChecking ? (
                 <DrawerNavigator />

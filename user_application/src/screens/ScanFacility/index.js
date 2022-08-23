@@ -29,6 +29,7 @@ const QRCode = ({navigation}) => {
   const [scan, setScan] = useState(true);
   const [scanResult, setScanResult] = useState(false);
   const [result, setResult] = useState(null);
+  const [solveData, setSolveData] = useState({});
 
   const {
     roomDispatch,
@@ -37,14 +38,6 @@ const QRCode = ({navigation}) => {
 
   const setValueItem = async id => {};
 
-  useEffect(() => {
-    const id = result?.data ? JSON.parse(result?.data) : undefined;
-    if (id) {
-      getRoom(id)(roomDispatch)(() => {
-        setValueItem();
-      });
-    }
-  }, [result]);
   let scanner = useRef(null);
 
   const onSuccess = e => {
@@ -52,6 +45,7 @@ const QRCode = ({navigation}) => {
 
     setScan(false);
     setResult(e);
+    setSolveData(JSON.parse(result.data));
     setScanResult(true);
 
     if (check === 'http') {
@@ -87,25 +81,24 @@ const QRCode = ({navigation}) => {
           </View>
         )}
 
-        {/* {ScanResult && (
-            <Fragment>
-              <View style={{justifyContent: 'center'}}>
-                <Text style={{}}>Result !</Text>
-              </View>
-              <View style={ScanResult ? styles.scanCardView : styles.cardView}>
-                <Text>Type : {result.type}</Text>
-                <Text>Result : {result.data}</Text>
-                <Text numberOfLines={1}>RawData: {result.rawData}</Text>
-                <TouchableOpacity
-                  onPress={this.scanAgain}
-                  style={styles.buttonTouchable}>
-                  <Text style={styles.buttonTextStyle}>
-                    Click to Scan again!
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </Fragment>
-          )} */}
+        {scanResult && (
+          <Fragment>
+            <View style={{justifyContent: 'center'}}>
+              <Text style={{}}>Result !</Text>
+            </View>
+            <View style={result ? styles.scanCardView : styles.cardView}>
+              {/* <Text>Type : {result.type}</Text> */}
+              <Text>Tên : {solveData?.id}</Text>
+              <Text>Mã thiết bị : {solveData?.data}</Text>
+              <Text>Mô tả: {result.rawData}</Text>
+              <TouchableOpacity
+                onPress={scanAgain}
+                style={styles.buttonTouchable}>
+                <Text style={styles.buttonTextStyle}>Click to Scan again!</Text>
+              </TouchableOpacity>
+            </View>
+          </Fragment>
+        )}
 
         {scan && (
           <View style={{flex: 1}}>

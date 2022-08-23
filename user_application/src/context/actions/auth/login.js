@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Toast} from '../../../components/commons/Toast';
 import {
-  LOGIN_FAILED,
+  LOGIN_FAIL,
   LOGIN_LOADING,
   LOGIN_SUCCESS,
 } from '../../../constants/actionNames';
@@ -27,7 +27,7 @@ export default ({username, password}) =>
       .catch(err => {
         Toast({title: 'Đăng nhập thất bại'});
         dispatch({
-          type: LOGIN_FAILED,
+          type: LOGIN_FAIL,
           payload: {error: 'Try again'},
         });
       });

@@ -4,15 +4,26 @@ import {
   LOGIN_FAIL,
   LOGIN_USER_SUCCESS,
   LOGOUT_SUCCESS,
+  REGISTER_LOADING,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
 } from '../../constants/actionNames';
 import {LOGOUT} from '../../constants/routeNames';
 
 const auth = (state, {type, payload}) => {
   switch (type) {
     case LOGIN_LOADING:
+    case REGISTER_LOADING:
       return {
         ...state,
         loading: true,
+      };
+
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: payload,
       };
 
     case LOGIN_SUCCESS:
@@ -23,6 +34,7 @@ const auth = (state, {type, payload}) => {
         isLoggedIn: true,
       };
 
+    case REGISTER_FAIL:
     case LOGIN_FAIL:
       return {
         ...state,

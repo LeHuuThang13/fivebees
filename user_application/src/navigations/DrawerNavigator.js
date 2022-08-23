@@ -8,7 +8,7 @@ import SideMenu from './SideMenu';
 import HomeNavigator from './HomeNavigator';
 import ScanFacility from '../screens/ScanFacility';
 
-const DrawerNavigator = () => {
+const DrawerNavigator = ({route}) => {
   const Drawer = createDrawerNavigator();
   const {authDispatch, roomDispatch} = useContext(GlobalContext);
 
@@ -33,7 +33,7 @@ const DrawerNavigator = () => {
         },
       }}
       drawerContent={({navigation}) =>
-        DrawerContents(navigation, authDispatch)
+        DrawerContents(navigation, authDispatch, roomDispatch)
       }>
       <Drawer.Screen
         name={HOME}

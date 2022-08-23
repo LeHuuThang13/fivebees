@@ -1,10 +1,7 @@
 {
-  "_parts": [
-    ["name", "zxcvzcv"],
-    ["description", "zxcvzxcv"],
-    ["category_id", 2],
-    ["status_id", 1],
-    ["filenames", []],
-    ["room_id", 3]
-  ]
+  "bounds": {"height": 1080, "origin": [[], [], []], "width": 1440},
+  "data": "{\"id\":\"3\"}",
+  "rawData": "71a40a7b226964223a2233227d00ec11ec11ec",
+  "target": 3525,
+  "type": "QR_CODE"
 }
