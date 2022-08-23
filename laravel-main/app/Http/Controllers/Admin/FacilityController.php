@@ -129,11 +129,11 @@ class FacilityController extends Controller
 
         $photos = $facility->getMedia('photos');
 
-        $name = "name: " . $facility->name . "\n";
-        $code = "code: " . $facility->code . "\n";
-        $description = "description: " . $facility->description . "\n";
-        $status = "status: " . $facility->status->name . "\n";
-        $category = "category: " . $facility->categories->name;
+        $name = '{"name": ' . '"' . $facility->name . '",';
+        $code = '"code": ' . '"' . $facility->code . '",';
+        $description = '"description": ' . '"' . $facility->description . '",';
+        $status = '"status": ' . '"' . $facility->status->name . '",';
+        $category = '"category": ' . '"' . $facility->categories->name . '}"';
 
         $facility_info = $name . $code . $description . $status . $category;
         $info = mb_convert_encoding($facility_info, 'UTF-8', 'ISO-8859-1');
