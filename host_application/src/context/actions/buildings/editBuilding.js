@@ -32,8 +32,8 @@ export default form => dispatch => props => onSuccess => {
   } else {
     formData.append('filenames', {
       type: 'image/jpeg',
-      uri: localFile,
-      name: localFile,
+      uri: localFile.replace('http://', 'https://'),
+      name: localFile.replace('http://', 'https://'),
     });
   }
 

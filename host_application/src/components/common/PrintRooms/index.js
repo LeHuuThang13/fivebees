@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, PermissionsAndroid} from 'react-native';
 import {StyleSheet} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
@@ -6,80 +6,176 @@ import FileViewer from 'react-native-file-viewer';
 import {Alert} from 'react-native';
 import PdfIcon from '../../../assets/icons/pdf.svg';
 
+function timeNow() {
+  var currentdate = new Date();
+  var datetime =
+    currentdate.getDate() +
+    '/' +
+    (currentdate.getMonth() + 1) +
+    '/' +
+    currentdate.getFullYear() +
+    '-' +
+    currentdate.getHours() +
+    ':' +
+    currentdate.getMinutes();
+
+  return datetime;
+}
+
+function fileName() {
+  var currentdate = new Date();
+  var datetime =
+    'Hợp_đồng_' +
+    currentdate.getDate() +
+    '' +
+    (currentdate.getMonth() + 1) +
+    '' +
+    currentdate.getFullYear() +
+    '' +
+    currentdate.getHours() +
+    '' +
+    currentdate.getMinutes();
+
+  return datetime;
+}
+
+function RenderData(facilities) {
+  let html = '';
+  let count = 0;
+  if (facilities?.length == 0) {
+    html += '<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+  } else {
+    for (var i = 0; i < facilities?.length; i++) {
+      html +=
+        '<tr>' +
+        ` <td class="align-middle">${++count}</td>` +
+        ` <td class="align-middle">${facilities[i].code}</td>` +
+        ` <td class="align-middle">${facilities[i].name}</td>` +
+        `<td class="align-middle">${facilities[i].status}</td>` +
+        `<td class="align-middle">${facilities[i].updated_at}</td>` +
+        `<td class="align-middle"></td>` +
+        `</tr>`;
+    }
+  }
+  return html;
+}
+
 const ExportPdf = props => {
-  const {titlePrint, colOne, colTwo, colThree, colFour, data} = props;
-  console.log('props:>>>', props);
+  const {
+    building_id,
+    description,
+    facilities,
+    id,
+    photos,
+    room_number,
+    status,
+  } = props.data[0];
+  const {name: name_building} = building_id;
 
-  let str = '';
+  const [date, setDate] = useState(timeNow());
+  const html = RenderData(facilities);
 
-  const BodyTable = data.map(function (item) {
-    str += `<tr>
-        <td class="align-middle text-center">${item.id}</td>
-        <td class="align-middle text-center">${item.room_number}</td>
-        <td class="align-middle text-center">${item.description}</td>
-        <td class="align-middle text-center">${item.status}</td>
-      </tr>`;
-  });
-
-  const htmlContent =
-    `
-        <html>
-        <!doctype html>
-        <html lang="en">
-        
-        <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        * {
-            font-family: DejaVu Sans !important;
-            font-size: 10px;
-        }
-
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        table,
-        td,
-        th {
-            border: 1px solid black;
-            text-align: left;
-            padding: 8px;
-        }
-
-        p {
-            margin: 0;
-        }
-    </style>
-    <title>Kiểm kê thiết bị phòng</title>
-</head>
-          <body>
-          <div class="info-container" style="margin-right: 2rem">
-          <div class="container px-0 py-2 bg-white table-container mb-4" style="border-radius: 10px">
-              <h3 class="mt-2 mx-3">In biên bản kiểm kê ${titlePrint}</h3>
-              <hr>
-              <table class="table">
-                  <thead style="background-color: #F5F9FC;">
-                      <tr>
-                          <th class="text-center" scope="col">${colOne}</th>
-                          <th class="text-center" scope="col">${colTwo}</th>
-                          <th class="text-center" scope="col">${colThree}</th>
-                          <th class="text-center" scope="col">${colFour}</th>
-                      </tr>` +
-    str +
-    `</thead>
-                  <tbody>
-                  </tbody>
-                </table>
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+            * {
+                font-family: DejaVu Sans !important;
+                font-size: 10px;
+            }
+    
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+    
+            table,
+            td,
+            th {
+                border: 1px solid black;
+                text-align: left;
+                padding: 8px;
+            }
+    
+            p {
+                margin: 0;
+            }
+        </style>
+        <title>Kiểm kê thiết bị phòng</title>
+    </head>
+    
+    <body>
+        <h5 style="margin: 0">${name_building}</h5>
+    
+        <div style="margin-bottom: 10px">
+            <div style="text-align: center;">
+                <h1 style="font-size: 18px;">Biên bản kiểm kê thiết bị phòng</h1>
+            </div>
+            <b>Thông tin phòng:</b>
+            <p>Phòng: ${name_building}</p>
+            <p>Tình trạng phòng: ${status}</p>
+            <p>Ngày kiểm kê: ....giờ....ngày ${date}</p>
+        </div>
+    
+        <div>
+            <b>Thông tin bên thuê:</b>
+            <p>Tên người thuê:</p>
+            <p>Ngày nhận phòng:</p>
+            <p>CCCD/CMND:</p>
+            <p>SĐT:</p>
+    
+            <div style="margin-top: 10px">
+                <b>Danh sách thiết bị kiểm kê:</b>
+            </div>
+            <table cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>stt</th>
+                        <th>mã thiết bị</th>
+                        <th>tên thiết bị</th>
+                        <th>tình trạng</th>
+                        <th>ngày gán</th>
+                        <th>hư hại</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${html}
+                </tbody>
+            </table>
+    
+            <div style="text-align: right; margin: 1rem">
+                <p>Ngày.......tháng.......năm.......</p>
             </div>
         </div>
-        </body>
-        </html>
+    
+        <div>
+            <div style="text-align: center; float: left">
+                <p>Chủ nhà</p>
+                <i>(Ký, ghi rõ họ tên)</i>
+            </div>
+            <div style="text-align: center; float: left; margin-left: 30%">
+                <p>Kiểm kê</p>
+                <i>(Ký, ghi rõ họ tên)</i>
+            </div>
+            <div style="text-align: center; float: left; margin-left: 25%">
+                <p>Đại diện bên thuê</p>
+                <i>(Ký, ghi rõ họ tên)</i>
+            </div>
+        </div>
+    
+    
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+    </body>
+    
+    </html>
       `;
   const askPermission = () => {
     async function requestExternalWritePermission() {
@@ -112,7 +208,7 @@ const ExportPdf = props => {
       //Content to print
       html: htmlContent,
       //File Name
-      fileName: 'est',
+      fileName: fileName(),
       //File directory
       directory: 'Download',
 
@@ -148,12 +244,12 @@ const ExportPdf = props => {
       onPress={askPermission}
       style={{
         position: 'absolute',
-        right: 20,
-        bottom: 20,
+        left: 0,
+        bottom: 5,
         padding: 0,
         zIndex: 3,
       }}>
-      <PdfIcon width={50} height={50} />
+      <PdfIcon width={20} height={20} />
     </TouchableOpacity>
   );
 };

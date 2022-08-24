@@ -76,17 +76,18 @@ const ManagingRoomDetails = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {room_number, photos, status, facilities} = item;
+    const {room_number, photos, status} = item;
+    console.log('item: >>>', item);
 
     return (
       <DeviceAnalyst
-        urlImage={{uri: photos?.[0]}}
+        urlImage={{
+          uri: photos?.[0] ? photos?.[0].replace('http://', 'https://') : '',
+        }}
         title={`Phòng: `}
         name={`${room_number}`}
         amountTitle={'Trạng thái: '}
         amount={status}
-        roomTitle={'Thiết bị: '}
-        room={`${facilities.length}`}
         style={{
           marginVertical: 12,
         }}
@@ -108,7 +109,14 @@ const ManagingRoomDetails = ({navigation, route}) => {
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={listEmptyComponent}
           />
-          <ExportPdf data={data} />
+          <ExportPdf
+            data={data}
+            titlePrint={'phòng'}
+            colOne={'ID'}
+            colTwo={'Tên phòng'}
+            colThree={'Mô tả'}
+            colFour={'Trạng thái'}
+          />
         </>
       )}
     </View>

@@ -4,7 +4,7 @@ import styles from './style';
 import DeleteIcon from '../../../assets/icons/delete.svg';
 import EditIcon from '../../../assets/icons/edit.svg';
 import colors from '../../../assets/themes/colors';
-import ExportPdf from '../PrintAnalystRooms';
+import ExportPdf from '../PrintRooms';
 
 const Room = props => {
   const {

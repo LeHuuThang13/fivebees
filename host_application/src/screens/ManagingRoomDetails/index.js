@@ -162,11 +162,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
             textTitleOne={'Tình trạng'}
             contentTextTitleOne={'Đang sử dụng'}
             textTitleTwo={'Tổng thiết bị'}
-            contentTextTitleTwo={
-              data?.facilities ? data.facilities.length : 'Đang cập nhập'
-            }
-            textTitleThree={'Thiết bị hư hỏng'}
-            contentTextTitleThree={0}
+            contentTextTitleTwo={data.length}
           />
           <View style={{paddingHorizontal: 15}}>
             <FlatList

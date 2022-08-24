@@ -6,6 +6,7 @@ import {
 import envs from '../../../config/env';
 import {Toast} from '../../../components/Toast';
 import axios from 'axios';
+import {Alert} from 'react-native';
 
 export default form =>
   dispatch =>
@@ -30,12 +31,10 @@ export default form =>
     } else {
       formData.append('filenames', {
         type: 'image/jpeg',
-        uri: localFile,
-        name: localFile,
+        uri: localFile.replace('http://', 'https://'),
+        name: localFile.replace('http://', 'https://'),
       });
     }
-
-    console.log(formData);
 
     dispatch({
       type: UPDATE_ROOM_LOADING,

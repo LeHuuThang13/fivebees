@@ -113,8 +113,6 @@ const ManagingRooms = ({navigation, route}) => {
       <Room
         roomName={`Phòng ${room_number}`}
         status={status}
-        totalDevices={`Thiết bị đang cập nhập`}
-        IconDevice={DeviceIcon}
         btnTitle={'Quản lý thiết bị'}
         IconSetting={Setting}
         onPress={() => {

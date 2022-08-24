@@ -6,6 +6,7 @@ import {
 import envs from '../../../config/env';
 import {Toast} from '../../../components/Toast';
 import axios from 'axios';
+import {Alert} from 'react-native';
 
 export default form => dispatch => params => onSuccess => {
   const {
@@ -47,8 +48,8 @@ export default form => dispatch => params => onSuccess => {
       formData.append('room_id', room);
       formData.append('filenames', {
         type: 'image/jpeg',
-        uri: localFile,
-        name: localFile,
+        uri: localFile.replace('http://', 'https://'),
+        name: localFile.replace('http://', 'https://'),
       });
     }
   } else {
@@ -76,50 +77,43 @@ export default form => dispatch => params => onSuccess => {
       formData.append('room_id', idRoom);
       formData.append('filenames', {
         type: 'image/jpeg',
-        uri: localFile,
-        name: localFile,
+        uri: localFile.replace('http://', 'https://'),
+        name: localFile.replace('http://', 'https://'),
       });
     }
   }
 
-  console.log('form', formData);
-  console.log('form', formData._parts[0].filenames);
-  console.log('localFile', localFile);
+  dispatch({
+    type: CREATE_FACILITY_LOADING,
+  });
 
-  // dispatch({
-  //   type: CREATE_FACILITY_LOADING,
-  // });
-
-  // axios
-  //   .post(url, formData, {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       'Content-Type': 'multipart/form-data',
-  //       'Access-Control-Allow-Origin': '*',
-  //       'Access-Control-Allow-Methods': 'POST',
-  //       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  //       'Access-Control-Allow-Credentials': 'true',
-  //     },
-  //     validateStatus: function (status) {
-  //       return status < 500; // Resolve only if the status code is less than 500
-  //     },
-  //   })
-  //   .then(res => {
-  //     console.log('res >>', res.data.data);
-  //     console.log('thành công');
-  //     onSuccess();
-  //     dispatch({
-  //       type: CREATE_FACILITY_SUCCESS,
-  //       payload: res.data.data,
-  //     });
-  //     Toast({title: 'Cập nhập thiết bị thành công'});
-  //   })
-  //   .catch(error => {
-  //     Toast({title: 'Vui lòng kiểm tra lại đường truyền'});
-  //     console.log('error creating buliding', error.response);
-  //     dispatch({
-  //       type: CREATE_FACILITY_FAILED,
-  //       payload: error.response.data,
-  //     });
-  //   });
+  axios
+    .post(url, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Credentials': 'true',
+      },
+    })
+    .then(res => {
+      console.log('res >>', res.data.data);
+      console.log('thành công');
+      onSuccess();
+      dispatch({
+        type: CREATE_FACILITY_SUCCESS,
+        payload: res.data.data,
+      });
+      Toast({title: 'Cập nhập thiết bị thành công'});
+    })
+    .catch(error => {
+      Toast({title: 'Vui lòng kiểm tra lại đường truyền'});
+      console.log('error creating buliding', error.response);
+      dispatch({
+        type: CREATE_FACILITY_FAILED,
+        payload: error.response.data,
+      });
+    });
 };

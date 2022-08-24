@@ -20,8 +20,8 @@ export default form => dispatch => params => onSuccess => {
     formData.append('status_id', 1);
     formData.append('filenames', {
       type: 'image/jpeg',
-      uri: localFile.path.replace('http://', 'https://'),
-      name: localFile.path.replace('http://', 'https://'),
+      uri: localFile.path,
+      name: localFile.path,
     });
     formData.append('room_id', idRoom);
   } else if (status && room && category) {
@@ -31,8 +31,8 @@ export default form => dispatch => params => onSuccess => {
     formData.append('status_id', status);
     formData.append('filenames', {
       type: 'image/jpeg',
-      uri: localFile.path.replace('http://', 'https://'),
-      name: localFile.path.replace('http://', 'https://'),
+      uri: localFile.path,
+      name: localFile.path,
     });
     formData.append('room_id', room);
   }

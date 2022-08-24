@@ -138,28 +138,15 @@ const CreatingFacility = ({navigation, route}) => {
     const token = await AsyncStorage.getItem('token');
 
     if (status == 4 || status == 2) {
-      if (name || localFile || description || category || status || room) {
-        updateFacility(form)(facilitiesDispatch)({
-          localFile,
-          idFacility,
-          token,
-          category,
-          room,
-          status,
-          isManagingDevices,
-        })(() => {
-          navigate(MANAGING_FACILITIES);
-          setForm({});
-          setLocalFile('');
-          setName('');
-          setDescription('');
-          setCategory('');
-          setIsLoading(false);
-        });
-      }
-    } else if (status !== 4 || status !== 2) {
-      if (typeof room == 'number') {
-        if (name || localFile || description || category || status || room) {
+      if (
+        typeof form?.name == 'string' &&
+        typeof form?.description == 'string' &&
+        typeof category == 'number' &&
+        localFile &&
+        form?.name.trim() !== '' &&
+        form?.description.trim() !== ''
+      ) {
+        if (isEdited) {
           updateFacility(form)(facilitiesDispatch)({
             localFile,
             idFacility,
@@ -177,6 +164,60 @@ const CreatingFacility = ({navigation, route}) => {
             setCategory('');
             setIsLoading(false);
           });
+        }
+        Alert.alert('Thông báo', 'Dữ liệu chưa được thay đổi', [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      } else {
+        Alert.alert('Thông báo', 'Vui lòng nhập đủ thông tin!', [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      }
+    } else if (status !== 4 || status !== 2) {
+      if (typeof room == 'number') {
+        if (
+          typeof form?.name == 'string' &&
+          typeof form?.description == 'string' &&
+          typeof category == 'number' &&
+          localFile &&
+          form?.name.trim() !== '' &&
+          form?.description.trim() !== ''
+        ) {
+          if (isEdited) {
+            updateFacility(form)(facilitiesDispatch)({
+              localFile,
+              idFacility,
+              token,
+              category,
+              room,
+              status,
+              isManagingDevices,
+            })(() => {
+              navigate(MANAGING_FACILITIES);
+              setForm({});
+              setLocalFile('');
+              setName('');
+              setDescription('');
+              setCategory('');
+              setIsLoading(false);
+            });
+          } else {
+            Alert.alert('Thông báo', 'Dữ liệu chưa được thay đổi', [
+              {
+                text: 'Đã hiểu',
+                onPress: () => console.log('Đã hiểu'),
+                style: 'cancel',
+              },
+            ]);
+          }
         }
       } else {
         Alert.alert('Thông báo', 'Phòng chưa được chọn!', [
