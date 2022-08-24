@@ -91,8 +91,7 @@ const Introduce = ({navigation, route}) => {
         totalDevices={facilities ? facilities.length : 0}
         IconDevice={DeviceIcon}
         IconSetting={SettingIcon}
-        btnTitle={'In'}
-        Btn={<ExportPdf data={item} />}
+        data={item}
       />
     );
   };
