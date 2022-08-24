@@ -137,27 +137,25 @@ const CreatingBuilding = ({navigation}) => {
     <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
       <ScrollView>
         <View style={styles.imageWrapper}>
-          {!!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={{uri: localFile?.path}}
-              style={styles.imageView}
-            />
-          )}
+          <TouchableOpacity onPress={openSheet} style={styles.imageWrapper}>
+            {!!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={{uri: localFile?.path}}
+                style={styles.imageView}
+              />
+            )}
 
-          {!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={require('../../assets/images/default_image.png')}
-              style={styles.imageView}
-            />
-          )}
-
-          <TouchableOpacity onPress={openSheet}>
+            {!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={require('../../assets/images/default_image.png')}
+                style={styles.imageView}
+              />
+            )}
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho tòa nhà'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -208,7 +206,7 @@ const CreatingBuilding = ({navigation}) => {
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm tòa nhà'}
+          title={'Tạo mới'}
           loading={loading_building || uploading}
           disabled={loading_building}
           error={error}

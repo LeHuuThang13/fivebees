@@ -26,10 +26,12 @@ import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
 import deleteFacilityById from '../../context/actions/facilities/deleteFacilityById';
 import {useNavigation} from '@react-navigation/native';
-import defaultImage from '../../assets/images/default_image.png';
+import deleteDeviceById from '../../context/actions/facilities/deleteDeviceById';
 
 const ManagingDevices = ({navigation, route}) => {
   const {navigate} = useNavigation();
+
+  console.log(route.params);
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
     Icon: PreviousIcon,
@@ -61,6 +63,7 @@ const ManagingDevices = ({navigation, route}) => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
       setIsLoaded(false);
+      console.log('Dang an day nay');
       navigation.navigate(MANAGE);
       return true;
     });
@@ -70,7 +73,7 @@ const ManagingDevices = ({navigation, route}) => {
         return false;
       });
     };
-  }, []);
+  }, [route.params]);
 
   const listEmptyComponent = () => {
     return (
@@ -87,19 +90,17 @@ const ManagingDevices = ({navigation, route}) => {
   const renderItem = ({item}) => {
     const {status, name, id, photos} = item;
     const {name: status_name} = status[0];
-    const imgLink = photos?.[0];
+    const imgLink = photos?.[0]
+      ? photos?.[0].replace('http://', 'https://')
+      : '';
     const imgAlt =
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png';
 
     return (
       <Device
-        urlImage={
-          imgLink
-            ? {uri: imgLink}
-            : {
-                uri: imgAlt,
-              }
-        }
+        urlImage={{
+          uri: imgLink,
+        }}
         title={`Sản phẩm`}
         name={`${name}`}
         amountTitle={'Trạng thái'}
@@ -115,7 +116,7 @@ const ManagingDevices = ({navigation, route}) => {
           });
         }}
         onPressDelete={() => {
-          deleteFacilityById(id)(facilitiesDispatch);
+          deleteDeviceById(id)(facilitiesDispatch);
         }}
       />
     );

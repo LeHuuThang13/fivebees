@@ -11,7 +11,7 @@ export default form => dispatch => params => onSuccess => {
   const {category, localFile, idRoom, room, status, token} = params;
 
   const formData = new FormData();
-  const url = 'http://fivebees.ml/api/v1/facilities';
+  const url = envs.BACKEND_URL + '/facilities';
 
   if (idRoom) {
     formData.append('name', form.name);
@@ -20,8 +20,8 @@ export default form => dispatch => params => onSuccess => {
     formData.append('status_id', 1);
     formData.append('filenames', {
       type: 'image/jpeg',
-      uri: localFile.path,
-      name: 'upload.jpg',
+      uri: localFile.path.replace('http://', 'https://'),
+      name: localFile.path.replace('http://', 'https://'),
     });
     formData.append('room_id', idRoom);
   } else if (status && room && category) {
@@ -31,8 +31,8 @@ export default form => dispatch => params => onSuccess => {
     formData.append('status_id', status);
     formData.append('filenames', {
       type: 'image/jpeg',
-      uri: localFile.path,
-      name: 'upload.jpg',
+      uri: localFile.path.replace('http://', 'https://'),
+      name: localFile.path.replace('http://', 'https://'),
     });
     formData.append('room_id', room);
   }

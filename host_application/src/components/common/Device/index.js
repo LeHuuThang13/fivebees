@@ -14,6 +14,10 @@ const Device = props => {
     DeleteIcon,
     onPressEdit,
     onPressDelete,
+    titleOne,
+    textOne,
+    titleTwo,
+    textTwo,
   } = props;
 
   const WIDTH = Dimensions.get('window').width / 2 - 50;
@@ -49,6 +53,28 @@ const Device = props => {
             </Text>
           </View>
         </View>
+
+        {titleOne && (
+          <View style={[styles.titleWrapper]}>
+            <Text style={styles.title}>{titleOne}: </Text>
+            <View>
+              <Text numberOfLines={1} style={styles.textContent}>
+                {textOne}
+              </Text>
+            </View>
+          </View>
+        )}
+
+        {titleTwo && (
+          <View style={[styles.titleWrapper]}>
+            <Text style={styles.title}>{titleTwo}: </Text>
+            <View>
+              <Text numberOfLines={1} style={styles.textContent}>
+                {textTwo}
+              </Text>
+            </View>
+          </View>
+        )}
 
         <View style={styles.actionsWrapper}>
           <TouchableOpacity

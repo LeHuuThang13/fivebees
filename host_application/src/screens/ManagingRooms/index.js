@@ -41,7 +41,15 @@ const ManagingRooms = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_BUILDING);
+      navigate({
+        name: MANAGING_BUILDING,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+          refresh: true,
+        },
+        merge: true,
+      });
       setIsLoaded(false);
     },
   });
@@ -64,6 +72,7 @@ const ManagingRooms = ({navigation, route}) => {
         params: {
           id_building: idBuilding,
           name_building: nameBuilding,
+          refresh: true,
         },
         merge: true,
       });

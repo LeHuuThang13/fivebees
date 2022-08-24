@@ -2,6 +2,9 @@ import {
   CREATE_FACILITY_FAILED,
   CREATE_FACILITY_LOADING,
   CREATE_FACILITY_SUCCESS,
+  DELETE_DEVICE_FAILED,
+  DELETE_DEVICE_LOADING,
+  DELETE_DEVICE_SUCCESS,
   DELETE_FACILITY_FAILED,
   DELETE_FACILITY_LOADING,
   DELETE_FACILITY_SUCCESS,
@@ -117,6 +120,7 @@ const facilities = (state, {type, payload}) => {
       };
 
     case DELETE_FACILITY_SUCCESS:
+      console.log(state, type, payload);
       return {
         ...state,
         deleteFacility: {
@@ -129,6 +133,7 @@ const facilities = (state, {type, payload}) => {
           ...state.getFacilitiesByIdRoom,
           loading: false,
           data: state.getFacilitiesByIdRoom.data.filter(item => {
+            console.log(item.id !== payload);
             return item.id !== payload; // Prevent show deleted items
           }),
 
@@ -137,6 +142,49 @@ const facilities = (state, {type, payload}) => {
       };
 
     case DELETE_FACILITY_FAILED:
+      return {
+        ...state,
+        deleteFacility: {
+          ...state.deleteFacility,
+          loading: false,
+          error: null,
+        },
+      };
+
+    // Delete
+    case DELETE_DEVICE_LOADING:
+      return {
+        ...state,
+        deleteFacility: {
+          ...state.deleteFacility,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case DELETE_DEVICE_SUCCESS:
+      console.log(state, type, payload);
+      return {
+        ...state,
+        deleteFacility: {
+          ...state.deleteFacility,
+          loading: false,
+          error: null,
+        },
+
+        getFacilities: {
+          ...state.getFacilities,
+          loading: false,
+          data: state.getFacilities.data.filter(item => {
+            console.log(item.id !== payload);
+            return item.id !== payload; // Prevent show deleted items
+          }),
+
+          error: null,
+        },
+      };
+
+    case DELETE_DEVICE_FAILED:
       return {
         ...state,
         deleteFacility: {

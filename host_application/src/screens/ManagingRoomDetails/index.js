@@ -63,6 +63,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('123 321 123 321');
       setIsLoaded(false);
       navigate({
         name: MANAGING_ROOMS,
@@ -80,7 +81,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
         return false;
       });
     };
-  }, [navigation]);
+  }, [route.params]);
 
   useEffect(() => {
     let isMounted = true;
@@ -113,7 +114,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
     return (
       <Device
         urlImage={{
-          uri: photos?.[0] ? photos?.[0] : imgAlt,
+          uri: photos?.[0].replace('http://', 'https://'),
         }}
         title={`Sản phẩm`}
         name={`${name}`}
@@ -140,15 +141,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
       />
     );
   };
-
-  console.log(
-    'id_room:',
-    idRoom,
-    'id_building:',
-    idBuilding,
-    'name_building:',
-    nameBuilding,
-  );
 
   return (
     <View style={[GlobalStyles.fullScreen]}>

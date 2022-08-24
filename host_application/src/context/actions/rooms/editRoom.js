@@ -14,12 +14,13 @@ export default form =>
   idRoom =>
   onSuccess => {
     const formData = new FormData();
-    const url = envs.BACKEND_URL + `rooms/${idRoom}`;
+    const url = envs.BACKEND_URL + `/rooms/${idRoom}`;
+    console.log('idRoom', url);
     formData.append('room_number', form.room_number);
     formData.append('status', form.status);
     formData.append('_method', 'put');
     formData.append('description', form.description);
-    formData.append('idBuilding', idBuilding);
+    formData.append('building_id', idBuilding);
     if (typeof localFile == 'object') {
       formData.append('filenames', {
         type: 'image/jpeg',
@@ -34,6 +35,8 @@ export default form =>
       });
     }
 
+    console.log(formData);
+
     dispatch({
       type: UPDATE_ROOM_LOADING,
     });
@@ -47,9 +50,6 @@ export default form =>
           'Access-Control-Allow-Methods': 'POST',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization',
           'Access-Control-Allow-Credentials': 'true',
-        },
-        validateStatus: function (status) {
-          return status < 500; // Resolve only if the status code is less than 500
         },
       })
       .then(res => {

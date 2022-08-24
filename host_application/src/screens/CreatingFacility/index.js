@@ -71,6 +71,7 @@ const CreatingFacility = ({navigation, route}) => {
   } = useContext(GlobalContext);
 
   // Hook fields
+  const [isEdited, setIsEdited] = useState(false);
 
   useEffect(() => {
     // Back button real device
@@ -81,6 +82,7 @@ const CreatingFacility = ({navigation, route}) => {
         params: {
           id_building: idBuilding,
           name_building: nameBuilding,
+          reload: true,
         },
         merge: true,
       });
@@ -226,6 +228,7 @@ const CreatingFacility = ({navigation, route}) => {
           title="Loại thiết bị"
           data={data_categories}
           setState={setCategory}
+          setIsEdited={setIsEdited}
         />
 
         <CustomButton

@@ -14,6 +14,8 @@ const AppNavigator = () => {
     authDispatch,
   } = useContext(GlobalContext);
 
+  console.log(123);
+
   const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn);
   const [authLoaded, setAuthLoaded] = useState(false);
 

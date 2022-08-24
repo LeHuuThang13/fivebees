@@ -61,14 +61,15 @@ const CreatingBuilding = ({navigation, route}) => {
     if (params?.building) {
       const {name, email, hotline, address, photos, id} = params.building;
       setForm({...form, name, email, hotline, address});
-      setLocalFile(photos[0]);
+      setLocalFile(photos?.[0]);
       setBuildingId(id);
     }
 
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_BUILDING);
-      setIsLoaded(false);
+      navigation.navigate(MANAGING_BUILDING, {
+        isReload: true,
+      });
       return true;
     });
 
@@ -80,7 +81,7 @@ const CreatingBuilding = ({navigation, route}) => {
   }, [route]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState(params?.building?.photos[0]);
+  const [localFile, setLocalFile] = useState(params?.building?.photos?.[0]);
   const sheetRef = useRef(null);
   const [name, setName] = useState(params?.building?.name);
   const [email, setEmail] = useState(params?.building?.email);
@@ -177,7 +178,11 @@ const CreatingBuilding = ({navigation, route}) => {
             <Image
               width={150}
               height={150}
-              source={{uri: localFile?.path ? localFile?.path : localFile}}
+              source={{
+                uri: localFile?.path
+                  ? localFile?.path.replace('http://', 'https://')
+                  : localFile.replace('http://', 'https://'),
+              }}
               style={styles.imageView}
             />
           )}

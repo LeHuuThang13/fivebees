@@ -87,11 +87,11 @@ const BottomTabNavigatior = ({navigation, route}) => {
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={NOTIFICATION_BOTTOM}
         options={{headerShown: false}}
         component={NotiTabNavigator}
-      />
+      /> */}
       <Tab.Screen
         name={ACCOUNT_BOTTOM}
         options={{headerShown: false}}

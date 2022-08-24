@@ -1,7 +1,17 @@
 {
-  "bounds": {"height": 1080, "origin": [[], [], []], "width": 1440},
-  "data": "{\"id\":\"3\"}",
-  "rawData": "71a40a7b226964223a2233227d00ec11ec11ec",
-  "target": 3525,
-  "type": "QR_CODE"
+  "building_id": 125,
+  "created_at": "2022-08-22 02:40:59",
+  "created_by_id": 9,
+  "deleted_at": null,
+  "description": "Phòng này cũng tạm ¯\\_(ツ)_/¯",
+  "id": 89,
+  "pivot": {
+    "created_at": "2022-08-22T03:10:08.000000Z",
+    "facility_id": 329,
+    "room_id": 89,
+    "updated_at": "2022-08-22T03:10:08.000000Z"
+  },
+  "room_number": "P2002",
+  "status": "Đã thuê",
+  "updated_at": "2022-08-22 02:40:59"
 }

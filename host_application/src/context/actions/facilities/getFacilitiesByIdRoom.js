@@ -16,10 +16,17 @@ export default id => dispatch => isMounted => setIsLoaded => {
     .get(`facilities?room_id=${id}`)
     .then(res => {
       if (isMounted) {
+        let data = [];
+        res.data.data.map(item => {
+          if (item.room?.[0]?.pivot?.room_id == id) {
+            data.push(item);
+          }
+          return {};
+        });
         setIsLoaded(true);
         dispatch({
           type: GET_FACILITIES_ID_ROOM_SUCCESS,
-          payload: res.data.data,
+          payload: data,
         });
       }
     })

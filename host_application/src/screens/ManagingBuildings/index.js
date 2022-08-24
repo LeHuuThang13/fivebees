@@ -55,7 +55,8 @@ const ManagingBuilding = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigate(MANAGE);
+      console.log('Quay lại');
+      navigation.navigate(MANAGE);
       setIsLoaded(false);
       return true;
     });
@@ -65,13 +66,10 @@ const ManagingBuilding = ({navigation, route}) => {
         return false;
       });
     };
-  }, [navigation]);
-  console.log(route.params);
+  }, [route.params]);
 
   useEffect(() => {
-    console.log(route.params);
     getBuildings(setIsLoaded)(buildingsDispatch);
-    console.log(123);
   }, [route.params]);
 
   const ListEmptyComponent = () => {

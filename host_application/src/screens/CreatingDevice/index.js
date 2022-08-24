@@ -39,7 +39,9 @@ const CreatingFacility = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_FACILITIES);
+      navigate(MANAGING_FACILITIES, {
+        reload: true,
+      });
     },
   });
 
@@ -79,7 +81,9 @@ const CreatingFacility = ({navigation, route}) => {
     fetchData();
 
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_FACILITIES);
+      navigate(MANAGING_FACILITIES, {
+        reload: true,
+      });
       return true;
     });
 
@@ -171,26 +175,25 @@ const CreatingFacility = ({navigation, route}) => {
     <SafeAreaView
       style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.imageWrapper}>
-          {!!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={{uri: localFile?.path}}
-              style={styles.imageView}
-            />
-          )}
+        <View>
+          <TouchableOpacity onPress={openSheet} style={styles.imageWrapper}>
+            {!!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={{uri: localFile?.path}}
+                style={styles.imageView}
+              />
+            )}
 
-          {!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={require('../../assets/images/default_image.png')}
-              style={styles.imageView}
-            />
-          )}
-
-          <TouchableOpacity onPress={openSheet}>
+            {!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={require('../../assets/images/default_image.png')}
+                style={styles.imageView}
+              />
+            )}
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
           </TouchableOpacity>
         </View>
@@ -220,6 +223,7 @@ const CreatingFacility = ({navigation, route}) => {
             title={'Chọn phòng'}
             data={data_rooms}
             setState={setRoom}
+            setIsEdited={setIsEdited}
           />
         )}
 
@@ -227,12 +231,14 @@ const CreatingFacility = ({navigation, route}) => {
           title={'Chọn loại'}
           data={data_categories}
           setState={setCategory}
+          setIsEdited={setIsEdited}
         />
 
         <SelectingDropDown
           title={'Chọn trạng thái'}
           data={data_status}
           setState={setStatus}
+          setIsEdited={setIsEdited}
         />
 
         <CustomButton

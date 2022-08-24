@@ -44,7 +44,9 @@ const CreatingFacility = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_FACILITIES);
+      navigate(MANAGING_FACILITIES, {
+        reload: true,
+      });
     },
   });
 
@@ -82,7 +84,9 @@ const CreatingFacility = ({navigation, route}) => {
       setRoom(room[0] ? room[0]?.id : []);
     }
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_FACILITIES);
+      navigation.navigate(MANAGING_FACILITIES, {
+        reload: true,
+      });
       return true;
     });
 
@@ -94,7 +98,7 @@ const CreatingFacility = ({navigation, route}) => {
   }, [route]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState(item?.photos[0]);
+  const [localFile, setLocalFile] = useState(item?.photos?.[0]);
   const sheetRef = useRef(null);
   const [name, setName] = useState(form?.name);
   const [category, setCategory] = useState(item?.category[0].id);
@@ -196,28 +200,30 @@ const CreatingFacility = ({navigation, route}) => {
     <SafeAreaView
       style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.imageWrapper}>
-          {!!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={{uri: localFile?.path ? localFile?.path : localFile}}
-              style={styles.imageView}
-            />
-          )}
+        <View>
+          <TouchableOpacity onPress={openSheet} style={styles.imageWrapper}>
+            {!!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={{
+                  uri: localFile?.path
+                    ? localFile?.path.replace('http://', 'https://')
+                    : localFile.replace('http://', 'https://'),
+                }}
+                style={styles.imageView}
+              />
+            )}
 
-          {!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={require('../../assets/images/default_image.png')}
-              style={styles.imageView}
-            />
-          )}
-
-          <TouchableOpacity onPress={openSheet}>
+            {!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={require('../../assets/images/default_image.png')}
+                style={styles.imageView}
+              />
+            )}
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -246,12 +252,14 @@ const CreatingFacility = ({navigation, route}) => {
         <SelectingDropDown
           title={category_text}
           data={data_categories}
+          setIsEdited={setIsEdited}
           setState={setCategory}
         />
 
         <SelectingDropDown
           title={status_text}
           data={data_status}
+          setIsEdited={setIsEdited}
           setState={setStatus}
         />
 
@@ -259,6 +267,7 @@ const CreatingFacility = ({navigation, route}) => {
           <SelectingDropDown
             title={room_text ? room_text : 'Chưa chọn'}
             data={data_rooms}
+            setIsEdited={setIsEdited}
             setState={setRoom}
           />
         )}

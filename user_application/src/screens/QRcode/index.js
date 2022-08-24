@@ -21,12 +21,15 @@ import getRoom from '../../context/actions/room/getRoom';
 import {GlobalContext} from '../../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const QRCode = () => {
+const QRCode = ({route}) => {
   const HEIGHT = Dimensions.get('window').height;
 
   const [scan, setScan] = useState(true);
   const [scanResult, setScanResult] = useState(false);
   const [result, setResult] = useState(null);
+
+  console.log(route);
+  console.log('scan', scan);
 
   const {
     roomDispatch,

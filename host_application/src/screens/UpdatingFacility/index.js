@@ -57,6 +57,7 @@ const CreatingFacility = ({navigation, route}) => {
         params: {
           id_building: idBuilding,
           name_building: nameBuilding,
+          reload: true,
         },
         merge: true,
       });
@@ -95,6 +96,7 @@ const CreatingFacility = ({navigation, route}) => {
         params: {
           id_building: idBuilding,
           name_building: nameBuilding,
+          reload: true,
         },
         merge: true,
       });
@@ -142,7 +144,6 @@ const CreatingFacility = ({navigation, route}) => {
   };
 
   const onSubmit = async () => {
-    console.log('----------------------');
     if (
       typeof form?.name == 'string' &&
       typeof form?.description == 'string' &&
@@ -165,6 +166,7 @@ const CreatingFacility = ({navigation, route}) => {
             params: {
               id_building: idBuilding,
               name_building: nameBuilding,
+              reload: true,
             },
             merge: true,
           });
@@ -195,7 +197,11 @@ const CreatingFacility = ({navigation, route}) => {
               <Image
                 width={150}
                 height={150}
-                source={{uri: localFile?.path ? localFile?.path : localFile}}
+                source={{
+                  uri: localFile?.path
+                    ? localFile?.path.replace('http://', 'https://')
+                    : localFile.replace('http://', 'https://'),
+                }}
                 style={styles.imageView}
               />
               <Text style={styles.colorChoosingImageText}>Choose image</Text>
@@ -243,6 +249,7 @@ const CreatingFacility = ({navigation, route}) => {
           title={data_getFacility?.category?.[0]?.name}
           data={data_categories}
           setState={setCategory}
+          setIsEdited={setIsEdited}
         />
 
         <CustomButton
