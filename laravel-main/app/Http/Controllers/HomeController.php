@@ -38,7 +38,9 @@ class HomeController extends Controller
             $table->editColumn('room', function ($row) {
                 if ($row->rooms->last()) {
                     $building = Building::where('id', $row->rooms->last()->building_id)->first();
-                    return $row->rooms->last()->room_number . " (" . $building->name . ")";
+                    if ($building) {
+                        return $row->rooms->last()->room_number . " (" . $building->name . ")";
+                    }
                 }
                 return "Đang cập nhật";
             });
