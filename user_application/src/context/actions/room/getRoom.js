@@ -12,7 +12,8 @@ export default prop => dispatch => onSuccess => setScan => {
   dispatch({
     type: ROOM_DETAILS_LOADING,
   });
-  const id = prop.id;
+  const id = prop;
+  console.log('id,id', typeof id);
 
   axiosInstance
     .get(`rooms/${id}`)

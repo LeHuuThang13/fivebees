@@ -31,9 +31,6 @@ const QRCode = ({route}) => {
   const [result, setResult] = useState(null);
   const [correctId, setIsCorrectId] = useState(false);
 
-  console.log(route);
-  console.log('scan', scan);
-
   const {
     roomDispatch,
     roomState: {isChecking},
@@ -42,19 +39,7 @@ const QRCode = ({route}) => {
 
   const setValueItem = async id => {};
 
-  useEffect(() => {
-    try {
-      const id = JSON.parse(result?.data);
-      if (id) {
-        getRoom(id)(roomDispatch)(() => {
-          setValueItem();
-          setScanResult(true);
-        })(setScan);
-      }
-    } catch (e) {
-      setScanResult(false);
-    }
-  }, [result]);
+  useEffect(() => {}, [result]);
   let scanner = useRef(null);
 
   const onSuccess = e => {
@@ -62,16 +47,16 @@ const QRCode = ({route}) => {
 
     setScan(false);
     setResult(e);
-    setScanResult(true);
-
-    if (check === 'http') {
-      Linking.openURL(e.data).catch(err =>
-        console.error('An error occured', err),
-      );
-    } else {
-      setResult(e);
-      setScan(false);
-      setScanResult(true);
+    try {
+      const id = JSON.parse(e?.data);
+      if (id) {
+        getRoom(id)(roomDispatch)(() => {
+          setValueItem();
+          setScanResult(true);
+        })(setScan);
+      }
+    } catch (e) {
+      Announce('Thông báo', 'QRCode không đúng định dạng, vui lòng làm lại');
     }
   };
 
@@ -91,8 +76,13 @@ const QRCode = ({route}) => {
           <View style={styles.cardView}>
             <TouchableOpacity
               onPress={activeQR}
-              style={{backgroundColor: colors.bg_primary, padding: 20}}>
-              <Text style={{color: colors.white}}>Click to Scan !</Text>
+              style={{
+                backgroundColor: colors.bg_primary,
+                padding: 20,
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+              <Text style={{color: colors.white}}>Quét lại mã</Text>
             </TouchableOpacity>
           </View>
         )}
