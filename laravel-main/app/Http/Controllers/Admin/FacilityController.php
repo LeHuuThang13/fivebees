@@ -133,7 +133,7 @@ class FacilityController extends Controller
         $code = '"code": ' . '"' . $facility->code . '",';
         $description = '"description": ' . '"' . $facility->description . '",';
         $status = '"status": ' . '"' . $facility->status->name . '",';
-        $category = '"category": ' . '"' . $facility->categories->name . '}"';
+        $category = '"category": ' . '"' . $facility->categories->name . '"}';
 
         $facility_info = $name . $code . $description . $status . $category;
         $info = mb_convert_encoding($facility_info, 'UTF-8', 'ISO-8859-1');

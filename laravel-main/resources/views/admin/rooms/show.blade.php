@@ -98,6 +98,16 @@
             </div>
         </div>
     </div>
+
+    <div class="container px-0 py-2 bg-white table-container mb-4" style="margin-right: 20px; border-radius: 10px">
+        <div class="container">
+            <p class="mb-0">Mã QR:</p>
+        </div>
+
+        <div class="visible-print text-center mb-2">
+            {!! QrCode::size(200)->generate($room->id); !!}
+        </div>
+    </div>
 </div>
 
 @endsection
