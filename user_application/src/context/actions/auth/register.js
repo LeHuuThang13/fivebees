@@ -8,7 +8,7 @@ import {
 } from '../../../constants/actionNames';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export default ({username, password, email}) =>
+export default ({username, password, email, password_confirmation}) =>
   dispatch => {
     const name = username;
     const roles = {
@@ -22,26 +22,22 @@ export default ({username, password, email}) =>
       email,
       password,
       name,
+      password_confirmation,
       ...roles,
     };
 
     console.log(form);
 
     axiosInstance
-      .post('users', {
-        name: 'Trần Văn C',
-        email: 'tvc@gmail.com',
-        password: '123456',
-      })
+      .post('register', form)
       .then(res => {
         Toast({title: 'Đăng ký thành công'});
-        // AsyncStorage.setItem('token', res.data.access_token);
-        // AsyncStorage.setItem('user', JSON.stringify(res.data.user));
-        console.log('res', res);
-        // dispatch({type: REGISTER_SUCCESS, payload: res.data});
+        AsyncStorage.setItem('token', res.data.access_token);
+        AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+        dispatch({type: REGISTER_SUCCESS, payload: res.data});
       })
       .catch(err => {
-        console.log('err: >>', err);
+        console.log('err: >>', err.response.data);
         Toast({title: 'Đăng ký thất bại'});
         dispatch({
           type: REGISTER_FAIL,

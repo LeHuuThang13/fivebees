@@ -23,6 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {HOME} from '../../constants/routeNames';
 import PreviousIcon from '../../assets/icons/previous_icon';
 import PreviousColorIcon from '../../assets/icons/previous_color_icon.svg';
+import Announce from '../../components/commons/Announce';
 
 const QRCode = ({navigation}) => {
   const HEIGHT = Dimensions.get('window').height;
@@ -31,11 +32,6 @@ const QRCode = ({navigation}) => {
   const [scanResult, setScanResult] = useState(false);
   const [result, setResult] = useState(null);
   const [solveData, setSolveData] = useState({});
-
-  const {
-    roomDispatch,
-    roomState: {isChecking},
-  } = useContext(GlobalContext);
 
   const setValueItem = async id => {};
 
@@ -46,18 +42,32 @@ const QRCode = ({navigation}) => {
 
     setScan(false);
     setResult(e);
-    setSolveData(JSON.parse(e?.data));
-    setScanResult(true);
-
-    if (check === 'http') {
-      Linking.openURL(e.data).catch(err =>
-        console.error('An error occured', err),
-      );
-    } else {
-      setResult(e);
-      setScan(false);
+    try {
       setSolveData(JSON.parse(e?.data));
-      setScanResult(true);
+      if (
+        !!solveData?.category &&
+        !!solveData?.code &&
+        !!solveData?.description &&
+        !!solveData?.name &&
+        !!solveData?.status
+      ) {
+        setScanResult(true);
+      } else {
+        setScanResult(false);
+      }
+
+      if (check === 'http') {
+        Linking.openURL(e.data).catch(err =>
+          console.error('An error occured', err),
+        );
+      } else {
+        setResult(e);
+        setScan(false);
+        setSolveData(JSON.parse(e?.data));
+        setScanResult(true);
+      }
+    } catch (e) {
+      Announce('Thông báo', 'QRCode không đúng định dạng, vui lòng làm lại');
     }
   };
 
@@ -77,8 +87,13 @@ const QRCode = ({navigation}) => {
           <View style={styles.cardView}>
             <TouchableOpacity
               onPress={activeQR}
-              style={{backgroundColor: colors.bg_primary, padding: 20}}>
-              <Text style={{color: colors.white}}>Click to Scan !</Text>
+              style={{
+                backgroundColor: colors.bg_primary,
+                padding: 20,
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+              <Text style={{color: colors.white}}>Tiếp tục Quét mã</Text>
             </TouchableOpacity>
           </View>
         )}

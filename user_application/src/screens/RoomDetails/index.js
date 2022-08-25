@@ -40,6 +40,7 @@ const RoomDetails = ({navigation, route}) => {
 
   useEffect(() => {
     let isMounted = true;
+    console.log('data.id', data.id);
     getFacilities(data.id)(facilitiesDispatch)(isMounted)(setIsLoaded);
     const unsubscribe = navigation.addListener('focus', () => {
       getFacilities(data.id)(facilitiesDispatch)(isMounted)(setIsLoaded);
@@ -52,7 +53,9 @@ const RoomDetails = ({navigation, route}) => {
 
     return (
       <Device
-        urlImage={{uri: photos?.[0]}}
+        urlImage={{
+          uri: photos?.[0] ? photos?.[0].replace('http://', 'https://') : '',
+        }}
         title={`Sản phẩm`}
         name={`${name}`}
         amountTitle={'Số lượng'}

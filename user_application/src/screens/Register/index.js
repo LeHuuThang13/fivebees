@@ -43,8 +43,19 @@ const Register = ({navigation}) => {
         return {...prevState, password: 'This field is required'};
       });
     }
+    if (!form.email) {
+      setErrors(prevState => {
+        return {...prevState, email: 'This field is required'};
+      });
+    }
 
-    const INPUT_FIELDS = 3;
+    if (!form.password_confirmation) {
+      setErrors(prevState => {
+        return {...prevState, password_confirmation: 'This field is required'};
+      });
+    }
+
+    const INPUT_FIELDS = 4;
     const isInputLength = Object.values(form).every(
       item => item.trim().length > 0,
     );
@@ -105,6 +116,26 @@ const Register = ({navigation}) => {
             secureTextEntry={isSecureEntry}
             iconPosition="right"
             error={errors.password}
+          />
+
+          <Input
+            label="Password_confirmation"
+            placeholder="Nhập lại mật khẩu"
+            logo={<PasswordIcon />}
+            icon={
+              <TouchableOpacity
+                onPress={value => {
+                  setIsSecureEntry(prevState => !prevState);
+                }}>
+                <Text>{isSecureEntry ? <BlindEyeIcon /> : <EyeIcon />}</Text>
+              </TouchableOpacity>
+            }
+            onChangeText={value => {
+              onChange({name: 'password_confirmation', value});
+            }}
+            secureTextEntry={isSecureEntry}
+            iconPosition="right"
+            error={errors.password_confirmation}
           />
 
           <CustomButton

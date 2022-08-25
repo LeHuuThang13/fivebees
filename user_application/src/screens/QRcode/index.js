@@ -19,7 +19,9 @@ import {
 import styles from './styles';
 import getRoom from '../../context/actions/room/getRoom';
 import {GlobalContext} from '../../context/Provider';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Announce from '../../components/commons/Announce';
+import PreviousIcon from '../../assets/icons/previous_icon';
+import logout from '../../context/actions/auth/logout';
 
 const QRCode = ({route}) => {
   const HEIGHT = Dimensions.get('window').height;
@@ -27,6 +29,7 @@ const QRCode = ({route}) => {
   const [scan, setScan] = useState(true);
   const [scanResult, setScanResult] = useState(false);
   const [result, setResult] = useState(null);
+  const [correctId, setIsCorrectId] = useState(false);
 
   console.log(route);
   console.log('scan', scan);
@@ -34,17 +37,22 @@ const QRCode = ({route}) => {
   const {
     roomDispatch,
     roomState: {isChecking},
+    authDispatch,
   } = useContext(GlobalContext);
 
   const setValueItem = async id => {};
 
   useEffect(() => {
-    console.log('result', result);
-    const id = result?.data ? JSON.parse(result?.data) : undefined;
-    if (id) {
-      getRoom(id)(roomDispatch)(() => {
-        setValueItem();
-      });
+    try {
+      const id = JSON.parse(result?.data);
+      if (id) {
+        getRoom(id)(roomDispatch)(() => {
+          setValueItem();
+          setScanResult(true);
+        })(setScan);
+      }
+    } catch (e) {
+      setScanResult(false);
     }
   }, [result]);
   let scanner = useRef(null);
@@ -111,6 +119,20 @@ const QRCode = ({route}) => {
 
         {scan && (
           <View style={{flex: 1}}>
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                zIndex: 100,
+                marginLeft: 20,
+                marginTop: 20,
+              }}
+              onPress={() => {
+                logout()(authDispatch)(roomDispatch);
+              }}>
+              <PreviousIcon width={30} height={30} />
+            </TouchableOpacity>
             <QRCodeScanner
               reactivate={true}
               showMarker={true}

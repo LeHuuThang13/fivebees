@@ -15,14 +15,23 @@ export default prop => dispatch => isMounted => setIsLoaded => {
     dispatch({
       type: GET_FACILITIES_LOADING,
     });
-    const id = prop.id;
+    const id = prop;
 
     axiosInstance
       .get(`facilities?room_id=${id}`)
       .then(res => {
+        let data = [];
+        console.log('id', id);
+        res.data.data.map(item => {
+          if (item.room?.[0]?.pivot?.room_id == id) {
+            data.push(item);
+            console.log(item.room?.[0]?.pivot?.room_id == id);
+          }
+          return {};
+        });
         dispatch({
           type: GET_FACILITIES_SUCCESS,
-          payload: res.data.data,
+          payload: data,
         });
         setIsLoaded(true);
       })
