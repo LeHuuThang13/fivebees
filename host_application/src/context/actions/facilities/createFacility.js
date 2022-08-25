@@ -32,16 +32,14 @@ export default form => dispatch => params => onSuccess => {
     formData.append('filenames', {
       type: 'image/jpeg',
       uri: localFile.path,
-      name: 'upload.jpg',
+      name: localFile.path,
     });
     formData.append('room_id', room);
   }
 
-  console.log('form.name', formData);
-
-  // dispatch({
-  //   type: CREATE_FACILITY_LOADING,
-  // });
+  dispatch({
+    type: CREATE_FACILITY_LOADING,
+  });
 
   axios
     .post(url, formData, {
@@ -49,23 +47,19 @@ export default form => dispatch => params => onSuccess => {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Credentials': 'true',
       },
     })
     .then(res => {
       const result = res.data.data;
+      onSuccess();
       dispatch({
         type: CREATE_FACILITY_SUCCESS,
         payload: result,
       });
       Toast({title: 'Tạo thiết bị mới thành công'});
-      onSuccess();
     })
     .catch(err => {
-      console.log('error creating facility', err.response.data);
+      console.log('error creating facility', err);
       dispatch({
         type: CREATE_FACILITY_FAILED,
         payload: err.response.data,

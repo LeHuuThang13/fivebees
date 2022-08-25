@@ -7,7 +7,8 @@ import {Alert} from 'react-native';
 import PdfIcon from '../../../assets/icons/pdf.svg';
 
 const ExportPdf = props => {
-  const {data} = props;
+  const {titlePrint, colOne, colTwo, colThree, colFour, data} = props;
+  console.log('props:>>>', props);
 
   let str = '';
 
@@ -16,7 +17,6 @@ const ExportPdf = props => {
         <td class="align-middle text-center">${item.id}</td>
         <td class="align-middle text-center">${item.room_number}</td>
         <td class="align-middle text-center">${item.description}</td>
-        <td class="align-middle text-center">${item.facilities.length} thiết bị</td>
         <td class="align-middle text-center">${item.status}</td>
       </tr>`;
   });
@@ -61,17 +61,16 @@ const ExportPdf = props => {
           <body>
           <div class="info-container" style="margin-right: 2rem">
           <div class="container px-0 py-2 bg-white table-container mb-4" style="border-radius: 10px">
-              <h3 class="mt-2 mx-3">In biên bản kiểm kê phòng</h3>
+              <h3 class="mt-2 mx-3">In biên bản kiểm kê ${titlePrint}</h3>
               <hr>
               <table class="table">
                   <thead style="background-color: #F5F9FC;">
                       <tr>
-                          <th class="text-center" scope="col">Stt</th>
-                          <th class="text-center" scope="col">Tên phòng</th>
-                          <th class="text-center" scope="col">Mô tả</th>
-                          <th class="text-center" scope="col">Số lượng thiết bị</th>
-                          <th class="text-center" scope="col">Trạng thái</th>
-                          </tr>` +
+                          <th class="text-center" scope="col">${colOne}</th>
+                          <th class="text-center" scope="col">${colTwo}</th>
+                          <th class="text-center" scope="col">${colThree}</th>
+                          <th class="text-center" scope="col">${colFour}</th>
+                      </tr>` +
     str +
     `</thead>
                   <tbody>

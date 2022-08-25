@@ -1,5 +1,12 @@
 import React, {useContext, useEffect} from 'react';
-import {Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  FlatList,
+  ActivityIndicator,
+  BackHandler,
+} from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
 import styles from './styles';
@@ -33,6 +40,20 @@ const ManagingRoomDetails = ({navigation, route}) => {
   } = useContext(GlobalContext);
 
   useEffect(() => {
+    // Back button real device
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.navigate(ANALYST);
+      return true;
+    });
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => {
+        return false;
+      });
+    };
+  }, [navigation]);
+
+  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getRooms()(roomsDispatch);
     });
@@ -55,17 +76,18 @@ const ManagingRoomDetails = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {room_number, photos, status, facilities} = item;
+    const {room_number, photos, status} = item;
+    console.log('item: >>>', item);
 
     return (
       <DeviceAnalyst
-        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        urlImage={{
+          uri: photos?.[0] ? photos?.[0].replace('http://', 'https://') : '',
+        }}
         title={`Phòng: `}
         name={`${room_number}`}
         amountTitle={'Trạng thái: '}
         amount={status}
-        roomTitle={'Thiết bị: '}
-        room={`${facilities.length}`}
         style={{
           marginVertical: 12,
         }}
@@ -87,7 +109,14 @@ const ManagingRoomDetails = ({navigation, route}) => {
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={listEmptyComponent}
           />
-          <ExportPdf data={data} />
+          <ExportPdf
+            data={data}
+            titlePrint={'phòng'}
+            colOne={'ID'}
+            colTwo={'Tên phòng'}
+            colThree={'Mô tả'}
+            colFour={'Trạng thái'}
+          />
         </>
       )}
     </View>

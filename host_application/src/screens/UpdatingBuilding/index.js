@@ -27,6 +27,7 @@ import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import CustomButtonIcon from '../../components/CustomButtonIcon';
 import editBuilding from '../../context/actions/buildings/editBuilding';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingBuilding = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -40,7 +41,9 @@ const CreatingBuilding = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_BUILDING);
+      navigate(MANAGING_BUILDING, {
+        refesh: true,
+      });
     },
   });
 
@@ -58,13 +61,15 @@ const CreatingBuilding = ({navigation, route}) => {
     if (params?.building) {
       const {name, email, hotline, address, photos, id} = params.building;
       setForm({...form, name, email, hotline, address});
-      setLocalFile(photos[0]);
+      setLocalFile(photos?.[0]);
       setBuildingId(id);
     }
 
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_BUILDING);
+      navigation.navigate(MANAGING_BUILDING, {
+        isReload: true,
+      });
       return true;
     });
 
@@ -76,18 +81,18 @@ const CreatingBuilding = ({navigation, route}) => {
   }, [route]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState('');
+  const [localFile, setLocalFile] = useState(params?.building?.photos?.[0]);
   const sheetRef = useRef(null);
-  const [name, setName] = useState(form?.name);
-  const [email, setEmail] = useState(form?.email);
-  const [address, setAddress] = useState(form?.address);
-  const [hotline, sethotline] = useState(form?.hotline);
+  const [name, setName] = useState(params?.building?.name);
+  const [email, setEmail] = useState(params?.building?.email);
+  const [address, setAddress] = useState(params?.building?.address);
+  const [hotline, sethotline] = useState(params?.building?.hotline);
   const [buildingId, setBuildingId] = useState({});
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
 
   // Functions
-
   const closeSheet = () => {
     if (sheetRef.current) {
       sheetRef.current.close();
@@ -111,21 +116,51 @@ const CreatingBuilding = ({navigation, route}) => {
     setIsEdited(true);
   };
 
-  const onSubmit = () => {
-    if (isEdited) {
-      editBuilding(form)(buildingsDispatch)({localFile, buildingId})(() => {
-        setIsLoading(true);
-        navigate(MANAGING_BUILDING);
-        setForm({});
-        setLocalFile('');
-        setAddress('');
-        setEmail('');
-        setName('');
-        sethotline('');
-        setIsLoading(false);
-      });
+  const onSubmit = async () => {
+    if (
+      typeof name == 'string' &&
+      typeof email == 'string' &&
+      typeof address == 'string' &&
+      typeof hotline == 'string' &&
+      localFile &&
+      name !== '' &&
+      email !== '' &&
+      address !== '' &&
+      hotline !== ''
+    ) {
+      const token = await AsyncStorage.getItem('token');
+      const user = await AsyncStorage.getItem('user');
+      if (isEdited) {
+        editBuilding(form)(buildingsDispatch)({
+          localFile,
+          buildingId,
+          token,
+          user,
+          setDisabledBtn,
+        })(() => {
+          setIsLoading(true);
+          navigate(MANAGING_BUILDING, {
+            refresh: true,
+          });
+          setForm({});
+          setLocalFile('');
+          setAddress('');
+          setEmail('');
+          setName('');
+          sethotline('');
+          setIsLoading(false);
+        });
+      } else {
+        Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      }
     } else {
-      Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+      Alert.alert('Thông báo', 'Vui nhập đầy đủ!', [
         {
           text: 'Đã hiểu',
           onPress: () => console.log('Đã hiểu'),
@@ -143,7 +178,11 @@ const CreatingBuilding = ({navigation, route}) => {
             <Image
               width={150}
               height={150}
-              source={{uri: localFile?.path}}
+              source={{
+                uri: localFile?.path
+                  ? localFile?.path.replace('http://', 'https://')
+                  : localFile.replace('http://', 'https://'),
+              }}
               style={styles.imageView}
             />
           )}
@@ -159,7 +198,6 @@ const CreatingBuilding = ({navigation, route}) => {
 
           <TouchableOpacity onPress={openSheet}>
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
-            <Text>{localFile === '' && 'Vui lòng tải ảnh cho tòa nhà'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -171,7 +209,7 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập tên tòa nhà"
           value={form.name}
-          error={name === '' && error?.errors?.name?.[0]}
+          error={error?.errors?.name?.[0]}
         />
 
         <CustomInput
@@ -182,7 +220,7 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập tên email"
           value={form.email}
-          error={email === '' && error?.errors?.email?.[0]}
+          error={error?.errors?.email?.[0]}
         />
 
         <CustomInput
@@ -193,7 +231,7 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập địa chỉ"
           value={form.address}
-          error={address === '' && error?.errors?.address?.[0]}
+          error={error?.errors?.address?.[0]}
         />
 
         <CustomInput
@@ -204,15 +242,15 @@ const CreatingBuilding = ({navigation, route}) => {
           }}
           placeholder="Nhập số điện thoại"
           value={form.hotline}
-          error={hotline === '' && error?.errors?.hotline?.[0]}
+          error={error?.errors?.hotline?.[0]}
         />
 
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm tòa nhà'}
-          loading={loading_building || isLoading}
-          disabled={loading_building || isLoading}
+          title={'Cập nhập'}
+          loading={loading_building || isLoading || disabledBtn}
+          disabled={loading_building || isLoading || disabledBtn}
           error={error}
         />
       </ScrollView>

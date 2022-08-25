@@ -5,7 +5,7 @@ import {Text} from 'react-native';
 import ArrowDownIcon from '../../../assets/icons/arrowDown.svg';
 
 const SelectingDropDown = props => {
-  const {title, data, setState} = props;
+  const {title, data, setState, setIsEdited} = props;
 
   return (
     <SelectDropdown
@@ -30,6 +30,7 @@ const SelectingDropDown = props => {
       }}
       onSelect={(selectedItem, index) => {
         setState(selectedItem.id);
+        setIsEdited(true);
       }}
       buttonTextAfterSelection={(selectedItem, index) => {
         // text represented after item is selected

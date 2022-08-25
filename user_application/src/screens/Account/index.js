@@ -3,14 +3,9 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import IconMenu from '../../assets/icons/menu_icon.svg';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './styles';
 
 const Account = ({navigation}) => {
-  SettingHeaderNavigator.settingHeaderNavigator({
-    MenuIcon: IconMenu,
-    styles: {
-      marginHorizontal: -6,
-    },
-  });
   const [userInfo, setUserInfo] = useState({});
 
   const getUser = async () => {
@@ -23,12 +18,12 @@ const Account = ({navigation}) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [navigation]);
 
   const {id, email, name} = userInfo;
 
   return (
-    <Container>
+    <View style={{paddingHorizontal: 15}}>
       <View style={styles.imageWrapper}>
         <Image
           source={require('../../assets/images/avatar.jpg')}
@@ -43,7 +38,7 @@ const Account = ({navigation}) => {
           <Text style={styles.content}>Email: {email}</Text>
         </View>
       </View>
-    </Container>
+    </View>
   );
 };
 

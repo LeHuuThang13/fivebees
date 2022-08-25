@@ -16,13 +16,12 @@ export default prop => dispatch => onSuccess => {
   axiosInstance
     .get(`rooms/${id}`)
     .then(res => {
-      console.log('res,res', res.data.data);
+      onSuccess();
       dispatch({
         type: ROOM_DETAILS_SUCCESS,
         payload: res.data.data,
       });
       Toast({title: 'Quét mã phòng thành công'});
-      onSuccess();
     })
     .catch(error => {
       console.log('error get room:', error.response.data);

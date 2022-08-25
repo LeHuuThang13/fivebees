@@ -6,6 +6,7 @@ import {
   View,
   BackHandler,
   Alert,
+  ScrollView,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -20,10 +21,17 @@ import ImagePicker from '../../components/common/ImagePicker';
 import styles from '../../components/CustomButton/styles';
 import createRoomByIdBuilding from '../../context/actions/rooms/createRoomByIdBuilding';
 import editRoom from '../../context/actions/rooms/editRoom';
+import getSingleRoom from '../../context/actions/rooms/getSingleRoom';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  ANNOUNCE,
+  DATA_HAS_NOT_CHANGED,
+  PLEASE_FILL_DATA,
+} from '../../constants/actions';
 
-const CreatingRoom = ({navigation, route}) => {
+const UpdatingRoom = ({navigation, route}) => {
   const {navigate} = useNavigation();
-  const {room, id_room, id_building, name_building} = route.params;
+  const {id_room, id_building, name_building} = route.params;
 
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -46,21 +54,33 @@ const CreatingRoom = ({navigation, route}) => {
   const {
     roomsDispatch,
     roomsState: {
-      createRoom: {loading: loading_room, error},
+      getRoom: {loading: loading_room, data},
+      updateRoom: {loading: loading_update, error},
     },
   } = useContext(GlobalContext);
 
-  // Hook fields
-
   useEffect(() => {
-    if (room) {
-      const {building_id, description, room_number, status, photos} = room;
+    let isMounted = true;
+    getSingleRoom(id_room)(roomsDispatch)(isMounted);
+    return () => (isMounted = false);
+  }, [navigation]);
+
+  // Hook fields
+  useEffect(() => {
+    if (data) {
+      const {building_id, description, room_number, status, photos} = data;
       setForm({...form, building_id, description, room_number, status});
+      setLocalFile(data?.photos?.[0]);
     }
 
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(MANAGING_ROOMS);
+      navigate(MANAGING_ROOMS, {
+        id_building_create: id_building,
+        name_building_create: name_building,
+        id_building: id_building,
+        name_building: name_building,
+      });
       return true;
     });
 
@@ -69,14 +89,14 @@ const CreatingRoom = ({navigation, route}) => {
         return false;
       });
     };
-  }, [route]);
+  }, [data]);
 
   const [form, setForm] = useState({});
-  const [localFile, setLocalFile] = useState(room?.photos?.[0]);
+  const [localFile, setLocalFile] = useState(data?.photos?.[0]);
   const sheetRef = useRef(null);
-  const [roomNumber, setRoomNumber] = useState(form?.room_number);
-  const [status, setStatus] = useState(form?.status);
-  const [description, setDescription] = useState(form?.description);
+  const [roomNumber, setRoomNumber] = useState(data?.room_number);
+  const [status, setStatus] = useState(data?.status);
+  const [description, setDescription] = useState(data?.description);
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -105,21 +125,42 @@ const CreatingRoom = ({navigation, route}) => {
     setIsEdited(true);
   };
 
-  const onSubmit = () => {
-    if (isEdited) {
-      editRoom(form)(roomsDispatch)(localFile)(id_building)(id_room)(() => {
-        navigate(MANAGING_ROOMS, {
-          id_building: id_building,
-        });
-        setForm({});
-        setLocalFile('');
-        setRoomNumber('');
-        setDescription('');
-        setStatus('');
-        setIsLoading(false);
-      });
+  const onSubmit = async () => {
+    if (
+      typeof form?.room_number == 'string' &&
+      typeof form?.status == 'string' &&
+      typeof form?.description == 'string' &&
+      localFile &&
+      form?.room_number.trim() !== '' &&
+      form?.status.trim() !== '' &&
+      form?.description.trim() !== ''
+    ) {
+      if (isEdited) {
+        const token = await AsyncStorage.getItem('token');
+        editRoom(form)(roomsDispatch)({localFile, token})(id_building)(id_room)(
+          () => {
+            navigate(MANAGING_ROOMS, {
+              id_building: id_building,
+            });
+            setForm({});
+            setLocalFile('');
+            setRoomNumber('');
+            setDescription('');
+            setStatus('');
+            setIsLoading(false);
+          },
+        );
+      } else {
+        Alert.alert(ANNOUNCE, DATA_HAS_NOT_CHANGED, [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      }
     } else {
-      Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
+      Alert.alert(ANNOUNCE, PLEASE_FILL_DATA, [
         {
           text: 'Đã hiểu',
           onPress: () => console.log('Đã hiểu'),
@@ -131,27 +172,30 @@ const CreatingRoom = ({navigation, route}) => {
 
   return (
     <View style={[GlobalStyles.fullScreen, GlobalStyles.paddingContainer]}>
-      <View>
-        <View style={styles.imageWrapper}>
-          {!!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={{uri: localFile?.path}}
-              style={styles.imageView}
-            />
-          )}
+      <ScrollView>
+        <View>
+          <TouchableOpacity onPress={openSheet} style={styles.imageWrapper}>
+            {!!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={{
+                  uri: localFile?.path
+                    ? localFile?.path.replace('http://', 'https://')
+                    : localFile.replace('http://', 'https://'),
+                }}
+                style={styles.imageView}
+              />
+            )}
 
-          {!localFile && (
-            <Image
-              width={150}
-              height={150}
-              source={require('../../assets/images/default_image.png')}
-              style={styles.imageView}
-            />
-          )}
-
-          <TouchableOpacity onPress={openSheet}>
+            {!localFile && (
+              <Image
+                width={150}
+                height={150}
+                source={require('../../assets/images/default_image.png')}
+                style={styles.imageView}
+              />
+            )}
             <Text style={styles.colorChoosingImageText}>Choose image</Text>
             <Text>{localFile === '' && 'Vui lòng tải ảnh cho phòng'}</Text>
           </TouchableOpacity>
@@ -165,7 +209,7 @@ const CreatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập tên phòng"
           value={form.room_number}
-          error={roomNumber === '' && error?.errors?.room_number?.[0]}
+          error={error?.errors?.room_number?.[0]}
         />
 
         <CustomInput
@@ -174,9 +218,9 @@ const CreatingRoom = ({navigation, route}) => {
             onChange({name: 'status', value});
             return setStatus(value);
           }}
-          placeholder="Nhập tên trạng thái phòng"
+          placeholder="Nhập trạng thái phòng"
           value={form.status}
-          error={status === '' && error?.errors?.status?.[0]}
+          error={error?.errors?.status?.[0]}
         />
 
         <CustomInput
@@ -187,18 +231,18 @@ const CreatingRoom = ({navigation, route}) => {
           }}
           placeholder="Nhập mô tả"
           value={form.description}
-          error={description === '' && error?.errors?.description?.[0]}
+          error={error?.errors?.description?.[0]}
         />
 
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Thêm phòng'}
-          loading={loading_room || isLoading}
-          disabled={loading_room || isLoading}
+          title={'Cập nhập'}
+          loading={loading_update}
+          disabled={loading_update}
           error={error}
         />
-      </View>
+      </ScrollView>
 
       <ImagePicker
         ref={sheetRef}
@@ -211,4 +255,4 @@ const CreatingRoom = ({navigation, route}) => {
   );
 };
 
-export default CreatingRoom;
+export default UpdatingRoom;

@@ -47,12 +47,14 @@ const Room = props => {
       </View>
 
       <View style={styles.bodyRoom}>
-        <View style={styles.totalItem}>
-          <Text style={styles.iconItem}>{<IconDevice />}</Text>
-          <Text style={styles.textTotalDevices}>
-            {textTotalDevices} {totalDevices}
-          </Text>
-        </View>
+        {IconDevice && (
+          <View style={styles.totalItem}>
+            <Text style={styles.iconItem}>{<IconDevice />}</Text>
+            <Text style={styles.textTotalDevices}>
+              {textTotalDevices} {totalDevices}
+            </Text>
+          </View>
+        )}
         {IconBrokenDevice && (
           <View style={styles.totalItem}>
             <Text style={styles.iconItem}>

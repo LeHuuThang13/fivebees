@@ -27,6 +27,8 @@ import {
 } from '../../constants/routeNames';
 import SelectingDropDown from '../../components/common/SelectDropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Announce from '../../components/common/Announce';
+import {ANNOUNCE, PLEASE_FILL_DATA} from '../../constants/actions';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -69,6 +71,7 @@ const CreatingFacility = ({navigation, route}) => {
   } = useContext(GlobalContext);
 
   // Hook fields
+  const [isEdited, setIsEdited] = useState(false);
 
   useEffect(() => {
     // Back button real device
@@ -79,6 +82,7 @@ const CreatingFacility = ({navigation, route}) => {
         params: {
           id_building: idBuilding,
           name_building: nameBuilding,
+          reload: true,
         },
         merge: true,
       });
@@ -119,26 +123,49 @@ const CreatingFacility = ({navigation, route}) => {
   };
 
   const onChange = ({name, value}) => {
-    setForm({...form, [name]: value});
+    setForm({...form, [name]: value.trim()});
   };
+  console.log(
+    'id_room:',
+    idRoom,
+    'id_building:',
+    idBuilding,
+    'name_building:',
+    nameBuilding,
+  );
 
   const onSubmit = async () => {
     const token = await AsyncStorage.getItem('token');
-    createFacility(form)(facilitiesDispatch)({
-      localFile,
-      category,
-      idRoom,
-      token,
-    })(() => {
-      navigate(MANAGING_ROOM_DETAILS, {
-        id_building: id,
+    if (
+      localFile &&
+      typeof name == 'string' &&
+      typeof description == 'string' &&
+      typeof category == 'number' &&
+      category > 0
+    ) {
+      createFacility(form)(facilitiesDispatch)({
+        localFile,
+        category,
+        idRoom,
+        token,
+      })(() => {
+        navigate({
+          name: MANAGING_ROOM_DETAILS,
+          params: {
+            id_building: idBuilding,
+            name_building: nameBuilding,
+          },
+          merge: true,
+        });
+        setForm({});
+        setLocalFile('');
+        setName('');
+        setDescription('');
+        setCategory('');
       });
-      setForm({});
-      setLocalFile('');
-      setName('');
-      setDescription('');
-      setCategory('');
-    });
+    } else {
+      Announce(ANNOUNCE, PLEASE_FILL_DATA);
+    }
   };
 
   return (
@@ -183,7 +210,7 @@ const CreatingFacility = ({navigation, route}) => {
           }}
           placeholder="Nhập tên thiết bị"
           value={name}
-          error={name === '' && error?.error?.name?.[0]}
+          error={error?.error?.name?.[0]}
         />
 
         <CustomInput
@@ -194,19 +221,20 @@ const CreatingFacility = ({navigation, route}) => {
           }}
           placeholder="Nhập mô tả thiết bị"
           value={description}
-          error={description === '' && error?.error?.description?.[0]}
+          error={error?.error?.description?.[0]}
         />
 
         <SelectingDropDown
           title="Loại thiết bị"
           data={data_categories}
           setState={setCategory}
+          setIsEdited={setIsEdited}
         />
 
         <CustomButton
           onPress={onSubmit}
           primary
-          title={'Cập nhập thiết bị'}
+          title={'Tạo mới thiết bị'}
           loading={loading}
           disabled={loading}
           error={error}

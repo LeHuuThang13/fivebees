@@ -17,8 +17,7 @@ import HomeIcon from '../../assets/icons/home.svg';
 import ChartIcon from '../../assets/icons/chart.svg';
 import ManageIcon from '../../assets/icons/manage.svg';
 import QRCodeIcon from '../../assets/icons/QRCode.svg';
-import SettingIcon from '../../assets/icons/setting.svg';
-import IntroduceIcon from '../../assets/icons/introduce.svg';
+import Pdf from '../../assets/icons/pdf.svg';
 import LogoutIcon from '../../assets/icons/logout.svg';
 import logout from '../../context/actions/auth/logout';
 
@@ -53,8 +52,8 @@ const SideMenu = ({navigation, authDispatch}) => {
       },
     },
     {
-      icon: <IntroduceIcon />,
-      name: 'Hướng Dẫn Sử Dụng',
+      icon: <Pdf />,
+      name: 'Tiện Ích',
       onPress: () => {
         navigation.navigate(INTRODUCE);
       },

@@ -44,8 +44,8 @@ function index({
           }}
         />
         <View>{icon && <Text>{icon}</Text>}</View>
+        {error && <Text style={styles.error}>{error}</Text>}
       </View>
-      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }

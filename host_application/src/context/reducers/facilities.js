@@ -2,6 +2,9 @@ import {
   CREATE_FACILITY_FAILED,
   CREATE_FACILITY_LOADING,
   CREATE_FACILITY_SUCCESS,
+  DELETE_DEVICE_FAILED,
+  DELETE_DEVICE_LOADING,
+  DELETE_DEVICE_SUCCESS,
   DELETE_FACILITY_FAILED,
   DELETE_FACILITY_LOADING,
   DELETE_FACILITY_SUCCESS,
@@ -9,8 +12,14 @@ import {
   EDIT_FACILITY_LOADING,
   EDIT_FACILITY_SUCCESS,
   GET_FACILITIES_FAILED,
+  GET_FACILITIES_ID_ROOM_FAILED,
+  GET_FACILITIES_ID_ROOM_LOADING,
+  GET_FACILITIES_ID_ROOM_SUCCESS,
   GET_FACILITIES_LOADING,
   GET_FACILITIES_SUCCESS,
+  GET_FACILITY_FAILED,
+  GET_FACILITY_LOADING,
+  GET_FACILITY_SUCCESS,
 } from '../../constants/actionTypes';
 
 const facilities = (state, {type, payload}) => {
@@ -81,10 +90,10 @@ const facilities = (state, {type, payload}) => {
           data: payload,
         },
 
-        getFacilities: {
-          ...state.getFacilities,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
           loading: false,
-          data: [...state.getFacilities.data, payload],
+          data: [...state.getFacilitiesByIdRoom.data, payload],
           error: null,
         },
       };
@@ -111,6 +120,50 @@ const facilities = (state, {type, payload}) => {
       };
 
     case DELETE_FACILITY_SUCCESS:
+      console.log(state, type, payload);
+      return {
+        ...state,
+        deleteFacility: {
+          ...state.deleteFacility,
+          loading: false,
+          error: null,
+        },
+
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
+          loading: false,
+          data: state.getFacilitiesByIdRoom.data.filter(item => {
+            console.log(item.id !== payload);
+            return item.id !== payload; // Prevent show deleted items
+          }),
+
+          error: null,
+        },
+      };
+
+    case DELETE_FACILITY_FAILED:
+      return {
+        ...state,
+        deleteFacility: {
+          ...state.deleteFacility,
+          loading: false,
+          error: null,
+        },
+      };
+
+    // Delete
+    case DELETE_DEVICE_LOADING:
+      return {
+        ...state,
+        deleteFacility: {
+          ...state.deleteFacility,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case DELETE_DEVICE_SUCCESS:
+      console.log(state, type, payload);
       return {
         ...state,
         deleteFacility: {
@@ -123,6 +176,7 @@ const facilities = (state, {type, payload}) => {
           ...state.getFacilities,
           loading: false,
           data: state.getFacilities.data.filter(item => {
+            console.log(item.id !== payload);
             return item.id !== payload; // Prevent show deleted items
           }),
 
@@ -130,7 +184,7 @@ const facilities = (state, {type, payload}) => {
         },
       };
 
-    case DELETE_FACILITY_FAILED:
+    case DELETE_DEVICE_FAILED:
       return {
         ...state,
         deleteFacility: {
@@ -167,6 +221,68 @@ const facilities = (state, {type, payload}) => {
         ...state,
         getFacilities: {
           ...state.getFacilities,
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case GET_FACILITIES_ID_ROOM_LOADING:
+      return {
+        ...state,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case GET_FACILITIES_ID_ROOM_SUCCESS:
+      return {
+        ...state,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
+          loading: false,
+          data: payload,
+          error: null,
+        },
+      };
+
+    case GET_FACILITIES_ID_ROOM_FAILED:
+      return {
+        ...state,
+        getFacilitiesByIdRoom: {
+          ...state.getFacilitiesByIdRoom,
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case GET_FACILITY_LOADING:
+      return {
+        ...state,
+        getFacility: {
+          ...state.getFacility,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case GET_FACILITY_SUCCESS:
+      return {
+        ...state,
+        getFacility: {
+          ...state.getFacility.facility,
+          loading: false,
+          data: payload,
+          error: null,
+        },
+      };
+
+    case GET_FACILITY_FAILED:
+      return {
+        ...state,
+        getFacility: {
+          ...state.getFacility,
           loading: false,
           error: payload,
         },
