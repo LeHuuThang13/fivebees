@@ -17,13 +17,13 @@ class UtilityController extends Controller
 
     public function show($id)
     {
-        $room = Room::where('id', $id)->firstOrFail();
+        $room = Room::find('id', $id);
         return view('admin.utilities.show', compact('room'));
     }
 
     public function print($id)
     {
-        $room = Room::where('id', $id)->firstOrFail();
+        $room = Room::find('id', $id);
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml(view('admin.utilities.show', compact('room')));
@@ -36,20 +36,5 @@ class UtilityController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream('Biên bản kiểm kê ' . $room->room_number . '.pdf');
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }
