@@ -22,7 +22,11 @@
             <tbody>
                 @foreach($rooms as $room)
                 <tr>
+                    @if ($room->buildings !== null)
                     <td class="align-middle">{{$room->room_number}} ({{$room->buildings->name}})</td>
+                    @else
+                    <td class="align-middle">{{$room->room_number}}</td>
+                    @endif
                     <td class="align-middle">{{$room->status}}</td>
                     <td class="align-middle text-center">{{$room->facilities->count()}}</td>
                     <td class="align-middle text-center">

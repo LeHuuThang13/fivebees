@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -12,17 +13,9 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function login()
+    public function login(LoginRequest $request)
     {
-        $attributes = request()->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
-        ], [
-            // Hiển thị thông báo khi nhập không đạt yêu cầu
-            'email.required' => 'Vui lòng nhập Email',
-            'email.email' => 'Vui lòng nhập đúng định dạng email',
-            'password.required' => 'Vui lòng nhập password'
-        ]);
+        $attributes = $request->validated();
 
         if (!auth()->attempt($attributes)) {
             return back()->withErrors([
