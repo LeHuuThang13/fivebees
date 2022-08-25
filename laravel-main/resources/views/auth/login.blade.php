@@ -1,6 +1,6 @@
 @extends('components.layout')
 
-@section('title') {{ 'Login' }} @endsection
+@section('title') {{ 'Đăng nhập' }} @endsection
 
 @section('content')
 <div class="container">
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="mb-4" style="text-align: left;">
-                        <input name="password" type="password" class="login-input form-control p-4" placeholder="Password" style="border-radius: 40px; font-size: 150%">
+                        <input name="password" type="password" class="login-input form-control p-4" placeholder="Mật khẩu" style="border-radius: 40px; font-size: 150%">
                         @error('password')
                         <p class="text-danger ms-4 mt-2">{{ $message }}</p>
                         @enderror
@@ -32,7 +32,7 @@
                     <button type="submit" class="login-btn btn btn-primary mt-2">Đăng nhập</button>
                 </form>
             </div>
-            <a class="register" href="{{ route('register.index') }}" style="font-size: 150%;">Hoặc đăng ký</a>
+            <span style="font-size: 150%">Chưa có tài khoản?<a class="register" href="{{ route('register.index') }}"> Đăng ký</a></span>
         </div>
     </div>
 </div>
