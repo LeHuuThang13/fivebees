@@ -1,6 +1,6 @@
 @extends('components.layout')
 
-@section('title') {{ 'Login' }} @endsection
+@section('title') {{ 'Đăng ký' }} @endsection
 
 @section('content')
 <div class="container">

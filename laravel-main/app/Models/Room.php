@@ -63,7 +63,7 @@ class Room extends Model implements HasMedia
         self::addGlobalScope(function (Builder $builder) {
             $user = Auth::user();
             if ($user) {
-                if ($user->hasRole('Owner')) {
+                if (!$user->hasRole('Admin')) {
                     $builder->where('created_by_id', auth()->id());
                 }
             }
