@@ -39,6 +39,15 @@ td:not(:first-child) {
   background-color: #F5F9FC !important;
 }
 
+.register {
+  text-decoration: none;
+  color: #1E9CFF
+}
+
+.register:hover {
+  color: #0091ff;
+}
+
 .split {
     height: 100%;
     width: 50%;
@@ -89,6 +98,18 @@ td:not(:first-child) {
 
   .login-input {
     height: 70px;
+  }
+
+  .login-btn {
+    height: 70px !important;
+    background-color: #1E9CFF !important;
+    width: 100% !important;
+    border-radius: 40px !important;
+    font-size: 150% !important;
+  }
+
+  .login-btn:hover {
+    background-color: #0091ff !important;
   }
 
   .sidebar {

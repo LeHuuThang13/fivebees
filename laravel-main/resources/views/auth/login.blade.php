@@ -1,6 +1,6 @@
 @extends('components.layout')
 
-@section('title') {{ 'Login' }} @endsection
+@section('title') {{ 'Đăng nhập' }} @endsection
 
 @section('content')
 <div class="container">
@@ -13,7 +13,7 @@
     <div class="split right">
         <div class="centered">
             <h1>Đăng nhập tài khoản <span style="color: #1E9CFF">Five Bees</span></h1>
-            <div class="login-form mt-5 container" style="width: 70%;">
+            <div class="login-form mt-5 mb-2 container" style="width: 70%;">
                 <form id="form" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-4" style="text-align: left;">
@@ -24,14 +24,15 @@
                     </div>
 
                     <div class="mb-4" style="text-align: left;">
-                        <input name="password" type="password" class="login-input form-control p-4" placeholder="Password" style="border-radius: 40px; font-size: 150%">
+                        <input name="password" type="password" class="login-input form-control p-4" placeholder="Mật khẩu" style="border-radius: 40px; font-size: 150%">
                         @error('password')
                         <p class="text-danger ms-4 mt-2">{{ $message }}</p>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary mt-2 login-input" style="background-color: #1E9CFF;width: 100%; border-radius: 40px; font-size: 150%">Đăng nhập</button>
+                    <button type="submit" class="login-btn btn btn-primary mt-2">Đăng nhập</button>
                 </form>
             </div>
+            <span style="font-size: 150%">Chưa có tài khoản?<a class="register" href="{{ route('register.index') }}"> Đăng ký</a></span>
         </div>
     </div>
 </div>

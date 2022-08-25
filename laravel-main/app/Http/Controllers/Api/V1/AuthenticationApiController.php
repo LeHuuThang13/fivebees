@@ -3,25 +3,18 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationApiController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'email|required',
-            'password' => 'required'
-        ], [
-            'email.required' => 'Vui lòng nhập Email',
-            'email.email' => 'Vui lòng nhập đúng định dạng email',
-            'password.required' => 'Vui lòng nhập password'
-        ]);
-
-        $credentials = request(['email', 'password']);
-        if (!auth()->attempt($credentials)) {
+        if (!auth()->attempt($request->validated())) {
             return response()->json([
                 'message' => 'The given data was invalid.',
                 'errors' => [
@@ -35,6 +28,14 @@ class AuthenticationApiController extends Controller
         $user = User::where('email', $request->email)->first();
         $token = $user->createToken('token-name')->plainTextToken;
         return response()->json(['access_token' => $token, 'user' => $user]);
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $user = User::create($request->validated());
+        $user->assignRole('Customer');
+        $token = $user->createToken('token-name')->plainTextToken;
+        return response()->json(['access_token' => $token, 'user' => new UserResource($user)]);
     }
 
     public function logout(Request $request)

@@ -34,5 +34,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'middleware' => ['auth:sanctum']
 
 Route::group(['prefix' => 'v1', 'as' => 'api.'], function () {
     Route::post('login', [AuthenticationApiController::class, 'login']);
+    Route::post('register', [AuthenticationApiController::class, 'register']);
     Route::post('logout', [AuthenticationApiController::class, 'logout'])->middleware('auth:sanctum');
 });

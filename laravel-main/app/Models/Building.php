@@ -58,7 +58,7 @@ class Building extends Model implements HasMedia
         self::addGlobalScope(function (Builder $builder) {
             $user = Auth::user();
             if ($user) {
-                if ($user->hasRole('Owner')) {
+                if (!$user->hasRole('Admin')) {
                     $builder->where('user_id', auth()->id());
                 }
             }
