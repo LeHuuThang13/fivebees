@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   BackHandler,
+  ActivityIndicator,
 } from 'react-native';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
 import PreviousIcon from '../../assets/icons/previous_icon.svg';
@@ -16,20 +17,41 @@ import {ROOM_LIST} from '../../constants/routeNames';
 import Device from '../../components/common/Device';
 import DeleteIcon from '../../assets/icons/delete.svg';
 import EditIcon from '../../assets/icons/edit.svg';
+import getFacilitiesByIdRoom from '../../context/actions/facilities/getFacilitiesByIdRoom';
+import {GlobalContext} from '../../context/Provider';
 
 const RoomDetails = ({navigation, route}) => {
-  const {items, id_building} = route.params;
+  const {items, id_building, id_room} = route.params;
+
+  const {
+    facilitiesDispatch,
+    facilitiesState: {
+      getFacilitiesByIdRoom: {data, loading},
+    },
+  } = useContext(GlobalContext);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const unsubscribe = navigation.addListener('focus', () => {
+      getFacilitiesByIdRoom(id_room)(facilitiesDispatch)(isMounted)(
+        setIsLoaded,
+      );
+    });
+    return unsubscribe;
+  }, [route.params]);
 
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigate({
+      navigation.navigate({
         name: ROOM_LIST,
         params: {
           id_building: id_building,
         },
         merge: true,
       });
+      setIsLoaded(false);
       return true;
     });
 
@@ -43,8 +65,13 @@ const RoomDetails = ({navigation, route}) => {
   SettingHeaderNavigator.settingChildHeaderBackToHomeNavigator({
     Icon: PreviousIcon,
     previousBtn: () => {
-      navigation.navigate(ROOM_LIST, {
-        id_building: id_building,
+      setIsLoaded(false);
+      navigation.navigate({
+        name: ROOM_LIST,
+        params: {
+          id_building: id_building,
+        },
+        merge: true,
       });
     },
   });
@@ -62,17 +89,19 @@ const RoomDetails = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => {
-    const {status_id: status, name, category_id: category, id} = item;
-
-    console.log(item);
+    const {code, name, id, photos, status} = item;
 
     return (
       <Device
-        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        urlImage={{
+          uri: photos?.[0] ? photos?.[0].replace('http://', 'https://') : '',
+        }}
         title={`Sản phẩm`}
         name={`${name}`}
-        amountTitle={'Số lượng'}
-        amount={'1'}
+        amountTitle={'Mã thiết bị'}
+        amount={code}
+        titleOne={'Trạng thái'}
+        textOne={status?.[0]?.name}
         style={{
           marginVertical: 12,
         }}
@@ -86,18 +115,22 @@ const RoomDetails = ({navigation, route}) => {
         textTitleOne={'Tình trạng'}
         contentTextTitleOne={'Đang sử dụng'}
         textTitleTwo={'Tổng thiết bị'}
-        contentTextTitleTwo={items.length}
+        contentTextTitleTwo={data.length}
       />
       <View style={{paddingHorizontal: 15, flex: 1}}>
         {/* Selecting options */}
 
-        <FlatList
-          renderItem={renderItem}
-          data={items}
-          style={styles.FlatList}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={listEmptyComponent}
-        />
+        {isLoaded ? (
+          <FlatList
+            renderItem={renderItem}
+            data={data}
+            style={styles.FlatList}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={listEmptyComponent}
+          />
+        ) : (
+          <ActivityIndicator />
+        )}
       </View>
     </View>
   );

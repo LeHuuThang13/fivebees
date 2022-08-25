@@ -13,6 +13,7 @@ export default () => dispatch => {
   axiosInstance
     .get(`rooms`)
     .then(res => {
+      console.log(234);
       dispatch({
         type: GET_ROOMS_SUCCESS,
         payload: res.data.data,

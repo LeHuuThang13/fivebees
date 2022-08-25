@@ -6,11 +6,8 @@ import logout from '../../context/actions/auth/logout';
 const Logout = ({}) => {
   const {authDispatch} = useContext(GlobalContext);
 
-  console.log(123);
-
   useEffect(() => {
     logout()(authDispatch);
-    console.log(123);
   }, []);
 
   return <ActivityIndicator />;

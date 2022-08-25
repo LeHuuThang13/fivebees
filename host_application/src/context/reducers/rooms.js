@@ -14,6 +14,12 @@ import {
   GET_ROOMS_FAILED,
   GET_ROOMS_LOADING,
   GET_ROOMS_SUCCESS,
+  GET_SINGLE_ROOM_FAILED,
+  GET_SINGLE_ROOM_SUCCESS,
+  GET_SINGLE_ROOM_LOADING,
+  UPDATE_ROOM_LOADING,
+  UPDATE_ROOM_SUCCESS,
+  UPDATE_ROOM_FAILED,
 } from '../../constants/actionTypes';
 
 const rooms = (state, {type, payload}) => {
@@ -55,6 +61,45 @@ const rooms = (state, {type, payload}) => {
           ...state.deleteRoom,
           loading: false,
           error: null,
+        },
+      };
+
+    // Update
+    case UPDATE_ROOM_LOADING:
+      return {
+        ...state,
+        updateRoom: {
+          ...state.updateRoom,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case UPDATE_ROOM_SUCCESS:
+      return {
+        ...state,
+        updateRoom: {
+          ...state.updateRoom,
+          loading: false,
+          error: null,
+          data: payload,
+        },
+
+        getRooms: {
+          ...state.getRooms,
+          loading: false,
+          data: [...state.getRooms.data, payload],
+          error: null,
+        },
+      };
+
+    case UPDATE_ROOM_FAILED:
+      return {
+        ...state,
+        updateRoom: {
+          ...state.updateRoom,
+          loading: false,
+          error: payload,
         },
       };
 
@@ -130,6 +175,38 @@ const rooms = (state, {type, payload}) => {
         ...state,
         getRooms: {
           ...state.getRooms,
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case GET_SINGLE_ROOM_LOADING:
+      return {
+        ...state,
+        getRoom: {
+          ...state.getRoom.data,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case GET_SINGLE_ROOM_SUCCESS:
+      console.log('payload', payload);
+      return {
+        ...state,
+        getRoom: {
+          ...state.getRoom,
+          loading: false,
+          data: payload,
+          error: null,
+        },
+      };
+
+    case GET_SINGLE_ROOM_FAILED:
+      return {
+        ...state,
+        getRoom: {
+          ...state.getRoom,
           loading: false,
           error: payload,
         },

@@ -8,6 +8,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 10,
   },
+  paddingContainer: {
+    paddingHorizontal: 15,
+  },
+
+  fullScreen: {
+    flex: 1,
+  },
 
   contentView: {
     flexDirection: 'row',

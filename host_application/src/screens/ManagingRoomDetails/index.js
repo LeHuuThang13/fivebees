@@ -40,6 +40,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
+      setIsLoaded(false);
       navigate({
         name: MANAGING_ROOMS,
         params: {
@@ -54,13 +55,16 @@ const ManagingRoomDetails = ({navigation, route}) => {
   const {
     facilitiesDispatch,
     facilitiesState: {
-      getFacilities: {data, loading},
+      getFacilitiesByIdRoom: {data, loading},
     },
   } = useContext(GlobalContext);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('123 321 123 321');
+      setIsLoaded(false);
       navigate({
         name: MANAGING_ROOMS,
         params: {
@@ -77,15 +81,15 @@ const ManagingRoomDetails = ({navigation, route}) => {
         return false;
       });
     };
-  }, [navigation]);
+  }, [route.params]);
 
   useEffect(() => {
     let isMounted = true;
     const unsubscribe = navigation.addListener('focus', () => {
-      getFacilitiesByIdRoom(idRoom)(facilitiesDispatch)(isMounted);
+      getFacilitiesByIdRoom(idRoom)(facilitiesDispatch)(isMounted)(setIsLoaded);
     });
     return unsubscribe;
-  }, [route]);
+  }, [route.params]);
 
   //Functions
 
@@ -96,17 +100,22 @@ const ManagingRoomDetails = ({navigation, route}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Text>Không có dữ liệu phòng</Text>
+        <Text>Không có dữ liệu thiết bị</Text>
       </View>
     );
   };
 
   const renderItem = ({item}) => {
-    const {code, name, category_id: category, id} = item;
+    const {code, name, id, photos} = item;
+
+    const imgAlt =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png';
 
     return (
       <Device
-        urlImage={require('../../assets/images/tv_samsung.jpg')}
+        urlImage={{
+          uri: photos?.[0].replace('http://', 'https://'),
+        }}
         title={`Sản phẩm`}
         name={`${name}`}
         amountTitle={'Mã thiết bị'}
@@ -117,6 +126,7 @@ const ManagingRoomDetails = ({navigation, route}) => {
         DeleteIcon={<DeleteIcon />}
         EditIcon={<EditIcon />}
         onPressEdit={() => {
+          setIsLoaded(false);
           navigate(UPDATING_FACILITY, {
             id_room: idRoom,
             id_building: idBuilding,
@@ -134,42 +144,39 @@ const ManagingRoomDetails = ({navigation, route}) => {
 
   return (
     <View style={[GlobalStyles.fullScreen]}>
-      <CustomCreatingButton
-        onPress={() => {
-          navigate(CREATING_FACILITY, {
-            isFromManagingRoom: true,
-            id_room: idRoom,
-            id_building: idBuilding,
-            name_building: nameBuilding,
-            isFromManagingRoom: true,
-          });
-        }}
-      />
-      {loading ? (
-        <ActivityIndicator size="large" color={colors.secondary} />
-      ) : (
+      {isLoaded ? (
         <>
+          <CustomCreatingButton
+            onPress={() => {
+              navigate(CREATING_FACILITY, {
+                isFromManagingRoom: true,
+                id_room: idRoom,
+                id_building: idBuilding,
+                name_building: nameBuilding,
+                isFromManagingRoom: true,
+              });
+            }}
+          />
+
           <HeaderDetails
             textTitleOne={'Tình trạng'}
             contentTextTitleOne={'Đang sử dụng'}
             textTitleTwo={'Tổng thiết bị'}
-            contentTextTitleTwo={
-              data?.facilities ? data.facilities.length : 'Đang cập nhập'
-            }
-            textTitleThree={'Thiết bị hư hỏng'}
-            contentTextTitleThree={0}
+            contentTextTitleTwo={data.length}
           />
           <View style={{paddingHorizontal: 15}}>
             <FlatList
               renderItem={renderItem}
-              data={data.facilities}
-              extraData={data.facilities}
+              data={data}
+              extraData={data}
               style={styles.FlatList}
               showsVerticalScrollIndicator={false}
               ListEmptyComponent={listEmptyComponent}
             />
           </View>
         </>
+      ) : (
+        <ActivityIndicator size="large" color={colors.secondary} />
       )}
     </View>
   );

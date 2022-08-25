@@ -8,6 +8,9 @@ import {
   DELETE_BUILDING_LOADING,
   DELETE_BUILDING_SUCCESS,
   DELETE_BUILDING_FAILED,
+  GET_DATA_BUILDINGS_ID_SUCCESS,
+  GET_DATA_BUILDINGS_ID_FAILED,
+  GET_DATA_BUILDINGS_ID_LOADING,
 } from '../../constants/actionTypes';
 
 const buildings = (state, {type, payload}) => {
@@ -86,6 +89,36 @@ const buildings = (state, {type, payload}) => {
         ...state,
         createBuilding: {
           ...state.createBuilding,
+          loading: false,
+          error: payload,
+        },
+      };
+    case GET_DATA_BUILDINGS_ID_LOADING:
+      return {
+        ...state,
+        getBuildingData: {
+          ...state.getBuildingData,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case GET_DATA_BUILDINGS_ID_SUCCESS:
+      return {
+        ...state,
+        getBuildingData: {
+          ...state.getBuildingData,
+          loading: false,
+          data: payload,
+          error: null,
+        },
+      };
+
+    case GET_DATA_BUILDINGS_ID_FAILED:
+      return {
+        ...state,
+        getBuildingData: {
+          ...state.getBuildingData,
           loading: false,
           error: payload,
         },

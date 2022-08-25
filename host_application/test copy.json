@@ -1,0 +1,25 @@
+{
+  "category": [{"id": 2, "name": "Tủ lạnh"}],
+  "code": "20220819-044604-1-0024",
+  "description": "asdfasdf",
+  "id": 207,
+  "name": "zcdfdf",
+  "photos": [
+    "http://fivebees.ml/storage/130/48f7b827-0c6d-4a8d-b220-49f5eca2e12c.jpg"
+  ],
+  "room": [
+    {
+      "building_id": 110,
+      "created_at": "2022-07-26 03:31:05",
+      "created_by_id": 2,
+      "deleted_at": null,
+      "description": "Phòng bé xíu",
+      "id": 3,
+      "pivot": [],
+      "room_number": "N103",
+      "status": "Đang sửa chữa",
+      "updated_at": "2022-08-12 06:38:33"
+    }
+  ],
+  "status": [{"id": 1, "name": "Đang sử dụng"}]
+}

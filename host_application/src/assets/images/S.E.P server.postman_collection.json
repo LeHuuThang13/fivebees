@@ -1,0 +1,1859 @@
+{
+	"info": {
+		"_postman_id": "ab095c9b-3859-4c6d-9003-9f0aa0de9aa1",
+		"name": "S.E.P server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20157993"
+	},
+	"item": [
+		{
+			"name": "facilities",
+			"item": [
+				{
+					"name": "Delete a facility",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities/4",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new facility",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "95|Hek6d6jP6VE35S2OuVHmLCvakX5wm4RjJW23DDva",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filenames",
+									"type": "file",
+									"src": "/C:/laragon/www/fivebees/host_application/src/assets/images/avatar.jpg"
+								},
+								{
+									"key": "name",
+									"value": "Test o postman",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "sdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "status_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "room_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "95|Hek6d6jP6VE35S2OuVHmLCvakX5wm4RjJW23DDva",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filenames",
+									"type": "file",
+									"src": "/C:/laragon/www/fivebees/host_application/src/assets/images/avatar.jpg"
+								},
+								{
+									"key": "name",
+									"value": "Test o postman",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "sdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "status_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "room_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Facilities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "91|dqRtsy3Oiu9t4rIyV9Obfz7QeNv0eyOPtlSroILD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Nhà trọ zxcBảo Nguyên",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "adfasdfasdf.png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/buildings/115",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buildings",
+								"115"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"item": [
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities/4",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "95|Hek6d6jP6VE35S2OuVHmLCvakX5wm4RjJW23DDva",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "91|dqRtsy3Oiu9t4rIyV9Obfz7QeNv0eyOPtlSroILD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/status",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "80|kpqoqsv7qf5FmrUpiuLOsC4tKsZtk15NLfBzToev",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/rooms",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "buildings",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/buildings",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buildings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/buildings",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buildings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Nhà trọ zxcBảo Nguyên",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "adfasdfasdf.png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/buildings/115",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buildings",
+								"115"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/buildings/30",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buildings",
+								"30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rooms",
+			"item": [
+				{
+					"name": "Nguyen",
+					"item": [
+						{
+							"name": "Index",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "101|bdS8N46rC2eec9O4WpDJK2YUih2w5JbbHpSDfOj0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "room_number",
+											"value": "sdfsdfaasdfasdf",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Đang thuêasdfad",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "1212121212asdfasdfdsfas",
+											"type": "text"
+										},
+										{
+											"key": "building_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "filenames",
+											"value": "sdfasdfasdfasdf.png",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "room_number",
+											"value": "sdfsdfaasdfasdf",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Đang thuêasdf",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "1212121212asdfasdfdsfas",
+											"type": "text"
+										},
+										{
+											"key": "building_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "filenames",
+											"value": "sdfaasdfasdf.png",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms/70",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms",
+										"70"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "sdfsdf",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "asdfasdfasdf",
+											"type": "text"
+										},
+										{
+											"key": "hotline",
+											"value": "1212121212",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "fsdfsdfsdf@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "filenames",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms/8",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Index",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "69|9HfP52kSnzA0mkhDXbzrvVMNMnNXdVe9jq1bdZ6s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "room_number",
+											"value": "sdfsdfaasdfasdf",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Đang thuêasdfad",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "1212121212asdfasdfdsfas",
+											"type": "text"
+										},
+										{
+											"key": "building_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "filenames",
+											"value": "sdfasdfasdfasdf.png",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "room_number",
+											"value": "sdfsdfaasdfasdf",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Đang thuêasdf",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "1212121212asdfasdfdsfas",
+											"type": "text"
+										},
+										{
+											"key": "building_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "filenames",
+											"value": "sdfaasdfasdf.png",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms/70",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms",
+										"70"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "sdfsdf",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "asdfasdfasdf",
+											"type": "text"
+										},
+										{
+											"key": "hotline",
+											"value": "1212121212",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "fsdfsdfsdf@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "filenames",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/rooms/8",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rooms",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "status",
+			"item": [
+				{
+					"name": "Delete a facility",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities/4",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new facility",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "95|Hek6d6jP6VE35S2OuVHmLCvakX5wm4RjJW23DDva",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Facilities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "91|dqRtsy3Oiu9t4rIyV9Obfz7QeNv0eyOPtlSroILD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Delete a facility",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83|xHLGiWfOoCjN9A9QFsUK9riVVvwcz0lOjPMa9a9Z",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities/4",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new facility",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "95|Hek6d6jP6VE35S2OuVHmLCvakX5wm4RjJW23DDva",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfsdf",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "asdfasdfasdf",
+									"type": "text"
+								},
+								{
+									"key": "hotline",
+									"value": "1212121212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fsdfsdfsdf@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "filenames",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "91|dqRtsy3Oiu9t4rIyV9Obfz7QeNv0eyOPtlSroILD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://fivebees.ml/api/v1/facilities",
+							"protocol": "http",
+							"host": [
+								"fivebees",
+								"ml"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "login_nguyen",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "95|Hek6d6jP6VE35S2OuVHmLCvakX5wm4RjJW23DDva",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "nguyen@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/login",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login_admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "95|Hek6d6jP6VE35S2OuVHmLCvakX5wm4RjJW23DDva",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "admin@admin.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://fivebees.ml/api/v1/login",
+									"protocol": "http",
+									"host": [
+										"fivebees",
+										"ml"
+									],
+									"path": [
+										"api",
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

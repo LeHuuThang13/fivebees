@@ -10,6 +10,7 @@ import EyeIcon from '../../assets/icons/showPsw.svg';
 import CustomButton from '../../components/commons/CustomButton';
 import globalStyles from '../../../globalStyles';
 import login from '../../context/actions/auth/login';
+import {REGISTER} from '../../constants/routeNames';
 
 const Login = ({navigation}) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -94,6 +95,22 @@ const Login = ({navigation}) => {
             iconPosition="right"
             error={errors.password}
           />
+
+          <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={{
+                width: 100,
+                flexDirection: 'row-reverse',
+                height: 30,
+              }}
+              onPress={() => {
+                navigation.navigate(REGISTER);
+              }}>
+              <Text>Đăng ký</Text>
+            </TouchableOpacity>
+          </View>
+
+          {console.log('loading', loading)}
 
           <CustomButton
             onPress={onSubmit}

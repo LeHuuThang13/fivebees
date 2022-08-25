@@ -21,28 +21,29 @@ import getRoom from '../../context/actions/room/getRoom';
 import {GlobalContext} from '../../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const QRCode = () => {
+const QRCode = ({route}) => {
   const HEIGHT = Dimensions.get('window').height;
 
   const [scan, setScan] = useState(true);
   const [scanResult, setScanResult] = useState(false);
   const [result, setResult] = useState(null);
 
+  console.log(route);
+  console.log('scan', scan);
+
   const {
     roomDispatch,
     roomState: {isChecking},
   } = useContext(GlobalContext);
 
-  const setValueItem = async id => {
-    await AsyncStorage.setItem('id_room', id);
-  };
+  const setValueItem = async id => {};
 
   useEffect(() => {
+    console.log('result', result);
     const id = result?.data ? JSON.parse(result?.data) : undefined;
-    console.log('isChecking,isChecking', isChecking);
     if (id) {
       getRoom(id)(roomDispatch)(() => {
-        setValueItem(id.id);
+        setValueItem();
       });
     }
   }, [result]);
@@ -107,60 +108,6 @@ const QRCode = () => {
               </View>
             </Fragment>
           )} */}
-
-        {scanResult && (
-          <Fragment>
-            <View style={{paddingHorizontal: 15}}>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  flexDirection: 'row',
-                  marginVertical: 20,
-                }}>
-                <Text style={{fontSize: 30}}>Kết quả:</Text>
-              </View>
-              <View
-                style={[scanResult ? styles.scanCardView : styles.cardView]}>
-                <View style={{flexDirection: 'row'}}>
-                  <View
-                    style={{
-                      flexDirection: 'column',
-                      alignSelf: 'center',
-                      marginRight: 30,
-                    }}>
-                    <Text>Hình ảnh : </Text>
-                  </View>
-                  <Image
-                    source={{uri: result.data?.photos?.[0]}}
-                    style={{width: 200, height: 200}}
-                  />
-                </View>
-                <View style={{marginTop: 20}}>
-                  <View style={styles.contentTitle}>
-                    <Text>Tên : </Text>
-                  </View>
-                  <View style={styles.contentTitle}>
-                    <Text>Mô tả : </Text>
-                  </View>
-                  <View style={styles.contentTitle}>
-                    <Text>Trạng thái : </Text>
-                  </View>
-                  <View style={styles.contentTitle}>
-                    <Text>Vị trí : </Text>
-                  </View>
-                </View>
-                <TouchableOpacity
-                  onPress={scanAgain}
-                  style={[
-                    styles.buttonTouchable,
-                    {justifyContent: 'center', flexDirection: 'row'},
-                  ]}>
-                  <Text style={styles.buttonTextStyle}>Tiếp tục quét mã</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Fragment>
-        )}
 
         {scan && (
           <View style={{flex: 1}}>

@@ -49,7 +49,7 @@ const RoomsList = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate(BUILDINGS_LIST);
+      navigation.goBack();
       return true;
     });
 
@@ -58,7 +58,7 @@ const RoomsList = ({navigation, route}) => {
         return false;
       });
     };
-  }, []);
+  }, [route]);
 
   useEffect(() => {
     let isMounted = true;
@@ -102,6 +102,7 @@ const RoomsList = ({navigation, route}) => {
             building_id: building_id,
             items: facilities,
             id_building: idBuilding,
+            id_room: id,
           });
         }}
       />

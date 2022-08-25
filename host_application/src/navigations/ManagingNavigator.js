@@ -21,6 +21,7 @@ import {
   UPDATING_DEVICE,
   UPDATING_FACILITY,
   UPDATING_ROOM,
+  MANAGING_FACILITIES,
 } from '../constants/routeNames';
 import Account from '../screens/Account';
 import QRCode from '../screens/QRCode';
@@ -36,12 +37,13 @@ import ManagingRooms from '../screens/ManagingRooms';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 import CreatingBuilding from '../screens/CreatingBuilding';
 import CreatingRoom from '../screens/CreatingRoom';
-import CreatingFacility from '../screens/UpdatingFacility';
+import CreatingFacility from '../screens/CreatingFacility';
 import CreatingDevice from '../screens/CreatingDevice';
 import UpdatingBuilding from '../screens/UpdatingBuilding';
 import UpdatingDevice from '../screens/UpdatingDevice';
 import UpdatingFacility from '../screens/UpdatingFacility';
 import UpdatingRoom from '../screens/UpdatingRoom';
+import ManagingDevices from '../screens/ManagingDevices';
 
 const ManagingNavigator = ({navigation, route}) => {
   const HomeStack = createNativeStackNavigator();
@@ -75,6 +77,10 @@ const ManagingNavigator = ({navigation, route}) => {
       />
       <HomeStack.Screen name={UPDATING_BUILDING} component={UpdatingBuilding} />
       <HomeStack.Screen name={UPDATING_DEVICE} component={UpdatingDevice} />
+      <HomeStack.Screen
+        name={MANAGING_FACILITIES}
+        component={ManagingDevices}
+      />
       <HomeStack.Screen name={UPDATING_FACILITY} component={UpdatingFacility} />
       <HomeStack.Screen name={UPDATING_ROOM} component={UpdatingRoom} />
       {/* <HomeStack.Screen name={DRAWER_NAVIGATION} component={DrawerNavigator} /> */}

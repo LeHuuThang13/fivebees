@@ -13,6 +13,7 @@ import {
   MANAGE,
   MANAGING_ROOMS,
   MANAGING_ROOM_DETAILS,
+  NOTIFICATION,
 } from '../constants/routeNames';
 import Account from '../screens/Account';
 import QRCode from '../screens/QRCode';
@@ -27,15 +28,38 @@ import Managing from '../screens/Managing';
 import ManagingRooms from '../screens/ManagingRooms';
 import ManagingRoomDetails from '../screens/ManagingRoomDetails';
 import ManagingNavigator from './ManagingNavigator';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const AppNavigator = ({navigation, route}) => {
   const HomeStack = createNativeStackNavigator();
+  const tabBarBottom = [BUILDINGS_LIST, NOTIFICATION, ACCOUNT, undefined];
+  const curRoute = getFocusedRouteNameFromRoute(route);
+  useEffect(() => {
+    let isMounted = true;
+    console.log(tabBarBottom.includes(getFocusedRouteNameFromRoute(route)));
+    console.log(getFocusedRouteNameFromRoute(route));
+    if (isMounted) {
+      if (!tabBarBottom.includes(getFocusedRouteNameFromRoute(route))) {
+        navigation.setOptions({tabBarStyle: {display: 'none'}});
+      } else {
+        navigation.setOptions({tabBarStyle: {display: 'flex'}});
+      }
+    }
+
+    return () => (isMounted = false);
+  }, [curRoute]);
   return (
     <HomeStack.Navigator
       initialRouteName={BUILDINGS_LIST}
       screenOptions={{headerShown: true}}>
       <HomeStack.Screen name={BUILDINGS_LIST} component={BuildingsList} />
-      <HomeStack.Screen name={ROOM_LIST} component={RoomsList} />
+      <HomeStack.Screen
+        name={ROOM_LIST}
+        options={{
+          tabBarStyle: false,
+        }}
+        component={RoomsList}
+      />
       <HomeStack.Screen name={QRCODE} component={QRCode} />
       <HomeStack.Screen name={ACCOUNT} component={Account} />
       <HomeStack.Screen name={ROOMDETAILS} component={RoomDetails} />

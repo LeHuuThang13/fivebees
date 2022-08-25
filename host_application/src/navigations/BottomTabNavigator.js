@@ -20,6 +20,7 @@ import ProfileIcon from '../assets/icons/account.svg';
 import ProfileOutLineIcon from '../assets/icons/account_outline.svg';
 import HomeNavigator from './HomeNavigator';
 import BuildingsList from '../screens/BuildingsList';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
@@ -86,11 +87,11 @@ const BottomTabNavigatior = ({navigation, route}) => {
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={NOTIFICATION_BOTTOM}
         options={{headerShown: false}}
         component={NotiTabNavigator}
-      />
+      /> */}
       <Tab.Screen
         name={ACCOUNT_BOTTOM}
         options={{headerShown: false}}

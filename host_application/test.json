@@ -1,9 +1,103 @@
 {
-  "cropRect": {"height": 960, "width": 960, "x": 0, "y": 160},
-  "height": 300,
-  "mime": "image/jpeg",
-  "modificationDate": "1660385668000",
-  "path": "file:///storage/emulated/0/Android/data/com.host_application/files/Pictures/a0fa91cd-1ed4-4496-aca6-b80535a2f7a5.jpg",
-  "size": 57224,
-  "width": 300
+  "data": [
+    {
+      "building_id": ["Array"],
+      "description": "Phòng nhỏ nhoi quá",
+      "facilities": ["Array"],
+      "id": 3,
+      "photos": ["Array"],
+      "room_number": "N103 3",
+      "status": "Đang sửa chữa"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng nhỏ như cái lổ mũi",
+      "facilities": ["Array"],
+      "id": 64,
+      "photos": ["Array"],
+      "room_number": "N101",
+      "status": "Trống"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng nhỏ ơi là nhỏ",
+      "facilities": ["Array"],
+      "id": 71,
+      "photos": ["Array"],
+      "room_number": "N102",
+      "status": "Đang sử dụng"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng vừa nhỏ",
+      "facilities": ["Array"],
+      "id": 72,
+      "photos": ["Array"],
+      "room_number": "N105",
+      "status": "Đang sử dụng"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng đang bị nghẹt bồn cầu",
+      "facilities": ["Array"],
+      "id": 73,
+      "photos": ["Array"],
+      "room_number": "N106",
+      "status": "Đang sửa chữa"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng nhỏ ơi là nhỏ luôn",
+      "facilities": ["Array"],
+      "id": 74,
+      "photos": ["Array"],
+      "room_number": "N107",
+      "status": "Đang sử dụng"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng dơ kinh khủng",
+      "facilities": ["Array"],
+      "id": 75,
+      "photos": ["Array"],
+      "room_number": "N108",
+      "status": "Trống"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng chỉ dành cho người nghèo nát",
+      "facilities": ["Array"],
+      "id": 76,
+      "photos": ["Array"],
+      "room_number": "N109",
+      "status": "Đang sử dụng"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng vip",
+      "facilities": ["Array"],
+      "id": 82,
+      "photos": ["Array"],
+      "room_number": "C101",
+      "status": "Đang thuê"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng hiện đại và sang trọng bậc bốn Sài Gòn hoa lệ",
+      "facilities": ["Array"],
+      "id": 93,
+      "photos": ["Array"],
+      "room_number": "A",
+      "status": "Đang sửa chữa"
+    },
+    {
+      "building_id": ["Array"],
+      "description": "Phòng to",
+      "facilities": ["Array"],
+      "id": 94,
+      "photos": ["Array"],
+      "room_number": "304",
+      "status": "Chưa sử dụng"
+    }
+  ]
 }

@@ -18,13 +18,13 @@ export default form =>
     formData.append('status', form.status);
     formData.append('description', form.description);
     formData.append('building_id', idBuilding);
-    formData.append('filenames', {
+    formData.append('filenames[]', {
       type: 'image/jpeg',
       uri: localFile.path,
       name: localFile.path,
     });
 
-    console.log(formData);
+    console.log(localFile.path);
 
     dispatch({
       type: CREATE_ROOM_BY_ID_BUILDING_LOADING,
@@ -43,15 +43,15 @@ export default form =>
         },
       })
       .then(res => {
+        onSuccess();
         dispatch({
           type: CREATE_ROOM_BY_ID_BUILDING_SUCCESS,
           payload: res.data.data,
         });
         Toast({title: 'Tạo phòng mới thành công'});
-        onSuccess();
       })
       .catch(error => {
-        console.log('error creating room', error.response.data);
+        console.log('error creating room', error.response);
         Toast({title: 'Tạo phòng mới thất bại'});
         dispatch({
           type: CREATE_ROOM_BY_ID_BUILDING_FAILED,

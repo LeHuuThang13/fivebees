@@ -25,6 +25,14 @@ import SelectDropdown from 'react-native-select-dropdown';
 import {MANAGING_ROOM_DETAILS} from '../../constants/routeNames';
 import updateFacility from '../../context/actions/facilities/updateFacility';
 import SelectingDropDown from '../../components/common/SelectDropdown';
+import getFacility from '../../context/actions/facilities/getFacility';
+import Announce from '../../components/common/Announce';
+import {
+  ANNOUNCE,
+  DATA_HAS_NOT_CHANGED,
+  PLEASE_FILL_DATA,
+} from '../../constants/actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatingFacility = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -34,6 +42,7 @@ const CreatingFacility = ({navigation, route}) => {
     name_building: nameBuilding,
     item: item,
   } = route.params;
+  const {id: id_facility} = item;
 
   //Setting header
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -43,10 +52,14 @@ const CreatingFacility = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_ROOM_DETAILS, {
-        id_room: idRoom,
-        id_building: idBuilding,
-        name_building: nameBuilding,
+      navigate({
+        name: MANAGING_ROOM_DETAILS,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+          reload: true,
+        },
+        merge: true,
       });
     },
   });
@@ -55,7 +68,8 @@ const CreatingFacility = ({navigation, route}) => {
   const {
     facilitiesDispatch,
     facilitiesState: {
-      createFacility: {loading, data, error},
+      createFacility: {loading, error},
+      getFacility: {loading: loading_getFacility, data: data_getFacility},
     },
     categoriesDispatch,
     categoriesState: {
@@ -66,19 +80,25 @@ const CreatingFacility = ({navigation, route}) => {
   // Hook fields
 
   useEffect(() => {
-    // Back button real device
     getCategories()(categoriesDispatch);
+    getFacility(id_facility)(facilitiesDispatch);
+
     if (item) {
-      const {name, description, category_id, id} = item;
+      const {name, description, category, id, photos} = item;
       setForm({...form, name, description});
-      setCategory(category_id);
+      setCategory(category?.[0]?.id);
       setIsFacility(id);
+      setLocalFile(photos?.[0]);
     }
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigate(MANAGING_ROOM_DETAILS, {
-        id_room: idRoom,
-        id_building: idBuilding,
-        name_building: nameBuilding,
+      navigate({
+        name: MANAGING_ROOM_DETAILS,
+        params: {
+          id_building: idBuilding,
+          name_building: nameBuilding,
+          reload: true,
+        },
+        merge: true,
       });
       return true;
     });
@@ -93,13 +113,12 @@ const CreatingFacility = ({navigation, route}) => {
   const [form, setForm] = useState({});
   const [localFile, setLocalFile] = useState('');
   const sheetRef = useRef(null);
-  const [name, setName] = useState(form?.name);
-  const [category, setCategory] = useState({});
-  const [description, setDescription] = useState(form?.description);
+  const [name, setName] = useState(data_getFacility?.name);
+  const [category, setCategory] = useState(data_getFacility?.category?.[0]?.id);
+  const [description, setDescription] = useState(data_getFacility?.description);
   const [isEdited, setIsEdited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [idFacility, setIsFacility] = useState({});
-  // Functions
 
   const closeSheet = () => {
     if (sheetRef.current) {
@@ -124,32 +143,45 @@ const CreatingFacility = ({navigation, route}) => {
     setIsEdited(true);
   };
 
-  const onSubmit = () => {
-    if (isEdited) {
-      updateFacility(form)(facilitiesDispatch)({
-        localFile,
-        category,
-        idRoom,
-        idFacility,
-      })(() => {
-        navigate(MANAGING_ROOM_DETAILS, {
-          id_building: id,
+  const onSubmit = async () => {
+    if (
+      typeof form?.name == 'string' &&
+      typeof form?.description == 'string' &&
+      typeof category == 'number' &&
+      localFile &&
+      form?.name.trim() !== '' &&
+      form?.description.trim() !== ''
+    ) {
+      if (isEdited) {
+        const token = await AsyncStorage.getItem('token');
+        updateFacility(form)(facilitiesDispatch)({
+          localFile,
+          category,
+          idRoom,
+          idFacility,
+          token,
+        })(() => {
+          navigate({
+            name: MANAGING_ROOM_DETAILS,
+            params: {
+              id_building: idBuilding,
+              name_building: nameBuilding,
+              reload: true,
+            },
+            merge: true,
+          });
+          setForm({});
+          setLocalFile('');
+          setName('');
+          setDescription('');
+          setCategory('');
+          setIsLoading(false);
         });
-        setForm({});
-        setLocalFile('');
-        setName('');
-        setDescription('');
-        setCategory('');
-        setIsLoading(false);
-      });
+      } else {
+        Announce(ANNOUNCE, DATA_HAS_NOT_CHANGED);
+      }
     } else {
-      Alert.alert('Thông báo', 'Bạn có bất kỳ cập nhập nào!', [
-        {
-          text: 'Đã hiểu',
-          onPress: () => console.log('Đã hiểu'),
-          style: 'cancel',
-        },
-      ]);
+      Announce(ANNOUNCE, PLEASE_FILL_DATA);
     }
   };
 
@@ -165,7 +197,11 @@ const CreatingFacility = ({navigation, route}) => {
               <Image
                 width={150}
                 height={150}
-                source={{uri: localFile?.path}}
+                source={{
+                  uri: localFile?.path
+                    ? localFile?.path.replace('http://', 'https://')
+                    : localFile.replace('http://', 'https://'),
+                }}
                 style={styles.imageView}
               />
               <Text style={styles.colorChoosingImageText}>Choose image</Text>
@@ -195,7 +231,7 @@ const CreatingFacility = ({navigation, route}) => {
           }}
           placeholder="Nhập tên thiết bị"
           value={form.name}
-          error={name === '' && error?.errors?.name?.[0]}
+          error={error?.errors?.name?.[0]}
         />
 
         <CustomInput
@@ -206,13 +242,14 @@ const CreatingFacility = ({navigation, route}) => {
           }}
           placeholder="Nhập mô tả thiết bị"
           value={form.description}
-          error={description === '' && error?.errors?.description?.[0]}
+          error={error?.errors?.description?.[0]}
         />
 
         <SelectingDropDown
-          title="Loại thiết bị"
+          title={data_getFacility?.category?.[0]?.name}
           data={data_categories}
           setState={setCategory}
+          setIsEdited={setIsEdited}
         />
 
         <CustomButton

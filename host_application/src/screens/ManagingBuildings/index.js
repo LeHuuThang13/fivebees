@@ -5,6 +5,7 @@ import {
   FlatList,
   ScrollView,
   View,
+  Text,
 } from 'react-native';
 import GlobalStyles from '../../../GlobalStyles';
 import SettingHeaderNavigator from '../../utils/SettingHeaderNavigator';
@@ -28,7 +29,7 @@ import {useNavigation} from '@react-navigation/native';
 import MorePopupMenu from '../../components/common/MorePopupMenu';
 import deleteBuilding from '../../context/actions/buildings/deleteBuilding';
 
-const ManagingBuilding = ({navigation}) => {
+const ManagingBuilding = ({navigation, route}) => {
   const {navigate} = useNavigation();
 
   SettingHeaderNavigator.settingChildHeaderNavigator({
@@ -38,6 +39,7 @@ const ManagingBuilding = ({navigation}) => {
     },
     onPressBtnLeft: () => {
       navigate(MANAGE);
+      setIsLoaded(false);
     },
   });
 
@@ -53,8 +55,9 @@ const ManagingBuilding = ({navigation}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      setIsLoaded(false);
+      console.log('Quay lại');
       navigation.navigate(MANAGE);
+      setIsLoaded(false);
       return true;
     });
 
@@ -63,11 +66,11 @@ const ManagingBuilding = ({navigation}) => {
         return false;
       });
     };
-  }, []);
+  }, [route.params]);
 
   useEffect(() => {
     getBuildings(setIsLoaded)(buildingsDispatch);
-  }, [navigation]);
+  }, [route.params]);
 
   const ListEmptyComponent = () => {
     return (
@@ -104,6 +107,7 @@ const ManagingBuilding = ({navigation}) => {
                 zIndex: 3,
               }}
               onPressEdit={() => {
+                setIsLoaded(false);
                 navigate(UPDATING_BUILDING, {
                   building: item,
                 });
@@ -120,6 +124,7 @@ const ManagingBuilding = ({navigation}) => {
           totalManagingTitleText={'Tổng số phòng'}
           totalManagingContentText={roomsTotal}
           onPress={() => {
+            setIsLoaded(false);
             navigate(MANAGING_ROOMS, {
               id_building: id,
               name_building: name,

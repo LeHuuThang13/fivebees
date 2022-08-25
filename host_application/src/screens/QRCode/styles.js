@@ -14,6 +14,15 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
   },
+  itemWrapper: {
+    paddingVertical: 10,
+    flexDirection: 'row',
+  },
+
+  text: {
+    fontSize: 20,
+    color: colors.secondary,
+  },
 
   textContentHeader: {
     fontSize: 15,

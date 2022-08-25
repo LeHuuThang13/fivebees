@@ -15,7 +15,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async config => {
     const token = await AsyncStorage.getItem('token');
-    console.log(token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -39,7 +38,9 @@ axiosInstance.interceptors.response.use(
         reject(error);
       });
     }
-
+    if (typeof error.response === 'undefined') {
+      console.log('Axios get undefine respones');
+    }
     if (error.response.status === STATUS_TOKEN_EXPIRED) {
       navigate(LOGOUT, {tokenExpired: true});
     } else {
@@ -47,6 +48,7 @@ axiosInstance.interceptors.response.use(
         reject(error);
       });
     }
+    return Promise.reject(error);
   },
 );
 
