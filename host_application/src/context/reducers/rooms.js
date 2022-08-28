@@ -20,6 +20,9 @@ import {
   UPDATE_ROOM_LOADING,
   UPDATE_ROOM_SUCCESS,
   UPDATE_ROOM_FAILED,
+  GET__LIST_ROOMS_BY_LOADING,
+  GET__LIST_ROOMS_BY_SUCCESS,
+  GET__LIST_ROOMS_BY_FAILED,
 } from '../../constants/actionTypes';
 
 const rooms = (state, {type, payload}) => {
@@ -143,6 +146,7 @@ const rooms = (state, {type, payload}) => {
       };
 
     // Get
+    case GET__LIST_ROOMS_BY_LOADING:
     case GET_DETAILS_ROOMS_LOADING:
     case GET_ROOMS_LOADING:
     case GET_ROOMS_BY_ID_BUILDING_LOADING:
@@ -156,6 +160,7 @@ const rooms = (state, {type, payload}) => {
       };
 
     case GET_DETAILS_ROOMS_SUCCESS:
+    case GET__LIST_ROOMS_BY_SUCCESS:
     case GET_ROOMS_SUCCESS:
     case GET_ROOMS_BY_ID_BUILDING_SUCCESS:
       return {
@@ -170,6 +175,7 @@ const rooms = (state, {type, payload}) => {
 
     case GET_DETAILS_ROOMS_FAILED:
     case GET_ROOMS_FAILED:
+    case GET__LIST_ROOMS_BY_FAILED:
     case GET_ROOMS_BY_ID_BUILDING_FAILED:
       return {
         ...state,

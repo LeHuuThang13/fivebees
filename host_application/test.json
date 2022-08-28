@@ -1,103 +1,1053 @@
 {
   "data": [
     {
-      "building_id": ["Array"],
-      "description": "Phòng nhỏ nhoi quá",
-      "facilities": ["Array"],
       "id": 3,
-      "photos": ["Array"],
-      "room_number": "N103 3",
-      "status": "Đang sửa chữa"
+      "room_number": "N103",
+      "description": "Phòng nhỏ nhoi quá",
+      "status": "Đang sửa chữa",
+      "building_id": [
+        {
+          "id": 110,
+          "name": "Nhà trọ A"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/69/cho-thue-phong-tro_1613975723.jpg",
+        "http://fivebees.ml/storage/332/5e787418-9c6c-4ee4-aeb7-3ce018372880.jpg",
+        "http://fivebees.ml/storage/344/cho-thue-phong-tro_1613975723.jpg",
+        "http://fivebees.ml/storage/346/3e4df390-9d5f-4d60-b60a-e5bac0140d6a.jpg",
+        "http://fivebees.ml/storage/348/cho-thue-phong-tro_1613975723.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 230,
+          "name": "Tủ lạnh của bạn",
+          "code": "20220819-050938-1-0018",
+          "description": "Tủ lạnh đẹp nhất nhà trọ",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 1,
+              "name": "TV"
+            }
+          ],
+          "room": [
+            {
+              "id": 3,
+              "room_number": "N103",
+              "description": "Phòng nhỏ nhoi quá",
+              "status": "Đang sửa chữa",
+              "building_id": 110,
+              "created_at": "2022-07-26 03:31:05",
+              "updated_at": "2022-08-24 14:48:40",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 230,
+                "room_id": 3,
+                "created_at": "2022-08-19T17:09:38.000000Z",
+                "updated_at": "2022-08-19T17:09:38.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/152/e9324259-8513-4cf4-968c-48b1e8125c98.jpg",
+            "http://fivebees.ml/storage/289/e9324259-8513-4cf4-968c-48b1e8125c98.jpg",
+            "http://fivebees.ml/storage/290/e9324259-8513-4cf4-968c-48b1e8125c98.jpg",
+            "http://fivebees.ml/storage/291/7f303943-39e1-40d7-a657-efe84a3005ac.jpg",
+            "http://fivebees.ml/storage/292/660cf89c-1b42-4f6a-9947-6dc36eb54307.jpg"
+          ]
+        },
+        {
+          "id": 233,
+          "name": "Tủ lạnh hơi to",
+          "code": "20220819-051358-1-0020",
+          "description": "asdfasdfasdf",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 2,
+              "name": "Tủ lạnh"
+            }
+          ],
+          "room": [
+            {
+              "id": 3,
+              "room_number": "N103",
+              "description": "Phòng nhỏ nhoi quá",
+              "status": "Đang sửa chữa",
+              "building_id": 110,
+              "created_at": "2022-07-26 03:31:05",
+              "updated_at": "2022-08-24 14:48:40",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 233,
+                "room_id": 3,
+                "created_at": "2022-08-19T17:13:58.000000Z",
+                "updated_at": "2022-08-19T17:13:58.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/153/39919ffb-72d9-42a5-be43-06d7493564f1.jpg"
+          ]
+        }
+      ]
     },
     {
-      "building_id": ["Array"],
-      "description": "Phòng nhỏ như cái lổ mũi",
-      "facilities": ["Array"],
       "id": 64,
-      "photos": ["Array"],
       "room_number": "N101",
-      "status": "Trống"
+      "description": "Phòng nhỏ như cái lổ mũi",
+      "status": "Trống",
+      "building_id": [
+        {
+          "id": 116,
+          "name": "Nhà trọ B"
+        }
+      ],
+      "photos": [],
+      "facilities": [
+        {
+          "id": 84,
+          "name": "Ghế sofa 2",
+          "code": "20220812-065053-2-0009",
+          "description": "Ghế sofa của Nguyên",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 4,
+              "name": "Ghế"
+            }
+          ],
+          "room": [
+            {
+              "id": 64,
+              "room_number": "N101",
+              "description": "Phòng nhỏ như cái lổ mũi",
+              "status": "Trống",
+              "building_id": 116,
+              "created_at": "2022-08-01 23:45:45",
+              "updated_at": "2022-08-12 03:17:11",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 84,
+                "room_id": 64,
+                "created_at": "2022-08-12T06:50:53.000000Z",
+                "updated_at": "2022-08-12T06:50:53.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/352/f3ac990a-2712-469b-916e-e441b12dbe27.jpg"
+          ]
+        },
+        {
+          "id": 85,
+          "name": "Lavabo 1",
+          "code": "20220812-065403-2-00010",
+          "description": "Lavabo của Nguyênnn",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 9,
+              "name": "Lavabo"
+            }
+          ],
+          "room": [
+            {
+              "id": 64,
+              "room_number": "N101",
+              "description": "Phòng nhỏ như cái lổ mũi",
+              "status": "Trống",
+              "building_id": 116,
+              "created_at": "2022-08-01 23:45:45",
+              "updated_at": "2022-08-12 03:17:11",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 85,
+                "room_id": 64,
+                "created_at": "2022-08-12T06:55:49.000000Z",
+                "updated_at": "2022-08-12T06:55:49.000000Z"
+              }
+            }
+          ],
+          "photos": ["http://fivebees.ml/storage/275/lavabo.jpg"]
+        },
+        {
+          "id": 88,
+          "name": "Gương soi 3",
+          "code": "20220812-074316-2-0013",
+          "description": "Gương tròn của Nguyênnn",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 10,
+              "name": "Gương"
+            }
+          ],
+          "room": [
+            {
+              "id": 64,
+              "room_number": "N101",
+              "description": "Phòng nhỏ như cái lổ mũi",
+              "status": "Trống",
+              "building_id": 116,
+              "created_at": "2022-08-01 23:45:45",
+              "updated_at": "2022-08-12 03:17:11",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 88,
+                "room_id": 64,
+                "created_at": "2022-08-12T07:43:16.000000Z",
+                "updated_at": "2022-08-12T07:43:16.000000Z"
+              }
+            }
+          ],
+          "photos": []
+        },
+        {
+          "id": 77,
+          "name": "Giường ngủ 1",
+          "code": "20220812-034530-2-0002",
+          "description": "Helo",
+          "status": [
+            {
+              "id": 3,
+              "name": "Chờ sửa chữa"
+            }
+          ],
+          "category": [
+            {
+              "id": 1,
+              "name": "TV"
+            }
+          ],
+          "room": [
+            {
+              "id": 64,
+              "room_number": "N101",
+              "description": "Phòng nhỏ như cái lổ mũi",
+              "status": "Trống",
+              "building_id": 116,
+              "created_at": "2022-08-01 23:45:45",
+              "updated_at": "2022-08-12 03:17:11",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 77,
+                "room_id": 64,
+                "created_at": "2022-08-16T10:00:19.000000Z",
+                "updated_at": "2022-08-16T10:00:19.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/79/af7938e4-ff7b-4edf-a0ab-cbe92a7d4d87.jpg",
+            "http://fivebees.ml/storage/237/a14daf74-ee99-4060-a9b3-76cb47698c45.jpg",
+            "http://fivebees.ml/storage/238/af7938e4-ff7b-4edf-a0ab-cbe92a7d4d87.jpg"
+          ]
+        },
+        {
+          "id": 78,
+          "name": "Giường ngủ 5",
+          "code": "20220812-034701-2-0003",
+          "description": "Giường 1 người",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 1,
+              "name": "TV"
+            }
+          ],
+          "room": [
+            {
+              "id": 64,
+              "room_number": "N101",
+              "description": "Phòng nhỏ như cái lổ mũi",
+              "status": "Trống",
+              "building_id": 116,
+              "created_at": "2022-08-01 23:45:45",
+              "updated_at": "2022-08-12 03:17:11",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 78,
+                "room_id": 64,
+                "created_at": "2022-08-16T12:55:17.000000Z",
+                "updated_at": "2022-08-16T12:55:17.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/80/264c6282-3b71-4c94-ac40-8d35f9b37576.jpg",
+            "http://fivebees.ml/storage/326/264c6282-3b71-4c94-ac40-8d35f9b37576.jpg",
+            "http://fivebees.ml/storage/327/2298aa8e-f297-434d-a1d5-5e60f60f8392.jpg",
+            "http://fivebees.ml/storage/340/264c6282-3b71-4c94-ac40-8d35f9b37576.jpg",
+            "http://fivebees.ml/storage/341/264c6282-3b71-4c94-ac40-8d35f9b37576.jpg"
+          ]
+        },
+        {
+          "id": 229,
+          "name": "Tủ lạnh",
+          "code": "20220819-050754-1-0017",
+          "description": "Tủ lạnh 2 ngăn",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 2,
+              "name": "Tủ lạnh"
+            }
+          ],
+          "room": [
+            {
+              "id": 64,
+              "room_number": "N101",
+              "description": "Phòng nhỏ như cái lổ mũi",
+              "status": "Trống",
+              "building_id": 116,
+              "created_at": "2022-08-01 23:45:45",
+              "updated_at": "2022-08-12 03:17:11",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 229,
+                "room_id": 64,
+                "created_at": "2022-08-22T02:12:32.000000Z",
+                "updated_at": "2022-08-22T02:12:32.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/151/27fd3867-c6ab-453d-b71f-9ebfe9427015.jpg"
+          ]
+        }
+      ]
     },
     {
-      "building_id": ["Array"],
-      "description": "Phòng nhỏ ơi là nhỏ",
-      "facilities": ["Array"],
       "id": 71,
-      "photos": ["Array"],
       "room_number": "N102",
-      "status": "Đang sử dụng"
+      "description": "Phòng nhỏ ơi là nhỏ",
+      "status": "Đang sử dụng",
+      "building_id": [
+        {
+          "id": 110,
+          "name": "Nhà trọ A"
+        }
+      ],
+      "photos": [],
+      "facilities": [
+        {
+          "id": 80,
+          "name": "Giường ngủ 45",
+          "code": "20220812-034800-2-0005",
+          "description": "Giường 1 người",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 9,
+              "name": "Lavabo"
+            }
+          ],
+          "room": [
+            {
+              "id": 71,
+              "room_number": "N102",
+              "description": "Phòng nhỏ ơi là nhỏ",
+              "status": "Đang sử dụng",
+              "building_id": 110,
+              "created_at": "2022-08-12 03:17:52",
+              "updated_at": "2022-08-24 03:43:50",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 80,
+                "room_id": 71,
+                "created_at": "2022-08-16T14:32:23.000000Z",
+                "updated_at": "2022-08-16T14:32:23.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/125/e88146f4-c4c6-44b6-84af-b915fe61e22a.jpg",
+            "http://fivebees.ml/storage/305/e88146f4-c4c6-44b6-84af-b915fe61e22a.jpg"
+          ]
+        }
+      ]
     },
     {
-      "building_id": ["Array"],
-      "description": "Phòng vừa nhỏ",
-      "facilities": ["Array"],
       "id": 72,
-      "photos": ["Array"],
       "room_number": "N105",
-      "status": "Đang sử dụng"
+      "description": "Phòng vừa nhỏ",
+      "status": "Đang sử dụng",
+      "building_id": [
+        {
+          "id": 110,
+          "name": "Nhà trọ A"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/309/87086781-8481-4097-bdd2-b974d8767820.jpg"
+      ],
+      "facilities": []
     },
     {
-      "building_id": ["Array"],
-      "description": "Phòng đang bị nghẹt bồn cầu",
-      "facilities": ["Array"],
       "id": 73,
-      "photos": ["Array"],
       "room_number": "N106",
-      "status": "Đang sửa chữa"
+      "description": "Phòng đang bị nghẹt bồn cầu",
+      "status": "Đang sửa chữa",
+      "building_id": [
+        {
+          "id": 116,
+          "name": "Nhà trọ B"
+        }
+      ],
+      "photos": [],
+      "facilities": [
+        {
+          "id": 79,
+          "name": "Giường ngủ 20",
+          "code": "20220812-034734-2-0004",
+          "description": "Giường 1 người",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 73,
+              "room_number": "N106",
+              "description": "Phòng đang bị nghẹt bồn cầu",
+              "status": "Đang sửa chữa",
+              "building_id": 116,
+              "created_at": "2022-08-12 03:19:03",
+              "updated_at": "2022-08-12 03:19:03",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 79,
+                "room_id": 73,
+                "created_at": "2022-08-16T09:51:43.000000Z",
+                "updated_at": "2022-08-16T09:51:43.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/81/5e5aa87b-4095-48d8-9157-f9932e46cfb5.jpg",
+            "http://fivebees.ml/storage/96/ee0d67e3-c560-4b65-808a-6bc428869799.jpg",
+            "http://fivebees.ml/storage/336/5e5aa87b-4095-48d8-9157-f9932e46cfb5.jpg",
+            "http://fivebees.ml/storage/337/5e5aa87b-4095-48d8-9157-f9932e46cfb5.jpg",
+            "http://fivebees.ml/storage/339/75a167f0-ad2c-4ba5-8457-1f9e6833fd9f.jpg"
+          ]
+        },
+        {
+          "id": 76,
+          "name": "Giường ngủ của Nguyên",
+          "code": "20220812-034445-2-0001",
+          "description": "Giường kymdan",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 73,
+              "room_number": "N106",
+              "description": "Phòng đang bị nghẹt bồn cầu",
+              "status": "Đang sửa chữa",
+              "building_id": 116,
+              "created_at": "2022-08-12 03:19:03",
+              "updated_at": "2022-08-12 03:19:03",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 76,
+                "room_id": 73,
+                "created_at": "2022-08-23T05:43:50.000000Z",
+                "updated_at": "2022-08-23T05:43:50.000000Z"
+              }
+            }
+          ],
+          "photos": ["http://fivebees.ml/storage/354/download.jfif"]
+        }
+      ]
     },
     {
-      "building_id": ["Array"],
-      "description": "Phòng nhỏ ơi là nhỏ luôn",
-      "facilities": ["Array"],
-      "id": 74,
-      "photos": ["Array"],
-      "room_number": "N107",
-      "status": "Đang sử dụng"
-    },
-    {
-      "building_id": ["Array"],
-      "description": "Phòng dơ kinh khủng",
-      "facilities": ["Array"],
-      "id": 75,
-      "photos": ["Array"],
-      "room_number": "N108",
-      "status": "Trống"
-    },
-    {
-      "building_id": ["Array"],
-      "description": "Phòng chỉ dành cho người nghèo nát",
-      "facilities": ["Array"],
-      "id": 76,
-      "photos": ["Array"],
-      "room_number": "N109",
-      "status": "Đang sử dụng"
-    },
-    {
-      "building_id": ["Array"],
-      "description": "Phòng vip",
-      "facilities": ["Array"],
       "id": 82,
-      "photos": ["Array"],
       "room_number": "C101",
-      "status": "Đang thuê"
+      "description": "Phòng vip",
+      "status": "Đang thuê",
+      "building_id": [
+        {
+          "id": 135,
+          "name": "Tòa nhà big C"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/123/c97c61d3-181b-43e5-b8ec-986621292057.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 227,
+          "name": "Quạt đứng nhỏ",
+          "code": "20220819-050728-1-0015",
+          "description": "Quạt siêu nhỏ giá 500k",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 3,
+              "name": "Quạt"
+            }
+          ],
+          "room": [
+            {
+              "id": 82,
+              "room_number": "C101",
+              "description": "Phòng vip",
+              "status": "Đang thuê",
+              "building_id": 135,
+              "created_at": "2022-08-18 03:55:42",
+              "updated_at": "2022-08-22 02:18:44",
+              "deleted_at": null,
+              "created_by_id": 2,
+              "pivot": {
+                "facility_id": 227,
+                "room_id": 82,
+                "created_at": "2022-08-22T02:15:03.000000Z",
+                "updated_at": "2022-08-22T02:15:03.000000Z"
+              }
+            }
+          ],
+          "photos": ["http://fivebees.ml/storage/248/ckeditor_2688987.jpg"]
+        }
+      ]
     },
     {
-      "building_id": ["Array"],
-      "description": "Phòng hiện đại và sang trọng bậc bốn Sài Gòn hoa lệ",
-      "facilities": ["Array"],
-      "id": 93,
-      "photos": ["Array"],
-      "room_number": "A",
-      "status": "Đang sửa chữa"
+      "id": 83,
+      "room_number": "P1001",
+      "description": "Phòng siêu sang, đầy đủ tiện nghi và đặc biệt là có cửa số nhìn ra thành phố.",
+      "status": "Đã thuê",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/258/noi-that-khach-san-5-sao-e1618385436517.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 323,
+          "name": "Giường siêu to khổng lồ 1",
+          "code": "20220822-024420-9-0001",
+          "description": "Giường có 2 cái gối màu đen",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 83,
+              "room_number": "P1001",
+              "description": "Phòng siêu sang, đầy đủ tiện nghi và đặc biệt là có cửa số nhìn ra thành phố.",
+              "status": "Đã thuê",
+              "building_id": 125,
+              "created_at": "2022-08-22 02:31:20",
+              "updated_at": "2022-08-22 02:35:38",
+              "deleted_at": null,
+              "created_by_id": 9,
+              "pivot": {
+                "facility_id": 323,
+                "room_id": 83,
+                "created_at": "2022-08-22T02:44:20.000000Z",
+                "updated_at": "2022-08-22T02:44:20.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/268/noi-that-khach-san-5-sao-e1618385436517.jpg"
+          ]
+        }
+      ]
     },
     {
-      "building_id": ["Array"],
-      "description": "Phòng to",
-      "facilities": ["Array"],
-      "id": 94,
-      "photos": ["Array"],
-      "room_number": "304",
-      "status": "Chưa sử dụng"
+      "id": 84,
+      "room_number": "P1002",
+      "description": "Phòng dành cho V.I.P và chủ trọ",
+      "status": "Đã thuê",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/259/noi-that-khach-san-5-sao-e1618385436517.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 324,
+          "name": "Giường siêu to khổng lồ 2",
+          "code": "20220822-024458-9-0002",
+          "description": "Giường có 2 cái gối màu đen",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 84,
+              "room_number": "P1002",
+              "description": "Phòng dành cho V.I.P và chủ trọ",
+              "status": "Đã thuê",
+              "building_id": 125,
+              "created_at": "2022-08-22 02:32:25",
+              "updated_at": "2022-08-22 02:35:45",
+              "deleted_at": null,
+              "created_by_id": 9,
+              "pivot": {
+                "facility_id": 324,
+                "room_id": 84,
+                "created_at": "2022-08-22T02:44:58.000000Z",
+                "updated_at": "2022-08-22T02:44:58.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/269/noi-that-khach-san-5-sao-e1618385436517.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "room_number": "P1003",
+      "description": "Phòng dành cho V.I.P",
+      "status": "Đã thuê",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/260/noi-that-khach-san-5-sao-e1618385436517.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 325,
+          "name": "Giường siêu to khổng lồ 3",
+          "code": "20220822-024554-9-0003",
+          "description": "Giường có 2 cái gối màu đen",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 85,
+              "room_number": "P1003",
+              "description": "Phòng dành cho V.I.P",
+              "status": "Đã thuê",
+              "building_id": 125,
+              "created_at": "2022-08-22 02:32:55",
+              "updated_at": "2022-08-22 02:35:51",
+              "deleted_at": null,
+              "created_by_id": 9,
+              "pivot": {
+                "facility_id": 325,
+                "room_id": 85,
+                "created_at": "2022-08-22T02:45:54.000000Z",
+                "updated_at": "2022-08-22T02:45:54.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/270/noi-that-khach-san-5-sao-e1618385436517.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "room_number": "P1004",
+      "description": "Phòng dành cho V.I.P",
+      "status": "Trống",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/261/noi-that-khach-san-5-sao-e1618385436517.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 326,
+          "name": "Giường siêu to khổng lồ 4",
+          "code": "20220822-025014-9-0004",
+          "description": "Giường có 2 cái gối màu đen",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 86,
+              "room_number": "P1004",
+              "description": "Phòng dành cho V.I.P",
+              "status": "Trống",
+              "building_id": 125,
+              "created_at": "2022-08-22 02:35:27",
+              "updated_at": "2022-08-22 02:35:27",
+              "deleted_at": null,
+              "created_by_id": 9,
+              "pivot": {
+                "facility_id": 326,
+                "room_id": 86,
+                "created_at": "2022-08-22T02:50:23.000000Z",
+                "updated_at": "2022-08-22T02:50:23.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/271/noi-that-khach-san-5-sao-e1618385436517.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "room_number": "P1005",
+      "description": "Phòng dành cho V.I.P",
+      "status": "Đã thuê",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/262/noi-that-khach-san-5-sao-e1618385436517.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 327,
+          "name": "Giường siêu to khổng lồ 5",
+          "code": "20220822-025103-9-0005",
+          "description": "Giường có 2 cái gối màu đen",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 87,
+              "room_number": "P1005",
+              "description": "Phòng dành cho V.I.P",
+              "status": "Đã thuê",
+              "building_id": 125,
+              "created_at": "2022-08-22 02:37:59",
+              "updated_at": "2022-08-22 02:37:59",
+              "deleted_at": null,
+              "created_by_id": 9,
+              "pivot": {
+                "facility_id": 327,
+                "room_id": 87,
+                "created_at": "2022-08-22T02:51:03.000000Z",
+                "updated_at": "2022-08-22T02:51:03.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/272/noi-that-khach-san-5-sao-e1618385436517.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "room_number": "P2001",
+      "description": "Phòng này cũng tạm ¯\\_(ツ)_/¯",
+      "status": "Đã thuê",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/263/new-york-city-luxury-u-star-hotels-the-ritzcarltonrhritzcarltoncom-new-5-Star-Luxury-Hotel-Bedroom-york-city-luxury-u-star-hotels-the.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 328,
+          "name": "Giường cỡ vừa 1",
+          "code": "20220822-030722-9-0006",
+          "description": "Giường ngủ đẹp thì cũng đẹp mà nằm hơi chật",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 88,
+              "room_number": "P2001",
+              "description": "Phòng này cũng tạm ¯\\_(ツ)_/¯",
+              "status": "Đã thuê",
+              "building_id": 125,
+              "created_at": "2022-08-22 02:40:39",
+              "updated_at": "2022-08-22 02:40:39",
+              "deleted_at": null,
+              "created_by_id": 9,
+              "pivot": {
+                "facility_id": 328,
+                "room_id": 88,
+                "created_at": "2022-08-22T03:07:22.000000Z",
+                "updated_at": "2022-08-22T03:07:22.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/273/new-york-city-luxury-u-star-hotels-the-ritzcarltonrhritzcarltoncom-new-5-Star-Luxury-Hotel-Bedroom-york-city-luxury-u-star-hotels-the.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "room_number": "P2002",
+      "description": "Phòng này cũng tạm ¯\\_(ツ)_/¯",
+      "status": "Đã thuê",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/264/new-york-city-luxury-u-star-hotels-the-ritzcarltonrhritzcarltoncom-new-5-Star-Luxury-Hotel-Bedroom-york-city-luxury-u-star-hotels-the.jpg"
+      ],
+      "facilities": [
+        {
+          "id": 329,
+          "name": "Giường cỡ vừa 2",
+          "code": "20220822-030952-9-0007",
+          "description": "Giường đẹp thì cũng đẹp mà nằm không vừa 5 người :((",
+          "status": [
+            {
+              "id": 1,
+              "name": "Đang sử dụng"
+            }
+          ],
+          "category": [
+            {
+              "id": 5,
+              "name": "Giường"
+            }
+          ],
+          "room": [
+            {
+              "id": 89,
+              "room_number": "P2002",
+              "description": "Phòng này cũng tạm ¯\\_(ツ)_/¯",
+              "status": "Đã thuê",
+              "building_id": 125,
+              "created_at": "2022-08-22 02:40:59",
+              "updated_at": "2022-08-22 02:40:59",
+              "deleted_at": null,
+              "created_by_id": 9,
+              "pivot": {
+                "facility_id": 329,
+                "room_id": 89,
+                "created_at": "2022-08-22T03:10:08.000000Z",
+                "updated_at": "2022-08-22T03:10:08.000000Z"
+              }
+            }
+          ],
+          "photos": [
+            "http://fivebees.ml/storage/274/new-york-city-luxury-u-star-hotels-the-ritzcarltonrhritzcarltoncom-new-5-Star-Luxury-Hotel-Bedroom-york-city-luxury-u-star-hotels-the.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "room_number": "P2003",
+      "description": "Phòng này cũng thường thôi ¯\\_(ツ)_/¯",
+      "status": "Trống",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/265/new-york-city-luxury-u-star-hotels-the-ritzcarltonrhritzcarltoncom-new-5-Star-Luxury-Hotel-Bedroom-york-city-luxury-u-star-hotels-the.jpg"
+      ],
+      "facilities": []
+    },
+    {
+      "id": 91,
+      "room_number": "P2004",
+      "description": "Phòng ở tạm qua đêm cho tỷ phú",
+      "status": "Trống",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/266/new-york-city-luxury-u-star-hotels-the-ritzcarltonrhritzcarltoncom-new-5-Star-Luxury-Hotel-Bedroom-york-city-luxury-u-star-hotels-the.jpg"
+      ],
+      "facilities": []
+    },
+    {
+      "id": 92,
+      "room_number": "P2005",
+      "description": "Phòng cho vợ tỷ phú",
+      "status": "Trống",
+      "building_id": [
+        {
+          "id": 125,
+          "name": "Siêu khách sạn của Thắng"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/267/new-york-city-luxury-u-star-hotels-the-ritzcarltonrhritzcarltoncom-new-5-Star-Luxury-Hotel-Bedroom-york-city-luxury-u-star-hotels-the.jpg"
+      ],
+      "facilities": []
+    },
+    {
+      "id": 98,
+      "room_number": "Phòng 12",
+      "description": "Đang sử dụng",
+      "status": "Đang sử dụng",
+      "building_id": [
+        {
+          "id": 116,
+          "name": "Nhà trọ B"
+        }
+      ],
+      "photos": [
+        "http://fivebees.ml/storage/358/f2275128-89ee-44d3-881f-6d25f4918318.jpg"
+      ],
+      "facilities": []
     }
   ]
 }

@@ -18,7 +18,7 @@ export default form =>
     formData.append('email', form.email);
     formData.append('address', form.address);
     formData.append('hotline', form.hotline);
-    formData.append('filenames', {
+    formData.append('filenames[]', {
       type: 'image/jpeg',
       uri: localFile.path,
       name: localFile.path,

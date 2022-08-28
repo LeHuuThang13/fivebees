@@ -28,7 +28,8 @@ import getRoomsByIdBuilding from '../../context/actions/rooms/getRoomsByIdBuildi
 import MorePopupMenu from '../../components/common/MorePopupMenu';
 import deleteRoomById from '../../context/actions/rooms/deleteRoomById';
 import colors from '../../assets/themes/colors';
-import {Toast} from '../../components/Toast';
+import RoomIcon from '../../assets/icons/room_outline.svg';
+import getRoomsSpecified from '../../context/actions/rooms/getRoomsSpecified';
 
 const ManagingRooms = ({navigation, route}) => {
   const {navigate} = useNavigation();
@@ -89,7 +90,7 @@ const ManagingRooms = ({navigation, route}) => {
   useEffect(() => {
     let isMounted = true;
     const unsubscribe = navigation.addListener('focus', () => {
-      getRoomsByIdBuilding(idBuilding)(roomsDispatch)({setIsLoaded, isMounted});
+      getRoomsSpecified(idBuilding)(roomsDispatch)({setIsLoaded, isMounted});
     });
     return unsubscribe;
   }, [idBuilding]);
@@ -108,13 +109,16 @@ const ManagingRooms = ({navigation, route}) => {
     );
   };
   const renderItem = ({item}) => {
-    const {id, room_number, status} = item;
+    const {id, room_number, status, facilities} = item;
     return (
       <Room
         roomName={`Phòng ${room_number}`}
         status={status}
         btnTitle={'Quản lý thiết bị'}
+        textTotalDevices={'Tổng số thiết bị'}
+        totalDevices={facilities ? facilities.length : 0}
         IconSetting={Setting}
+        IconDevice={RoomIcon}
         onPress={() => {
           navigation.navigate(MANAGING_ROOM_DETAILS, {
             id_room: id,

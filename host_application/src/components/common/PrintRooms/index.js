@@ -46,13 +46,15 @@ function RenderData(facilities) {
     html += '<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
   } else {
     for (var i = 0; i < facilities?.length; i++) {
+      const status = facilities?.[i]?.status
+        ? facilities?.[i]?.status?.[0]?.name
+        : 0;
       html +=
         '<tr>' +
         ` <td class="align-middle">${++count}</td>` +
         ` <td class="align-middle">${facilities[i].code}</td>` +
         ` <td class="align-middle">${facilities[i].name}</td>` +
-        `<td class="align-middle">${facilities[i].status}</td>` +
-        `<td class="align-middle">${facilities[i].updated_at}</td>` +
+        `<td class="align-middle">${status}</td>` +
         `<td class="align-middle"></td>` +
         `</tr>`;
     }
@@ -70,7 +72,8 @@ const ExportPdf = props => {
     room_number,
     status,
   } = props.data[0];
-  const {name: name_building} = building_id;
+  const {name: name_building} = building_id?.[0];
+  console.log('props.data', status);
 
   const [date, setDate] = useState(timeNow());
   const html = RenderData(facilities);
@@ -141,7 +144,6 @@ const ExportPdf = props => {
                         <th>mã thiết bị</th>
                         <th>tên thiết bị</th>
                         <th>tình trạng</th>
-                        <th>ngày gán</th>
                         <th>hư hại</th>
                     </tr>
                 </thead>

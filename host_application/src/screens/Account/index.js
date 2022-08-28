@@ -23,6 +23,8 @@ const Account = ({navigation}) => {
     } catch (err) {}
   };
 
+  console.log(userInfo);
+
   useEffect(() => {
     getUser();
   }, []);
