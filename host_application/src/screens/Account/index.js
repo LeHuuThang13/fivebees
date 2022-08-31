@@ -10,7 +10,7 @@ const Account = ({navigation}) => {
   SettingHeaderNavigator.settingHeaderNavigator({
     MenuIcon: IconMenu,
     styles: {
-      marginHorizontal: -6,
+      marginHorizontal: 10,
     },
   });
   const [userInfo, setUserInfo] = useState({});

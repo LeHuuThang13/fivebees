@@ -123,22 +123,44 @@ const QRCode = ({navigation}) => {
                 }}>
                 <Text style={{fontSize: 30}}>Kết quả</Text>
               </View>
-              <View style={result ? styles.scanCardView : styles.cardView}>
+              <View
+                style={[result ? styles.scanCardView : styles.cardView, {}]}>
                 {/* <Text>Type : {result.type}</Text> */}
-                <View style={[styles.itemWrapper]}>
-                  <Text style={styles.text}>Tên thiết bị : </Text>
-                  <Text style={styles.text}>{solveData?.name}</Text>
+                <View style={[styles.itemWrapper, styles.lineBreakMode]}>
+                  <Text style={[styles.text]} lineBreakMode={1}>
+                    Tên thiết bị :{' '}
+                  </Text>
+                  <Text
+                    style={[styles.text, {flexWrap: 'wrap', flexShrink: 1}]}
+                    numberOfLines={1}>
+                    {solveData?.name}
+                  </Text>
                 </View>
-                <View style={[styles.itemWrapper]}>
-                  <Text style={styles.text}>Mã thiết bị :</Text>
-                  <Text style={styles.text}>{solveData?.code}</Text>
+                <View style={[styles.itemWrapper, styles.lineBreakMode]}>
+                  <Text style={[styles.text]} numberOfLines={1}>
+                    Mã thiết bị :
+                  </Text>
+                  <Text
+                    style={[styles.text, {flexWrap: 'wrap', flexShrink: 1}]}>
+                    {solveData?.code}
+                  </Text>
                 </View>
-                <View style={[styles.itemWrapper]}>
-                  <Text style={styles.text}>Mô tả: </Text>
-                  <Text style={styles.text}>{solveData?.description}</Text>
+                <View
+                  style={[
+                    styles.itemWrapper,
+                    styles.lineBreakMode,
+                    {flexShrink: 1},
+                  ]}>
+                  <Text style={[styles.text]}>Mô tả: </Text>
+                  <Text
+                    style={[styles.text, {flexWrap: 'wrap', flexShrink: 1}]}>
+                    {solveData?.description}
+                  </Text>
                 </View>
-                <View style={[styles.itemWrapper]}>
-                  <Text style={styles.text}>Trạng thái: </Text>
+                <View style={[styles.itemWrapper, styles.lineBreakMode]}>
+                  <Text style={[styles.text]} numberOfLines={1}>
+                    Trạng thái:{' '}
+                  </Text>
                   <Text style={styles.text}>{solveData?.status}</Text>
                 </View>
                 <TouchableOpacity

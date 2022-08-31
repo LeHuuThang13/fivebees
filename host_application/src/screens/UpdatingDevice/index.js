@@ -146,7 +146,9 @@ const CreatingFacility = ({navigation, route}) => {
         form?.name.trim() !== '' &&
         form?.description.trim() !== ''
       ) {
+        const room = [];
         if (isEdited) {
+          console.log('isEdited loai 1', isEdited);
           updateFacility(form)(facilitiesDispatch)({
             localFile,
             idFacility,
@@ -164,19 +166,20 @@ const CreatingFacility = ({navigation, route}) => {
             setCategory('');
             setIsLoading(false);
           });
+        } else {
+          Alert.alert('Thông báo', 'Dữ liệu chưa được thay đổi', [
+            {
+              text: 'Đã hiểu',
+              onPress: () => console.log('Đã hiểu 1'),
+              style: 'cancel',
+            },
+          ]);
         }
-        Alert.alert('Thông báo', 'Dữ liệu chưa được thay đổi', [
-          {
-            text: 'Đã hiểu',
-            onPress: () => console.log('Đã hiểu'),
-            style: 'cancel',
-          },
-        ]);
       } else {
         Alert.alert('Thông báo', 'Vui lòng nhập đủ thông tin!', [
           {
             text: 'Đã hiểu',
-            onPress: () => console.log('Đã hiểu'),
+            onPress: () => console.log('Đã hiểu 2'),
             style: 'cancel',
           },
         ]);
@@ -192,6 +195,7 @@ const CreatingFacility = ({navigation, route}) => {
           form?.description.trim() !== ''
         ) {
           if (isEdited) {
+            console.log('isEdited loai 2', isEdited);
             updateFacility(form)(facilitiesDispatch)({
               localFile,
               idFacility,
@@ -213,7 +217,7 @@ const CreatingFacility = ({navigation, route}) => {
             Alert.alert('Thông báo', 'Dữ liệu chưa được thay đổi', [
               {
                 text: 'Đã hiểu',
-                onPress: () => console.log('Đã hiểu'),
+                onPress: () => console.log('Đã hiểu 3'),
                 style: 'cancel',
               },
             ]);

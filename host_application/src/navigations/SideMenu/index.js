@@ -39,7 +39,7 @@ const SideMenu = ({navigation, authDispatch}) => {
     },
     {
       icon: <QRCodeIcon />,
-      name: 'QRCode',
+      name: 'Quét mã thiết bị',
       onPress: () => {
         navigation.navigate(QRCODE);
       },

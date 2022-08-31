@@ -61,7 +61,15 @@ export default form => dispatch => props => onSuccess => {
       Toast({title: 'Cập nhập thành công'});
     })
     .catch(error => {
-      console.log(error.request);
+      if (error.response.data.message.includes('Duplicate')) {
+        Alert.alert('Thông báo', 'Tòa nhà đã tồn tại, vui lòng nhập lại', [
+          {
+            text: 'Đã hiểu',
+            onPress: () => console.log('Đã hiểu'),
+            style: 'cancel',
+          },
+        ]);
+      }
       console.log('error creating facility', error.response.data);
       setDisabledBtn(false);
       dispatch({

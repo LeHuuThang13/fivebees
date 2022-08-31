@@ -119,8 +119,13 @@ const CreatingRoom = ({navigation, route}) => {
       createRoomByIdBuilding(form)(roomsDispatch)({localFile, token})(
         id_building,
       )(() => {
-        navigate(MANAGING_ROOMS, {
-          id_building: id_building,
+        navigate({
+          name: MANAGING_ROOMS,
+          params: {
+            id_building: id_building,
+            name_building: name_building,
+          },
+          merge: true,
         });
         setForm({});
         setLocalFile('');

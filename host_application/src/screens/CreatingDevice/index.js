@@ -130,8 +130,6 @@ const CreatingFacility = ({navigation, route}) => {
   };
 
   const onSubmit = async () => {
-    const token = await AsyncStorage.getItem('token');
-
     if (status == 2 || status == 4) {
       setRoom([]);
     }
@@ -139,11 +137,14 @@ const CreatingFacility = ({navigation, route}) => {
     if (
       isEdited == true &&
       localFile &&
-      typeof name == 'string' &&
-      typeof description == 'string' &&
+      typeof form?.name == 'string' &&
+      typeof form?.description == 'string' &&
       typeof category == 'number' &&
-      typeof status == 'number'
+      typeof status == 'number' &&
+      form?.name.trim() !== '' &&
+      form?.description.trim() !== ''
     ) {
+      const token = await AsyncStorage.getItem('token');
       createFacility(form)(facilitiesDispatch)({
         localFile,
         category,

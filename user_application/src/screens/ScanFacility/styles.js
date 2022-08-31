@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 import colors from '../../assets/themes/colors';
 
 const styles = StyleSheet.create({
+  lineBreakMode: {
+    width: 350,
+  },
   container: {
     flex: 1,
   },

@@ -34,8 +34,12 @@ export default form => dispatch => params => onSuccess => {
       uri: localFile.path,
       name: localFile.path,
     });
-    formData.append('room_id', room);
+    if (typeof room == 'number') {
+      formData.append('room_id', room);
+    }
   }
+
+  console.log('formData', room);
 
   dispatch({
     type: CREATE_FACILITY_LOADING,

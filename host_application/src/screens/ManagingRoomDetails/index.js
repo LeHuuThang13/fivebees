@@ -63,7 +63,6 @@ const ManagingRoomDetails = ({navigation, route}) => {
   useEffect(() => {
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log('123 321 123 321');
       setIsLoaded(false);
       navigate({
         name: MANAGING_ROOMS,
@@ -159,10 +158,8 @@ const ManagingRoomDetails = ({navigation, route}) => {
           />
 
           <HeaderDetails
-            textTitleOne={'Tình trạng'}
-            contentTextTitleOne={'Đang sử dụng'}
-            textTitleTwo={'Tổng thiết bị'}
-            contentTextTitleTwo={data.length}
+            textTitleOne={'Tổng thiết bị'}
+            contentTextTitleOne={data.length}
           />
           <View style={{paddingHorizontal: 15}}>
             <FlatList

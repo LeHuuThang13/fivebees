@@ -6,11 +6,16 @@ import {
 import {Toast} from '../../../components/Toast';
 import envs from '../../../config/env';
 import axios from 'axios';
+import {Alert} from 'react-native';
 
 export default form =>
   dispatch =>
   ({localFile, token}) =>
   onSuccess => {
+    dispatch({
+      type: CREATE_BUILDING_LOADING,
+    });
+
     const formData = new FormData();
     const url = envs.BACKEND_URL + '/buildings';
 
@@ -24,9 +29,6 @@ export default form =>
       name: localFile.path,
     });
 
-    dispatch({
-      type: CREATE_BUILDING_LOADING,
-    });
     axios
       .post(url, formData, {
         headers: {
@@ -41,14 +43,23 @@ export default form =>
       })
       .then(res => {
         onSuccess();
+        Toast({title: 'Tạo thiết bị mới thành công'});
         dispatch({
           type: CREATE_BUILDING_SUCCESS,
           payload: res.data.data,
         });
-        Toast({title: 'Tạo thiết bị mới thành công'});
       })
       .catch(error => {
-        console.log('error creating building', error.response.data);
+        console.log('error creating building', error.response.data.message);
+        if (error.response.data.message.includes('Duplicate')) {
+          Alert.alert('Thông báo', 'Tòa nhà đã tồn tại, vui lòng nhập lại', [
+            {
+              text: 'Đã hiểu',
+              onPress: () => console.log('Đã hiểu'),
+              style: 'cancel',
+            },
+          ]);
+        }
         dispatch({
           type: CREATE_BUILDING_FAILED,
           payload: error.response.data,

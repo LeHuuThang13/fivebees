@@ -40,7 +40,6 @@ const RoomDetails = ({navigation, route}) => {
 
   useEffect(() => {
     let isMounted = true;
-    console.log('data.id', data.id);
     getFacilities(data.id)(facilitiesDispatch)(isMounted)(setIsLoaded);
     const unsubscribe = navigation.addListener('focus', () => {
       getFacilities(data.id)(facilitiesDispatch)(isMounted)(setIsLoaded);
@@ -50,6 +49,10 @@ const RoomDetails = ({navigation, route}) => {
 
   const renderItem = ({item}) => {
     const {status_id: status, name, category_id: category, id, photos} = item;
+
+    const {room_number: room} = item.room?.[0];
+
+    console.log('room :>>>>>', room);
 
     return (
       <Device
@@ -67,13 +70,16 @@ const RoomDetails = ({navigation, route}) => {
     );
   };
 
+  console.log('data_facilities', data_facilities?.[0]?.room);
   return (
     <View style={[styles.container, GlobalStyles.fullScreen, {flex: 1}]}>
       <HeaderDetails
-        textTitleOne={'Tình trạng'}
-        contentTextTitleOne={'Đang sử dụng'}
-        textTitleTwo={'Tổng thiết bị'}
-        contentTextTitleTwo={data_facilities.length}
+        textTitleOne={'Tên phòng'}
+        contentTextTitleOne={data_facilities?.[0]?.room?.[0].room_number}
+        textTitleTwo={'Tình trạng'}
+        contentTextTitleTwo={data_facilities?.[0]?.room?.[0].status}
+        textTitleFour={'Tổng thiết bị'}
+        contentTextTitleFour={data_facilities.length}
       />
       <View style={{paddingHorizontal: 15, flex: 1}}>
         {/* Selecting options */}

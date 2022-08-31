@@ -5,6 +5,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  lineBreakMode: {
+    width: 350,
+  },
   header: {
     borderBottomColor: colors.border_input,
     borderBottomWidth: 1,

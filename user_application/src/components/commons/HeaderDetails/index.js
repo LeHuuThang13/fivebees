@@ -11,10 +11,12 @@ const HeaderDetails = props => {
     contentTextTitleTwo,
     textTitleThree,
     contentTextTitleThree,
+    textTitleFour,
+    contentTextTitleFour,
   } = props;
 
   return (
-    <View style={[styles.headerWrapper, GlobalStyles.paddingContainer]}>
+    <View style={[styles.headerWrapper, GlobalStyles.container]}>
       <View style={styles.contentView}>
         <View style={styles.titleView}>
           <Text style={[styles.textTitle]}>{textTitleOne} :</Text>
@@ -35,6 +37,14 @@ const HeaderDetails = props => {
             <Text style={styles.textTitle}>{textTitleThree} :</Text>
           </View>
           <Text style={styles.textTitle}>{contentTextTitleThree}</Text>
+        </View>
+      )}
+      {textTitleFour && (
+        <View style={styles.contentView}>
+          <View style={styles.titleView}>
+            <Text style={styles.textTitle}>{textTitleFour} :</Text>
+          </View>
+          <Text style={styles.textTitle}>{contentTextTitleFour}</Text>
         </View>
       )}
     </View>

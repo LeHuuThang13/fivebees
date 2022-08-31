@@ -117,16 +117,18 @@ const CreatingBuilding = ({navigation, route}) => {
   };
 
   const onSubmit = async () => {
+    console.log(form?.name);
+
     if (
-      typeof name == 'string' &&
-      typeof email == 'string' &&
-      typeof address == 'string' &&
-      typeof hotline == 'string' &&
+      typeof form?.name == 'string' &&
+      typeof form?.email == 'string' &&
+      typeof form?.address == 'string' &&
+      typeof form?.hotline == 'string' &&
       localFile &&
-      name !== '' &&
-      email !== '' &&
-      address !== '' &&
-      hotline !== ''
+      form?.name.trim() !== '' &&
+      form?.email.trim() !== '' &&
+      form?.address.trim() !== '' &&
+      form?.hotline.trim() !== ''
     ) {
       const token = await AsyncStorage.getItem('token');
       const user = await AsyncStorage.getItem('user');

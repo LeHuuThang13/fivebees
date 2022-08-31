@@ -105,7 +105,11 @@ const CreatingBuilding = ({navigation}) => {
       typeof email == 'string' &&
       typeof address == 'string' &&
       typeof hotline == 'string' &&
-      localFile
+      localFile &&
+      name.trim() !== '' &&
+      email.trim() !== '' &&
+      address.trim() !== '' &&
+      hotline.trim() !== ''
     ) {
       if (localFile?.size) {
         setIsUploading(false);

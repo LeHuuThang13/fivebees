@@ -52,6 +52,15 @@ export default form =>
       })
       .catch(error => {
         console.log('error creating room', error.response);
+        if (error.response.data.message.includes('Duplicate')) {
+          Alert.alert('Thông báo', 'Tòa nhà đã tồn tại, vui lòng nhập lại', [
+            {
+              text: 'Đã hiểu',
+              onPress: () => console.log('Đã hiểu'),
+              style: 'cancel',
+            },
+          ]);
+        }
         Toast({title: 'Tạo phòng mới thất bại'});
         dispatch({
           type: CREATE_ROOM_BY_ID_BUILDING_FAILED,

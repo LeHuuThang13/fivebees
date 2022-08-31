@@ -41,11 +41,13 @@ const UpdatingRoom = ({navigation, route}) => {
       marginHorizontal: 10,
     },
     onPressBtnLeft: () => {
-      navigate(MANAGING_ROOMS, {
-        id_building_create: id_building,
-        name_building_create: name_building,
-        id_building: id_building,
-        name_building: name_building,
+      navigate({
+        name: MANAGING_ROOMS,
+        params: {
+          id_building: id_building,
+          name_building: name_building,
+        },
+        merge: true,
       });
     },
   });
@@ -75,11 +77,13 @@ const UpdatingRoom = ({navigation, route}) => {
 
     // Back button real device
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigate(MANAGING_ROOMS, {
-        id_building_create: id_building,
-        name_building_create: name_building,
-        id_building: id_building,
-        name_building: name_building,
+      navigate({
+        name: MANAGING_ROOMS,
+        params: {
+          id_building: id_building,
+          name_building: name_building,
+        },
+        merge: true,
       });
       return true;
     });
@@ -139,8 +143,13 @@ const UpdatingRoom = ({navigation, route}) => {
         const token = await AsyncStorage.getItem('token');
         editRoom(form)(roomsDispatch)({localFile, token})(id_building)(id_room)(
           () => {
-            navigate(MANAGING_ROOMS, {
-              id_building: id_building,
+            navigate({
+              name: MANAGING_ROOMS,
+              params: {
+                id_building: id_building,
+                name_building: name_building,
+              },
+              merge: true,
             });
             setForm({});
             setLocalFile('');

@@ -21,7 +21,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         deleteBuilding: {
           ...state.deleteBuilding,
-          loading: true,
+          loading_building: true,
           error: null,
         },
       };
@@ -31,13 +31,13 @@ const buildings = (state, {type, payload}) => {
         ...state,
         deleteBuilding: {
           ...state.deleteBuilding,
-          loading: false,
+          loading_building: false,
           error: null,
         },
 
         getBuildings: {
           ...state.getBuildings,
-          loading: false,
+          loading_building: false,
           data: state.getBuildings.data.filter(item => {
             return item.id !== payload; // Prevent show deleted items
           }),
@@ -50,18 +50,19 @@ const buildings = (state, {type, payload}) => {
         ...state,
         deleteBuilding: {
           ...state.deleteBuilding,
-          loading: false,
+          loading_building: false,
           error: null,
         },
       };
 
     // Create
     case CREATE_BUILDING_LOADING:
+      console.log('loading rùi nè');
       return {
         ...state,
         createBuilding: {
           ...state.createBuilding,
-          loading: true,
+          loading_building: true,
           error: null,
         },
       };
@@ -71,14 +72,14 @@ const buildings = (state, {type, payload}) => {
         ...state,
         createBuilding: {
           ...state.createBuilding,
-          loading: false,
+          loading_building: false,
           error: null,
           data: payload,
         },
 
         getBuildings: {
           ...state.getBuildings,
-          loading: false,
+          loading_building: false,
           data: [...state.getBuildings.data, payload],
           error: null,
         },
@@ -89,7 +90,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         createBuilding: {
           ...state.createBuilding,
-          loading: false,
+          loading_building: false,
           error: payload,
         },
       };
@@ -98,7 +99,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         getBuildingData: {
           ...state.getBuildingData,
-          loading: true,
+          loading_building: true,
           error: null,
         },
       };
@@ -108,7 +109,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         getBuildingData: {
           ...state.getBuildingData,
-          loading: false,
+          loading_building: false,
           data: payload,
           error: null,
         },
@@ -119,7 +120,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         getBuildingData: {
           ...state.getBuildingData,
-          loading: false,
+          loading_building: false,
           error: payload,
         },
       };
@@ -129,7 +130,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         getBuildings: {
           ...state.getBuildings,
-          loading: true,
+          loading_building: true,
           error: null,
         },
       };
@@ -139,7 +140,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         getBuildings: {
           ...state.getBuildings,
-          loading: false,
+          loading_building: false,
           data: payload,
           error: null,
         },
@@ -150,7 +151,7 @@ const buildings = (state, {type, payload}) => {
         ...state,
         getBuildings: {
           ...state.getBuildings,
-          loading: false,
+          loading_building: false,
           error: payload,
         },
       };

@@ -32,7 +32,9 @@ export default form => dispatch => params => onSuccess => {
       formData.append('description', form.description);
       formData.append('category_id', category);
       formData.append('status_id', status);
-      formData.append('room_id', room);
+      if (typeof room == 'number') {
+        formData.append('room_id', room);
+      }
       formData.append('filenames', {
         type: 'image/jpeg',
         uri: localFile.path,
@@ -45,7 +47,9 @@ export default form => dispatch => params => onSuccess => {
       formData.append('description', form.description);
       formData.append('category_id', category);
       formData.append('status_id', status);
-      formData.append('room_id', room);
+      if (typeof room == 'number') {
+        formData.append('room_id', room);
+      }
       formData.append('filenames', {
         type: 'image/jpeg',
         uri: localFile.replace('http://', 'https://'),
@@ -82,6 +86,8 @@ export default form => dispatch => params => onSuccess => {
       });
     }
   }
+
+  console.log('formData', formData);
 
   dispatch({
     type: CREATE_FACILITY_LOADING,

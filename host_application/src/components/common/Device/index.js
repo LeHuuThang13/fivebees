@@ -76,18 +76,20 @@ const Device = props => {
           </View>
         )}
 
-        <View style={styles.actionsWrapper}>
-          <TouchableOpacity
-            style={styles.actionBtn}
-            onPress={() => onPressEdit()}>
-            {EditIcon}
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.actionBtn}
-            onPress={() => onPressDelete()}>
-            {DeleteIcon}
-          </TouchableOpacity>
-        </View>
+        {DeleteIcon && (
+          <View style={styles.actionsWrapper}>
+            <TouchableOpacity
+              style={styles.actionBtn}
+              onPress={() => onPressEdit()}>
+              {EditIcon}
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.actionBtn}
+              onPress={() => onPressDelete()}>
+              {DeleteIcon}
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );
